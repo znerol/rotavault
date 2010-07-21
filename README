@@ -1,0 +1,15 @@
+RotaVault - easy secure backup rotation
+
+RotaVault is a Mac OS X software specifically written for realizing secure and
+easy backup rotation in combination with Time Machine. RotaVault combines the
+fast block-copy method from apple software restore tool (asr) with encrypted
+standard Mac OS X image files (dmg), a simple scheduling mechanism based on
+the apple launchd framework and flexible reporting options in order to
+simplify unattended secure and fast backups of Time Machine disks onto
+removable media.
+
+RotaVault is free software published under MIT Licence (see LICENCE for more
+information).
+
+Visit the rotavault website for more information:
+http://znerol.ch/rotavault

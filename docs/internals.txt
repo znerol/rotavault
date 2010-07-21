@@ -1,0 +1,64 @@
+### CREATE IMAGE ###
+
+# derive sectors from mounted volume, add 64 sectors for partition table
+export VSIZE=102400000
+export SECTORS=$((VSIZE / 512 + 64))
+
+# create encrypted disk image
+hdiutil create -layout SPUD -fs HFS+J -encryption AES-256 -volname test2-enc \
+	-sectors $SECTORS /Users/lo/Desktop/test2-enc.dmg
+
+### ATTACH IMAGE WITHOUT MOUNTING ###
+
+# attach disk image without mounting it:
+hdiutil attach -nomount /Users/lo/Desktop/test2-enc.dmg
+
+### COPY STUFF ###
+
+# block copy volume to encrypted disk image using asr block copy method
+asr restore --erase --noprompt --source=/dev/disk2s2 --target=/dev/disk1s2
+
+### ROTAVAULT ADMINISTRATIVE INTERFACE ###
+
+rotavault:
+A privileged helper tool to manage system wide preferences, the copy process
+and associated launchd.plist. Also controls encrypted disk images (attach, 
+eject)
+
+status and management (rvcopy):
+* status -> error/idle/scheduled/waiting(on backup)/running + progress
+* last -> statistics about past runs
+* start (start now)
+* stop
+* set option=value
+* unset option=value
+
+copy process:
+* run [dmg-path on target-disk]
+  lock destination, open a socket for communication with other instances,
+  start asr, log stuff, report result (mail, log, ...)
+  see: hdiutil info -plist
+
+schedule (launchd plist):
+* install
+* remove
+* schedule -> display schedule
+
+disk image management:
+* create tm-disk, dmg-path on target-disk
+  -> create new encrypted disk image on target-disk with the correct size to
+     hold the entire contents of tm-disk.
+  -> link (see below)
+* link tm-disk, dmg-path on target-disk
+  -> store tm-disk UUID as an extended attribute at the dmg file
+  -> store target-disk UUID and image-alias in preferences
+* unlink [dmg-path on target-disk]
+  -> clear tm-disk UUID extended attribute on dmg file
+  -> on request rm dmg file
+  -> remove entries from preferences file
+* attach [dmg-path on target-disk]
+* detach [dmg-path on target-disk]
+* eject [target-disk]
+
+Rota Vault:
+GUI communicating to rotavault command line
