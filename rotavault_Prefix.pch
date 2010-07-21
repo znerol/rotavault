@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'rotavault' target in the 'rotavault' project.
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+#endif
