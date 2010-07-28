@@ -49,11 +49,13 @@ disk image management:
   -> create new encrypted disk image on target-disk with the correct size to
      hold the entire contents of tm-disk.
   -> link (see below)
+
+* replace:
+  -> detach, wait, attach
+
 * link tm-disk, dmg-path on target-disk
-  -> store tm-disk UUID as an extended attribute at the dmg file
-  -> store target-disk UUID and image-alias in preferences
+  -> store image-alias from hdiutil info -plist in preferences
 * unlink [dmg-path on target-disk]
-  -> clear tm-disk UUID extended attribute on dmg file
   -> on request rm dmg file
   -> remove entries from preferences file
 * attach [dmg-path on target-disk]
