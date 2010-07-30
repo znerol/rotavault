@@ -19,7 +19,7 @@
     NSTask* diskutil = [[NSTask alloc] init];
     [diskutil setLaunchPath:@"/usr/sbin/diskutil"];
     [diskutil setArguments:[[NSArray alloc] initWithObjects:
-                            @"list", @"-plist", NULL]];
+                            @"list", @"-plist", nil]];
     
     NSPipe* stdout = [NSPipe pipe];
     [diskutil setStandardOutput:[stdout fileHandleForWriting]];
@@ -46,7 +46,7 @@
     NSTask* diskutil = [[NSTask alloc] init];
     [diskutil setLaunchPath:@"/usr/sbin/diskutil"];
     [diskutil setArguments:[[NSArray alloc] initWithObjects:
-                            @"info", @"-plist", identifier, NULL]];
+                            @"info", @"-plist", identifier, nil]];
     
     NSPipe* stdout = [NSPipe pipe];
     [diskutil setStandardOutput:[stdout fileHandleForWriting]];

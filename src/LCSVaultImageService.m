@@ -40,7 +40,7 @@
                      path,
                      @"-type", @"UDIF",
                      @"-layout", @"NONE",
-                     @"-encryption", @"AES-256", NULL];
+                     @"-encryption", @"AES-256", nil];
 
     [hdiutil setArguments:args];
 
@@ -68,7 +68,7 @@
     [hdiutil setLaunchPath:@"/usr/bin/hdiutil"];
 
     NSArray *args = [[NSArray alloc] initWithObjects: @"attach",
-                     @"-nomount", path, NULL];
+                     @"-nomount", path, nil];
 
     [hdiutil setArguments:args];
 
@@ -92,7 +92,7 @@
     NSTask* hdiutil = [[NSTask alloc] init];
     [hdiutil setLaunchPath:@"/usr/bin/hdiutil"];
 
-    NSArray *args = [[NSArray alloc] initWithObjects: @"info", @"-plist", NULL];
+    NSArray *args = [[NSArray alloc] initWithObjects: @"info", @"-plist", nil];
     [hdiutil setArguments:args];
     
     NSPipe *stdoutPipe = [NSPipe pipe];
