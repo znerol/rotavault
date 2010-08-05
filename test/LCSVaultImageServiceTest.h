@@ -7,10 +7,11 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
+#import "LCSTestdir.h"
 
 
 @interface LCSVaultImageServiceTest : SenTestCase {
-    NSString        *tempdirPath;
+    LCSTestdir  *testdir;
 }
 
 /**

@@ -34,7 +34,7 @@
     NSTask* hdiutil = [[NSTask alloc] init];
     [hdiutil setLaunchPath:@"/usr/bin/hdiutil"];
 
-    NSArray *args = [[NSArray alloc] initWithObjects: @"create",
+    NSArray *args = [NSArray arrayWithObjects: @"create",
                      @"-sectors",
                      [[NSNumber numberWithInt:sectors] stringValue],
                      path,
@@ -57,6 +57,8 @@
 
     /* poll the runLoop in defaultMode until task completes */ 
     [hdiutil waitUntilExit];
+    
+    [hdiutil autorelease];
 }
 
 /**
@@ -67,7 +69,7 @@
     NSTask* hdiutil = [[NSTask alloc] init];
     [hdiutil setLaunchPath:@"/usr/bin/hdiutil"];
 
-    NSArray *args = [[NSArray alloc] initWithObjects: @"attach",
+    NSArray *args = [NSArray arrayWithObjects: @"attach",
                      @"-nomount", path, nil];
 
     [hdiutil setArguments:args];
@@ -85,6 +87,7 @@
 
     /* poll the runLoop in defaultMode until task completes */ 
     [hdiutil waitUntilExit];
+    [hdiutil autorelease];
 }
 
 - (NSDictionary*)info
@@ -92,13 +95,14 @@
     NSTask* hdiutil = [[NSTask alloc] init];
     [hdiutil setLaunchPath:@"/usr/bin/hdiutil"];
 
-    NSArray *args = [[NSArray alloc] initWithObjects: @"info", @"-plist", nil];
+    NSArray *args = [NSArray arrayWithObjects: @"info", @"-plist", nil];
     [hdiutil setArguments:args];
     
     NSPipe *stdoutPipe = [NSPipe pipe];
     [hdiutil setStandardOutput:stdoutPipe];
     [hdiutil launch];
     [hdiutil waitUntilExit];
+    [hdiutil autorelease];
     
     NSData *data = [[stdoutPipe fileHandleForReading] availableData];
     NSPropertyListFormat format;

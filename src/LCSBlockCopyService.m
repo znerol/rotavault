@@ -16,7 +16,7 @@
     NSTask *asr = [[NSTask alloc] init];
     [asr setLaunchPath:@"/usr/sbin/asr"];
 
-    NSArray *args = [NSArray arrayWithObjects:@"restore", @"--erase",
+    NSArray *args = [NSArray arrayWithObjects:@"restore", @"--erase", @"--noprompt", 
                      @"--source", sourceDev, @"--target", targetDev, nil];
 
     [asr setArguments:args];

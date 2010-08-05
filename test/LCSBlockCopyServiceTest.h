@@ -7,10 +7,11 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
+#import "LCSTestdir.h"
 
 
 @interface LCSBlockCopyServiceTest : SenTestCase {
-    NSString        *tempdirPath;
+    LCSTestdir  *testdir;
 }
 
 @end

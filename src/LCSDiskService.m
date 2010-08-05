@@ -7,6 +7,7 @@
 //
 
 #import "LCSDiskService.h"
+#import "LCSPlistTaskOutputHandler.h"
 
 
 @implementation LCSDiskService
@@ -16,26 +17,10 @@
  */
 - (NSArray*) listDisks
 {
-    NSTask* diskutil = [[NSTask alloc] init];
-    [diskutil setLaunchPath:@"/usr/sbin/diskutil"];
-    [diskutil setArguments:[[NSArray alloc] initWithObjects:
-                            @"list", @"-plist", nil]];
-    
-    NSPipe* stdout = [NSPipe pipe];
-    [diskutil setStandardOutput:[stdout fileHandleForWriting]];
-    [diskutil launch];
-    [diskutil waitUntilExit];
-    
-    NSData* data = [[stdout fileHandleForReading] availableData];
-    
-    NSPropertyListFormat format;
-    NSString *error = [NSString string];
-    NSDictionary *result =
-    (NSDictionary*)[NSPropertyListSerialization
-                    propertyListFromData:data
-                    mutabilityOption:NSPropertyListImmutable
-                    format:&format errorDescription:&error];
-    return [result objectForKey:@"AllDisks"];
+    NSDictionary* results = [LCSPlistTaskOutputHandler
+                             resultsFromTerminatedTaskWithLaunchPath:@"/usr/sbin/diskutil"
+                             arguments:[NSArray arrayWithObjects: @"list", @"-plist", nil]];
+    return [results objectForKey:@"AllDisks"];
 }
 
 /**
@@ -43,26 +28,10 @@
  */
 - (NSDictionary*) diskInfo:(NSString*)identifier
 {
-    NSTask* diskutil = [[NSTask alloc] init];
-    [diskutil setLaunchPath:@"/usr/sbin/diskutil"];
-    [diskutil setArguments:[[NSArray alloc] initWithObjects:
-                            @"info", @"-plist", identifier, nil]];
-    
-    NSPipe* stdout = [NSPipe pipe];
-    [diskutil setStandardOutput:[stdout fileHandleForWriting]];
-    [diskutil launch];
-    [diskutil waitUntilExit];
-    
-    NSData* data = [[stdout fileHandleForReading] availableData];
-    
-    NSPropertyListFormat format;
-    NSString *error = [NSString string];
-    NSDictionary *result =
-    (NSDictionary*)[NSPropertyListSerialization
-                    propertyListFromData:data
-                    mutabilityOption:NSPropertyListImmutable
-                    format:&format errorDescription:&error];
-    return result;
+    NSDictionary* results = [LCSPlistTaskOutputHandler
+                             resultsFromTerminatedTaskWithLaunchPath:@"/usr/sbin/diskutil"
+                             arguments:[NSArray arrayWithObjects: @"info", @"-plist",identifier, nil]];
+    return results;
 }
 
 /**
@@ -70,13 +39,11 @@
  */
 - (NSArray*) listVolumes
 {
-    NSEnumerator *allDisks = [[self listDisks] objectEnumerator];
-    NSString *identifier;
-    NSDictionary *info;
-    NSMutableArray *result = [[NSMutableArray alloc] init];
+    NSMutableArray *result = [NSMutableArray array];
+    NSArray *diskList = [self listDisks];
     
-    while (identifier = [allDisks nextObject]) {
-        info = [self diskInfo:identifier];
+    for (NSString* identifier in diskList) {
+        NSDictionary *info = [self diskInfo:identifier];
         if ([info objectForKey:@"VolumeUUID"] == nil) {
             continue;
         }

@@ -26,7 +26,7 @@
     [task setArguments:[[task arguments] arrayByAddingObject:@"-stdinpass"]];
 
     /* Create pipe for stdin and write "TEST" as the password to it */
-    NSPipe *stdinPipe = [[NSPipe pipe] autorelease];
+    NSPipe *stdinPipe = [NSPipe pipe];
     [task setStandardInput:stdinPipe];
 
     [[stdinPipe fileHandleForWriting] writeData:
@@ -54,14 +54,14 @@
 @implementation LCSTestStatusReporter
 - (LCSTestStatusReporter*) initWithTestCase:(LCSVaultImageServiceTest*)testCase
 {
-    self = [super self];
+    self = [super init];
     tc = testCase;
     return self;
 }
 
 - (void) prepareTask:(NSTask*)task
 {
-    errPipe = [[NSPipe pipe] autorelease];
+    errPipe = [NSPipe pipe];
     [task setStandardError:errPipe];
 }
 
@@ -70,11 +70,12 @@
     int status = [task terminationStatus];
     NSString* message = [[NSString alloc]
                          initWithData:[[errPipe fileHandleForReading] availableData]
-                         encoding: NSASCIIStringEncoding];
+                         encoding: NSUnicodeStringEncoding];
 
     if (status != 0) {
         [tc failWithStatus:status message:message];
     }
+    [message release];
 }
 @end
 
@@ -87,25 +88,12 @@
 
 - (void) setUp
 {
-    const char  constTemdirTemplate[] = "/tmp/lcs_unit_test_XXXXXXXX";
-    char        tempdirTemplate[sizeof(constTemdirTemplate)];
-    memcpy(tempdirTemplate, constTemdirTemplate, sizeof(tempdirTemplate));
-
-    char *result = mkdtemp(tempdirTemplate);
-    assert(result != NULL);
-
-    tempdirPath = [[NSString alloc] initWithCString:result
-                                           encoding:NSASCIIStringEncoding];
-
+    testdir = [[LCSTestdir alloc] init];
 }
 
 - (void) tearDown
 {
-    NSFileManager *fm = [[NSFileManager alloc] init];
-    [fm removeItemAtPath:tempdirPath error:nil];
-    [fm release];
-
-    [tempdirPath release];
+    [testdir release];
 }
 
 - (void) testCreateAtPath
@@ -117,7 +105,8 @@
                                    initWithPassphraseReader:ps
                                    progressIndicator:nil statusReporter:sr];
 
-    NSString *path = [tempdirPath stringByAppendingPathComponent:@"test.dmg"];
+    NSString *path = [[testdir path] stringByAppendingPathComponent:@"test.dmg"];
+
     [vis createAtPath:path sectors:2000];
 
     [vis attachImage:path];
@@ -136,7 +125,6 @@
                                  arguments:[NSArray arrayWithObjects: @"eject",
                                             [devices objectAtIndex:0], nil]];
     [ejectTask waitUntilExit];
-    [path release];
 }
 
 - (void)failWithStatus:(int)status message:(NSString*)message

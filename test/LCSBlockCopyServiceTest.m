@@ -8,39 +8,72 @@
 
 #import "LCSBlockCopyServiceTest.h"
 #import "LCSBlockCopyService.h"
+#import "LCSPlistTaskOutputHandler.h"
 
 
 @implementation LCSBlockCopyServiceTest
 
 - (void) setUp
 {
-    const char  constTemdirTemplate[] = "/tmp/lcs_unit_test_XXXXXXXX";
-    char        tempdirTemplate[sizeof(constTemdirTemplate)];
-    memcpy(tempdirTemplate, constTemdirTemplate, sizeof(tempdirTemplate));
-
-    char *result = mkdtemp(tempdirTemplate);
-    assert(result != NULL);
-
-    tempdirPath = [[NSString alloc] initWithCString:result
-                                           encoding:NSASCIIStringEncoding];
+    testdir = [[LCSTestdir alloc] init];
 }
 
 - (void) tearDown
 {
-    NSFileManager *fm = [[NSFileManager alloc] init];
-    [fm removeItemAtPath:tempdirPath error:nil];
-    [fm release];
-
-    [tempdirPath release];
+    [testdir release];
 }
 
 - (void)testBlockCopy
 {
-    LCSBlockCopyService* bcs;
-    NSString    *srcdev;
-    NSString    *dstdev;
+    /* setup source with filesystem*/
+    NSString* spath = [[testdir path] stringByAppendingPathComponent:@"source.dmg"];
+    NSDictionary *sresult = [LCSPlistTaskOutputHandler resultsFromTerminatedTaskWithLaunchPath:@"/usr/bin/hdiutil" arguments:[NSArray arrayWithObjects:@"create", @"-sectors", @"2000", spath, @"-plist", @"-layout", @"NONE", @"-fs", @"HFS+", @"-attach", nil]];
+    STAssertNotNil(sresult, @"return value of hdiutil must not be nil");
+    NSString *srcdev = [[[sresult objectForKey:@"system-entities"] objectAtIndex:0] objectForKey:@"dev-entry"];
+    STAssertNotNil(srcdev, @"source device must not be nil");
+    NSString *srcmount = [[[sresult objectForKey:@"system-entities"] objectAtIndex:0] objectForKey:@"mount-point"];
+    STAssertNotNil(srcmount, @"source mount must not be nil");
+    
+    /* populate the source */
+    NSFileManager *fm = [[NSFileManager alloc] init];    
+    [fm createFileAtPath:[srcmount stringByAppendingPathComponent:@"test.txt"] contents:[NSData dataWithBytes:"Hello World\n" length:12] attributes:[NSDictionary dictionary]];
 
+    /* setup target without filesystem */
+    NSString* tpath = [[testdir path] stringByAppendingPathComponent:@"target.dmg"];    
+    NSDictionary* tresult = [LCSPlistTaskOutputHandler resultsFromTerminatedTaskWithLaunchPath:@"/usr/bin/hdiutil" arguments:[NSArray arrayWithObjects:@"create", @"-sectors", @"2000", tpath, @"-plist", @"-layout", @"NONE", nil]];
+    STAssertNotNil(tresult, @"return value of hdiutil must not be nil");
+
+    /* attach destination */
+    NSDictionary *atresult = [LCSPlistTaskOutputHandler resultsFromTerminatedTaskWithLaunchPath:@"/usr/bin/hdiutil" arguments:[NSArray arrayWithObjects:@"attach", tpath, @"-plist", @"-nomount", nil]];
+    STAssertNotNil(atresult, @"return value of hdiutil must not be nil");
+    NSString *dstdev = [[[atresult objectForKey:@"system-entities"] objectAtIndex:0] objectForKey:@"dev-entry"];
+    STAssertNotNil(dstdev, @"target device must not be nil");
+
+    /* perform test */
+    LCSBlockCopyService* bcs;
     bcs = [[LCSBlockCopyService alloc] init];
     [bcs restoreFromSource:srcdev toTarget:dstdev];
+
+    /* mount target */
+
+    /* 
+     * "hdiutil mount /dev/diskX" does not work for a freshly restored volume (osx bug?). Instead we have to stick with
+     * "diskutil mount /dev/diskX", followed by "diskutil info -plist /dev/diskX" in order to retreive the mount point.
+     */
+    [[NSTask launchedTaskWithLaunchPath:@"/usr/sbin/diskutil" arguments:[NSArray arrayWithObjects:@"mount", dstdev, nil]] waitUntilExit];
+    NSDictionary *infresult = [LCSPlistTaskOutputHandler resultsFromTerminatedTaskWithLaunchPath:@"/usr/sbin/diskutil" arguments:[NSArray arrayWithObjects:@"info", @"-plist", dstdev, nil]];
+    STAssertNotNil(infresult, @"return value of diskutil must not be nil");
+    NSString *dstmount = [infresult objectForKey:@"MountPoint"];
+    STAssertNotNil(dstmount, @"target mount must not be nil");
+
+    /* now we compare the mounts using NSFileManager */
+    STAssertTrue([fm contentsEqualAtPath:srcmount andPath:dstmount], @"contents of the two images must be the same after restoreFromSource:toTarget");
+    [fm release];
+
+    /* eject devices */
+    NSTask *sdetach = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/hdiutil" arguments:[NSArray arrayWithObjects:@"detach", srcdev, nil]];
+    [sdetach waitUntilExit];
+    NSTask *tdetach = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/hdiutil" arguments:[NSArray arrayWithObjects:@"detach", dstdev, nil]];
+    [tdetach waitUntilExit];
 }
 @end

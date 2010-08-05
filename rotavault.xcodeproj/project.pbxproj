@@ -8,14 +8,27 @@
 
 /* Begin PBXBuildFile section */
 		8DD76F9C0486AA7600D96B5E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
-		CA0DF0E211F71D980029B5F7 /* LCSDiskServiceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA0DF0E111F71D8B0029B5F7 /* LCSDiskServiceTest.m */; };
 		CA0DF0E311F71DA10029B5F7 /* rotavault.m in Sources */ = {isa = PBXBuildFile; fileRef = CA0DF0DD11F71D8B0029B5F7 /* rotavault.m */; };
 		CA0DF18911F723400029B5F7 /* LCSDiskService.m in Sources */ = {isa = PBXBuildFile; fileRef = CA0DF18811F723400029B5F7 /* LCSDiskService.m */; };
 		CAA3ED1711F82DE600CDFDC4 /* LCSVaultImageService.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA3ED1611F82DE600CDFDC4 /* LCSVaultImageService.m */; };
-		CAA3ED1B11F82E0000CDFDC4 /* LCSVaultImageServiceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA3ED1911F82DFC00CDFDC4 /* LCSVaultImageServiceTest.m */; };
-		CAB8800812016C84004C8CCD /* LCSBlockCopyServiceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB8800712016C84004C8CCD /* LCSBlockCopyServiceTest.m */; };
-		CAB8808C12016CF3004C8CCD /* LCSBlockCopyService.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB8808B12016CF3004C8CCD /* LCSBlockCopyService.m */; };
-		CAF192671203110F0069A8DD /* setup_testdir.sh in Resources */ = {isa = PBXBuildFile; fileRef = CAF192661203110F0069A8DD /* setup_testdir.sh */; };
+		CAA66A581208887200E84193 /* LCSPlistTaskOutputHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA66A571208887200E84193 /* LCSPlistTaskOutputHandler.m */; };
+		CAA749FA12092ED000D234F9 /* LCSPlistTaskOutputHandlerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA749F912092ED000D234F9 /* LCSPlistTaskOutputHandlerTest.m */; };
+		CAA74A241209307D00D234F9 /* LCSDiskServiceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA0DF0E111F71D8B0029B5F7 /* LCSDiskServiceTest.m */; };
+		CAA74A34120930A100D234F9 /* LCSVaultImageServiceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA3ED1911F82DFC00CDFDC4 /* LCSVaultImageServiceTest.m */; };
+		CAA74A38120930AE00D234F9 /* LCSTestdir.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB72D7A120708220093D08A /* LCSTestdir.m */; };
+		CAA74A5A1209365A00D234F9 /* LCSBlockCopyServiceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB8800712016C84004C8CCD /* LCSBlockCopyServiceTest.m */; };
+		CAA74A67120936E800D234F9 /* LCSBlockCopyService.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB8808B12016CF3004C8CCD /* LCSBlockCopyService.m */; };
+		CAA74BA7120A146600D234F9 /* LCSDiskService.m in Sources */ = {isa = PBXBuildFile; fileRef = CA0DF18811F723400029B5F7 /* LCSDiskService.m */; };
+		CAA74BA8120A146600D234F9 /* LCSVaultImageService.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA3ED1611F82DE600CDFDC4 /* LCSVaultImageService.m */; };
+		CAA74BA9120A146600D234F9 /* LCSPlistTaskOutputHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA66A571208887200E84193 /* LCSPlistTaskOutputHandler.m */; };
+		CAA74BAA120A146600D234F9 /* LCSBlockCopyService.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB8808B12016CF3004C8CCD /* LCSBlockCopyService.m */; };
+		CAA74BAC120A146600D234F9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
+		CAA74BB3120A149E00D234F9 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA0DF11811F7216D0029B5F7 /* SenTestingKit.framework */; };
+		CAA74BB6120A14CD00D234F9 /* rotavault_test.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA74ADD120A12DB00D234F9 /* rotavault_test.m */; };
+		CAA74BB8120A14D400D234F9 /* LCSTestdir.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB72D7A120708220093D08A /* LCSTestdir.m */; };
+		CAA74BBA120A14D400D234F9 /* LCSDiskServiceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA0DF0E111F71D8B0029B5F7 /* LCSDiskServiceTest.m */; };
+		CAA74BBC120A14D400D234F9 /* LCSVaultImageServiceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA3ED1911F82DFC00CDFDC4 /* LCSVaultImageServiceTest.m */; };
+		CAA74BBE120A14D400D234F9 /* LCSBlockCopyServiceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB8800712016C84004C8CCD /* LCSBlockCopyServiceTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,6 +43,15 @@
 
 /* Begin PBXCopyFilesBuildPhase section */
 		8DD76F9E0486AA7600D96B5E /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		CAA74BAD120A146600D234F9 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 8;
 			dstPath = /usr/share/man/man1/;
@@ -60,11 +82,18 @@
 		CAA3ED1611F82DE600CDFDC4 /* LCSVaultImageService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSVaultImageService.m; sourceTree = "<group>"; };
 		CAA3ED1811F82DFC00CDFDC4 /* LCSVaultImageServiceTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSVaultImageServiceTest.h; sourceTree = "<group>"; };
 		CAA3ED1911F82DFC00CDFDC4 /* LCSVaultImageServiceTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSVaultImageServiceTest.m; sourceTree = "<group>"; };
+		CAA66A561208887200E84193 /* LCSPlistTaskOutputHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSPlistTaskOutputHandler.h; sourceTree = "<group>"; };
+		CAA66A571208887200E84193 /* LCSPlistTaskOutputHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSPlistTaskOutputHandler.m; sourceTree = "<group>"; };
+		CAA749F812092ED000D234F9 /* LCSPlistTaskOutputHandlerTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSPlistTaskOutputHandlerTest.h; sourceTree = "<group>"; };
+		CAA749F912092ED000D234F9 /* LCSPlistTaskOutputHandlerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSPlistTaskOutputHandlerTest.m; sourceTree = "<group>"; };
+		CAA74ADD120A12DB00D234F9 /* rotavault_test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rotavault_test.m; sourceTree = "<group>"; };
+		CAA74BB1120A146600D234F9 /* rotavault_test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = rotavault_test; sourceTree = BUILT_PRODUCTS_DIR; };
+		CAB72D79120708220093D08A /* LCSTestdir.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSTestdir.h; sourceTree = "<group>"; };
+		CAB72D7A120708220093D08A /* LCSTestdir.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSTestdir.m; sourceTree = "<group>"; };
 		CAB8800612016C84004C8CCD /* LCSBlockCopyServiceTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSBlockCopyServiceTest.h; sourceTree = "<group>"; };
 		CAB8800712016C84004C8CCD /* LCSBlockCopyServiceTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSBlockCopyServiceTest.m; sourceTree = "<group>"; };
 		CAB8808A12016CF3004C8CCD /* LCSBlockCopyService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSBlockCopyService.h; sourceTree = "<group>"; };
 		CAB8808B12016CF3004C8CCD /* LCSBlockCopyService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSBlockCopyService.m; sourceTree = "<group>"; };
-		CAF192661203110F0069A8DD /* setup_testdir.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = setup_testdir.sh; sourceTree = "<group>"; };
 		CAFCB1C911FDEDF2008A9D97 /* LCSStatusReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSStatusReporter.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -81,6 +110,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CAA74BAB120A146600D234F9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CAA74BB3120A149E00D234F9 /* SenTestingKit.framework in Frameworks */,
+				CAA74BAC120A146600D234F9 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,6 +152,7 @@
 			children = (
 				8DD76FA10486AA7600D96B5E /* rotavault */,
 				CA0DF0C911F71AB30029B5F7 /* Unit Tests.octest */,
+				CAA74BB1120A146600D234F9 /* rotavault_test */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -130,17 +169,19 @@
 		CA0DF0DC11F71D8B0029B5F7 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				CA0DF0DD11F71D8B0029B5F7 /* rotavault.m */,
-				CA0DF0DE11F71D8B0029B5F7 /* rotavault_Prefix.pch */,
-				CA0DF18711F723400029B5F7 /* LCSDiskService.h */,
-				CA0DF18811F723400029B5F7 /* LCSDiskService.m */,
-				CAA3ED1511F82DE600CDFDC4 /* LCSVaultImageService.h */,
-				CAA3ED1611F82DE600CDFDC4 /* LCSVaultImageService.m */,
 				CAB8808A12016CF3004C8CCD /* LCSBlockCopyService.h */,
 				CAB8808B12016CF3004C8CCD /* LCSBlockCopyService.m */,
+				CA0DF18711F723400029B5F7 /* LCSDiskService.h */,
+				CA0DF18811F723400029B5F7 /* LCSDiskService.m */,
 				CA20654611F9AE2F003232AA /* LCSOutputHandler.h */,
 				CA2064B511F9A8E6003232AA /* LCSPassphraseReader.h */,
+				CAA66A561208887200E84193 /* LCSPlistTaskOutputHandler.h */,
+				CAA66A571208887200E84193 /* LCSPlistTaskOutputHandler.m */,
 				CAFCB1C911FDEDF2008A9D97 /* LCSStatusReporter.h */,
+				CAA3ED1511F82DE600CDFDC4 /* LCSVaultImageService.h */,
+				CAA3ED1611F82DE600CDFDC4 /* LCSVaultImageService.m */,
+				CA0DF0DD11F71D8B0029B5F7 /* rotavault.m */,
+				CA0DF0DE11F71D8B0029B5F7 /* rotavault_Prefix.pch */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -148,23 +189,19 @@
 		CA0DF0DF11F71D8B0029B5F7 /* test */ = {
 			isa = PBXGroup;
 			children = (
-				CA0DF0E011F71D8B0029B5F7 /* LCSDiskServiceTest.h */,
-				CA0DF0E111F71D8B0029B5F7 /* LCSDiskServiceTest.m */,
-				CAA3ED1811F82DFC00CDFDC4 /* LCSVaultImageServiceTest.h */,
-				CAA3ED1911F82DFC00CDFDC4 /* LCSVaultImageServiceTest.m */,
 				CAB8800612016C84004C8CCD /* LCSBlockCopyServiceTest.h */,
 				CAB8800712016C84004C8CCD /* LCSBlockCopyServiceTest.m */,
-				CAF192651203110F0069A8DD /* scripts */,
+				CA0DF0E011F71D8B0029B5F7 /* LCSDiskServiceTest.h */,
+				CA0DF0E111F71D8B0029B5F7 /* LCSDiskServiceTest.m */,
+				CAA749F812092ED000D234F9 /* LCSPlistTaskOutputHandlerTest.h */,
+				CAA749F912092ED000D234F9 /* LCSPlistTaskOutputHandlerTest.m */,
+				CAB72D79120708220093D08A /* LCSTestdir.h */,
+				CAB72D7A120708220093D08A /* LCSTestdir.m */,
+				CAA3ED1811F82DFC00CDFDC4 /* LCSVaultImageServiceTest.h */,
+				CAA3ED1911F82DFC00CDFDC4 /* LCSVaultImageServiceTest.m */,
+				CAA74ADD120A12DB00D234F9 /* rotavault_test.m */,
 			);
 			path = test;
-			sourceTree = "<group>";
-		};
-		CAF192651203110F0069A8DD /* scripts */ = {
-			isa = PBXGroup;
-			children = (
-				CAF192661203110F0069A8DD /* setup_testdir.sh */,
-			);
-			path = scripts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,6 +244,24 @@
 			productReference = CA0DF0C911F71AB30029B5F7 /* Unit Tests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
+		CAA74BA4120A146600D234F9 /* rotavault_test */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CAA74BAE120A146600D234F9 /* Build configuration list for PBXNativeTarget "rotavault_test" */;
+			buildPhases = (
+				CAA74BA5120A146600D234F9 /* Sources */,
+				CAA74BAB120A146600D234F9 /* Frameworks */,
+				CAA74BAD120A146600D234F9 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = rotavault_test;
+			productInstallPath = "$(HOME)/bin";
+			productName = rotavault;
+			productReference = CAA74BB1120A146600D234F9 /* rotavault_test */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -224,6 +279,7 @@
 			targets = (
 				8DD76F960486AA7600D96B5E /* rotavault */,
 				CA0DF0C811F71AB30029B5F7 /* Unit Tests */,
+				CAA74BA4120A146600D234F9 /* rotavault_test */,
 			);
 		};
 /* End PBXProject section */
@@ -233,7 +289,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CAF192671203110F0069A8DD /* setup_testdir.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,6 +318,8 @@
 				CA0DF0E311F71DA10029B5F7 /* rotavault.m in Sources */,
 				CA0DF18911F723400029B5F7 /* LCSDiskService.m in Sources */,
 				CAA3ED1711F82DE600CDFDC4 /* LCSVaultImageService.m in Sources */,
+				CAA66A581208887200E84193 /* LCSPlistTaskOutputHandler.m in Sources */,
+				CAA74A67120936E800D234F9 /* LCSBlockCopyService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,10 +327,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CA0DF0E211F71D980029B5F7 /* LCSDiskServiceTest.m in Sources */,
-				CAA3ED1B11F82E0000CDFDC4 /* LCSVaultImageServiceTest.m in Sources */,
-				CAB8800812016C84004C8CCD /* LCSBlockCopyServiceTest.m in Sources */,
-				CAB8808C12016CF3004C8CCD /* LCSBlockCopyService.m in Sources */,
+				CAA74A38120930AE00D234F9 /* LCSTestdir.m in Sources */,
+				CAA74A241209307D00D234F9 /* LCSDiskServiceTest.m in Sources */,
+				CAA749FA12092ED000D234F9 /* LCSPlistTaskOutputHandlerTest.m in Sources */,
+				CAA74A34120930A100D234F9 /* LCSVaultImageServiceTest.m in Sources */,
+				CAA74A5A1209365A00D234F9 /* LCSBlockCopyServiceTest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CAA74BA5120A146600D234F9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CAA74BB6120A14CD00D234F9 /* rotavault_test.m in Sources */,
+				CAA74BA7120A146600D234F9 /* LCSDiskService.m in Sources */,
+				CAA74BA8120A146600D234F9 /* LCSVaultImageService.m in Sources */,
+				CAA74BA9120A146600D234F9 /* LCSPlistTaskOutputHandler.m in Sources */,
+				CAA74BAA120A146600D234F9 /* LCSBlockCopyService.m in Sources */,
+				CAA74BB8120A14D400D234F9 /* LCSTestdir.m in Sources */,
+				CAA74BBA120A14D400D234F9 /* LCSDiskServiceTest.m in Sources */,
+				CAA74BBC120A14D400D234F9 /* LCSVaultImageServiceTest.m in Sources */,
+				CAA74BBE120A14D400D234F9 /* LCSBlockCopyServiceTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,6 +480,43 @@
 			};
 			name = Release;
 		};
+		CAA74BAF120A146600D234F9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = src/rotavault_Prefix.pch;
+				INSTALL_PATH = /usr/local/bin;
+				PRODUCT_NAME = rotavault_test;
+			};
+			name = Debug;
+		};
+		CAA74BB0120A146600D234F9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
+				);
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = src/rotavault_Prefix.pch;
+				INSTALL_PATH = /usr/local/bin;
+				PRODUCT_NAME = rotavault;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -432,6 +543,15 @@
 			buildConfigurations = (
 				CA0DF0CB11F71AB30029B5F7 /* Debug */,
 				CA0DF0CC11F71AB30029B5F7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CAA74BAE120A146600D234F9 /* Build configuration list for PBXNativeTarget "rotavault_test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CAA74BAF120A146600D234F9 /* Debug */,
+				CAA74BB0120A146600D234F9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
