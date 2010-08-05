@@ -23,6 +23,8 @@
 
     [asr launch];
     [asr waitUntilExit];
+    
+    [asr release];
 }
 
 @end

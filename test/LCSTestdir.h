@@ -14,4 +14,5 @@
 }
 - (LCSTestdir*) init;
 - (NSString*) path;
+- (void) remove;
 @end

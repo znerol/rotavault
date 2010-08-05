@@ -93,7 +93,9 @@
 
 - (void) tearDown
 {
+    [testdir remove];
     [testdir release];
+    testdir = nil;
 }
 
 - (void) testCreateAtPath

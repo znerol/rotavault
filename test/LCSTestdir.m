@@ -24,10 +24,10 @@
     [mktemp setStandardOutput:pipe];
     [mktemp launch];
     [mktemp waitUntilExit];
-    
+
     NSData  *output = [[pipe fileHandleForReading] availableData];
-    tmpdir = [[NSString alloc] initWithData:output encoding:NSUTF8StringEncoding];
-    tmpdir = [tmpdir stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    tmpdir = [[[NSString alloc] initWithData:output encoding:NSUTF8StringEncoding] autorelease];
+    tmpdir = [[tmpdir stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] retain];
 
     [pipe release];
     [mktemp release];
@@ -40,12 +40,14 @@
     return tmpdir;
 }
 
+- (void) remove
+{
+    [[NSFileManager defaultManager] removeItemAtPath:tmpdir error:nil];
+}
+
 - (void) dealloc
 {
-    NSFileManager *fm = [[NSFileManager alloc] init];
-    [fm removeItemAtPath:tmpdir error:nil];
     [tmpdir release];
-    [fm release];
     [super dealloc];
 }
 

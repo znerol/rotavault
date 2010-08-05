@@ -20,7 +20,9 @@
 
 - (void) tearDown
 {
+    [testdir remove];
     [testdir release];
+    testdir = nil;
 }
 
 - (void)testBlockCopy
@@ -35,7 +37,7 @@
     STAssertNotNil(srcmount, @"source mount must not be nil");
     
     /* populate the source */
-    NSFileManager *fm = [[NSFileManager alloc] init];    
+    NSFileManager *fm = [NSFileManager defaultManager];    
     [fm createFileAtPath:[srcmount stringByAppendingPathComponent:@"test.txt"] contents:[NSData dataWithBytes:"Hello World\n" length:12] attributes:[NSDictionary dictionary]];
 
     /* setup target without filesystem */
