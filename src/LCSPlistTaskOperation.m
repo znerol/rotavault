@@ -33,6 +33,7 @@
                                               errorDescription:&errorDescription];
     if (result) {
         /* success! */
+        [result retain];
         return YES;
     }
 
@@ -50,6 +51,14 @@
 -(BOOL)hasProgress
 {
     return YES;
+}
+
+-(void)dealloc
+{
+    if(result) {
+        [result release];
+    }
+    [super dealloc];
 }
 
 @end

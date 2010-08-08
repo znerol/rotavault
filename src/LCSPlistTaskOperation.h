@@ -10,6 +10,8 @@
 #import "LCSTaskOperation.h"
 
 
-@interface LCSPlistTaskOperation : LCSTaskOperation
+@interface LCSPlistTaskOperation : LCSTaskOperation {
+    NSDictionary* result;
+}
 @property(readonly) NSDictionary* result;
 @end
