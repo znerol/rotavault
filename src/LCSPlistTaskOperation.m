@@ -22,6 +22,12 @@
         return ok;
     }
 
+    /* Return an empty dictionary if the command did not produce any output */
+    if ([super output] == nil || [[super output] length] == 0) {
+        result = [[NSDictionary alloc] init];
+        return YES;
+    }
+
     /*
      * if we collected all data and it was successfully aggregated in the parents output property we try to interpret
      * as plist and store it into our result property.
