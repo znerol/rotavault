@@ -7,25 +7,45 @@
 //
 
 #import "LCSTaskOperationTest.h"
+#import "LCSTaskOperationDelegate.h"
 #import "LCSTaskOperation.h"
 #import "LCSTestdir.h"
+
+#import <OCMock/OCMock.h>
+
+@interface LCSTaskOperationTestMock : NSObject
+-(void)taskOperation:(LCSTaskOperation*)operation terminatedWithStatus:(NSNumber*)status;
+@end
+
+@implementation LCSTaskOperationTestMock : NSObject
+-(void)taskOperation:(LCSTaskOperation*)operation terminatedWithStatus:(NSNumber*)status
+{
+    NSLog(@"XXX");
+}
+@end
 
 
 @implementation LCSTaskOperationTest
 - (void)testEchoTask
 {
-    LCSTaskOperation* op = [[LCSTaskOperation alloc] initWithLaunchPath:@"/bin/echo"
-                                                              arguments:[NSArray arrayWithObject:@"hello"]];
+    LCSTaskOperation* op = [[LCSTaskOperation alloc] initWithLaunchPath:@"/usr/bin/true" arguments:nil];
+    id mock = [OCMockObject mockForProtocol:@protocol(LCSTaskOperationDelegate)];
 
+    /* we'll ignore selectors signalling output from task */
+    [[mock stub] taskOperation:op updateOutput:[OCMArg any] isAtEnd:[OCMArg any]];
+    [[mock stub] taskOperation:op updateError:[OCMArg any] isAtEnd:[OCMArg any]];
+
+    /* we just expect the termination notification with the status code */
+    [[mock expect] taskOperation:op terminatedWithStatus:[NSNumber numberWithInt:0]];
+
+    [op setDelegate:mock];
     [op start];
 
-    STAssertNil(op.error, @"LCSTaskOperation must not set error on successfull run");
-    NSString *outString = [[NSString alloc] initWithData:op.output encoding:NSUTF8StringEncoding];
-    STAssertTrue([outString isEqualToString:@"hello\n"], @"LCSTaskOperation must aggregate the correct output");
-    [outString release];
+    [mock verify];
     [op release];
 }
 
+#if 0
 - (void)testCancelBeforeStart
 {
     LCSTaskOperation* op = [[LCSTaskOperation alloc] initWithLaunchPath:@"/bin/echo"
@@ -102,4 +122,5 @@
                    @"LCSTaskOperation must set LCSExecutableReturnStatus to the proper value");
     [op release];    
 }
+#endif
 @end

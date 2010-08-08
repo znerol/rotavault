@@ -21,11 +21,11 @@ extern NSString* LCSExecutableErrorString;
     
 }
 
--(id)initWithLaunchPath:(NSString*)path status:(NSInteger)status message:(NSString*)message;
+-(id)initWithLaunchPath:(NSString*)path status:(NSInteger)status;
 -(id)initExecutionOfPathFailed:(NSString*)path message:(NSString*)message;
 -(id)initReceivedUnexpectedOutputFromLaunchPath:(NSString*)path message:(NSString*)message;
 
-+(id)errorWithLaunchPath:(NSString*)path status:(NSInteger)status message:(NSString*)message;
++(id)errorWithLaunchPath:(NSString*)path status:(NSInteger)status;
 +(id)errorExecutionOfPathFailed:(NSString*)path message:(NSString*)message;
 +(id)errorReceivedUnexpectedOutputFromLaunchPath:(NSString*)path message:(NSString*)message;
 

@@ -8,115 +8,128 @@
 
 #import "LCSTaskOperation.h"
 
-
 @implementation LCSTaskOperation
-
-@synthesize path;
-@synthesize output;
-@synthesize error;
 
 -(id)initWithLaunchPath:(NSString *)launchPath arguments:(NSArray *)arguments
 {
     self = [super init];
     task = [[NSTask alloc] init];
-    output = [[NSData alloc] init];
-    error = nil;
-    path = [launchPath retain];
-    [task setLaunchPath:path];
-    [task setArguments:arguments];
+    [task setLaunchPath:launchPath];
+    if (arguments) {
+        [task setArguments:arguments];
+    }
     return self;
 }
 
 -(void)dealloc
 {
-    if (error) {
-        [error release];
-    }
-
-    [output release];
-    [path release];
     [task release];
     [super dealloc];
 }
 
--(BOOL)hasProgress
+-(void)setDelegate:(id)newDelegate
 {
-    return NO;
+    delegate = newDelegate;
 }
 
--(float)progress
+-(BOOL)delegateSelector:(SEL)selector withArguments:(NSArray*)arguments
 {
-    return -1.0;
-}
 
--(void)terminateWithError:(NSError*)inError
-{
-    if ([task isRunning]) {
-        [task interrupt];
-    }
-    if (error == nil) {
-        error = [inError retain];
-    }
-}
-
--(BOOL)cancelIfRequested
-{
-    if ([self isCancelled]) {
-        [self terminateWithError:[NSError errorWithDomain:NSCocoaErrorDomain
-                                                     code:NSUserCancelledError
-                                                 userInfo:[NSDictionary dictionary]]];
-        return YES;
-    }
-    else {
+    /* nothing to perform if there is no delegate */
+    if (delegate == nil) {
         return NO;
     }
+
+    /* nothing to perform if the delegate does not respond to the specified selector */
+    NSMethodSignature *sig = [delegate methodSignatureForSelector:selector];
+    if (sig == nil) {
+        return NO;
+    }
+    
+
+    NSInvocation *inv = [NSInvocation invocationWithMethodSignature:sig];
+    [inv setSelector:selector];
+
+    NSInteger argIndex=2;
+    for(id arg in arguments) {
+        [inv setArgument:&arg atIndex:argIndex++];
+    }
+
+    @try {
+        [inv performSelectorOnMainThread:@selector(invokeWithTarget:) withObject:delegate waitUntilDone:YES];
+    }
+    @catch (NSException * e) {
+        NSLog(@"Failed to perform delegate method 1: %@", [e description]);
+    }
+    return YES;
 }
 
 -(void)cancel
 {
     [super cancel];
-    [self cancelIfRequested];
-}
 
--(BOOL)parseOutput:(NSData*)data isAtEnd:(BOOL)atEnd error:(NSError**)outError
-{
-    NSMutableData *tmp = [NSMutableData dataWithData:output];
-    [output release];
-    [tmp appendData:data];
-    output = [[NSData alloc] initWithData:tmp];
-    return YES;
-}
-
--(void)updateOutput:(NSNotification*)nfc
-{
-    if ([self cancelIfRequested]) {
-        return;
+    if ([task isRunning]) {
+        [task interrupt];
     }
 
-    NSError *parseError;
-    BOOL ok = [self parseOutput:[[nfc userInfo] objectForKey:NSFileHandleNotificationDataItem]
-                        isAtEnd:NO error:&parseError];
-    if (!ok) {
-        [self terminateWithError:parseError];
-    }
+    NSError *cancelError = [NSError errorWithDomain:NSCocoaErrorDomain
+                                               code:NSUserCancelledError
+                                           userInfo:[NSDictionary dictionary]];
+    [self delegateSelector:@selector(taskOperation:handleError:)
+             withArguments:[NSArray arrayWithObjects:self, cancelError, nil]];
+}
+
+-(void)updateOutput:(NSData*)data isAtEnd:(BOOL)atEnd
+{
+    [self delegateSelector:@selector(taskOperation:updateOutput:isAtEnd:)
+             withArguments:[NSArray arrayWithObjects:self, data, [NSNumber numberWithBool:atEnd], nil]];
+}
+
+-(void)updateError:(NSData*)data isAtEnd:(BOOL)atEnd
+{
+    [self delegateSelector:@selector(taskOperation:updateError:isAtEnd:)
+             withArguments:[NSArray arrayWithObjects:self, data, [NSNumber numberWithBool:atEnd], nil]];
+}
+
+-(void)handleOutputPipe:(NSNotification*)nfc
+{
+    /* parameters for taskOperation:updateOutput:isAtEnd: */
+    NSData  *data = [[nfc userInfo] objectForKey:NSFileHandleNotificationDataItem];
+    [self updateOutput:data isAtEnd:NO];
+}
+
+-(void)handleErrorPipe:(NSNotification*)nfc
+{
+    /* parameters for taskOperation:updateOutput:isAtEnd: */
+    NSData  *data = [[nfc userInfo] objectForKey:NSFileHandleNotificationDataItem];
+    [self updateError:data isAtEnd:NO];
 }
 
 -(void)main
 {
     /* check for cancelation */
-    if ([self cancelIfRequested]) {
-        return;
+    if ([self isCancelled]) {
+        NSError *cancelError = [NSError errorWithDomain:NSCocoaErrorDomain
+                                                   code:NSUserCancelledError
+                                               userInfo:[NSDictionary dictionary]];
+        [self delegateSelector:@selector(taskOperation:handleError:)
+                 withArguments:[NSArray arrayWithObjects:self, cancelError, nil]];
     }
 
     /* install standard error pipe */
     NSPipe *errPipe = [NSPipe pipe];
     [task setStandardError:errPipe];
-
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleErrorPipe:)
+                                                 name:NSFileHandleReadCompletionNotification
+                                               object:[errPipe fileHandleForReading]];
+    [[errPipe fileHandleForReading] readInBackgroundAndNotify];
+    
     /* install progress meter */
     NSPipe *outPipe = [NSPipe pipe];
     [task setStandardOutput:outPipe];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(updateOutput:)
+                                             selector:@selector(handleOutputPipe:)
                                                  name:NSFileHandleReadCompletionNotification
                                                object:[outPipe fileHandleForReading]];
     [[outPipe fileHandleForReading] readInBackgroundAndNotify];
@@ -128,39 +141,28 @@
     @try {
         [task launch];
     }
-    @catch (NSException *e) {
-        NSError* err = [LCSTaskOperationError errorExecutionOfPathFailed:path message:[e reason]];
-        [self terminateWithError:err];
+    @catch (NSException *exc) {
+        NSError* error = [LCSTaskOperationError errorExecutionOfPathFailed:[task launchPath] message:[exc reason]];
+        [self delegateSelector:@selector(taskOperation:handleError:)
+                 withArguments:[NSArray arrayWithObjects:self, error, nil]];
         return;
     }
 
     [task waitUntilExit];
 
+    /* just return if we've been canceled */
+    if ([self isCancelled]) {
+        return;
+    }
+
     /* read the remaining data from the output pipe */
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    NSData* rest=[[outPipe fileHandleForReading] readDataToEndOfFile];
 
-    NSError *parseError = nil;
-    BOOL ok = [self parseOutput:rest isAtEnd:YES error:&parseError];
-    if (!ok) {
-        [self terminateWithError:parseError];
-        return;
-    }
+    [self updateOutput:[[outPipe fileHandleForReading] readDataToEndOfFile] isAtEnd:YES];
+    [self updateError:[[errPipe fileHandleForReading] readDataToEndOfFile] isAtEnd:YES];
 
-    /* check if the process was canceled */    
-    if ([self cancelIfRequested]) {
-        return;
-    }
-    /* otherwise check the termination status and prepare error message if required */
-    else {
-        int status = [task terminationStatus];
-        if (status != 0) {
-            NSString *message = [[NSString alloc] initWithData:[[errPipe fileHandleForReading] availableData]
-                                                      encoding:NSUTF8StringEncoding];
-
-            [self terminateWithError:[LCSTaskOperationError errorWithLaunchPath:path status:status message:message]];
-        }
-    }
+    [self delegateSelector:@selector(taskOperation:terminatedWithStatus:)
+             withArguments:[NSArray arrayWithObjects:self, [NSNumber numberWithInt:[task terminationStatus]], nil]];
 }
 
 @end

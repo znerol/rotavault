@@ -13,10 +13,9 @@ NSString* LCSExecutableReturnStatus   = @"ch.znerol.rotavault.LCSExecutableRetur
 NSString* LCSExecutableErrorString    = @"ch.znerol.rotavault.LCSExecutableErrorString";
 
 @implementation LCSTaskOperationError
--(id)initWithLaunchPath:(NSString*)path status:(NSInteger)status message:(NSString*)message
+-(id)initWithLaunchPath:(NSString*)path status:(NSInteger)status
 {
     NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                              message, NSLocalizedFailureReasonErrorKey,
                               [NSString localizedStringWithFormat:@"The unix command %1$@ failed with status code %2$d",
                                                                     path, status], NSLocalizedDescriptionKey,
                               [NSNumber numberWithInt:status], LCSExecutableReturnStatus,
@@ -50,9 +49,9 @@ NSString* LCSExecutableErrorString    = @"ch.znerol.rotavault.LCSExecutableError
     return self;
 }
 
-+(id)errorWithLaunchPath:(NSString*)path status:(NSInteger)status message:(NSString*)message;
++(id)errorWithLaunchPath:(NSString*)path status:(NSInteger)status
 {
-    return [[[LCSTaskOperationError alloc] initWithLaunchPath:path status:status message:message] autorelease];
+    return [[[LCSTaskOperationError alloc] initWithLaunchPath:path status:status] autorelease];
 }
 
 +(id)errorExecutionOfPathFailed:(NSString*)path message:(NSString*)message

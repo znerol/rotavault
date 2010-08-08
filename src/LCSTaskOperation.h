@@ -11,19 +11,11 @@
 
 
 @interface LCSTaskOperation : NSOperation {
-    NSTask      *task;
-    NSString    *path;
-    NSError     *error;
-    NSData      *output;
+    NSTask          *task;
+    id              delegate;
 }
 
 -(id)initWithLaunchPath:(NSString*)path arguments:(NSArray*)arguments;
--(BOOL)parseOutput:(NSData*)data isAtEnd:(BOOL)atEnd error:(NSError**)outError;
-
-@property(readonly) BOOL hasProgress;
-@property(readonly) NSString *path;
-@property(readonly) float progress;
-@property(readonly) NSError* error;
-@property(readonly) NSData* output;
+-(void)setDelegate:(id)newDelegate;
 
 @end
