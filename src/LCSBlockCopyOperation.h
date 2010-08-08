@@ -7,15 +7,11 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "LCSTaskOperation.h"
 
 
-@interface LCSBlockCopyOperation : NSOperation {
-    NSString* source;
-    NSString* target;
+@interface LCSBlockCopyOperation : LCSTaskOperation {
 }
-
-@property(readonly) NSError* error;
-@property(readonly) float progress;
 
 - (LCSBlockCopyOperation*) initWithSourceDevice:(NSString*)sourcedev targetDevice:(NSString*)targetdev;
 
