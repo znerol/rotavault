@@ -39,6 +39,18 @@
     STAssertTrue([[NSFileManager defaultManager] fileExistsAtPath:imgpath], @"Failed to create a new test-image: file "
                  @"was not created at path @%", imgpath);
 
+    LCSAttachImageOperation *wrongop = [[LCSAttachImageOperation alloc] initWithPathToDiskImage:imgpath];
+    [wrongop injectTestPassword:@"WRONG"];
+    [wrongop start];
+
+    STAssertNotNil(wrongop.error, @"LCSAttachImageOperation must report an error if password is wrong");
+    STAssertEquals([wrongop.error class], [LCSTaskOperationError class], @"reported error must be a "
+                   @"LCSTaskOperationError");
+    STAssertEquals([wrongop.error code], (NSInteger)LCSExecutableReturnedNonZeroStatus, @"reported error code must be "
+                   @"LCSExecutableReturnedNonZeroStatus");
+    NSLog(@"localizedDescription: %@", [wrongop.error localizedDescription]);
+    NSLog(@"localizedFailureReason: %@", [wrongop.error localizedFailureReason]);
+
     LCSAttachImageOperation *attachop = [[LCSAttachImageOperation alloc] initWithPathToDiskImage:imgpath];
     [attachop injectTestPassword:@"TEST"];
     [attachop start];
@@ -54,5 +66,9 @@
     [detachop start];
 
     STAssertNil(detachop.error, @"Failed to detach test-image: LCSDetachImageOperation reported an error");
+
+    [createop release];
+    [wrongop release];
+    [detachop release];
 }
 @end
