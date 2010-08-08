@@ -25,6 +25,8 @@
     return YES;
 }
 
+@synthesize progress;
+
 -(BOOL)parseOutput:(NSData*)data isAtEnd:(BOOL)atEnd error:(NSError**)outError
 {
     NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];

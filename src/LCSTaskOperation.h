@@ -13,7 +13,6 @@
 @interface LCSTaskOperation : NSOperation {
     NSTask      *task;
     NSString    *path;
-    float       progress;
     NSError     *error;
     NSData      *output;
 }

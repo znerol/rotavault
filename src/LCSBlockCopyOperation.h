@@ -11,8 +11,8 @@
 
 
 @interface LCSBlockCopyOperation : LCSTaskOperation {
+    float progress;
 }
-
+@property(readonly) float progress;
 - (LCSBlockCopyOperation*) initWithSourceDevice:(NSString*)sourcedev targetDevice:(NSString*)targetdev;
-
 @end

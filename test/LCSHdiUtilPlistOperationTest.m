@@ -27,7 +27,8 @@
     LCSPlistTaskOperation *op = [[LCSPlistTaskOperation alloc] initWithLaunchPath:@"/usr/bin/hdiutil" arguments:args];
     [op start];
     STAssertNil(op.error, @"Failed to create a new test-image");
-    devpath = [[[op.result objectForKey:@"system-entities"] objectAtIndex:0] objectForKey:@"dev-entry"];
+    devpath = [[[op.result valueForKeyPath:@"system-entities.dev-entry"]
+                sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)] objectAtIndex:0];
     STAssertNotNil(devpath, @"Failed to retreive the device path of the newly created test image");
     devpath = [devpath retain];
 

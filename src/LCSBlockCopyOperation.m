@@ -11,8 +11,6 @@
 
 @implementation LCSBlockCopyOperation
 
-@synthesize progress;
-
 -(LCSBlockCopyOperation*)initWithSourceDevice:(NSString*)sourcedev targetDevice:(NSString*)targetdev
 {
     NSArray *args = [NSArray arrayWithObjects:@"restore", @"--erase", @"--noprompt", @"--puppetstrings", 
@@ -42,4 +40,6 @@
 {
     return YES;
 }
+
+@synthesize progress;
 @end

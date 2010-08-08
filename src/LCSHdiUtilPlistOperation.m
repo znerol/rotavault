@@ -74,20 +74,7 @@
         // FIXME: report an error with appropriate message        
         return nil;
     }
-    
-    NSArray* sysentities = [resultFromSuper objectForKey:@"system-entities"];
-    if (sysentities == nil) {
-        // FIXME: report an error with appropriate message
-        return nil;
-    }
-    
-    NSMutableArray* deventries =
-    [NSMutableArray arrayWithCapacity:[sysentities count]];
-    for (NSDictionary *item in sysentities) {
-        [deventries addObject:[item objectForKey:@"dev-entry"]];
-    }
-
-    return [NSArray arrayWithArray:deventries];
+    return [resultFromSuper valueForKeyPath:@"system-entities.dev-entry"];
 }
 @end
 
