@@ -7,7 +7,6 @@
 //
 
 #import "LCSTestdir.h"
-#import "LCSPlistTaskOutputHandler.h"
 
 
 @implementation LCSTestdir
