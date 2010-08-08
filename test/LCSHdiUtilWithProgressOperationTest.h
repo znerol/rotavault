@@ -1,5 +1,5 @@
 //
-//  LCSHdiUtilInfoOperationTest.h
+//  LCSHdiUtilWithProgressOperationTest.h
 //  rotavault
 //
 //  Created by Lorenz Schori on 08.08.10.
@@ -10,10 +10,8 @@
 #import "LCSTestdir.h"
 
 
-@interface LCSHdiUtilInfoOperationTest : SenTestCase {
+@interface LCSHdiUtilWithProgressOperationTest : SenTestCase {
     LCSTestdir *testdir;
-    NSString *imgpath;
-    NSString *devpath;
 }
 
 @end

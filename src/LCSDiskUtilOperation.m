@@ -12,10 +12,7 @@
 @implementation LCSDiskUtilOperation
 -(id)initWithCommand:(NSString*)command arguments:(NSArray*)arguments
 {
-    NSArray *args = [NSArray arrayWithObjects:command, @"-plist", nil];
-    if(args) {
-        args = [args arrayByAddingObjectsFromArray:arguments];
-    }
+    NSArray *args = [[NSArray arrayWithObjects:command, @"-plist", nil] arrayByAddingObjectsFromArray:arguments];
     self = [super initWithLaunchPath:@"/usr/sbin/diskutil" arguments:args];
     return self;
 }
@@ -41,5 +38,4 @@
     self = [super initWithCommand:@"info" arguments:[NSArray arrayWithObject:identifier]];
     return self;
 }
-
 @end

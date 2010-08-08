@@ -1,16 +1,16 @@
 //
-//  LCSHdiUtilInfoOperationTest.m
+//  LCSHdiUtilPlistOperationTest.m
 //  rotavault
 //
 //  Created by Lorenz Schori on 08.08.10.
 //  Copyright 2010 znerol.ch. All rights reserved.
 //
 
-#import "LCSHdiUtilInfoOperationTest.h"
-#import "LCSHdiUtilInfoOperation.h"
+#import "LCSHdiUtilPlistOperationTest.h"
+#import "LCSHdiUtilPlistOperation.h"
 
 
-@implementation LCSHdiUtilInfoOperationTest
+@implementation LCSHdiUtilPlistOperationTest
 
 - (void)setUp
 {
@@ -54,12 +54,12 @@
     LCSHdiInfoOperation *op = [[LCSHdiInfoOperation alloc] init];
     [op start];
 
-    STAssertNil(op.error, @"LCSHdiUtilInfoOperation never should report any errors");
-    STAssertNotNil(op.result, @"LCSHdiUtilInfoOperation should report results");
-    STAssertTrue([op.result isKindOfClass:[NSDictionary class]], @"result of LCSHdiUtilInfoOperation must be a "
+    STAssertNil(op.error, @"LCSHdiUtilPlistOperation never should report any errors");
+    STAssertNotNil(op.result, @"LCSHdiUtilPlistOperation should report results");
+    STAssertTrue([op.result isKindOfClass:[NSDictionary class]], @"result of LCSHdiUtilPlistOperation must be a "
                  @"dictionary");
     STAssertTrue([[op.result objectForKey:@"images"] isKindOfClass:[NSArray class]], @"Vaule for images of the "
-                 @"resulting dictionary of LCSHdiUtilInfoOperation must be an array");
+                 @"resulting dictionary of LCSHdiUtilPlistOperation must be an array");
 
     [op release];
 }

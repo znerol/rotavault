@@ -1,5 +1,5 @@
 //
-//  LCSHdiUtilInfoOperation.h
+//  LCSHdiUtilPlistOperation.h
 //  rotavault
 //
 //  Created by Lorenz Schori on 08.08.10.
@@ -10,11 +10,11 @@
 #import "LCSPlistTaskOperation.h"
 
 
-@interface LCSHdiUtilInfoOperation : LCSPlistTaskOperation
+@interface LCSHdiUtilPlistOperation : LCSPlistTaskOperation
 -(id)initWithCommand:(NSString*)command arguments:(NSArray*)arguments;
 @end
 
-@interface LCSHdiInfoOperation : LCSHdiUtilInfoOperation
+@interface LCSHdiInfoOperation : LCSHdiUtilPlistOperation
 -(id)init;
 @end
 
@@ -29,4 +29,12 @@
 @interface LCSHdiDeviceForImageOperation : LCSHdiInfoForImageOperation
 @property(readonly) NSArray* result;
 -(id)initWithPathToDiskImage:(NSString*)inPath;
+@end
+
+@interface LCSAttachImageOperation : LCSHdiUtilPlistOperation
+-(id)initWithPathToDiskImage:(NSString*)inPath;
+@end
+
+@interface LCSDetachImageOperation : LCSTaskOperation
+-(id)initWithDevicePath:(NSString*)inPath;
 @end

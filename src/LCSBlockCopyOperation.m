@@ -18,7 +18,7 @@
     NSArray *args = [NSArray arrayWithObjects:@"restore", @"--erase", @"--noprompt", @"--puppetstrings", 
                      @"--source", sourcedev, @"--target", targetdev, nil];
     self = (LCSBlockCopyOperation*)[super initWithLaunchPath:@"/usr/sbin/asr" arguments:args];
-    progress = 0.0;
+    progress = -1.0;
     return self;
 }
 
@@ -35,6 +35,7 @@
         }
     }    
     [str release];
+    return YES;
 }
 
 -(BOOL)hasProgress
