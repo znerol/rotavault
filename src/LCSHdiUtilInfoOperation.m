@@ -20,10 +20,6 @@
     self = [super initWithLaunchPath:@"/usr/bin/hdiutil" arguments:args];
     return self;
 }
-
--(BOOL)hasBrokenStdoutHandling {
-    return YES;
-}
 @end
 
 @implementation LCSHdiInfoOperation
