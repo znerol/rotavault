@@ -35,6 +35,8 @@
 		CAC657E9120EDC9400069286 /* LCSHdiUtilWithProgressOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC657E8120EDC9400069286 /* LCSHdiUtilWithProgressOperation.m */; };
 		CAC65827120EE1F100069286 /* LCSTaskOperation+TestPassword.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC65825120EE1F100069286 /* LCSTaskOperation+TestPassword.m */; };
 		CAC65848120EE39000069286 /* LCSHdiUtilWithProgressOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC65846120EE39000069286 /* LCSHdiUtilWithProgressOperationTest.m */; };
+		CAE0E42612109A4500ADAEC3 /* LCSPlistTaskOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB1BD93120C1E800076DB12 /* LCSPlistTaskOperationTest.m */; };
+		CAE0E42712109A4600ADAEC3 /* LCSPlistTaskOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB1BD61120C1C860076DB12 /* LCSPlistTaskOperation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -386,6 +388,8 @@
 				CA9E2D68120F3B49006C4DE7 /* LCSTaskOperationError.m in Sources */,
 				CA9E2D69120F3B4B006C4DE7 /* LCSRotavaultErrorDomain.m in Sources */,
 				CA642566120FF28600913F90 /* LCSTestdir.m in Sources */,
+				CAE0E42612109A4500ADAEC3 /* LCSPlistTaskOperationTest.m in Sources */,
+				CAE0E42712109A4600ADAEC3 /* LCSPlistTaskOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,14 +11,46 @@
 
 
 @implementation LCSPlistTaskOperationTest
+
+-(void)setUp
+{
+    result = nil;
+    error = nil;
+}
+
+-(void)tearDown
+{
+    if(result) {
+        [result release];
+        result = nil;
+    }
+    if(error) {
+        [error release];
+        error = nil;
+    }
+}
+
+-(void)taskOperation:(LCSTaskOperation*)operation handleError:(NSError*)inError
+{
+    error = [inError retain];
+}
+
+-(void)taskOperation:(LCSTaskOperation*)operation handleResult:(id)inResult
+{
+    result = [inResult retain];
+}
+
 - (void)testSimplePlistTaskOperation
 {
     NSArray *args = [NSArray arrayWithObjects: @"-xml", @"SPDiagnosticsDataType", nil];
     LCSPlistTaskOperation* op = [[LCSPlistTaskOperation alloc]
-                                       initWithLaunchPath:@"/usr/sbin/system_profiler" arguments:args];
+                                 initWithLaunchPath:@"/usr/sbin/system_profiler" arguments:args];
+
+    [op setDelegate:self];
     [op start];
-    STAssertNil(op.error, @"error must be nil for successfull run");
-    STAssertNotNil(op.result, @"should not return nil");
+
+    STAssertNil(error, @"error must be nil for successfull run");
+    STAssertNotNil(result, @"Result must not be nil");
     [op release];
 }
 
@@ -27,13 +59,16 @@
     NSArray *args = [NSArray arrayWithObjects: @"SPDiagnosticsDataType", nil];
     LCSPlistTaskOperation* op = [[LCSPlistTaskOperation alloc]
                                  initWithLaunchPath:@"/usr/sbin/system_profiler" arguments:args];
+
+    [op setDelegate:self];
     [op start];
-    STAssertNil(op.result, @"must not return any result for output in the wrong format");
-    STAssertNotNil(op.error, @"error must be set if the output of the task is not a property list");
-    STAssertEquals([op.error class], [LCSTaskOperationError class],
+
+    STAssertNil(result, @"must not return any result for output in the wrong format");
+    STAssertNotNil(error, @"error must be set if the output of the task is not a property list");
+    STAssertEquals([error class], [LCSTaskOperationError class],
                    @"LCSTaskOperation must return an LCSTaskOperationError if the output of the task is not a property"
                    @"list");
-    STAssertEquals([op.error code], (NSInteger)LCSUnexpectedOutputReceived,
+    STAssertEquals([error code], (NSInteger)LCSUnexpectedOutputReceived,
                    @"LCSTaskOperation must set the error code to LCSLaunchOfExecutableFailed if the output of the "
                    @"task is not a property list");
     [op release];

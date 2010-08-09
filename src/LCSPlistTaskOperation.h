@@ -11,7 +11,6 @@
 
 
 @interface LCSPlistTaskOperation : LCSTaskOperation {
-    NSDictionary* result;
+    NSMutableData   *_outputData;
 }
-@property(readonly) NSDictionary* result;
 @end
