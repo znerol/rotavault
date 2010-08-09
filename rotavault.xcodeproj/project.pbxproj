@@ -37,6 +37,8 @@
 		CAC65848120EE39000069286 /* LCSHdiUtilWithProgressOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC65846120EE39000069286 /* LCSHdiUtilWithProgressOperationTest.m */; };
 		CAE0E42612109A4500ADAEC3 /* LCSPlistTaskOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB1BD93120C1E800076DB12 /* LCSPlistTaskOperationTest.m */; };
 		CAE0E42712109A4600ADAEC3 /* LCSPlistTaskOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB1BD61120C1C860076DB12 /* LCSPlistTaskOperation.m */; };
+		CAE0E4FC1210A32500ADAEC3 /* LCSHdiUtilPlistOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC65694120EBF7100069286 /* LCSHdiUtilPlistOperation.m */; };
+		CAE0E4FD1210A32500ADAEC3 /* LCSHdiUtilPlistOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC656E4120EC41E00069286 /* LCSHdiUtilPlistOperationTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -390,6 +392,8 @@
 				CA642566120FF28600913F90 /* LCSTestdir.m in Sources */,
 				CAE0E42612109A4500ADAEC3 /* LCSPlistTaskOperationTest.m in Sources */,
 				CAE0E42712109A4600ADAEC3 /* LCSPlistTaskOperation.m in Sources */,
+				CAE0E4FC1210A32500ADAEC3 /* LCSHdiUtilPlistOperation.m in Sources */,
+				CAE0E4FD1210A32500ADAEC3 /* LCSHdiUtilPlistOperationTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

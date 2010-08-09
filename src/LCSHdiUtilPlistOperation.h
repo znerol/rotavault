@@ -18,19 +18,6 @@
 -(id)init;
 @end
 
-
-@interface LCSHdiInfoForImageOperation: LCSHdiInfoOperation {
-    NSString *imagePath;
-}
-
--(id)initWithPathToDiskImage:(NSString*)inPath;
-@end
-
-@interface LCSHdiDeviceForImageOperation : LCSHdiInfoForImageOperation
-@property(readonly) NSArray* result;
--(id)initWithPathToDiskImage:(NSString*)inPath;
-@end
-
 @interface LCSAttachImageOperation : LCSHdiUtilPlistOperation
 -(id)initWithPathToDiskImage:(NSString*)inPath;
 @end

@@ -14,6 +14,7 @@
 
 - (void)setUp
 {
+
     testdir = [[LCSTestdir alloc] init];
     imgpath = [[[testdir path] stringByAppendingPathComponent:@"test.dmg"] retain];
     
@@ -22,23 +23,45 @@
      * will not be the dict at array index 0, instead it will be at array index 1! Because of that oddity, we test with
      * a GUID partition table (-layout GPTSPUD).
      */
+    result = nil;
+    error = nil;
     NSArray *args = [NSArray arrayWithObjects:@"create", @"-sectors", @"2000", imgpath, @"-plist", 
                      @"-layout", @"GPTSPUD", @"-fs", @"HFS+", @"-attach", nil];
     LCSPlistTaskOperation *op = [[LCSPlistTaskOperation alloc] initWithLaunchPath:@"/usr/bin/hdiutil" arguments:args];
+    [op setDelegate:self];
     [op start];
-    STAssertNil(op.error, @"Failed to create a new test-image");
-    devpath = [[[op.result valueForKeyPath:@"system-entities.dev-entry"]
+
+    STAssertNil(error, @"Failed to create a new test-image");
+    devpath = [[[result valueForKeyPath:@"system-entities.dev-entry"]
                 sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)] objectAtIndex:0];
     STAssertNotNil(devpath, @"Failed to retreive the device path of the newly created test image");
     devpath = [devpath retain];
 
     [op release];
+
+    if(result) {
+        [result release];
+        result = nil;
+    }
+    if(error) {
+        [error release];
+        error = nil;
+    }
 }
 
 - (void)tearDown
 {
     NSArray *args = [NSArray arrayWithObjects:@"detach", devpath, nil];
 
+    if(result) {
+        [result release];
+        result = nil;
+    }
+    if(error) {
+        [error release];
+        error = nil;
+    }
+    
     LCSPlistTaskOperation *op = [[LCSPlistTaskOperation alloc] initWithLaunchPath:@"/usr/bin/hdiutil" arguments:args];
     [op start];
     [op release];
@@ -50,48 +73,28 @@
     [testdir release];
 }
 
+-(void)taskOperation:(LCSTaskOperation*)operation handleError:(NSError*)inError
+{
+    error = [inError retain];
+}
+
+-(void)taskOperation:(LCSTaskOperation*)operation handleResult:(id)inResult
+{
+    result = [inResult retain];
+}
+
 - (void)testHdiInfoOperation
 {
     LCSHdiInfoOperation *op = [[LCSHdiInfoOperation alloc] init];
+    [op setDelegate:self];
     [op start];
 
-    STAssertNil(op.error, @"LCSHdiUtilPlistOperation never should report any errors");
-    STAssertNotNil(op.result, @"LCSHdiUtilPlistOperation should report results");
-    STAssertTrue([op.result isKindOfClass:[NSDictionary class]], @"result of LCSHdiUtilPlistOperation must be a "
+    STAssertNil(error, @"LCSHdiUtilPlistOperation never should report any errors");
+    STAssertNotNil(result, @"LCSHdiUtilPlistOperation should report results");
+    STAssertTrue([result isKindOfClass:[NSDictionary class]], @"result of LCSHdiUtilPlistOperation must be a "
                  @"dictionary");
-    STAssertTrue([[op.result objectForKey:@"images"] isKindOfClass:[NSArray class]], @"Vaule for images of the "
+    STAssertTrue([[result objectForKey:@"images"] isKindOfClass:[NSArray class]], @"Vaule for images of the "
                  @"resulting dictionary of LCSHdiUtilPlistOperation must be an array");
-
-    [op release];
-}
-
--(void)testLCSHdiInfoForImageOperation
-{
-    LCSHdiInfoForImageOperation *op = [[LCSHdiInfoForImageOperation alloc] initWithPathToDiskImage:imgpath];
-    [op start];
-
-    STAssertNil(op.error, @"LCSHdiInfoForImageOperation should not report an error");
-    STAssertNotNil(op.result, @"LCSHdiInfoForImageOperation should report results");
-    STAssertTrue([op.result isKindOfClass:[NSDictionary class]], @"result of LCSHdiInfoForImageOperation must be a "
-                 @"dictionary");
-    STAssertTrue([[op.result objectForKey:@"image-path"] isEqualToString:imgpath], @"The image path property must be "
-                 @"identical to the path to our test image");
-
-    [op release];
-}
-
--(void)testLCSHdiDeviceForImageOperation
-{
-    LCSHdiDeviceForImageOperation *op = [[LCSHdiDeviceForImageOperation alloc] initWithPathToDiskImage:imgpath];
-    [op start];
-
-    STAssertNil(op.error, @"LCSHdiDeviceForImageOperation should not report an error");
-    STAssertNotNil(op.result, @"LCSHdiDeviceForImageOperation should report results");
-    STAssertTrue([op.result isKindOfClass:[NSArray class]], @"result of LCSHdiInfoForImageOperation must be an "
-                 @"array");
-    STAssertTrue([op.result count] == 2, @"The resulting array should contain three entries");
-    STAssertTrue([[op.result objectAtIndex:0] isEqualToString:devpath], @"The first item in the result must be the "
-                 @"device path to our test image");
 
     [op release];
 }

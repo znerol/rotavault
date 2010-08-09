@@ -14,6 +14,9 @@
     LCSTestdir *testdir;
     NSString *imgpath;
     NSString *devpath;
+    
+    NSDictionary    *result;
+    NSError         *error;
 }
 
 @end
