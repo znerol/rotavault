@@ -39,18 +39,18 @@
     delegate = newDelegate;
 }
 
--(BOOL)delegateSelector:(SEL)selector withArguments:(NSArray*)arguments
+-(void)delegateSelector:(SEL)selector withArguments:(NSArray*)arguments
 {
 
     /* nothing to perform if there is no delegate */
     if (delegate == nil) {
-        return NO;
+        return;
     }
 
     /* nothing to perform if the delegate does not respond to the specified selector */
     NSMethodSignature *sig = [delegate methodSignatureForSelector:selector];
     if (sig == nil) {
-        return NO;
+        return;
     }
     
 
@@ -68,7 +68,6 @@
     @catch (NSException * e) {
         NSLog(@"Failed to perform delegate method 1: %@", [e description]);
     }
-    return YES;
 }
 
 -(void)updateStandardOutput:(NSData*)data
@@ -81,6 +80,39 @@
 {
     [self delegateSelector:@selector(taskOperation:updateStandardError:)
              withArguments:[NSArray arrayWithObjects:self, data, nil]];
+}
+
+-(void)handleError:(NSError*)error
+{
+    [self delegateSelector:@selector(taskOperation:handleError:)
+             withArguments:[NSArray arrayWithObjects:self, error, nil]];
+}
+
+-(void)handleResult:(id)result
+{
+    [self delegateSelector:@selector(taskOperation:handleResult:)
+             withArguments:[NSArray arrayWithObjects:self, result, nil]];
+}
+
+-(void)taskPreparingToLaunch
+{
+    [self delegateSelector:@selector(taskOperationPreparing:) withArguments:[NSArray arrayWithObject:self]];
+}
+
+-(void)taskLaunched
+{
+    [self delegateSelector:@selector(taskOperationLaunched:) withArguments:[NSArray arrayWithObject:self]];    
+}
+
+-(void)taskTerminatedWithStatus:(int)status
+{
+    [self delegateSelector:@selector(taskOperation:terminatedWithStatus:)
+             withArguments:[NSArray arrayWithObjects:self, [NSNumber numberWithInt:status], nil]];
+}
+
+-(void)operationFinished
+{
+    [self delegateSelector:@selector(taskOperationFinished:) withArguments:[NSArray arrayWithObject:self]];
 }
 
 -(void)handleStandardOutputPipe:(NSNotification*)nfc
@@ -113,7 +145,7 @@
                       context:(void *)context
 {
     if (object == self && [keyPath isEqualToString:@"isFinished"]) {
-        [self delegateSelector:@selector(taskOperationFinished:) withArguments:[NSArray arrayWithObject:self]];
+        [self operationFinished];
     }
 }
 
@@ -124,12 +156,11 @@
         NSError *cancelError = [NSError errorWithDomain:NSCocoaErrorDomain
                                                    code:NSUserCancelledError
                                                userInfo:[NSDictionary dictionary]];
-        [self delegateSelector:@selector(taskOperation:handleError:)
-                 withArguments:[NSArray arrayWithObjects:self, cancelError, nil]];
+        [self handleError:cancelError];
     }
     
     /* notify delegate that we're preparing for launch now */
-    [self delegateSelector:@selector(taskOperationPreparing:) withArguments:[NSArray arrayWithObject:self]];
+    [self taskPreparingToLaunch];
 
     /* register finished handler */
     [self addObserver:self forKeyPath:@"isFinished" options:0 context:nil];
@@ -167,17 +198,15 @@
 
         /* Give the delegate a chance to notice */
         NSError* error = [LCSTaskOperationError errorExecutionOfPathFailed:[task launchPath] message:[exc reason]];
-        [self delegateSelector:@selector(taskOperation:handleError:)
-                 withArguments:[NSArray arrayWithObjects:self, error, nil]];
+        [self handleError:error];
         return;
     }
 
-    [self delegateSelector:@selector(taskOperationLaunched:) withArguments:[NSArray arrayWithObject:self]];
+    [self taskLaunched];
 
     [task waitUntilExit];
 
-    [self delegateSelector:@selector(taskOperation:terminatedWithStatus:)
-             withArguments:[NSArray arrayWithObjects:self, [NSNumber numberWithInt:[task terminationStatus]], nil]];
+    [self taskTerminatedWithStatus:[task terminationStatus]];
 
     /* spin until eof is reached for both streams */
     while(outEOF == NO || errEOF == NO){
@@ -199,8 +228,7 @@
     NSError *cancelError = [NSError errorWithDomain:NSCocoaErrorDomain
                                                code:NSUserCancelledError
                                            userInfo:[NSDictionary dictionary]];
-    [self delegateSelector:@selector(taskOperation:handleError:)
-             withArguments:[NSArray arrayWithObjects:self, cancelError, nil]];
+    [self handleError:cancelError];
 }
 
 @end

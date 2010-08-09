@@ -120,6 +120,9 @@
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
     }
 
+    /* FIXME: hum... race condition here? usleep seems to help */
+    usleep(1000);
+
     [op cancel];
 
     while(!finished) {

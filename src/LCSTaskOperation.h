@@ -21,6 +21,13 @@
 
 -(id)initWithLaunchPath:(NSString*)path arguments:(NSArray*)arguments;
 -(void)setDelegate:(id)newDelegate;
+
 -(void)updateStandardOutput:(NSData*)data;
 -(void)updateStandardError:(NSData*)data;
+-(void)handleError:(NSError*)error;
+-(void)handleResult:(id)result;
+-(void)taskPreparingToLaunch;
+-(void)taskLaunched;
+-(void)taskTerminatedWithStatus:(int)status;
+-(void)operationFinished;
 @end

@@ -15,6 +15,7 @@
 -(void)taskOperation:(LCSTaskOperation*)operation updateStandardOutput:(NSData*)stdoutData;
 -(void)taskOperation:(LCSTaskOperation*)operation updateStandardError:(NSData*)stderrData;
 -(void)taskOperation:(LCSTaskOperation*)operation handleError:(NSError*)error;
+-(void)taskOperation:(LCSTaskOperation*)operation handleResult:(id)result;
 -(void)taskOperationPreparing:(LCSTaskOperation*)operation;
 -(void)taskOperationLaunched:(LCSTaskOperation*)operation;
 -(void)taskOperation:(LCSTaskOperation*)operation terminatedWithStatus:(NSNumber*)status;
