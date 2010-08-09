@@ -14,6 +14,8 @@
     BOOL finished;
     NSMutableData *dataout;
     NSMutableData *dataerr;    
+    
+    NSRunLoop *runloop;
 }
 
 @end

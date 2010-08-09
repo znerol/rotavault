@@ -78,9 +78,8 @@
 
     [op setDelegate:mock];
     [op start];
-
-    while(!finished) [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-
+    
+    STAssertTrue(finished, @"Operation must be finished by now");
     [mock verify];
     [op release];
 }
@@ -93,8 +92,7 @@
     [op setDelegate:mock];
     [op start];
 
-    while(!finished) [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-
+    STAssertTrue(finished, @"Operation must be finished by now");
     [mock verify];
     [op release];
 }
@@ -119,9 +117,9 @@
     usleep(100000);
     [op cancel];
 
-    while(!finished) [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-    
-    [queue waitUntilAllOperationsAreFinished];
+    while(!finished) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+    }
     
     [mock verify];
     [op release];
@@ -144,10 +142,12 @@
     [op setDelegate:mock];
     [op start];
 
-    while(!finished) [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-
+    STAssertTrue(finished, @"Operation must be finished by now");
     [mock verify];
     [op release];
+    
+    [testdir remove];
+    [testdir release];
 }
 
 - (void)testEchoHello
@@ -159,10 +159,10 @@
     [op setDelegate:mock];
     [op start];
 
-    while(!finished) [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-
+    STAssertTrue(finished, @"Operation must be finished by now");
     NSString *outstring = [[NSString alloc] initWithData:dataout encoding:NSUTF8StringEncoding];
     STAssertTrue([outstring isEqualToString:@"Hello\n"], @"Output missmatch");
+    [outstring release];
 
     [mock verify];
     [op release];    

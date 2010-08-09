@@ -186,10 +186,12 @@
     [self delegateSelector:@selector(taskOperation:terminatedWithStatus:)
              withArguments:[NSArray arrayWithObjects:self, [NSNumber numberWithInt:[task terminationStatus]], nil]];
 
-    /* FIXME: spin until eof is reached for both streams */
-    while(!(outEOF && errEOF)) [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+    /* spin until eof is reached for both streams */
+    while(outEOF == NO || errEOF == NO){
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+    }
     
-    /* read the remaining data from the output pipe */
+    /* finally remove us from the notification center */
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
