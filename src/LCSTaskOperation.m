@@ -71,50 +71,37 @@
     return YES;
 }
 
--(void)cancel
+-(void)updateStandardOutput:(NSData*)data
 {
-    [super cancel];
-
-    if ([task isRunning]) {
-        [task interrupt];
-    }
-
-    NSError *cancelError = [NSError errorWithDomain:NSCocoaErrorDomain
-                                               code:NSUserCancelledError
-                                           userInfo:[NSDictionary dictionary]];
-    [self delegateSelector:@selector(taskOperation:handleError:)
-             withArguments:[NSArray arrayWithObjects:self, cancelError, nil]];
+    [self delegateSelector:@selector(taskOperation:updateStandardOutput:)
+             withArguments:[NSArray arrayWithObjects:self, data, nil]];
 }
 
--(void)updateOutput:(NSData*)data isAtEnd:(BOOL)atEnd
+-(void)updateStandardError:(NSData*)data
 {
-    [self delegateSelector:@selector(taskOperation:updateOutput:isAtEnd:)
-             withArguments:[NSArray arrayWithObjects:self, data, [NSNumber numberWithBool:atEnd], nil]];
+    [self delegateSelector:@selector(taskOperation:updateStandardError:)
+             withArguments:[NSArray arrayWithObjects:self, data, nil]];
 }
 
--(void)updateError:(NSData*)data isAtEnd:(BOOL)atEnd
+-(void)handleStandardOutputPipe:(NSNotification*)nfc
 {
-    [self delegateSelector:@selector(taskOperation:updateError:isAtEnd:)
-             withArguments:[NSArray arrayWithObjects:self, data, [NSNumber numberWithBool:atEnd], nil]];
-}
-
--(void)handleOutputPipe:(NSNotification*)nfc
-{
-    /* parameters for taskOperation:updateOutput:isAtEnd: */
+    /* parameters for taskOperation:updateStandardOutput: */
     NSData  *data = [[nfc userInfo] objectForKey:NSFileHandleNotificationDataItem];
+    [self updateStandardOutput:data];
+
     outEOF = ([data length] == 0);
-    [self updateOutput:data isAtEnd:outEOF];
     if (!outEOF) {
         [[outPipe fileHandleForReading] readInBackgroundAndNotify];
     }
 }
 
--(void)handleErrorPipe:(NSNotification*)nfc
+-(void)handleStandardErrorPipe:(NSNotification*)nfc
 {
-    /* parameters for taskOperation:updateError:isAtEnd: */
+    /* parameters for taskOperation:updateStandardError: */
     NSData  *data = [[nfc userInfo] objectForKey:NSFileHandleNotificationDataItem];
+    [self updateStandardError:data];
+
     errEOF = ([data length] == 0);
-    [self updateError:data isAtEnd:NO];
     if (!errEOF) {
         [[errPipe fileHandleForReading] readInBackgroundAndNotify];
     }
@@ -132,9 +119,6 @@
 
 -(void)main
 {
-    /* register finished handler */
-    [self addObserver:self forKeyPath:@"isFinished" options:0 context:nil];
-
     /* check for cancelation */
     if ([self isCancelled]) {
         NSError *cancelError = [NSError errorWithDomain:NSCocoaErrorDomain
@@ -143,11 +127,18 @@
         [self delegateSelector:@selector(taskOperation:handleError:)
                  withArguments:[NSArray arrayWithObjects:self, cancelError, nil]];
     }
+    
+    /* notify delegate that we're preparing for launch now */
+    [self delegateSelector:@selector(taskOperationPreparing:) withArguments:[NSArray arrayWithObject:self]];
+
+    /* register finished handler */
+    [self addObserver:self forKeyPath:@"isFinished" options:0 context:nil];
+
 
     /* install standard error pipe */
     [task setStandardError:errPipe];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(handleErrorPipe:)
+                                             selector:@selector(handleStandardErrorPipe:)
                                                  name:NSFileHandleReadCompletionNotification
                                                object:[errPipe fileHandleForReading]];
     [[errPipe fileHandleForReading] readInBackgroundAndNotify];
@@ -155,7 +146,7 @@
     /* install progress meter */
     [task setStandardOutput:outPipe];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(handleOutputPipe:)
+                                             selector:@selector(handleStandardOutputPipe:)
                                                  name:NSFileHandleReadCompletionNotification
                                                object:[outPipe fileHandleForReading]];
     [[outPipe fileHandleForReading] readInBackgroundAndNotify];
@@ -181,6 +172,8 @@
         return;
     }
 
+    [self delegateSelector:@selector(taskOperationLaunched:) withArguments:[NSArray arrayWithObject:self]];
+
     [task waitUntilExit];
 
     [self delegateSelector:@selector(taskOperation:terminatedWithStatus:)
@@ -193,6 +186,21 @@
     
     /* finally remove us from the notification center */
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+-(void)cancel
+{
+    [super cancel];
+    
+    if ([task isRunning]) {
+        [task interrupt];
+    }
+    
+    NSError *cancelError = [NSError errorWithDomain:NSCocoaErrorDomain
+                                               code:NSUserCancelledError
+                                           userInfo:[NSDictionary dictionary]];
+    [self delegateSelector:@selector(taskOperation:handleError:)
+             withArguments:[NSArray arrayWithObjects:self, cancelError, nil]];
 }
 
 @end

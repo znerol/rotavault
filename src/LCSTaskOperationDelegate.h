@@ -12,21 +12,11 @@
 
 @protocol LCSTaskOperationDelegate
 
--(void)taskOperation:(LCSTaskOperation*)operation
-        updateOutput:(NSData*)stdoutData
-             isAtEnd:(NSNumber*)atEnd;
-
--(void)taskOperation:(LCSTaskOperation*)operation
-         updateError:(NSData*)stderrData
-             isAtEnd:(NSNumber*)atEnd;
-
+-(void)taskOperation:(LCSTaskOperation*)operation updateStandardOutput:(NSData*)stdoutData;
+-(void)taskOperation:(LCSTaskOperation*)operation updateStandardError:(NSData*)stderrData;
+-(void)taskOperation:(LCSTaskOperation*)operation handleError:(NSError*)error;
+-(void)taskOperationPreparing:(LCSTaskOperation*)operation;
+-(void)taskOperationLaunched:(LCSTaskOperation*)operation;
 -(void)taskOperation:(LCSTaskOperation*)operation terminatedWithStatus:(NSNumber*)status;
 -(void)taskOperationFinished:(LCSTaskOperation*)operation;
-
--(void)taskOperation:(LCSTaskOperation*)operation handleError:(NSError*)error;
-
--(void)taskOperation:(LCSTaskOperation*)operation updateStatusMessage:(NSString*)statusMessage;
--(void)taskOperation:(LCSTaskOperation*)operation updateProgress:(NSNumber*)newProgress;
-
-
 @end

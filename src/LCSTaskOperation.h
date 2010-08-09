@@ -21,5 +21,6 @@
 
 -(id)initWithLaunchPath:(NSString*)path arguments:(NSArray*)arguments;
 -(void)setDelegate:(id)newDelegate;
-
+-(void)updateStandardOutput:(NSData*)data;
+-(void)updateStandardError:(NSData*)data;
 @end

@@ -11,11 +11,10 @@
 
 @interface LCSTaskOperationTest : SenTestCase {
     id mock;
+    BOOL launched;
     BOOL finished;
     NSMutableData *dataout;
     NSMutableData *dataerr;    
-    
-    NSRunLoop *runloop;
 }
 
 @end

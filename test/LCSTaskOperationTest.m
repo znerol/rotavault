@@ -14,11 +14,11 @@
 
 #import <OCMock/OCMock.h>
 
-@interface NSError (SameError)
+@interface NSError (EqualToError)
 -(BOOL)isEqualToError:(NSError*)other;
 @end
 
-@implementation NSError (SameError)
+@implementation NSError (EqualToError)
 -(BOOL)isEqualToError:(NSError*)other
 {
     BOOL same = ([self code] == [other code] && [[self domain] isEqualToString:[other domain]]);
@@ -31,15 +31,17 @@
 - (void)setUp
 {
     finished = NO;
+    launched = NO;
     dataout = [[NSMutableData alloc] init];
     dataerr = [[NSMutableData alloc] init];
     
     /* stub calls into aggregate object */
     mock = [[OCMockObject mockForProtocol:@protocol(LCSTaskOperationDelegate)] retain];
-    [[[mock stub] andCall:@selector(taskOperation:updateOutput:isAtEnd:) onObject:self] taskOperation:[OCMArg any] updateOutput:[OCMArg any] isAtEnd:[OCMArg any]];
-    [[[mock stub] andCall:@selector(taskOperation:updateError:isAtEnd:) onObject:self] taskOperation:[OCMArg any] updateError:[OCMArg any] isAtEnd:[OCMArg any]];
+    [[[mock stub] andCall:@selector(taskOperation:updateStandardOutput:) onObject:self] taskOperation:[OCMArg any] updateStandardOutput:[OCMArg any]];
+    [[[mock stub] andCall:@selector(taskOperation:updateStandardError:) onObject:self] taskOperation:[OCMArg any] updateStandardError:[OCMArg any]];
+    [[mock stub] taskOperationPreparing:[OCMArg any]];
+    [[[mock stub] andCall:@selector(taskOperationLaunched:) onObject:self] taskOperationLaunched:[OCMArg any]];
     [[[mock stub] andCall:@selector(taskOperationFinished:) onObject:self] taskOperationFinished:[OCMArg any]];
-    
 }
 
 - (void)tearDown
@@ -52,18 +54,19 @@
     dataerr = nil;
 }
 
--(void)taskOperation:(LCSTaskOperation*)operation
-        updateOutput:(NSData*)stdoutData
-             isAtEnd:(NSNumber*)atEnd
+-(void)taskOperation:(LCSTaskOperation*)operation updateStandardOutput:(NSData*)stdoutData
 {
     [dataout appendData:stdoutData];
 }
 
--(void)taskOperation:(LCSTaskOperation*)operation
-         updateError:(NSData*)stderrData
-             isAtEnd:(NSNumber*)atEnd
+-(void)taskOperation:(LCSTaskOperation*)operation updateStandardError:(NSData*)stderrData
 {
     [dataerr appendData:stderrData];
+}
+
+-(void)taskOperationLaunched:(LCSTaskOperation*)operation
+{
+    launched = YES;
 }
 
 -(void)taskOperationFinished:(LCSTaskOperation*)operation
@@ -113,8 +116,10 @@
     NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     [queue addOperation:op];
 
-    /* wait half a second before canceling the operation */
-    usleep(100000);
+    while(!launched) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+    }
+
     [op cancel];
 
     while(!finished) {
