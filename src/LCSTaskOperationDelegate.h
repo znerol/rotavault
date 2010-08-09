@@ -21,6 +21,7 @@
              isAtEnd:(NSNumber*)atEnd;
 
 -(void)taskOperation:(LCSTaskOperation*)operation terminatedWithStatus:(NSNumber*)status;
+-(void)taskOperationFinished:(LCSTaskOperation*)operation;
 
 -(void)taskOperation:(LCSTaskOperation*)operation handleError:(NSError*)error;
 

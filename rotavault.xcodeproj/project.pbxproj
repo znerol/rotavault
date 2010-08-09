@@ -11,6 +11,7 @@
 		CA0DF0E311F71DA10029B5F7 /* rotavault.m in Sources */ = {isa = PBXBuildFile; fileRef = CA0DF0DD11F71D8B0029B5F7 /* rotavault.m */; };
 		CA54744A120B66120014E9E8 /* LCSBlockCopyOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA547448120B66120014E9E8 /* LCSBlockCopyOperation.m */; };
 		CA547492120B76F80014E9E8 /* LCSBlockCopyOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA547490120B76F80014E9E8 /* LCSBlockCopyOperationTest.m */; };
+		CA642566120FF28600913F90 /* LCSTestdir.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB72D7A120708220093D08A /* LCSTestdir.m */; };
 		CA9E2D3F120F37B7006C4DE7 /* LCSTaskOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB1BEFF120C3D8A0076DB12 /* LCSTaskOperationTest.m */; };
 		CA9E2D59120F398D006C4DE7 /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA9E2D58120F398D006C4DE7 /* OCMock.framework */; };
 		CA9E2D5A120F398D006C4DE7 /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA9E2D58120F398D006C4DE7 /* OCMock.framework */; };
@@ -384,6 +385,7 @@
 				CA9E2D3F120F37B7006C4DE7 /* LCSTaskOperationTest.m in Sources */,
 				CA9E2D68120F3B49006C4DE7 /* LCSTaskOperationError.m in Sources */,
 				CA9E2D69120F3B4B006C4DE7 /* LCSRotavaultErrorDomain.m in Sources */,
+				CA642566120FF28600913F90 /* LCSTestdir.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -105,8 +105,21 @@
     [self updateError:data isAtEnd:NO];
 }
 
+-(void)observeValueForKeyPath:(NSString *)keyPath
+                     ofObject:(id)object
+                       change:(NSDictionary *)change
+                      context:(void *)context
+{
+    if (object == self && [keyPath isEqualToString:@"isFinished"]) {
+        [self delegateSelector:@selector(taskOperationFinished:) withArguments:[NSArray arrayWithObject:self]];
+    }
+}
+
 -(void)main
 {
+    /* register finished handler */
+    [self addObserver:self forKeyPath:@"isFinished" options:0 context:nil];
+
     /* check for cancelation */
     if ([self isCancelled]) {
         NSError *cancelError = [NSError errorWithDomain:NSCocoaErrorDomain
@@ -124,7 +137,7 @@
                                                  name:NSFileHandleReadCompletionNotification
                                                object:[errPipe fileHandleForReading]];
     [[errPipe fileHandleForReading] readInBackgroundAndNotify];
-    
+
     /* install progress meter */
     NSPipe *outPipe = [NSPipe pipe];
     [task setStandardOutput:outPipe];
@@ -142,6 +155,13 @@
         [task launch];
     }
     @catch (NSException *exc) {
+        /* 
+         * It's very important to remove ourselves as the receiver of stdout, stderr events here, otherwise the 
+         * notification center possibly sends notifications after the operation was destroyed already.
+         */
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+
+        /* Give the delegate a chance to notice */
         NSError* error = [LCSTaskOperationError errorExecutionOfPathFailed:[task launchPath] message:[exc reason]];
         [self delegateSelector:@selector(taskOperation:handleError:)
                  withArguments:[NSArray arrayWithObjects:self, error, nil]];
@@ -150,19 +170,14 @@
 
     [task waitUntilExit];
 
-    /* just return if we've been canceled */
-    if ([self isCancelled]) {
-        return;
-    }
+    [self delegateSelector:@selector(taskOperation:terminatedWithStatus:)
+             withArguments:[NSArray arrayWithObjects:self, [NSNumber numberWithInt:[task terminationStatus]], nil]];
 
     /* read the remaining data from the output pipe */
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
     [self updateOutput:[[outPipe fileHandleForReading] readDataToEndOfFile] isAtEnd:YES];
     [self updateError:[[errPipe fileHandleForReading] readDataToEndOfFile] isAtEnd:YES];
-
-    [self delegateSelector:@selector(taskOperation:terminatedWithStatus:)
-             withArguments:[NSArray arrayWithObjects:self, [NSNumber numberWithInt:[task terminationStatus]], nil]];
 }
 
 @end

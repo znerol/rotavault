@@ -13,75 +13,133 @@
 
 #import <OCMock/OCMock.h>
 
-@interface LCSTaskOperationTestMock : NSObject
--(void)taskOperation:(LCSTaskOperation*)operation terminatedWithStatus:(NSNumber*)status;
-@end
-
-@implementation LCSTaskOperationTestMock : NSObject
--(void)taskOperation:(LCSTaskOperation*)operation terminatedWithStatus:(NSNumber*)status
-{
-    NSLog(@"XXX");
+@interface LCSTaskOperationTestAggregator : NSObject{
+    BOOL finished;
+    NSMutableData *dataout;
+    NSMutableData *dataerr;
 }
+@property(readonly) BOOL finished;
+@property(readonly) NSMutableData *dataout;
+@property(readonly) NSMutableData *dataerr;
 @end
 
+@implementation LCSTaskOperationTestAggregator
+@synthesize finished;
+@synthesize dataout;
+@synthesize dataerr;
+-(id)init
+{
+    self = [super init];
+    dataout = [[NSMutableData alloc]init];
+    dataerr = [[NSMutableData alloc]init];
+    finished = NO;
+    return self;
+}
+-(void)taskOperation:(LCSTaskOperation*)operation
+        updateOutput:(NSData*)stdoutData
+             isAtEnd:(NSNumber*)atEnd
+{
+    [dataout appendData:stdoutData];
+}
+
+-(void)taskOperation:(LCSTaskOperation*)operation
+         updateError:(NSData*)stderrData
+             isAtEnd:(NSNumber*)atEnd
+{
+    [dataerr appendData:stderrData];
+}
+
+-(void)taskOperationFinished:(LCSTaskOperation*)operation
+{
+    finished = YES;
+}
+
+@end
 
 @implementation LCSTaskOperationTest
-- (void)testEchoTask
+
+- (void)testSuccessfullTermination
 {
     LCSTaskOperation* op = [[LCSTaskOperation alloc] initWithLaunchPath:@"/usr/bin/true" arguments:nil];
     id mock = [OCMockObject mockForProtocol:@protocol(LCSTaskOperationDelegate)];
-
-    /* we'll ignore selectors signalling output from task */
-    [[mock stub] taskOperation:op updateOutput:[OCMArg any] isAtEnd:[OCMArg any]];
-    [[mock stub] taskOperation:op updateError:[OCMArg any] isAtEnd:[OCMArg any]];
-
-    /* we just expect the termination notification with the status code */
     [[mock expect] taskOperation:op terminatedWithStatus:[NSNumber numberWithInt:0]];
+
+    /* stub calls into aggregate object */
+    LCSTaskOperationTestAggregator *agg = [[LCSTaskOperationTestAggregator alloc] init];
+    [[[mock stub] andCall:@selector(taskOperation:updateOutput:isAtEnd:) onObject:agg]
+     taskOperation:op updateOutput:[OCMArg any] isAtEnd:[OCMArg any]];
+    [[[mock stub] andCall:@selector(taskOperation:updateError:isAtEnd:) onObject:agg]
+     taskOperation:op updateError:[OCMArg any] isAtEnd:[OCMArg any]];
+    [[[mock stub] andCall:@selector(taskOperationFinished:) onObject:agg] taskOperationFinished:op];
 
     [op setDelegate:mock];
     [op start];
 
     [mock verify];
     [op release];
+    [agg release];
 }
 
-#if 0
-- (void)testCancelBeforeStart
+- (void)testNonZeroStatusTermination
 {
-    LCSTaskOperation* op = [[LCSTaskOperation alloc] initWithLaunchPath:@"/bin/echo"
-                                                              arguments:[NSArray arrayWithObject:@"hello"]];
-
-    [op cancel];
+    LCSTaskOperation* op = [[LCSTaskOperation alloc] initWithLaunchPath:@"/usr/bin/false" arguments:nil];
+    id mock = [OCMockObject mockForProtocol:@protocol(LCSTaskOperationDelegate)];
+    [[mock expect] taskOperation:op terminatedWithStatus:[NSNumber numberWithInt:1]];
+    
+    /* stub calls into aggregate object */
+    LCSTaskOperationTestAggregator *agg = [[LCSTaskOperationTestAggregator alloc] init];
+    [[[mock stub] andCall:@selector(taskOperation:updateOutput:isAtEnd:) onObject:agg]
+     taskOperation:op updateOutput:[OCMArg any] isAtEnd:[OCMArg any]];
+    [[[mock stub] andCall:@selector(taskOperation:updateError:isAtEnd:) onObject:agg]
+     taskOperation:op updateError:[OCMArg any] isAtEnd:[OCMArg any]];
+    [[[mock stub] andCall:@selector(taskOperationFinished:) onObject:agg] taskOperationFinished:op];
+    
+    [op setDelegate:mock];
     [op start];
-
-    STAssertNotNil(op.error, @"error must be set if operation was canceled");
-    STAssertEquals([op.output length], (NSUInteger)0,
-                   @"the output must be empty for a task which was canceled before started");
-    STAssertTrue([op.error code] == NSUserCancelledError, @"error must be a user canceled error.");    
+    
+    [mock verify];
     [op release];
+    [agg release];
 }
 
-- (void)testCancelWhileRunning
+- (void)testCancel
 {
-    /* create a task doing nothing during ten seconds */
-    NSArray *args = [NSArray arrayWithObject:@"10"];
-    LCSTaskOperation* op = [[LCSTaskOperation alloc] initWithLaunchPath:@"/bin/sleep" arguments:args];
+    LCSTaskOperation* op = [[LCSTaskOperation alloc] initWithLaunchPath:@"/bin/sleep" arguments:[NSArray arrayWithObject:@"10"]];
+    
+    NSError *expectUserCancelledError = [OCMArg any];
+    //        [NSError errorWithDomain:NSCocoaErrorDomain code:NSUserCancelledError userInfo:[NSDictionary dictionary]];
+    id mock = [OCMockObject mockForProtocol:@protocol(LCSTaskOperationDelegate)];
+    [[mock expect] taskOperation:op terminatedWithStatus:[NSNumber numberWithInt:2]];
+    [[mock expect] taskOperation:op handleError:expectUserCancelledError];
+    
+    /* stub calls into aggregate object */
+    LCSTaskOperationTestAggregator *agg = [[LCSTaskOperationTestAggregator alloc] init];
+    [[[mock stub] andCall:@selector(taskOperation:updateOutput:isAtEnd:) onObject:agg]
+     taskOperation:op updateOutput:[OCMArg any] isAtEnd:[OCMArg any]];
+    [[[mock stub] andCall:@selector(taskOperation:updateError:isAtEnd:) onObject:agg]
+     taskOperation:op updateError:[OCMArg any] isAtEnd:[OCMArg any]];
+    [[[mock stub] andCall:@selector(taskOperationFinished:) onObject:agg] taskOperationFinished:op];
+    
+    [op setDelegate:mock];
 
     NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     [queue addOperation:op];
 
-    /* poll runloop for 0.2 seconds */
-    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.2]];
+    /* wait half a second before canceling the operation */
+    usleep(100000);
+    [op cancel];
 
-    /* cancel operations */
-    [queue cancelAllOperations];
+    while(!agg.finished) {
+        /* the dirty way */
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+    }
+    
     [queue waitUntilAllOperationsAreFinished];
-
-    STAssertNotNil(op.error, @"error must be set if operation was canceled");
-    STAssertEquals([op.error code], (NSInteger)NSUserCancelledError, @"error must be a user canceled error.");    
-
+    
+    [mock verify];
     [op release];
     [queue release];
+    [agg release];
 }
 
 - (void)testNonExistingBinary
@@ -90,37 +148,25 @@
 
     NSString *nowhere = [[testdir path] stringByAppendingPathComponent:@"nowhere"];
     LCSTaskOperation* op = [[LCSTaskOperation alloc] initWithLaunchPath:nowhere arguments:[NSArray array]];
+
+    NSError *expectUserCancelledError = [OCMArg any];
+    //        [NSError errorWithDomain:NSCocoaErrorDomain code:NSUserCancelledError userInfo:[NSDictionary dictionary]];
+    id mock = [OCMockObject mockForProtocol:@protocol(LCSTaskOperationDelegate)];
+    [[mock expect] taskOperation:op handleError:expectUserCancelledError];
+    
+    /* stub calls into aggregate object */
+    LCSTaskOperationTestAggregator *agg = [[LCSTaskOperationTestAggregator alloc] init];
+    [[[mock stub] andCall:@selector(taskOperation:updateOutput:isAtEnd:) onObject:agg]
+     taskOperation:op updateOutput:[OCMArg any] isAtEnd:[OCMArg any]];
+    [[[mock stub] andCall:@selector(taskOperation:updateError:isAtEnd:) onObject:agg]
+     taskOperation:op updateError:[OCMArg any] isAtEnd:[OCMArg any]];
+    [[[mock stub] andCall:@selector(taskOperationFinished:) onObject:agg] taskOperationFinished:op];
+    
+    [op setDelegate:mock];
     [op start];
 
-    STAssertNotNil(op.error, @"LCSTaskOperation set an error if binary cannot be launched");
-    STAssertEquals([op.error class], [LCSTaskOperationError class],
-                   @"LCSTaskOperation must return an LCSTaskOperationError if launch path is not accessible");
-    STAssertEquals([op.error code], (NSInteger)LCSLaunchOfExecutableFailed,
-                   @"LCSTaskOperation must set the error code to LCSLaunchOfExecutableFailed if launch path is not "
-                   @"accessible");
-
+    [mock verify];
     [op release];
-    [testdir remove];
-    [testdir release];
+    [agg release];
 }
-
-- (void)testBinaryReturningNonZeroStatus
-{
-    LCSTaskOperation* op = [[LCSTaskOperation alloc] initWithLaunchPath:@"/usr/bin/false"
-                                                              arguments:[NSArray arrayWithObject:@"hello"]];
-
-    [op start];
-
-    STAssertNotNil(op.error, @"error must be set if task did exit with a non-zero status code");
-    STAssertEquals([op.error class], [LCSTaskOperationError class],
-                   @"LCSTaskOperation must return an LCSTaskOperationError if task did exit with a non-zero status "
-                   @"code");
-    STAssertEquals([op.error code], (NSInteger)LCSExecutableReturnedNonZeroStatus,
-                   @"LCSTaskOperation must set the error code to LCSLaunchOfExecutableFailed task did exit with a "
-                   @"non-zero status code");
-    STAssertEquals([[op.error userInfo] objectForKey:LCSExecutableReturnStatus], [NSNumber numberWithInt:1],
-                   @"LCSTaskOperation must set LCSExecutableReturnStatus to the proper value");
-    [op release];    
-}
-#endif
 @end
