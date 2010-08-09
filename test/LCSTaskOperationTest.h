@@ -10,6 +10,10 @@
 
 
 @interface LCSTaskOperationTest : SenTestCase {
+    id mock;
+    BOOL finished;
+    NSMutableData *dataout;
+    NSMutableData *dataerr;    
 }
 
 @end

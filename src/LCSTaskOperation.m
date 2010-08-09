@@ -18,11 +18,18 @@
     if (arguments) {
         [task setArguments:arguments];
     }
+    errPipe = [[NSPipe pipe] retain];
+    errEOF = NO;
+    outPipe = [[NSPipe pipe] retain];
+    outEOF = NO;
+
     return self;
 }
 
 -(void)dealloc
 {
+    [errPipe release];
+    [outPipe release];
     [task release];
     [super dealloc];
 }
@@ -95,14 +102,22 @@
 {
     /* parameters for taskOperation:updateOutput:isAtEnd: */
     NSData  *data = [[nfc userInfo] objectForKey:NSFileHandleNotificationDataItem];
-    [self updateOutput:data isAtEnd:NO];
+    outEOF = ([data length] == 0);
+    [self updateOutput:data isAtEnd:outEOF];
+    if (!outEOF) {
+        [[outPipe fileHandleForReading] readInBackgroundAndNotify];
+    }
 }
 
 -(void)handleErrorPipe:(NSNotification*)nfc
 {
-    /* parameters for taskOperation:updateOutput:isAtEnd: */
+    /* parameters for taskOperation:updateError:isAtEnd: */
     NSData  *data = [[nfc userInfo] objectForKey:NSFileHandleNotificationDataItem];
+    errEOF = ([data length] == 0);
     [self updateError:data isAtEnd:NO];
+    if (!errEOF) {
+        [[errPipe fileHandleForReading] readInBackgroundAndNotify];
+    }
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath
@@ -130,7 +145,6 @@
     }
 
     /* install standard error pipe */
-    NSPipe *errPipe = [NSPipe pipe];
     [task setStandardError:errPipe];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleErrorPipe:)
@@ -139,7 +153,6 @@
     [[errPipe fileHandleForReading] readInBackgroundAndNotify];
 
     /* install progress meter */
-    NSPipe *outPipe = [NSPipe pipe];
     [task setStandardOutput:outPipe];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleOutputPipe:)
@@ -173,11 +186,11 @@
     [self delegateSelector:@selector(taskOperation:terminatedWithStatus:)
              withArguments:[NSArray arrayWithObjects:self, [NSNumber numberWithInt:[task terminationStatus]], nil]];
 
+    /* FIXME: spin until eof is reached for both streams */
+    while(!(outEOF && errEOF)) [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+    
     /* read the remaining data from the output pipe */
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-
-    [self updateOutput:[[outPipe fileHandleForReading] readDataToEndOfFile] isAtEnd:YES];
-    [self updateError:[[errPipe fileHandleForReading] readDataToEndOfFile] isAtEnd:YES];
 }
 
 @end

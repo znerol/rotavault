@@ -11,8 +11,12 @@
 
 
 @interface LCSTaskOperation : NSOperation {
-    NSTask          *task;
-    id              delegate;
+    NSTask  *task;
+    NSPipe  *errPipe;
+    NSPipe  *outPipe;
+    BOOL    errEOF;
+    BOOL    outEOF;
+    id      delegate;
 }
 
 -(id)initWithLaunchPath:(NSString*)path arguments:(NSArray*)arguments;
