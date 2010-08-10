@@ -40,6 +40,8 @@
 		CAC657E9120EDC9400069286 /* LCSHdiUtilWithProgressOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC657E8120EDC9400069286 /* LCSHdiUtilWithProgressOperation.m */; };
 		CAC65827120EE1F100069286 /* LCSTaskOperation+TestPassword.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC65825120EE1F100069286 /* LCSTaskOperation+TestPassword.m */; };
 		CAC65848120EE39000069286 /* LCSHdiUtilWithProgressOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC65846120EE39000069286 /* LCSHdiUtilWithProgressOperationTest.m */; };
+		CAD57B6412112FBF00CABF36 /* LCSBlockCopyOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA547490120B76F80014E9E8 /* LCSBlockCopyOperationTest.m */; };
+		CAD57B6512112FC000CABF36 /* LCSBlockCopyOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA547448120B66120014E9E8 /* LCSBlockCopyOperation.m */; };
 		CAE0E42612109A4500ADAEC3 /* LCSPlistTaskOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB1BD93120C1E800076DB12 /* LCSPlistTaskOperationTest.m */; };
 		CAE0E42712109A4600ADAEC3 /* LCSPlistTaskOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB1BD61120C1C860076DB12 /* LCSPlistTaskOperation.m */; };
 		CAE0E4FC1210A32500ADAEC3 /* LCSHdiUtilPlistOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC65694120EBF7100069286 /* LCSHdiUtilPlistOperation.m */; };
@@ -404,6 +406,8 @@
 				CABBF51F12111C2A003C0439 /* LCSTaskOperation+TestPassword.m in Sources */,
 				CA84DB0812112C16007B93DD /* LCSDiskUtilOperationTest.m in Sources */,
 				CA84DB0912112C17007B93DD /* LCSDiskUtilOperation.m in Sources */,
+				CAD57B6412112FBF00CABF36 /* LCSBlockCopyOperationTest.m in Sources */,
+				CAD57B6512112FC000CABF36 /* LCSBlockCopyOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

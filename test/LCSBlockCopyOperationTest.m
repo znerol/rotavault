@@ -12,16 +12,54 @@
 
 
 @implementation LCSBlockCopyOperationTest
+-(void)delegateCleanup
+{
+    if (result) {
+        [result release];
+        result = nil;
+    }
+    if (error) {
+        [error release];
+        error = nil;
+    }
+    progress = 0.0;
+}
+
 - (void) setUp
 {
     testdir = [[LCSTestdir alloc] init];
+    result = nil;
+    error = nil;
 }
 
 - (void) tearDown
 {
+    [self delegateCleanup];
     [testdir remove];
     [testdir release];
     testdir = nil;
+}
+
+-(void)taskOperation:(LCSTaskOperation*)operation handleError:(NSError*)inError
+{
+    error = [inError retain];
+}
+
+-(void)taskOperation:(LCSTaskOperation*)operation handleResult:(id)inResult
+{
+    result = [inResult retain];
+}
+
+-(void)taskOperation:(LCSTaskOperation*)operation updateProgress:(NSNumber*)inProgress
+{
+    float newProgress = [inProgress floatValue];
+    
+    /*
+     * filter out -1
+     */
+    if (newProgress >= 0) {
+        progress = newProgress;
+    }
 }
 
 - (void)testBlockCopy
@@ -32,14 +70,16 @@
                            @"NONE", @"-fs", @"HFS+", @"-attach", nil];
     LCSPlistTaskOperation *screateop = [[LCSPlistTaskOperation alloc] initWithLaunchPath:@"/usr/bin/hdiutil"
                                                                               arguments:screateargs];
+    [screateop setDelegate:self];
     [screateop start];
 
-    STAssertNotNil(screateop.result, @"return value of hdiutil must not be nil");
-    NSString *srcdev = [[[screateop.result objectForKey:@"system-entities"] objectAtIndex:0] objectForKey:@"dev-entry"];
+    STAssertNotNil(result, @"return value of hdiutil must not be nil");
+    NSString *srcdev = [[[[result objectForKey:@"system-entities"] objectAtIndex:0] objectForKey:@"dev-entry"] retain];
     STAssertNotNil(srcdev, @"source device must not be nil");
-    NSString *srcmount = [[[screateop.result objectForKey:@"system-entities"] objectAtIndex:0]
-                          objectForKey:@"mount-point"];
+    NSString *srcmount = [[[[result objectForKey:@"system-entities"] objectAtIndex:0]
+                           objectForKey:@"mount-point"] retain];
     STAssertNotNil(srcmount, @"source mount must not be nil");
+    [self delegateCleanup];
     
     /* populate the source */
     [[NSFileManager defaultManager] createFileAtPath:[srcmount stringByAppendingPathComponent:@"test.txt"]
@@ -52,23 +92,29 @@
                             @"NONE", nil];
     LCSPlistTaskOperation *tcreateop = [[LCSPlistTaskOperation alloc] initWithLaunchPath:@"/usr/bin/hdiutil"
                                                                                arguments:tcreateargs];
+    [tcreateop setDelegate:self];
     [tcreateop start];
-    STAssertNotNil(tcreateop.result, @"return value of hdiutil must not be nil");
+    STAssertNotNil(result, @"return value of hdiutil must not be nil");
+    [self delegateCleanup];
     
     /* attach target */
     NSArray *atargs = [NSArray arrayWithObjects:@"attach", tpath, @"-plist", @"-nomount", nil];
     LCSPlistTaskOperation *atop = [[LCSPlistTaskOperation alloc] initWithLaunchPath:@"/usr/bin/hdiutil"
                                                                           arguments:atargs];
+    [atop setDelegate:self];
     [atop start];
-    STAssertNotNil(atop.result, @"return value of hdiutil must not be nil");
-    NSString *dstdev = [[[atop.result objectForKey:@"system-entities"] objectAtIndex:0] objectForKey:@"dev-entry"];
+    STAssertNotNil(result, @"return value of hdiutil must not be nil");
+    NSString *dstdev = [[[[result objectForKey:@"system-entities"] objectAtIndex:0] objectForKey:@"dev-entry"] retain];
     STAssertNotNil(dstdev, @"target device must not be nil");
+    [self delegateCleanup];
     
-    /* perform test */
+    /* perform block copy operation */
     LCSBlockCopyOperation* op = [[LCSBlockCopyOperation alloc] initWithSourceDevice:srcdev targetDevice:dstdev];
+    [op setDelegate:self];
     [op start];
-    STAssertNil(op.error, @"error must be nil if operation was successfull");
-    STAssertEquals(op.progress, (float)100, @"progress must be 100.0 after completion of the operation");
+    STAssertNil(error, @"error must be nil if operation was successfull");
+    STAssertEquals(progress, (float)100, @"progress must be 100.0 after completion of the operation");
+    [self delegateCleanup];
 
     /* mount target */
     
@@ -82,10 +128,12 @@
     NSArray *infargs = [NSArray arrayWithObjects:@"info", @"-plist", dstdev, nil];
     LCSPlistTaskOperation *infop = [[LCSPlistTaskOperation alloc] initWithLaunchPath:@"/usr/sbin/diskutil"
                                                                            arguments:infargs];
+    [infop setDelegate:self];
     [infop start];
-    STAssertNotNil(infop.result, @"return value of diskutil must not be nil");
-    NSString *dstmount = [infop.result objectForKey:@"MountPoint"];
+    STAssertNotNil(result, @"return value of diskutil must not be nil");
+    NSString *dstmount = [[result objectForKey:@"MountPoint"] retain];
     STAssertNotNil(dstmount, @"target mount must not be nil");
+    [self delegateCleanup];
     
     /* now we compare the mounts using NSFileManager */
     STAssertTrue([[NSFileManager defaultManager] contentsEqualAtPath:srcmount andPath:dstmount],
@@ -98,6 +146,10 @@
                               arguments:[NSArray arrayWithObjects:@"detach", dstdev, nil]] waitUntilExit];
     
     /* release stuff */
+    [srcdev release];
+    [srcmount release];
+    [dstdev release];
+    [dstmount release];
     [screateop release];
     [tcreateop release];
     [atop release];

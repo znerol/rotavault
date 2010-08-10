@@ -10,9 +10,6 @@
 #import "LCSTaskOperation.h"
 
 
-@interface LCSBlockCopyOperation : LCSTaskOperation {
-    float progress;
-}
-@property(readonly) float progress;
+@interface LCSBlockCopyOperation : LCSTaskOperation
 - (LCSBlockCopyOperation*) initWithSourceDevice:(NSString*)sourcedev targetDevice:(NSString*)targetdev;
 @end

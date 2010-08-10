@@ -12,6 +12,9 @@
 
 @interface LCSBlockCopyOperationTest : SenTestCase {
     LCSTestdir *testdir;
+    float progress;
+    NSError *error;
+    NSDictionary *result;
 }
 
 @end
