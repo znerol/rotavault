@@ -10,10 +10,10 @@
 
 
 @implementation LCSDiskUtilOperation
--(id)initWithCommand:(NSString*)command arguments:(NSArray*)arguments
+-(id)initWithCommand:(NSString*)command arguments:(NSArray*)arguments resultKeyPath:(NSString*)keyPath
 {
     NSArray *args = [[NSArray arrayWithObjects:command, @"-plist", nil] arrayByAddingObjectsFromArray:arguments];
-    self = [super initWithLaunchPath:@"/usr/sbin/diskutil" arguments:args];
+    self = [super initWithLaunchPath:@"/usr/sbin/diskutil" arguments:args resultKeyPath:keyPath];
     return self;
 }
 @end
@@ -21,21 +21,15 @@
 @implementation LCSListDisksOperation
 -(id)init
 {
-    self = [super initWithCommand:@"list" arguments:nil];
+    self = [super initWithCommand:@"list" arguments:nil resultKeyPath:@"AllDisks"];
     return self;
-}
-
--(NSArray*) result
-{
-    NSDictionary* resultFromSuper = [super result];
-    return [resultFromSuper objectForKey:@"AllDisks"];
 }
 @end
 
 @implementation LCSInformationForDiskOperation
 -(id)initWithDiskIdentifier:(NSString*)identifier
 {
-    self = [super initWithCommand:@"info" arguments:[NSArray arrayWithObject:identifier]];
+    self = [super initWithCommand:@"info" arguments:[NSArray arrayWithObject:identifier] resultKeyPath:nil];
     return self;
 }
 @end

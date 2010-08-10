@@ -10,7 +10,8 @@
 
 
 @interface LCSDiskUtilOperationTest : SenTestCase {
-
+    NSDictionary *result;
+    NSError *error;
 }
 
 @end

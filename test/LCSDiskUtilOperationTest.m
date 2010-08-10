@@ -11,14 +11,42 @@
 
 
 @implementation LCSDiskUtilOperationTest
+-(void)setUp
+{
+    error = nil;
+    result = nil;
+}
+
+-(void)tearDown
+{
+    if (error) {
+        [error release];
+        error = nil;
+    }
+    if (result) {
+        [result release];
+        result = nil;
+    }
+}
+
+-(void)taskOperation:(LCSTaskOperation*)operation handleError:(NSError*)inError
+{
+    error = [inError retain];
+}
+
+-(void)taskOperation:(LCSTaskOperation*)operation handleResult:(id)inResult
+{
+    result = [inResult retain];
+}
 - (void) testListDisks
 {
     LCSListDisksOperation *op = [[LCSListDisksOperation alloc] init];
+    [op setDelegate:self];
     [op start];
-    STAssertNil(op.error, @"LCSListDiskOperation should not cause any errors");
-    STAssertNotNil(op.result, @"LCSListDiskOperation must return a result");
-    STAssertTrue([op.result isKindOfClass:[NSArray class]], @"Result of LCSListDiskOperation must be an array");
-    STAssertTrue([op.result count] > 0, @"LCSListDiskOperation must report at least one entry (startup disk)");
+    STAssertNil(error, @"LCSListDiskOperation should not cause any errors");
+    STAssertNotNil(result, @"LCSListDiskOperation must return a result");
+    STAssertTrue([result isKindOfClass:[NSArray class]], @"Result of LCSListDiskOperation must be an array");
+    STAssertTrue([result count] > 0, @"LCSListDiskOperation must report at least one entry (startup disk)");
 
     [op release];
 }
@@ -26,12 +54,13 @@
 -(void) testInfoForDisk
 {
     LCSInformationForDiskOperation *op = [[LCSInformationForDiskOperation alloc] initWithDiskIdentifier:@"/dev/disk0"];
+    [op setDelegate:self];
     [op start];
-    STAssertNil(op.error, @"LCSInformationForDiskOperation should not cause any errors for the startup disk");
-    STAssertNotNil(op.result, @"LCSInformationForDiskOperation must return a result for the startup disk");
-    STAssertTrue([op.result isKindOfClass:[NSDictionary class]], @"Result of LCSInformationForDiskOperation must be a"
+    STAssertNil(error, @"LCSInformationForDiskOperation should not cause any errors for the startup disk");
+    STAssertNotNil(result, @"LCSInformationForDiskOperation must return a result for the startup disk");
+    STAssertTrue([result isKindOfClass:[NSDictionary class]], @"Result of LCSInformationForDiskOperation must be a"
                    @"dictionary");
-    STAssertTrue([op.result count] > 0, @"Resulting dictionary may not be empty");
+    STAssertTrue([result count] > 0, @"Resulting dictionary may not be empty");
 
     [op release];
 }
