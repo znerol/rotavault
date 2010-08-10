@@ -28,6 +28,7 @@
 -(void)handleResult:(id)result;
 -(void)taskPreparingToLaunch;
 -(void)taskLaunched;
+-(void)updateProgress:(float)progress;
 -(void)taskTerminatedWithStatus:(int)status;
 -(void)operationFinished;
 @end

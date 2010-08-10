@@ -104,6 +104,12 @@
     [self delegateSelector:@selector(taskOperationLaunched:) withArguments:[NSArray arrayWithObject:self]];    
 }
 
+-(void)updateProgress:(float)progress
+{
+    [self delegateSelector:@selector(taskOperation:updateProgress:)
+             withArguments:[NSArray arrayWithObjects:self, [NSNumber numberWithFloat:progress], nil]];
+}
+
 -(void)taskTerminatedWithStatus:(int)status
 {
     [self delegateSelector:@selector(taskOperation:terminatedWithStatus:)

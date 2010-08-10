@@ -28,6 +28,9 @@
 		CAB1BD95120C1E800076DB12 /* LCSPlistTaskOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB1BD93120C1E800076DB12 /* LCSPlistTaskOperationTest.m */; };
 		CAB1BF01120C3D8A0076DB12 /* LCSTaskOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB1BEFF120C3D8A0076DB12 /* LCSTaskOperationTest.m */; };
 		CAB1C0D0120C66D10076DB12 /* LCSRotavaultErrorDomain.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB1C0CE120C66D10076DB12 /* LCSRotavaultErrorDomain.m */; };
+		CABBF51D12111C27003C0439 /* LCSHdiUtilWithProgressOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC65846120EE39000069286 /* LCSHdiUtilWithProgressOperationTest.m */; };
+		CABBF51E12111C28003C0439 /* LCSHdiUtilWithProgressOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC657E8120EDC9400069286 /* LCSHdiUtilWithProgressOperation.m */; };
+		CABBF51F12111C2A003C0439 /* LCSTaskOperation+TestPassword.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC65825120EE1F100069286 /* LCSTaskOperation+TestPassword.m */; };
 		CAC655FC120EB3A700069286 /* LCSDiskUtilOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC655FB120EB3A700069286 /* LCSDiskUtilOperation.m */; };
 		CAC65617120EB74200069286 /* LCSDiskUtilOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC65615120EB74200069286 /* LCSDiskUtilOperationTest.m */; };
 		CAC65695120EBF7100069286 /* LCSHdiUtilPlistOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC65694120EBF7100069286 /* LCSHdiUtilPlistOperation.m */; };
@@ -394,6 +397,9 @@
 				CAE0E42712109A4600ADAEC3 /* LCSPlistTaskOperation.m in Sources */,
 				CAE0E4FC1210A32500ADAEC3 /* LCSHdiUtilPlistOperation.m in Sources */,
 				CAE0E4FD1210A32500ADAEC3 /* LCSHdiUtilPlistOperationTest.m in Sources */,
+				CABBF51D12111C27003C0439 /* LCSHdiUtilWithProgressOperationTest.m in Sources */,
+				CABBF51E12111C28003C0439 /* LCSHdiUtilWithProgressOperation.m in Sources */,
+				CABBF51F12111C2A003C0439 /* LCSTaskOperation+TestPassword.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -16,31 +16,24 @@
                      arrayByAddingObject:@"-puppetstrings"];
     self = [super initWithLaunchPath:@"/usr/bin/hdiutil" arguments:args];
 
-    progress = -1.0;
     return self;
 }
 
--(BOOL) hasProgress
-{
-    return YES;
-}
-
-@synthesize progress;
-
--(BOOL)parseOutput:(NSData*)data isAtEnd:(BOOL)atEnd error:(NSError**)outError
+-(void)updateStandardOutput:(NSData*)data
 {
     NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     NSScanner *scanner = [NSScanner scannerWithString:str];
+    float   progress;
     while (![scanner isAtEnd]) {
         if([scanner scanString:@"PERCENT:" intoString:nil]) {
             [scanner scanFloat:&progress];
+            [self updateProgress:progress];
         }
         else {
             [scanner scanUpToString:@"PERCENT:" intoString:nil];
         }
     }    
     [str release];
-    return YES;
 }
 @end
 

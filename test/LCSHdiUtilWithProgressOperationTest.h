@@ -11,7 +11,10 @@
 
 
 @interface LCSHdiUtilWithProgressOperationTest : SenTestCase {
+    NSError *error;
+    NSDictionary *result;
     LCSTestdir *testdir;
+    float progress;
 }
 
 @end

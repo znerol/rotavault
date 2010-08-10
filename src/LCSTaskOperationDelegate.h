@@ -18,6 +18,7 @@
 -(void)taskOperation:(LCSTaskOperation*)operation handleResult:(id)result;
 -(void)taskOperationPreparing:(LCSTaskOperation*)operation;
 -(void)taskOperationLaunched:(LCSTaskOperation*)operation;
+-(void)taskOperation:(LCSTaskOperation*)operation updateProgress:(NSNumber*)progress;
 -(void)taskOperation:(LCSTaskOperation*)operation terminatedWithStatus:(NSNumber*)status;
 -(void)taskOperationFinished:(LCSTaskOperation*)operation;
 @end

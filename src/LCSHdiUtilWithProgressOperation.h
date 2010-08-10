@@ -10,10 +10,7 @@
 #import "LCSTaskOperation.h"
 
 
-@interface LCSHdiUtilWithProgressOperation : LCSTaskOperation {
-    float progress;
-}
-@property(readonly) float progress;
+@interface LCSHdiUtilWithProgressOperation : LCSTaskOperation
 -(id)initWithCommand:(NSString*)command arguments:(NSArray*)arguments;
 @end
 

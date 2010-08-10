@@ -16,6 +16,15 @@
     self = [super initWithLaunchPath:@"/usr/bin/hdiutil" arguments:args];
     return self;
 }
+
+-(void)taskTerminatedWithStatus:(int)status
+{
+    if (status != 0) {
+        NSError *error = [LCSTaskOperationError errorWithLaunchPath:[task launchPath] status:status];
+        [self handleError:error];
+    }
+    [super taskTerminatedWithStatus:status];
+}
 @end
 
 @implementation LCSHdiInfoOperation
@@ -41,5 +50,14 @@
     NSArray *args = [NSArray arrayWithObjects:@"detach", inPath, nil];
     self = [super initWithLaunchPath:@"/usr/bin/hdiutil" arguments:args];
     return self;
+}
+
+-(void)taskTerminatedWithStatus:(int)status
+{
+    if (status != 0) {
+        NSError *error = [LCSTaskOperationError errorWithLaunchPath:[task launchPath] status:status];
+        [self handleError:error];
+    }
+    [super taskTerminatedWithStatus:status];
 }
 @end

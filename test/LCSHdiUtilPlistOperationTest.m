@@ -11,6 +11,17 @@
 
 
 @implementation LCSHdiUtilPlistOperationTest
+-(void)delegateCleanup
+{
+    if (result) {
+        [result release];
+        result = nil;
+    }
+    if (error) {
+        [error release];
+        error = nil;
+    }
+}
 
 - (void)setUp
 {
@@ -33,34 +44,19 @@
 
     STAssertNil(error, @"Failed to create a new test-image");
     devpath = [[[result valueForKeyPath:@"system-entities.dev-entry"]
-                sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)] objectAtIndex:0];
-    STAssertNotNil(devpath, @"Failed to retreive the device path of the newly created test image");
+                sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:0];
+    STAssertNotNil(devpath, @"Failed to retrieve the device path of the newly created test image");
     devpath = [devpath retain];
+    [self delegateCleanup];
 
     [op release];
-
-    if(result) {
-        [result release];
-        result = nil;
-    }
-    if(error) {
-        [error release];
-        error = nil;
-    }
 }
 
 - (void)tearDown
 {
     NSArray *args = [NSArray arrayWithObjects:@"detach", devpath, nil];
 
-    if(result) {
-        [result release];
-        result = nil;
-    }
-    if(error) {
-        [error release];
-        error = nil;
-    }
+    [self delegateCleanup];
     
     LCSPlistTaskOperation *op = [[LCSPlistTaskOperation alloc] initWithLaunchPath:@"/usr/bin/hdiutil" arguments:args];
     [op start];
