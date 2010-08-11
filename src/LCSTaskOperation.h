@@ -6,7 +6,7 @@
 //  Copyright 2010 znerol.ch. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 #import "LCSTaskOperationError.h"
 
 
