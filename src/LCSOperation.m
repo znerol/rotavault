@@ -70,7 +70,7 @@
 
 -(void)handleResult:(id)result
 {
-    if (resultContext != [NSNull null] && resultKeyPath != [NSNull null]) {
+    if (![resultContext isKindOfClass:[NSNull class]] && ![resultKeyPath isKindOfClass:[NSNull class]]) {
         [resultContext setValue:result forKeyPath:resultKeyPath];
     }
 
