@@ -8,6 +8,7 @@
 
 #import "LCSTaskOperationTest.h"
 #import "LCSTaskOperationDelegate.h"
+#import "NSOperationQueue+NonBlockingWaitUntilFinished.h"
 #import "LCSRotavaultErrorDomain.h"
 #import "LCSTaskOperation.h"
 #import "LCSTestdir.h"
@@ -125,10 +126,10 @@
 
     [op cancel];
 
-    while(!finished) {
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
-    }
+    /* from NSOperationQueue+NonBlockingWaitUntilFinished */
+    [queue waitUntilAllOperationsAreFinishedPollingRunLoopInMode:NSDefaultRunLoopMode];
     
+    STAssertTrue(finished, @"Operation must be finished by now");
     [mock verify];
     [op release];
     [queue release];
