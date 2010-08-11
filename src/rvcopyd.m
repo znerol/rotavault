@@ -7,6 +7,7 @@
 #import "LCSRotavaultErrorDomain.h"
 #import "LCSTaskOperationError.h"
 #import "LCSSignalHandler.h"
+#import "LCSNanosecondTimer.h"
 
 @interface LCSRotavaultCopyCommand : NSObject
 {
@@ -14,11 +15,13 @@
     NSString* target;
     NSString* srccksum;
     NSString* tgtcksum;
+    uint64_t srcsize;
     LCSInformationForDiskOperation *sourceInfoOperation;
     LCSInformationForDiskOperation *targetInfoOperation;
     LCSBlockCopyOperation *blockCopyOperation;
     NSOperationQueue* queue;
     NSError* originalError;
+    LCSNanosecondTimer *timer;
 }
 @end
 
@@ -34,17 +37,23 @@
     target = [targetDevice retain];
     srccksum = [sourceChecksum retain];
     tgtcksum = [targetChecksum retain];
+    srcsize = 0;
 
     originalError = nil;
 
+    /* setup operations */
     sourceInfoOperation = [[LCSInformationForDiskOperation alloc] initWithDiskIdentifier:source];
     [sourceInfoOperation setDelegate:self];
     targetInfoOperation = [[LCSInformationForDiskOperation alloc] initWithDiskIdentifier:target];
     [targetInfoOperation setDelegate:self];    
     blockCopyOperation = [[LCSBlockCopyOperation alloc] initWithSourceDevice:source targetDevice:target];    
     [blockCopyOperation setDelegate:self];
+    [blockCopyOperation addDependency:sourceInfoOperation];
+    [blockCopyOperation addDependency:targetInfoOperation];
+
 
     queue = [[NSOperationQueue alloc] init];
+    timer = [[LCSNanosecondTimer alloc] init];
 
     /* setup signal handler and signal pipe */
     LCSSignalHandler *sh = [LCSSignalHandler defaultSignalHandler];
@@ -75,12 +84,26 @@
     [super dealloc];
 }
 
--(void)taskOperation:(LCSTaskOperation*)operation updateStandardError:(NSData*)data
+-(BOOL)verifyInfo:(NSDictionary*)diskInfo withChecksum:(NSString*)checksum error:(NSError**)outError
+{
+    return YES;
+}
+
+-(void)calculateSourceSize:(NSDictionary*)diskInfo
+{
+    uint64_t totalSize = [[diskInfo valueForKey:@"TotalSize"] unsignedLongLongValue];
+    uint64_t freeSpace = [[diskInfo valueForKey:@"FreeSpace"] unsignedLongLongValue];
+
+    /* source size in bytes */
+    srcsize = totalSize - freeSpace;
+}
+
+-(void)operation:(LCSTaskOperation*)operation updateStandardError:(NSData*)data
 {
     // [[stderrData objectForKey:operation] appendData:data];
 }
 
--(void)taskOperation:(LCSTaskOperation*)operation handleError:(NSError*)error
+-(void)operation:(LCSTaskOperation*)operation handleError:(NSError*)error
 {
     if(!originalError) {
         originalError = [error retain];
@@ -94,18 +117,30 @@
     [queue cancelAllOperations];
 }
 
--(void)taskOperation:(LCSTaskOperation*)operation handleResult:(id)result
+-(void)operation:(LCSTaskOperation*)operation handleResult:(id)result
 {
+    NSError *error;
+
     if(operation == sourceInfoOperation) {
+        if(![self verifyInfo:result withChecksum:srccksum error:&error]){
+            [operation handleError:error];
+            return;
+        }
+
+        [self calculateSourceSize:result];
     }
     else if(operation == targetInfoOperation) {
+        if(![self verifyInfo:result withChecksum:tgtcksum error:&error]){
+            [operation handleError:error];
+            return;
+        }        
     }
     else {
         // FIXME: unexpected result
     }
 }
 
--(void)taskOperation:(LCSTaskOperation*)operation updateProgress:(NSNumber*)progress
+-(void)operation:(LCSTaskOperation*)operation updateProgress:(NSNumber*)progress
 {
     if(operation == blockCopyOperation) {
         
@@ -115,7 +150,7 @@
     }
 }
 
--(void)taskOperation:(LCSTaskOperation*)operation terminatedWithStatus:(NSNumber*)status
+-(void)operation:(LCSTaskOperation*)operation terminatedWithStatus:(NSNumber*)status
 {
     if([status intValue] == 0) {
         return;
@@ -129,7 +164,7 @@
     [operation handleError:error];
 }
 
--(void)taskOperationFinished:(LCSTaskOperation*)operation
+-(void)operationFinished:(LCSTaskOperation*)operation
 {
     /* 
      * FIXME: we need to respond to this selector, otherwise the runloop will not return after the last operation
@@ -145,28 +180,28 @@
 -(NSError*)execute
 {
     /* This is not a loop! */
-    do {
-        [queue addOperation:sourceInfoOperation];
-        [queue addOperation:targetInfoOperation];
+    [timer setReferenceTime];
 
-        /* from NSOperationQueue+NonBlockingWaitUntilFinished.h */
-        [queue waitUntilAllOperationsAreFinishedPollingRunLoopInMode:NSDefaultRunLoopMode];
+    [queue addOperation:sourceInfoOperation];
+    [queue addOperation:targetInfoOperation];
+    [queue addOperation:blockCopyOperation];
+    [queue waitUntilAllOperationsAreFinishedPollingRunLoopInMode:NSDefaultRunLoopMode];
 
-        if(originalError) break;
+    if(originalError)
+    {
+        /* try to mount the source volume */
+        NSArray* remountArgs = [NSArray arrayWithObjects:@"mount", source, nil];
+        [[NSTask launchedTaskWithLaunchPath:@"/usr/sbin/diskutil" arguments:remountArgs] waitUntilExit];
+        return originalError;
+    }
+    else {
+        long double milliseconds = [timer nanosecondsSinceReferenceTime] / 1000000.;
+        long double speed = UInt64ToLongDouble(srcsize) / milliseconds;
 
-        [queue addOperation:blockCopyOperation];
-        [queue waitUntilAllOperationsAreFinishedPollingRunLoopInMode:NSDefaultRunLoopMode];
-
-        if(originalError) break;
-        
+        NSLog(@"Duration of copy & verification of %d bytes took %.2Lf seconds (%.2Lf bytes/sec)",
+              srcsize, milliseconds / 1000., speed * 1000.);
         return nil;
     }
-    while(0);
-
-    /* try to mount the source volume */
-    NSArray* remountArgs = [NSArray arrayWithObjects:@"mount", source, nil];
-    [[NSTask launchedTaskWithLaunchPath:@"/usr/sbin/diskutil" arguments:remountArgs] waitUntilExit];
-    return originalError;
 }
 @end
 
