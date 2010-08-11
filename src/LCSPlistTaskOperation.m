@@ -12,23 +12,23 @@
 
 @implementation LCSPlistTaskOperation
 
--(id)initWithLaunchPath:(NSString *)path arguments:(NSArray *)arguments resultKeyPath:(NSString*)keyPath
+-(id)initWithLaunchPath:(NSString *)path arguments:(NSArray *)arguments extractKeyPath:(NSString*)keyPath
 {
     self = [super initWithLaunchPath:path arguments:arguments];
     _outputData = [[NSMutableData alloc] init];
-    resultKeyPath = [keyPath retain];
+    extractKeyPath = [keyPath retain];
     return self;
 }
 
 -(id)initWithLaunchPath:(NSString *)path arguments:(NSArray *)arguments
 {
-    return [self initWithLaunchPath:path arguments:arguments resultKeyPath:nil];
+    return [self initWithLaunchPath:path arguments:arguments extractKeyPath:nil];
 }
 
 -(void)dealloc
 {
     [_outputData release];
-    [resultKeyPath release];
+    [extractKeyPath release];
     _outputData = nil;
     [super dealloc];
 }
@@ -52,8 +52,8 @@
                                                             errorDescription:&errorDescription];
 
     if (result) {
-        if (resultKeyPath) {
-            result = [result valueForKeyPath:resultKeyPath];
+        if (extractKeyPath) {
+            result = [result valueForKeyPath:extractKeyPath];
         }
         [self handleResult:result];
     }

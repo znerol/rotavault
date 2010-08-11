@@ -11,7 +11,7 @@
 
 
 @interface LCSDiskUtilOperation : LCSPlistTaskOperation
--(id)initWithCommand:(NSString*)command arguments:(NSArray*)arguments resultKeyPath:(NSString*)keyPath;
+-(id)initWithCommand:(NSString*)command arguments:(NSArray*)arguments extractKeyPath:(NSString*)keyPath;
 @end
 
 @interface LCSListDisksOperation : LCSDiskUtilOperation
