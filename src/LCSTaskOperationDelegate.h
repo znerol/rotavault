@@ -12,13 +12,13 @@
 
 @protocol LCSTaskOperationDelegate
 
--(void)taskOperation:(LCSTaskOperation*)operation updateStandardOutput:(NSData*)stdoutData;
--(void)taskOperation:(LCSTaskOperation*)operation updateStandardError:(NSData*)stderrData;
--(void)taskOperation:(LCSTaskOperation*)operation handleError:(NSError*)error;
--(void)taskOperation:(LCSTaskOperation*)operation handleResult:(id)result;
--(void)taskOperationPreparing:(LCSTaskOperation*)operation;
+-(void)operation:(LCSTaskOperation*)operation updateStandardOutput:(NSData*)stdoutData;
+-(void)operation:(LCSTaskOperation*)operation updateStandardError:(NSData*)stderrData;
+-(void)operation:(LCSTaskOperation*)operation handleError:(NSError*)error;
+-(void)operation:(LCSTaskOperation*)operation handleResult:(id)result;
+-(void)operationStarted:(LCSTaskOperation*)operation;
 -(void)taskOperationLaunched:(LCSTaskOperation*)operation;
--(void)taskOperation:(LCSTaskOperation*)operation updateProgress:(NSNumber*)progress;
--(void)taskOperation:(LCSTaskOperation*)operation terminatedWithStatus:(NSNumber*)status;
--(void)taskOperationFinished:(LCSTaskOperation*)operation;
+-(void)operation:(LCSTaskOperation*)operation updateProgress:(NSNumber*)progress;
+-(void)operation:(LCSTaskOperation*)operation terminatedWithStatus:(NSNumber*)status;
+-(void)operationFinished:(LCSTaskOperation*)operation;
 @end

@@ -38,11 +38,11 @@
     
     /* stub calls into aggregate object */
     mock = [[OCMockObject mockForProtocol:@protocol(LCSTaskOperationDelegate)] retain];
-    [[[mock stub] andCall:@selector(taskOperation:updateStandardOutput:) onObject:self] taskOperation:[OCMArg any] updateStandardOutput:[OCMArg any]];
-    [[[mock stub] andCall:@selector(taskOperation:updateStandardError:) onObject:self] taskOperation:[OCMArg any] updateStandardError:[OCMArg any]];
-    [[mock stub] taskOperationPreparing:[OCMArg any]];
+    [[[mock stub] andCall:@selector(operation:updateStandardOutput:) onObject:self] operation:[OCMArg any] updateStandardOutput:[OCMArg any]];
+    [[[mock stub] andCall:@selector(operation:updateStandardError:) onObject:self] operation:[OCMArg any] updateStandardError:[OCMArg any]];
+    [[mock stub] operationStarted:[OCMArg any]];
     [[[mock stub] andCall:@selector(taskOperationLaunched:) onObject:self] taskOperationLaunched:[OCMArg any]];
-    [[[mock stub] andCall:@selector(taskOperationFinished:) onObject:self] taskOperationFinished:[OCMArg any]];
+    [[[mock stub] andCall:@selector(operationFinished:) onObject:self] operationFinished:[OCMArg any]];
 }
 
 - (void)tearDown
@@ -55,12 +55,12 @@
     dataerr = nil;
 }
 
--(void)taskOperation:(LCSTaskOperation*)operation updateStandardOutput:(NSData*)stdoutData
+-(void)operation:(LCSTaskOperation*)operation updateStandardOutput:(NSData*)stdoutData
 {
     [dataout appendData:stdoutData];
 }
 
--(void)taskOperation:(LCSTaskOperation*)operation updateStandardError:(NSData*)stderrData
+-(void)operation:(LCSTaskOperation*)operation updateStandardError:(NSData*)stderrData
 {
     [dataerr appendData:stderrData];
 }
@@ -70,7 +70,7 @@
     launched = YES;
 }
 
--(void)taskOperationFinished:(LCSTaskOperation*)operation
+-(void)operationFinished:(LCSTaskOperation*)operation
 {
     finished = YES;
 }
@@ -78,7 +78,7 @@
 - (void)testSuccessfullTermination
 {
     LCSTaskOperation* op = [[LCSTaskOperation alloc] initWithLaunchPath:@"/usr/bin/true" arguments:nil];
-    [[mock expect] taskOperation:op terminatedWithStatus:[NSNumber numberWithInt:0]];
+    [[mock expect] operation:op terminatedWithStatus:[NSNumber numberWithInt:0]];
 
     [op setDelegate:mock];
     [op start];
@@ -91,7 +91,7 @@
 - (void)testNonZeroStatusTermination
 {
     LCSTaskOperation* op = [[LCSTaskOperation alloc] initWithLaunchPath:@"/usr/bin/false" arguments:nil];
-    [[mock expect] taskOperation:op terminatedWithStatus:[NSNumber numberWithInt:1]];
+    [[mock expect] operation:op terminatedWithStatus:[NSNumber numberWithInt:1]];
     
     [op setDelegate:mock];
     [op start];
@@ -110,8 +110,8 @@
                                          code:NSUserCancelledError
                                      userInfo:[NSDictionary dictionary]];
     id equalToError = [OCMArg checkWithSelector:@selector(isEqualToError:) onObject:error];
-    [[mock expect] taskOperation:op terminatedWithStatus:[NSNumber numberWithInt:2]];
-    [[mock expect] taskOperation:op handleError:equalToError];
+    [[mock expect] operation:op terminatedWithStatus:[NSNumber numberWithInt:2]];
+    [[mock expect] operation:op handleError:equalToError];
     [op setDelegate:mock];
 
     NSOperationQueue *queue = [[NSOperationQueue alloc] init];
@@ -146,7 +146,7 @@
                                          code:LCSLaunchOfExecutableFailed
                                      userInfo:[NSDictionary dictionary]];
     id equalToError = [OCMArg checkWithSelector:@selector(isEqualToError:) onObject:error];
-    [[mock expect] taskOperation:op handleError:equalToError];
+    [[mock expect] operation:op handleError:equalToError];
     
     [op setDelegate:mock];
     [op start];
@@ -163,7 +163,7 @@
 {
     LCSTaskOperation* op = [[LCSTaskOperation alloc] initWithLaunchPath:@"/bin/echo"
                                                               arguments:[NSArray arrayWithObject:@"Hello"]];
-    [[mock expect] taskOperation:op terminatedWithStatus:[NSNumber numberWithInt:0]];
+    [[mock expect] operation:op terminatedWithStatus:[NSNumber numberWithInt:0]];
 
     [op setDelegate:mock];
     [op start];

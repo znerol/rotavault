@@ -30,12 +30,12 @@
     }
 }
 
--(void)taskOperation:(LCSTaskOperation*)operation handleError:(NSError*)inError
+-(void)operation:(LCSTaskOperation*)operation handleError:(NSError*)inError
 {
     error = [inError retain];
 }
 
--(void)taskOperation:(LCSTaskOperation*)operation handleResult:(id)inResult
+-(void)operation:(LCSTaskOperation*)operation handleResult:(id)inResult
 {
     result = [inResult retain];
 }

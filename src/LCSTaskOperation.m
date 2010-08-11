@@ -7,6 +7,7 @@
 //
 
 #import "LCSTaskOperation.h"
+#import "LCSOperationPrivate.h"
 
 @implementation LCSTaskOperation
 
@@ -34,69 +35,16 @@
     [super dealloc];
 }
 
--(void)setDelegate:(id)newDelegate
-{
-    delegate = newDelegate;
-}
-
--(void)delegateSelector:(SEL)selector withArguments:(NSArray*)arguments
-{
-
-    /* nothing to perform if there is no delegate */
-    if (delegate == nil) {
-        return;
-    }
-
-    /* nothing to perform if the delegate does not respond to the specified selector */
-    NSMethodSignature *sig = [delegate methodSignatureForSelector:selector];
-    if (sig == nil) {
-        return;
-    }
-    
-
-    NSInvocation *inv = [NSInvocation invocationWithMethodSignature:sig];
-    [inv setSelector:selector];
-
-    NSInteger argIndex=2;
-    for(id arg in arguments) {
-        [inv setArgument:&arg atIndex:argIndex++];
-    }
-
-    @try {
-        [inv performSelectorOnMainThread:@selector(invokeWithTarget:) withObject:delegate waitUntilDone:YES];
-    }
-    @catch (NSException * e) {
-        NSLog(@"Failed to perform delegate method 1: %@", [e description]);
-    }
-}
-
 -(void)updateStandardOutput:(NSData*)data
 {
-    [self delegateSelector:@selector(taskOperation:updateStandardOutput:)
+    [self delegateSelector:@selector(operation:updateStandardOutput:)
              withArguments:[NSArray arrayWithObjects:self, data, nil]];
 }
 
 -(void)updateStandardError:(NSData*)data
 {
-    [self delegateSelector:@selector(taskOperation:updateStandardError:)
+    [self delegateSelector:@selector(operation:updateStandardError:)
              withArguments:[NSArray arrayWithObjects:self, data, nil]];
-}
-
--(void)handleError:(NSError*)error
-{
-    [self delegateSelector:@selector(taskOperation:handleError:)
-             withArguments:[NSArray arrayWithObjects:self, error, nil]];
-}
-
--(void)handleResult:(id)result
-{
-    [self delegateSelector:@selector(taskOperation:handleResult:)
-             withArguments:[NSArray arrayWithObjects:self, result, nil]];
-}
-
--(void)taskPreparingToLaunch
-{
-    [self delegateSelector:@selector(taskOperationPreparing:) withArguments:[NSArray arrayWithObject:self]];
 }
 
 -(void)taskLaunched
@@ -104,26 +52,15 @@
     [self delegateSelector:@selector(taskOperationLaunched:) withArguments:[NSArray arrayWithObject:self]];    
 }
 
--(void)updateProgress:(float)progress
-{
-    [self delegateSelector:@selector(taskOperation:updateProgress:)
-             withArguments:[NSArray arrayWithObjects:self, [NSNumber numberWithFloat:progress], nil]];
-}
-
 -(void)taskTerminatedWithStatus:(int)status
 {
-    [self delegateSelector:@selector(taskOperation:terminatedWithStatus:)
+    [self delegateSelector:@selector(operation:terminatedWithStatus:)
              withArguments:[NSArray arrayWithObjects:self, [NSNumber numberWithInt:status], nil]];
-}
-
--(void)operationFinished
-{
-    [self delegateSelector:@selector(taskOperationFinished:) withArguments:[NSArray arrayWithObject:self]];
 }
 
 -(void)handleStandardOutputPipe:(NSNotification*)nfc
 {
-    /* parameters for taskOperation:updateStandardOutput: */
+    /* parameters for operation:updateStandardOutput: */
     NSData  *data = [[nfc userInfo] objectForKey:NSFileHandleNotificationDataItem];
     [self updateStandardOutput:data];
 
@@ -135,7 +72,7 @@
 
 -(void)handleStandardErrorPipe:(NSNotification*)nfc
 {
-    /* parameters for taskOperation:updateStandardError: */
+    /* parameters for operation:updateStandardError: */
     NSData  *data = [[nfc userInfo] objectForKey:NSFileHandleNotificationDataItem];
     [self updateStandardError:data];
 
@@ -145,32 +82,9 @@
     }
 }
 
--(void)observeValueForKeyPath:(NSString *)keyPath
-                     ofObject:(id)object
-                       change:(NSDictionary *)change
-                      context:(void *)context
-{
-    if (object == self && [keyPath isEqualToString:@"isFinished"]) {
-        [self operationFinished];
-    }
-}
-
 -(void)main
 {
-    /* check for cancelation */
-    if ([self isCancelled]) {
-        NSError *cancelError = [NSError errorWithDomain:NSCocoaErrorDomain
-                                                   code:NSUserCancelledError
-                                               userInfo:[NSDictionary dictionary]];
-        [self handleError:cancelError];
-    }
-    
-    /* notify delegate that we're preparing for launch now */
-    [self taskPreparingToLaunch];
-
-    /* register finished handler */
-    [self addObserver:self forKeyPath:@"isFinished" options:0 context:nil];
-
+    [super prepareMain];
 
     /* install standard error pipe */
     [task setStandardError:errPipe];
@@ -218,23 +132,17 @@
     while(outEOF == NO || errEOF == NO){
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
     }
-    
+
     /* finally remove us from the notification center */
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 -(void)cancel
 {
-    [super cancel];
-    
     if ([task isRunning]) {
         [task interrupt];
     }
-    
-    NSError *cancelError = [NSError errorWithDomain:NSCocoaErrorDomain
-                                               code:NSUserCancelledError
-                                           userInfo:[NSDictionary dictionary]];
-    [self handleError:cancelError];
+    [super cancel];
 }
 
 @end
