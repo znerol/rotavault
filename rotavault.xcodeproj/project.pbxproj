@@ -34,6 +34,11 @@
 		CA45BA21121591C000D3E40A /* LCSKeyValueOperationParameterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA45BA20121591C000D3E40A /* LCSKeyValueOperationParameterTest.m */; };
 		CA45BA22121591C000D3E40A /* LCSKeyValueOperationParameterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA45BA20121591C000D3E40A /* LCSKeyValueOperationParameterTest.m */; };
 		CA45BA4D12159CB400D3E40A /* LCSTestdir.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB72D7A120708220093D08A /* LCSTestdir.m */; };
+		CA45BA5812159D0A00D3E40A /* LCSTaskOperationError.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA635B8120C0E080036B643 /* LCSTaskOperationError.m */; };
+		CA45BA5912159D0C00D3E40A /* LCSTaskOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA635BD120C0F0E0036B643 /* LCSTaskOperation.m */; };
+		CA45BA5A12159D0F00D3E40A /* LCSRotavaultErrorDomain.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB1C0CE120C66D10076DB12 /* LCSRotavaultErrorDomain.m */; };
+		CA45BA5B12159D1A00D3E40A /* NSOperationQueue+NonBlockingWaitUntilFinished.m in Sources */ = {isa = PBXBuildFile; fileRef = CA2E638F1212AB760031C4FA /* NSOperationQueue+NonBlockingWaitUntilFinished.m */; };
+		CA45BA5C12159D2300D3E40A /* LCSTaskOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB1BEFF120C3D8A0076DB12 /* LCSTaskOperationTest.m */; };
 		CA54744A120B66120014E9E8 /* LCSBlockCopyOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA547448120B66120014E9E8 /* LCSBlockCopyOperation.m */; };
 		CA547492120B76F80014E9E8 /* LCSBlockCopyOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA547490120B76F80014E9E8 /* LCSBlockCopyOperationTest.m */; };
 		CA9488821211895B00415257 /* rvcopyd.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9488811211895B00415257 /* rvcopyd.m */; };
@@ -517,6 +522,11 @@
 				CA45BA1612158F1D00D3E40A /* LCSSimpleOperationParameterTest.m in Sources */,
 				CA45BA22121591C000D3E40A /* LCSKeyValueOperationParameterTest.m in Sources */,
 				CA45BA4D12159CB400D3E40A /* LCSTestdir.m in Sources */,
+				CA45BA5812159D0A00D3E40A /* LCSTaskOperationError.m in Sources */,
+				CA45BA5912159D0C00D3E40A /* LCSTaskOperation.m in Sources */,
+				CA45BA5A12159D0F00D3E40A /* LCSRotavaultErrorDomain.m in Sources */,
+				CA45BA5B12159D1A00D3E40A /* NSOperationQueue+NonBlockingWaitUntilFinished.m in Sources */,
+				CA45BA5C12159D2300D3E40A /* LCSTaskOperationTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "LCSOperation.h"
+#import "LCSOperationParameter.h"
 
 
 @interface LCSTaskOperation : LCSOperation {
@@ -17,12 +18,12 @@
     BOOL    errEOF;
     BOOL    outEOF;
     
-    NSString*   launchPath;
-    NSArray*    arguments;
+    id <LCSOperationInputParameter> launchPath;    /* NSString */
+    id <LCSOperationInputParameter> arguments;     /* NSArray of NSString */
 }
 
-@property(retain) NSString* launchPath;
-@property(retain) NSArray* arguments;
+@property(retain) id <LCSOperationInputParameter> launchPath;
+@property(retain) id <LCSOperationInputParameter> arguments;
 
 -(void)updateStandardOutput:(NSData*)data;
 -(void)updateStandardError:(NSData*)data;

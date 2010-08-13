@@ -7,6 +7,8 @@
 //
 
 #import "LCSTaskOperation.h"
+#import "LCSSimpleOperationParameter.h"
+
 
 @implementation LCSTaskOperation
 
@@ -19,7 +21,7 @@
     outPipe = [[NSPipe alloc] init];
     outEOF = NO;
     launchPath = [[NSNull null] retain];
-    arguments = [[NSArray alloc] init];
+    arguments = [[LCSSimpleOperationInputParameter alloc] initWithValue:[NSArray array]];
     return self;
 }
 
@@ -28,8 +30,8 @@
     [errPipe release];
     [outPipe release];
     [task release];
-    [launchPath release];
-    [arguments release];
+    [(NSObject*)launchPath release];
+    [(NSObject*)arguments release];
     [super dealloc];
 }
 
@@ -100,8 +102,8 @@
 -(void)execute
 {
     [self taskBuildArguments];
-    [task setLaunchPath:launchPath];
-    [task setArguments:arguments];
+    [task setLaunchPath:launchPath.value];
+    [task setArguments:arguments.value];
 
     /* install standard error pipe */
     [task setStandardError:errPipe];
