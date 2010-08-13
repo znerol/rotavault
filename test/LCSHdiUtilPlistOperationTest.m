@@ -36,9 +36,13 @@
      */
     result = nil;
     error = nil;
-    NSArray *args = [NSArray arrayWithObjects:@"create", @"-sectors", @"2000", imgpath, @"-plist", 
-                     @"-layout", @"GPTSPUD", @"-fs", @"HFS+", @"-attach", nil];
-    LCSPlistTaskOperation *op = [[LCSPlistTaskOperation alloc] initWithLaunchPath:@"/usr/bin/hdiutil" arguments:args];
+
+    LCSPlistTaskOperation *op = [[LCSPlistTaskOperation alloc] init];
+    op.launchPath = @"/usr/bin/hdiutil";
+    op.arguments = [NSArray arrayWithObjects:@"create", @"-sectors", @"2000", imgpath, @"-plist", 
+                    @"-layout", @"GPTSPUD", @"-fs", @"HFS+", @"-attach", nil];
+    [op bindParameter:@"result" direction:LCSParameterOut toObject:self withKeyPath:@"result"];
+
     [op setDelegate:self];
     [op start];
 
@@ -54,11 +58,12 @@
 
 - (void)tearDown
 {
-    NSArray *args = [NSArray arrayWithObjects:@"detach", devpath, nil];
-
     [self delegateCleanup];
+
+    LCSPlistTaskOperation *op = [[LCSPlistTaskOperation alloc] init];
+    op.launchPath = @"/usr/bin/hdiutil";
+    op.arguments = [NSArray arrayWithObjects:@"detach", devpath, nil];
     
-    LCSPlistTaskOperation *op = [[LCSPlistTaskOperation alloc] initWithLaunchPath:@"/usr/bin/hdiutil" arguments:args];
     [op start];
     [op release];
 
@@ -69,7 +74,7 @@
     [testdir release];
 }
 
--(void)operation:(LCSTaskOperation*)operation handleError:(NSError*)inError
+-(void)operation:(LCSOperation*)operation handleError:(NSError*)inError
 {
     error = [inError retain];
 }
@@ -83,6 +88,7 @@
 {
     LCSHdiInfoOperation *op = [[LCSHdiInfoOperation alloc] init];
     [op setDelegate:self];
+    [op bindParameter:@"result" direction:LCSParameterOut toObject:self withKeyPath:@"result"];
     [op start];
 
     STAssertNil(error, @"LCSHdiUtilPlistOperation never should report any errors");

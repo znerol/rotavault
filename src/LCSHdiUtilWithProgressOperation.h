@@ -11,10 +11,13 @@
 
 
 @interface LCSHdiUtilWithProgressOperation : LCSTaskOperation
--(id)initWithCommand:(NSString*)command arguments:(NSArray*)arguments;
 @end
 
-@interface LCSCreateEncryptedImageOperation : LCSHdiUtilWithProgressOperation
--(id)initWithPath:(NSString*)inPath sectors:(NSInteger)sectors;
+@interface LCSCreateEncryptedImageOperation : LCSHdiUtilWithProgressOperation {
+    NSString *path;
+    uint64_t sectors;
+}
+@property(retain) NSString  *path;
+@property(assign) uint64_t  sectors;
 @end
 

@@ -10,6 +10,10 @@
 #import "LCSTaskOperation.h"
 
 
-@interface LCSBlockCopyOperation : LCSTaskOperation
-- (LCSBlockCopyOperation*) initWithSourceDevice:(NSString*)sourcedev targetDevice:(NSString*)targetdev;
+@interface LCSBlockCopyOperation : LCSTaskOperation {
+    NSString* source;
+    NSString* target;
+}
+@property(retain) NSString* source;
+@property(retain) NSString* target;
 @end

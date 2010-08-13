@@ -7,7 +7,6 @@
 //
 
 #import "LCSTaskOperationTest.h"
-#import "LCSTaskOperationDelegate.h"
 #import "NSOperationQueue+NonBlockingWaitUntilFinished.h"
 #import "LCSRotavaultErrorDomain.h"
 #import "LCSTaskOperation.h"
@@ -31,18 +30,17 @@
 
 - (void)setUp
 {
-    finished = NO;
     launched = NO;
     dataout = [[NSMutableData alloc] init];
     dataerr = [[NSMutableData alloc] init];
-    
+
     /* stub calls into aggregate object */
     mock = [[OCMockObject mockForProtocol:@protocol(LCSTaskOperationDelegate)] retain];
+
+    /* forward these to test case */
     [[[mock stub] andCall:@selector(operation:updateStandardOutput:) onObject:self] operation:[OCMArg any] updateStandardOutput:[OCMArg any]];
     [[[mock stub] andCall:@selector(operation:updateStandardError:) onObject:self] operation:[OCMArg any] updateStandardError:[OCMArg any]];
-    [[mock stub] operationStarted:[OCMArg any]];
     [[[mock stub] andCall:@selector(taskOperationLaunched:) onObject:self] taskOperationLaunched:[OCMArg any]];
-    [[[mock stub] andCall:@selector(operationFinished:) onObject:self] operationFinished:[OCMArg any]];
 }
 
 - (void)tearDown
@@ -70,48 +68,63 @@
     launched = YES;
 }
 
--(void)operationFinished:(LCSTaskOperation*)operation
-{
-    finished = YES;
-}
-
 - (void)testSuccessfullTermination
 {
-    LCSTaskOperation* op = [[LCSTaskOperation alloc] initWithLaunchPath:@"/usr/bin/true" arguments:nil];
+    LCSTaskOperation* op = [[LCSTaskOperation alloc] init];
+    op.launchPath = @"/usr/bin/true";
+
     [[mock expect] operation:op terminatedWithStatus:[NSNumber numberWithInt:0]];
 
     [op setDelegate:mock];
     [op start];
     
-    STAssertTrue(finished, @"Operation must be finished by now");
     [mock verify];
     [op release];
 }
 
 - (void)testNonZeroStatusTermination
 {
-    LCSTaskOperation* op = [[LCSTaskOperation alloc] initWithLaunchPath:@"/usr/bin/false" arguments:nil];
+    LCSTaskOperation* op = [[LCSTaskOperation alloc] init];
+    op.launchPath = @"/usr/bin/false";
+
+    /* expect non-zero status error */
+    NSError *termError = [NSError errorWithDomain:LCSRotavaultErrorDomain
+                                             code:LCSExecutableReturnedNonZeroStatus
+                                         userInfo:[NSDictionary dictionary]];
+    id equalToTermError = [OCMArg checkWithSelector:@selector(isEqualToError:) onObject:termError];
+    [[mock expect] operation:op handleError:equalToTermError];
+
+    /* expect call to delegate */
     [[mock expect] operation:op terminatedWithStatus:[NSNumber numberWithInt:1]];
     
     [op setDelegate:mock];
     [op start];
 
-    STAssertTrue(finished, @"Operation must be finished by now");
     [mock verify];
     [op release];
 }
 
 - (void)testCancel
 {
-    LCSTaskOperation* op = [[LCSTaskOperation alloc] initWithLaunchPath:@"/bin/sleep"
-                                                              arguments:[NSArray arrayWithObject:@"10"]];
+    LCSTaskOperation* op = [[LCSTaskOperation alloc] init];
+    op.launchPath = @"/bin/sleep";
+    op.arguments = [NSArray arrayWithObject:@"10"];
+
+    /* expect cancel error */
+    NSError *cancelError = [NSError errorWithDomain:NSCocoaErrorDomain
+                                               code:NSUserCancelledError
+                                           userInfo:[NSDictionary dictionary]];
+    id equalToCancelError = [OCMArg checkWithSelector:@selector(isEqualToError:) onObject:cancelError];
     
-    NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain
-                                         code:NSUserCancelledError
-                                     userInfo:[NSDictionary dictionary]];
-    id equalToError = [OCMArg checkWithSelector:@selector(isEqualToError:) onObject:error];
+    /* expect non-zero status error */
+    [[mock expect] operation:op handleError:equalToCancelError];
+    NSError *termError = [NSError errorWithDomain:LCSRotavaultErrorDomain
+                                               code:LCSExecutableReturnedNonZeroStatus
+                                           userInfo:[NSDictionary dictionary]];
+    id equalToTermError = [OCMArg checkWithSelector:@selector(isEqualToError:) onObject:termError];
+    [[mock expect] operation:op handleError:equalToTermError];
+    
     [[mock expect] operation:op terminatedWithStatus:[NSNumber numberWithInt:2]];
-    [[mock expect] operation:op handleError:equalToError];
     [op setDelegate:mock];
 
     NSOperationQueue *queue = [[NSOperationQueue alloc] init];
@@ -121,7 +134,7 @@
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
     }
 
-    /* FIXME: hum... race condition here? usleep seems to help */
+    /* FIXME: hum... race condition here? */
     usleep(1000);
 
     [op cancel];
@@ -129,7 +142,6 @@
     /* from NSOperationQueue+NonBlockingWaitUntilFinished */
     [queue waitUntilAllOperationsAreFinishedPollingRunLoopInMode:NSDefaultRunLoopMode];
     
-    STAssertTrue(finished, @"Operation must be finished by now");
     [mock verify];
     [op release];
     [queue release];
@@ -140,7 +152,9 @@
     LCSTestdir *testdir = [[LCSTestdir alloc] init];
 
     NSString *nowhere = [[testdir path] stringByAppendingPathComponent:@"nowhere"];
-    LCSTaskOperation* op = [[LCSTaskOperation alloc] initWithLaunchPath:nowhere arguments:[NSArray array]];
+    LCSTaskOperation* op = [[LCSTaskOperation alloc] init];
+    op.launchPath = nowhere;
+    op.arguments = [NSArray array];
 
     NSError *error = [NSError errorWithDomain:LCSRotavaultErrorDomain
                                          code:LCSLaunchOfExecutableFailed
@@ -151,7 +165,6 @@
     [op setDelegate:mock];
     [op start];
 
-    STAssertTrue(finished, @"Operation must be finished by now");
     [mock verify];
     [op release];
     
@@ -161,14 +174,14 @@
 
 - (void)testEchoHello
 {
-    LCSTaskOperation* op = [[LCSTaskOperation alloc] initWithLaunchPath:@"/bin/echo"
-                                                              arguments:[NSArray arrayWithObject:@"Hello"]];
+    LCSTaskOperation* op = [[LCSTaskOperation alloc] init];
+    op.launchPath = @"/bin/echo";
+    op.arguments = [NSArray arrayWithObject:@"Hello"];
     [[mock expect] operation:op terminatedWithStatus:[NSNumber numberWithInt:0]];
 
     [op setDelegate:mock];
     [op start];
 
-    STAssertTrue(finished, @"Operation must be finished by now");
     NSString *outstring = [[NSString alloc] initWithData:dataout encoding:NSUTF8StringEncoding];
     STAssertTrue([outstring isEqualToString:@"Hello\n"], @"Output missmatch");
     [outstring release];

@@ -29,7 +29,7 @@
     }
 }
 
--(void)operation:(LCSTaskOperation*)operation handleError:(NSError*)inError
+-(void)operation:(LCSOperation*)operation handleError:(NSError*)inError
 {
     error = [inError retain];
 }
@@ -42,6 +42,8 @@
 {
     LCSListDisksOperation *op = [[LCSListDisksOperation alloc] init];
     [op setDelegate:self];
+    [op bindParameter:@"result" direction:LCSParameterOut toObject:self withKeyPath:@"result"];
+
     [op start];
     STAssertNil(error, @"LCSListDiskOperation should not cause any errors");
     STAssertNotNil(result, @"LCSListDiskOperation must return a result");
@@ -53,8 +55,11 @@
 
 -(void) testInfoForDisk
 {
-    LCSInformationForDiskOperation *op = [[LCSInformationForDiskOperation alloc] initWithDiskIdentifier:@"/dev/disk0"];
+    LCSInformationForDiskOperation *op = [[LCSInformationForDiskOperation alloc] init];
     [op setDelegate:self];
+    [op setParameter:@"device" to:@"/dev/disk0"];
+    [op bindParameter:@"result" direction:LCSParameterOut toObject:self withKeyPath:@"result"];
+
     [op start];
     STAssertNil(error, @"LCSInformationForDiskOperation should not cause any errors for the startup disk");
     STAssertNotNil(result, @"LCSInformationForDiskOperation must return a result for the startup disk");

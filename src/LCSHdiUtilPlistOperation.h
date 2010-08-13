@@ -10,18 +10,17 @@
 #import "LCSPlistTaskOperation.h"
 
 
-@interface LCSHdiUtilPlistOperation : LCSPlistTaskOperation
--(id)initWithCommand:(NSString*)command arguments:(NSArray*)arguments;
+@interface LCSHdiInfoOperation : LCSPlistTaskOperation
 @end
 
-@interface LCSHdiInfoOperation : LCSHdiUtilPlistOperation
--(id)init;
+@interface LCSAttachImageOperation : LCSPlistTaskOperation {
+    NSString* path;
+}
+@property(retain) NSString* path;
 @end
 
-@interface LCSAttachImageOperation : LCSHdiUtilPlistOperation
--(id)initWithPathToDiskImage:(NSString*)inPath;
-@end
-
-@interface LCSDetachImageOperation : LCSTaskOperation
--(id)initWithDevicePath:(NSString*)inPath;
+@interface LCSDetachImageOperation : LCSTaskOperation {
+    NSString* path;
+}
+@property(retain) NSString* path;
 @end

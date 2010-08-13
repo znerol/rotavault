@@ -9,27 +9,33 @@
 #import "LCSDiskUtilOperation.h"
 
 
-@implementation LCSDiskUtilOperation
--(id)initWithCommand:(NSString*)command arguments:(NSArray*)arguments extractKeyPath:(NSString*)keyPath
-{
-    NSArray *args = [[NSArray arrayWithObjects:command, @"-plist", nil] arrayByAddingObjectsFromArray:arguments];
-    self = [super initWithLaunchPath:@"/usr/sbin/diskutil" arguments:args extractKeyPath:keyPath];
-    return self;
-}
-@end
-
 @implementation LCSListDisksOperation
--(id)init
+-(void)taskBuildArguments
 {
-    self = [super initWithCommand:@"list" arguments:nil extractKeyPath:@"AllDisks"];
-    return self;
+    self.extractKeyPath = @"AllDisks";
+    self.arguments = [NSArray arrayWithObjects:@"list", @"-plist", nil];
+    self.launchPath = @"/usr/sbin/diskutil";
 }
 @end
 
 @implementation LCSInformationForDiskOperation
--(id)initWithDiskIdentifier:(NSString*)identifier
+@synthesize device;
+-(id)init
 {
-    self = [super initWithCommand:@"info" arguments:[NSArray arrayWithObject:identifier] extractKeyPath:nil];
+    self = [super init];
+    device = [[NSNull null] retain];
     return self;
+}
+
+-(void)dealloc
+{
+    [device release];
+    [super dealloc];
+}
+
+-(void)taskBuildArguments
+{
+    self.arguments = [NSArray arrayWithObjects:@"info", @"-plist", device, nil];
+    self.launchPath = @"/usr/sbin/diskutil";
 }
 @end

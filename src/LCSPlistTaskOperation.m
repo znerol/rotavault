@@ -12,24 +12,23 @@
 
 @implementation LCSPlistTaskOperation
 
--(id)initWithLaunchPath:(NSString *)path arguments:(NSArray *)arguments extractKeyPath:(NSString*)keyPath
-{
-    self = [super initWithLaunchPath:path arguments:arguments];
-    _outputData = [[NSMutableData alloc] init];
-    extractKeyPath = [keyPath retain];
-    return self;
-}
+@synthesize result;
+@synthesize extractKeyPath;
 
--(id)initWithLaunchPath:(NSString *)path arguments:(NSArray *)arguments
+-(id)init
 {
-    return [self initWithLaunchPath:path arguments:arguments extractKeyPath:nil];
+    self = [super init];
+    _outputData = [[NSMutableData alloc] init];
+    extractKeyPath = [[NSNull null] retain];
+    result = [[NSNull null] retain];
+    return self;
 }
 
 -(void)dealloc
 {
     [_outputData release];
     [extractKeyPath release];
-    _outputData = nil;
+    [result release];
     [super dealloc];
 }
 
@@ -39,23 +38,23 @@
     [super updateStandardOutput:data];
 }
 
--(void)operationFinished
+-(void)taskOutputComplete
 {
     if ([_outputData length] == 0) {
         return;
     }
 
     NSString *errorDescription;
-    NSDictionary* result = [NSPropertyListSerialization propertyListFromData:_outputData
+    NSDictionary* plist = [NSPropertyListSerialization propertyListFromData:_outputData
                                                             mutabilityOption:0
                                                                       format:nil
                                                             errorDescription:&errorDescription];
 
-    if (result) {
-        if (extractKeyPath) {
-            result = [result valueForKeyPath:extractKeyPath];
+    if (plist) {
+        if (![extractKeyPath isKindOfClass:[NSNull class]]) {
+            plist = [plist valueForKeyPath:extractKeyPath];
         }
-        [self handleResult:result];
+        result = [plist retain];
     }
     else {
         NSError *error = [LCSTaskOperationError errorReceivedUnexpectedOutputFromLaunchPath:[task launchPath]
@@ -63,7 +62,7 @@
         [self handleError:error];
     }
 
-    [super operationFinished];
+    [super taskOutputComplete];
 }
 
 @end

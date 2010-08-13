@@ -40,7 +40,7 @@
     testdir = nil;
 }
 
--(void)operation:(LCSTaskOperation*)operation handleError:(NSError*)inError
+-(void)operation:(LCSOperation*)operation handleError:(NSError*)inError
 {
     error = [inError retain];
 }
@@ -50,7 +50,7 @@
     result = [inResult retain];
 }
 
--(void)operation:(LCSTaskOperation*)operation updateProgress:(NSNumber*)inProgress
+-(void)operation:(LCSOperation*)operation updateProgress:(NSNumber*)inProgress
 {
     float newProgress = [inProgress floatValue];
     
@@ -68,8 +68,11 @@
     NSString *spath = [[testdir path] stringByAppendingPathComponent:@"source.dmg"];
     NSArray *screateargs = [NSArray arrayWithObjects:@"create", @"-sectors", @"2000", spath, @"-plist", @"-layout",
                            @"NONE", @"-fs", @"HFS+", @"-attach", nil];
-    LCSPlistTaskOperation *screateop = [[LCSPlistTaskOperation alloc] initWithLaunchPath:@"/usr/bin/hdiutil"
-                                                                              arguments:screateargs];
+    LCSPlistTaskOperation *screateop = [[LCSPlistTaskOperation alloc] init];
+    screateop.launchPath = @"/usr/bin/hdiutil";
+    screateop.arguments = screateargs;
+    [screateop bindParameter:@"result" direction:LCSParameterOut toObject:self withKeyPath:@"result"];
+
     [screateop setDelegate:self];
     [screateop start];
 
@@ -90,28 +93,40 @@
     NSString *tpath = [[testdir path] stringByAppendingPathComponent:@"target.dmg"];
     NSArray *tcreateargs = [NSArray arrayWithObjects:@"create", @"-sectors", @"2000", tpath, @"-plist", @"-layout",
                             @"NONE", nil];
-    LCSPlistTaskOperation *tcreateop = [[LCSPlistTaskOperation alloc] initWithLaunchPath:@"/usr/bin/hdiutil"
-                                                                               arguments:tcreateargs];
+    LCSPlistTaskOperation *tcreateop = [[LCSPlistTaskOperation alloc] init];
+    tcreateop.launchPath = @"/usr/bin/hdiutil";
+    tcreateop.arguments = tcreateargs;
+    [tcreateop bindParameter:@"result" direction:LCSParameterOut toObject:self withKeyPath:@"result"];
+
     [tcreateop setDelegate:self];
     [tcreateop start];
+
     STAssertNotNil(result, @"return value of hdiutil must not be nil");
     [self delegateCleanup];
     
     /* attach target */
     NSArray *atargs = [NSArray arrayWithObjects:@"attach", tpath, @"-plist", @"-nomount", nil];
-    LCSPlistTaskOperation *atop = [[LCSPlistTaskOperation alloc] initWithLaunchPath:@"/usr/bin/hdiutil"
-                                                                          arguments:atargs];
+    LCSPlistTaskOperation *atop = [[LCSPlistTaskOperation alloc] init];
+    atop.launchPath = @"/usr/bin/hdiutil";
+    atop.arguments = atargs;
+    [atop bindParameter:@"result" direction:LCSParameterOut toObject:self withKeyPath:@"result"];
+
     [atop setDelegate:self];
     [atop start];
+
     STAssertNotNil(result, @"return value of hdiutil must not be nil");
     NSString *dstdev = [[[[result objectForKey:@"system-entities"] objectAtIndex:0] objectForKey:@"dev-entry"] retain];
     STAssertNotNil(dstdev, @"target device must not be nil");
     [self delegateCleanup];
     
     /* perform block copy operation */
-    LCSBlockCopyOperation* op = [[LCSBlockCopyOperation alloc] initWithSourceDevice:srcdev targetDevice:dstdev];
+    LCSBlockCopyOperation* op = [[LCSBlockCopyOperation alloc] init];
+    op.source = srcdev;
+    op.target = dstdev;
+
     [op setDelegate:self];
     [op start];
+
     STAssertNil(error, @"error must be nil if operation was successfull");
     STAssertEquals(progress, (float)100, @"progress must be 100.0 after completion of the operation");
     [self delegateCleanup];
@@ -126,10 +141,13 @@
                               arguments:[NSArray arrayWithObjects:@"mount", dstdev, nil]] waitUntilExit];
 
     NSArray *infargs = [NSArray arrayWithObjects:@"info", @"-plist", dstdev, nil];
-    LCSPlistTaskOperation *infop = [[LCSPlistTaskOperation alloc] initWithLaunchPath:@"/usr/sbin/diskutil"
-                                                                           arguments:infargs];
+    LCSPlistTaskOperation *infop = [[LCSPlistTaskOperation alloc] init];
+    [infop setLaunchPath:@"/usr/sbin/diskutil"];
+    [infop bindParameter:@"result" direction:LCSParameterOut toObject:self withKeyPath:@"result"];
+    [infop setArguments:infargs];
     [infop setDelegate:self];
     [infop start];
+
     STAssertNotNil(result, @"return value of diskutil must not be nil");
     NSString *dstmount = [[result objectForKey:@"MountPoint"] retain];
     STAssertNotNil(dstmount, @"target mount must not be nil");

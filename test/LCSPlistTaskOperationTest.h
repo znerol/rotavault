@@ -10,7 +10,7 @@
 
 
 @interface LCSPlistTaskOperationTest : SenTestCase {
-    NSDictionary *result;
+    id result;
     NSError *error;
 }
 

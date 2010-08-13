@@ -9,55 +9,32 @@
 #import "LCSHdiUtilPlistOperation.h"
 
 
-@implementation LCSHdiUtilPlistOperation
--(id)initWithCommand:(NSString*)command arguments:(NSArray*)arguments
-{
-    NSArray *args = [[NSArray arrayWithObjects:command, @"-plist", nil] arrayByAddingObjectsFromArray:arguments];
-    self = [super initWithLaunchPath:@"/usr/bin/hdiutil" arguments:args];
-    return self;
-}
-
--(void)taskTerminatedWithStatus:(int)status
-{
-    if (status != 0) {
-        NSError *error = [LCSTaskOperationError errorWithLaunchPath:[task launchPath] status:status];
-        [self handleError:error];
-    }
-    [super taskTerminatedWithStatus:status];
-}
-@end
-
 @implementation LCSHdiInfoOperation
--(id)init
+-(void)taskBuildArguments
 {
-    self = [super initWithCommand:@"info" arguments:nil];
-    return self;
+    self.launchPath = @"/usr/bin/hdiutil";
+    self.arguments = [NSArray arrayWithObjects:@"info", @"-plist", nil];
 }
 @end
 
 @implementation LCSAttachImageOperation
--(id)initWithPathToDiskImage:(NSString*)inPath
+
+@synthesize path;
+
+-(void)taskBuildArguments
 {
-    NSArray *args = [NSArray arrayWithObjects:inPath, @"-nomount", nil];
-    self = [super initWithCommand:@"attach" arguments:args];
-    return self;
+    self.launchPath = @"/usr/bin/hdiutil";
+    self.arguments = [NSArray arrayWithObjects:@"attach", path, @"-plist", @"-nomount", nil];
 }
 @end
 
 @implementation LCSDetachImageOperation
--(id)initWithDevicePath:(NSString*)inPath
-{
-    NSArray *args = [NSArray arrayWithObjects:@"detach", inPath, nil];
-    self = [super initWithLaunchPath:@"/usr/bin/hdiutil" arguments:args];
-    return self;
-}
 
--(void)taskTerminatedWithStatus:(int)status
+@synthesize path;
+
+-(void)taskBuildArguments
 {
-    if (status != 0) {
-        NSError *error = [LCSTaskOperationError errorWithLaunchPath:[task launchPath] status:status];
-        [self handleError:error];
-    }
-    [super taskTerminatedWithStatus:status];
+    self.launchPath = @"/usr/bin/hdiutil";
+    self.arguments = [NSArray arrayWithObjects:@"detach", path, nil];
 }
 @end

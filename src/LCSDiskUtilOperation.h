@@ -10,14 +10,11 @@
 #import "LCSPlistTaskOperation.h"
 
 
-@interface LCSDiskUtilOperation : LCSPlistTaskOperation
--(id)initWithCommand:(NSString*)command arguments:(NSArray*)arguments extractKeyPath:(NSString*)keyPath;
+@interface LCSListDisksOperation : LCSPlistTaskOperation
 @end
 
-@interface LCSListDisksOperation : LCSDiskUtilOperation
--(id)init;
-@end
-
-@interface LCSInformationForDiskOperation : LCSDiskUtilOperation
--(id)initWithDiskIdentifier:(NSString*)identifier;
+@interface LCSInformationForDiskOperation : LCSPlistTaskOperation {
+    NSString *device;
+}
+@property(retain) NSString *device;
 @end

@@ -10,15 +10,6 @@
 
 
 @implementation LCSHdiUtilWithProgressOperation
--(id)initWithCommand:(NSString*)command arguments:(NSArray*)arguments
-{
-    NSArray *args = [[[NSArray arrayWithObject:command] arrayByAddingObjectsFromArray:arguments]
-                     arrayByAddingObject:@"-puppetstrings"];
-    self = [super initWithLaunchPath:@"/usr/bin/hdiutil" arguments:args];
-
-    return self;
-}
-
 -(void)updateStandardOutput:(NSData*)data
 {
     NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -38,15 +29,18 @@
 @end
 
 @implementation LCSCreateEncryptedImageOperation
--(id)initWithPath:(NSString*)inPath sectors:(NSInteger)sectors
+@synthesize path;
+@synthesize sectors;
+
+-(void)taskBuildArguments
 {
-    NSArray *args = [NSArray arrayWithObjects:inPath,
-                     @"-sectors",[[NSNumber numberWithInt:sectors] stringValue],
-                     @"-type", @"UDIF",
-                     @"-layout", @"NONE",
-                     @"-encryption", @"AES-256", nil];
-    self = [super initWithCommand:@"create" arguments:args];
-    return self;
+    self.launchPath = @"/usr/bin/hdiutil";
+    self.arguments = [NSArray arrayWithObjects:@"create", path,
+                      @"-puppetstrings",
+                      @"-sectors",[[NSNumber numberWithUnsignedLongLong:sectors] stringValue],
+                      @"-type", @"UDIF",
+                      @"-layout", @"NONE",
+                      @"-encryption", @"AES-256", nil];
 }
 @end
 

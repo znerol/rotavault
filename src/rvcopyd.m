@@ -3,25 +3,18 @@
 #import "LCSBlockCopyOperation.h"
 #import "LCSDiskUtilOperation.h"
 #import "NSOperationQueue+NonBlockingWaitUntilFinished.h"
-#import "LCSTaskOperationDelegate.h"
 #import "LCSRotavaultErrorDomain.h"
 #import "LCSTaskOperationError.h"
 #import "LCSSignalHandler.h"
-#import "LCSNanosecondTimer.h"
+//#import "LCSNanosecondTimer.h"
+#import "LCSVerifyDiskInfoChecksumOperation.h"
 
 @interface LCSRotavaultCopyCommand : NSObject
 {
-    NSString* source;
-    NSString* target;
-    NSString* srccksum;
-    NSString* tgtcksum;
-    uint64_t srcsize;
-    LCSInformationForDiskOperation *sourceInfoOperation;
-    LCSInformationForDiskOperation *targetInfoOperation;
-    LCSBlockCopyOperation *blockCopyOperation;
     NSOperationQueue* queue;
     NSError* originalError;
-    LCSNanosecondTimer *timer;
+//    LCSNanosecondTimer *timer;
+    NSMutableDictionary *context;
 }
 @end
 
@@ -32,28 +25,56 @@
            targetChecksum:(NSString*)targetChecksum
 {
     self = [super init];
-
-    source = [sourceDevice retain];
-    target = [targetDevice retain];
-    srccksum = [sourceChecksum retain];
-    tgtcksum = [targetChecksum retain];
-    srcsize = 0;
-
     originalError = nil;
 
     /* setup operations */
-    sourceInfoOperation = [[LCSInformationForDiskOperation alloc] initWithDiskIdentifier:source];
-    [sourceInfoOperation setDelegate:self];
-    targetInfoOperation = [[LCSInformationForDiskOperation alloc] initWithDiskIdentifier:target];
-    [targetInfoOperation setDelegate:self];    
-    blockCopyOperation = [[LCSBlockCopyOperation alloc] initWithSourceDevice:source targetDevice:target];    
-    [blockCopyOperation setDelegate:self];
-    [blockCopyOperation addDependency:sourceInfoOperation];
-    [blockCopyOperation addDependency:targetInfoOperation];
-
-
     queue = [[NSOperationQueue alloc] init];
-    timer = [[LCSNanosecondTimer alloc] init];
+    [queue setSuspended:YES];
+
+    context = [[NSMutableDictionary alloc] init];
+    [context setValue:sourceDevice forKey:@"sourceDevice"];
+    [context setValue:[NSNull null] forKey:@"sourceInfo"];
+    [context setValue:[NSNull null] forKey:@"sourceSize"];
+    [context setValue:targetDevice forKey:@"targetDevice"];
+    [context setValue:[NSNull null] forKey:@"targetInfo"];
+
+    LCSInformationForDiskOperation *sourceInfoOperation = [[[LCSInformationForDiskOperation alloc] init] autorelease];
+    [sourceInfoOperation setDelegate:self];
+    [sourceInfoOperation bindParameter:@"device" direction:LCSParameterIn toObject:context withKeyPath:@"sourceDevice"];
+    [sourceInfoOperation bindParameter:@"result" direction:LCSParameterOut toObject:context withKeyPath:@"sourceInfo"];
+    [queue addOperation:sourceInfoOperation];
+
+    LCSVerifyDiskInfoChecksumOperation *verifySourceInfoOperation =
+        [[[LCSVerifyDiskInfoChecksumOperation alloc] init] autorelease];
+    [verifySourceInfoOperation setDelegate:self];
+    [verifySourceInfoOperation bindParameter:@"diskinfo" direction:LCSParameterIn toObject:context withKeyPath:@"sourceDevice"];
+    [verifySourceInfoOperation setParameter:@"checksum" to:sourceChecksum];
+    [verifySourceInfoOperation addDependency:sourceInfoOperation];
+    [queue addOperation:verifySourceInfoOperation];
+
+    LCSInformationForDiskOperation *targetInfoOperation = [[[LCSInformationForDiskOperation alloc] init] autorelease];
+    [targetInfoOperation setDelegate:self];
+    [targetInfoOperation bindParameter:@"device" direction:LCSParameterIn toObject:context withKeyPath:@"targetDevice"];
+    [targetInfoOperation bindParameter:@"result" direction:LCSParameterIn toObject:context withKeyPath:@"targetInfo"];
+    [queue addOperation:targetInfoOperation];
+
+    LCSVerifyDiskInfoChecksumOperation *verifyTargetInfoOperation =
+    [[[LCSVerifyDiskInfoChecksumOperation alloc] init] autorelease];
+    [verifyTargetInfoOperation setDelegate:self];
+    [verifyTargetInfoOperation bindParameter:@"diskinfo" direction:LCSParameterIn toObject:context withKeyPath:@"targetDevice"];
+    [verifyTargetInfoOperation setParameter:@"checksum" to:targetChecksum];
+    [verifyTargetInfoOperation addDependency:targetInfoOperation];
+    [queue addOperation:verifyTargetInfoOperation];
+
+    LCSBlockCopyOperation *blockCopyOperation = [[[LCSBlockCopyOperation alloc] init] autorelease];
+    [blockCopyOperation setDelegate:self];
+    [blockCopyOperation bindParameter:@"source" direction:LCSParameterIn toObject:context withKeyPath:@"sourceDevice"];
+    [blockCopyOperation bindParameter:@"target" direction:LCSParameterIn toObject:context withKeyPath:@"targetDevice"];
+    [blockCopyOperation addDependency:verifySourceInfoOperation];
+    [blockCopyOperation addDependency:verifyTargetInfoOperation];
+    [queue addOperation:blockCopyOperation];
+
+//    timer = [[LCSNanosecondTimer alloc] init];
 
     /* setup signal handler and signal pipe */
     LCSSignalHandler *sh = [LCSSignalHandler defaultSignalHandler];
@@ -69,13 +90,6 @@
 
 -(void)dealloc
 {
-    [source release];
-    [target release];
-    [srccksum release];
-    [tgtcksum release];
-    [sourceInfoOperation release];
-    [targetInfoOperation release];
-    [blockCopyOperation release];
     [queue release];
     
     if(originalError) {
@@ -84,26 +98,12 @@
     [super dealloc];
 }
 
--(BOOL)verifyInfo:(NSDictionary*)diskInfo withChecksum:(NSString*)checksum error:(NSError**)outError
-{
-    return YES;
-}
-
--(void)calculateSourceSize:(NSDictionary*)diskInfo
-{
-    uint64_t totalSize = [[diskInfo valueForKey:@"TotalSize"] unsignedLongLongValue];
-    uint64_t freeSpace = [[diskInfo valueForKey:@"FreeSpace"] unsignedLongLongValue];
-
-    /* source size in bytes */
-    srcsize = totalSize - freeSpace;
-}
 
 -(void)operation:(LCSTaskOperation*)operation updateStandardError:(NSData*)data
 {
-    // [[stderrData objectForKey:operation] appendData:data];
 }
 
--(void)operation:(LCSTaskOperation*)operation handleError:(NSError*)error
+-(void)operation:(LCSOperation*)operation handleError:(NSError*)error
 {
     if(!originalError) {
         originalError = [error retain];
@@ -117,37 +117,8 @@
     [queue cancelAllOperations];
 }
 
--(void)operation:(LCSTaskOperation*)operation handleResult:(id)result
+-(void)operation:(LCSOperation*)operation updateProgress:(NSNumber*)progress
 {
-    NSError *error;
-
-    if(operation == sourceInfoOperation) {
-        if(![self verifyInfo:result withChecksum:srccksum error:&error]){
-            [operation handleError:error];
-            return;
-        }
-
-        [self calculateSourceSize:result];
-    }
-    else if(operation == targetInfoOperation) {
-        if(![self verifyInfo:result withChecksum:tgtcksum error:&error]){
-            [operation handleError:error];
-            return;
-        }        
-    }
-    else {
-        // FIXME: unexpected result
-    }
-}
-
--(void)operation:(LCSTaskOperation*)operation updateProgress:(NSNumber*)progress
-{
-    if(operation == blockCopyOperation) {
-        
-    }
-    else {
-        // FIXME: unexpected
-    }
 }
 
 -(void)operation:(LCSTaskOperation*)operation terminatedWithStatus:(NSNumber*)status
@@ -164,14 +135,6 @@
     [operation handleError:error];
 }
 
--(void)operationFinished:(LCSTaskOperation*)operation
-{
-    /* 
-     * FIXME: we need to respond to this selector, otherwise the runloop will not return after the last operation
-     * terminated.
-     */
-}
-
 -(void)handleSignal:(NSNumber*)signal
 {
     [queue cancelAllOperations];
@@ -179,27 +142,26 @@
 
 -(NSError*)execute
 {
-    /* This is not a loop! */
-    [timer setReferenceTime];
+//    [timer setReferenceTime];
 
-    [queue addOperation:sourceInfoOperation];
-    [queue addOperation:targetInfoOperation];
-    [queue addOperation:blockCopyOperation];
+    [queue setSuspended:NO];
     [queue waitUntilAllOperationsAreFinishedPollingRunLoopInMode:NSDefaultRunLoopMode];
 
     if(originalError)
     {
         /* try to mount the source volume */
-        NSArray* remountArgs = [NSArray arrayWithObjects:@"mount", source, nil];
+        NSArray* remountArgs = [NSArray arrayWithObjects:@"mount", [context objectForKey:@"sourceDevice"], nil];
         [[NSTask launchedTaskWithLaunchPath:@"/usr/sbin/diskutil" arguments:remountArgs] waitUntilExit];
         return originalError;
     }
     else {
+        /*
         long double milliseconds = [timer nanosecondsSinceReferenceTime] / 1000000.;
         long double speed = UInt64ToLongDouble(srcsize) / milliseconds;
 
         NSLog(@"Duration of copy & verification of %d bytes took %.2Lf seconds (%.2Lf bytes/sec)",
               srcsize, milliseconds / 1000., speed * 1000.);
+         */
         return nil;
     }
 }

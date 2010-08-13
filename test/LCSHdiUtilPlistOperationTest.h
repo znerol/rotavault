@@ -18,5 +18,4 @@
     NSDictionary    *result;
     NSError         *error;
 }
-
 @end

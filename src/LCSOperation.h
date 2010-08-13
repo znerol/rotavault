@@ -9,35 +9,40 @@
 #import <Foundation/Foundation.h>
 #import "LCSTaskOperationError.h"
 
+typedef enum {
+    LCSParameterIn      = 1,
+    LCSParameterOut     = 2
+} LCSParameterDirection;
 
 @interface LCSOperation : NSOperation {
-    NSString    *name;
-    id          delegate;
-
-    id          environmentContext;
-    id          parameterContext;
-    id          resultContext;
-
-    NSString    *environmentKeyPath;
-    NSString    *parameterKeyPath;
-    NSString    *resultKeyPath;
+    NSString        *name;
+    id              delegate;
+    NSMutableArray  *_runBeforeMain;
+    NSMutableArray  *_runAfterMain;
 }
 
 @property(retain) NSString *name;
 @property(assign) id delegate;
 
-@property(retain) id environmentContext;
-@property(retain) id parameterContext;
-@property(retain) id resultContext;
-
-@property(retain) NSString *environmentKeyPath;
-@property(retain) NSString *parameterKeyPath;
-@property(retain) NSString *resultKeyPath;
+-(void)bindParameter:(NSString*)parameter direction:(LCSParameterDirection)direction toObject:(id)obj withKeyPath:(NSString*)keyPath;
+-(void)setParameter:(NSString*)parameter to:(id)value;
 
 -(void)handleError:(NSError*)error;
--(void)handleResult:(id)result;
--(void)updateProgress:(float)progress;
--(void)operationStarted;
--(void)operationFinished;
+@end
 
+/* private methods overridden by subclasses */
+@interface LCSOperation (SubclassOverride)
+-(void)execute;
+@end
+
+/* Private methods used by subclasses */
+@interface LCSOperation (SubclassUse)
+-(void)delegateSelector:(SEL)selector withArguments:(NSArray*)arguments;
+-(void)updateProgress:(float)progress;
+@end
+
+/* methods optionally implemented by the delegate */
+@protocol LCSOperationDelegate
+-(void)operation:(LCSOperation*)operation handleError:(NSError*)error;
+-(void)operation:(LCSOperation*)operation updateProgress:(NSNumber*)progress;
 @end

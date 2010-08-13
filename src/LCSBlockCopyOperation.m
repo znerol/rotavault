@@ -10,13 +10,14 @@
 
 
 @implementation LCSBlockCopyOperation
+@synthesize source;
+@synthesize target;
 
--(LCSBlockCopyOperation*)initWithSourceDevice:(NSString*)sourcedev targetDevice:(NSString*)targetdev
+-(void)taskBuildArguments
 {
-    NSArray *args = [NSArray arrayWithObjects:@"restore", @"--erase", @"--noprompt", @"--puppetstrings", 
-                     @"--source", sourcedev, @"--target", targetdev, nil];
-    self = (LCSBlockCopyOperation*)[super initWithLaunchPath:@"/usr/sbin/asr" arguments:args];
-    return self;
+    self.launchPath = @"/usr/sbin/asr";
+    self.arguments = [NSArray arrayWithObjects:@"restore", @"--erase", @"--noprompt", @"--puppetstrings", 
+                      @"--source", source, @"--target", target, nil];
 }
 
 -(void)updateStandardOutput:(NSData*)data

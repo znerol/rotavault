@@ -7,23 +7,19 @@
 //
 
 #import "LCSTaskOperation.h"
-#import "LCSOperationPrivate.h"
 
 @implementation LCSTaskOperation
 
--(id)initWithLaunchPath:(NSString *)launchPath arguments:(NSArray *)arguments
+-(id)init
 {
     self = [super init];
     task = [[NSTask alloc] init];
-    [task setLaunchPath:launchPath];
-    if (arguments) {
-        [task setArguments:arguments];
-    }
-    errPipe = [[NSPipe pipe] retain];
+    errPipe = [[NSPipe alloc] init];
     errEOF = NO;
-    outPipe = [[NSPipe pipe] retain];
+    outPipe = [[NSPipe alloc] init];
     outEOF = NO;
-
+    launchPath = [[NSNull null] retain];
+    arguments = [[NSArray alloc] init];
     return self;
 }
 
@@ -32,8 +28,13 @@
     [errPipe release];
     [outPipe release];
     [task release];
+    [launchPath release];
+    [arguments release];
     [super dealloc];
 }
+
+@synthesize launchPath;
+@synthesize arguments;
 
 -(void)updateStandardOutput:(NSData*)data
 {
@@ -54,8 +55,22 @@
 
 -(void)taskTerminatedWithStatus:(int)status
 {
+    if (status != 0) {
+        NSError *error = [LCSTaskOperationError errorWithLaunchPath:[task launchPath] status:status];
+        [self handleError:error];
+    }
     [self delegateSelector:@selector(operation:terminatedWithStatus:)
              withArguments:[NSArray arrayWithObjects:self, [NSNumber numberWithInt:status], nil]];
+}
+
+/* override */
+-(void)taskBuildArguments
+{
+}
+
+/* override */
+-(void)taskOutputComplete
+{
 }
 
 -(void)handleStandardOutputPipe:(NSNotification*)nfc
@@ -82,9 +97,11 @@
     }
 }
 
--(void)main
+-(void)execute
 {
-    [super prepareMain];
+    [self taskBuildArguments];
+    [task setLaunchPath:launchPath];
+    [task setArguments:arguments];
 
     /* install standard error pipe */
     [task setStandardError:errPipe];
@@ -135,6 +152,9 @@
 
     /* finally remove us from the notification center */
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    /* last chance to interpret and store output */
+    [self taskOutputComplete];
 }
 
 -(void)cancel

@@ -16,11 +16,26 @@
     NSPipe  *outPipe;
     BOOL    errEOF;
     BOOL    outEOF;
+    
+    NSString*   launchPath;
+    NSArray*    arguments;
 }
 
--(id)initWithLaunchPath:(NSString*)path arguments:(NSArray*)arguments;
+@property(retain) NSString* launchPath;
+@property(retain) NSArray* arguments;
 
 -(void)updateStandardOutput:(NSData*)data;
 -(void)updateStandardError:(NSData*)data;
 -(void)taskTerminatedWithStatus:(int)status;
+
+/* private interface. override in subclasses. */
+-(void)taskOutputComplete;
+-(void)taskBuildArguments;
+@end
+
+@protocol LCSTaskOperationDelegate <LCSOperationDelegate>
+-(void)taskOperationLaunched:(LCSTaskOperation*)operation;
+-(void)operation:(LCSTaskOperation*)operation updateStandardOutput:(NSData*)stdoutData;
+-(void)operation:(LCSTaskOperation*)operation updateStandardError:(NSData*)stderrData;
+-(void)operation:(LCSTaskOperation*)operation terminatedWithStatus:(NSNumber*)status;
 @end

@@ -14,7 +14,8 @@
 {
     NSPredicate *isFinished = [NSPredicate predicateWithFormat:@"isFinished = NO"];
     while ([[[self operations] filteredArrayUsingPredicate:isFinished] count] > 0) {
-        [[NSRunLoop currentRunLoop] runMode:runloopMode beforeDate:[NSDate distantFuture]];
+        /* FXME: runloop needs signal */
+        [[NSRunLoop currentRunLoop] runMode:runloopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
     }
 }    
 @end

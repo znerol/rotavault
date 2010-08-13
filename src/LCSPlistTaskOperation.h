@@ -13,6 +13,8 @@
 @interface LCSPlistTaskOperation : LCSTaskOperation {
     NSMutableData   *_outputData;
     NSString        *extractKeyPath;
+    NSDictionary    *result;
 }
--(id)initWithLaunchPath:(NSString *)path arguments:(NSArray *)arguments extractKeyPath:(NSString*)keyPath;
+@property(retain) NSString *extractKeyPath;
+@property(readonly) NSDictionary* result;
 @end

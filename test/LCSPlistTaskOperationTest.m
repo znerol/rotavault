@@ -30,40 +30,37 @@
     }
 }
 
--(void)operation:(LCSTaskOperation*)operation handleError:(NSError*)inError
+-(void)operation:(LCSOperation*)operation handleError:(NSError*)inError
 {
     error = [inError retain];
 }
 
--(void)operation:(LCSTaskOperation*)operation handleResult:(id)inResult
-{
-    result = [inResult retain];
-}
-
 - (void)testSimplePlistTaskOperation
 {
-    NSArray *args = [NSArray arrayWithObjects: @"-xml", @"SPDiagnosticsDataType", nil];
-    LCSPlistTaskOperation* op = [[LCSPlistTaskOperation alloc]
-                                 initWithLaunchPath:@"/usr/sbin/system_profiler" arguments:args];
+    LCSPlistTaskOperation* op = [[LCSPlistTaskOperation alloc] init];
+    op.launchPath = @"/usr/sbin/system_profiler";
+    op.arguments = [NSArray arrayWithObjects: @"-xml", @"SPDiagnosticsDataType", nil];
+    [op bindParameter:@"result" direction:LCSParameterOut toObject:self withKeyPath:@"result"];
 
     [op setDelegate:self];
     [op start];
 
     STAssertNil(error, @"error must be nil for successfull run");
-    STAssertNotNil(result, @"Result must not be nil");
+    STAssertTrue([result isKindOfClass:[NSArray class]], @"Result must contain an array");
     [op release];
 }
 
 - (void)testNonPlistTaskOperation
 {
-    NSArray *args = [NSArray arrayWithObjects: @"SPDiagnosticsDataType", nil];
-    LCSPlistTaskOperation* op = [[LCSPlistTaskOperation alloc]
-                                 initWithLaunchPath:@"/usr/sbin/system_profiler" arguments:args];
+    LCSPlistTaskOperation* op = [[LCSPlistTaskOperation alloc] init];
+    op.launchPath = @"/usr/sbin/system_profiler";
+    op.arguments = [NSArray arrayWithObject: @"SPDiagnosticsDataType"];
+    [op bindParameter:@"result" direction:LCSParameterOut toObject:self withKeyPath:@"result"];
 
     [op setDelegate:self];
     [op start];
 
-    STAssertNil(result, @"must not return any result for output in the wrong format");
+    STAssertTrue([result isKindOfClass:[NSNull class]], @"must not return any result for output in the wrong format");
     STAssertNotNil(error, @"error must be set if the output of the task is not a property list");
     STAssertEquals([error class], [LCSTaskOperationError class],
                    @"LCSTaskOperation must return an LCSTaskOperationError if the output of the task is not a property"

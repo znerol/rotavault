@@ -7,7 +7,6 @@
 //
 
 #import "LCSOperation.h"
-#import "LCSOperationPrivate.h"
 
 @implementation LCSOperation
 
@@ -16,68 +15,82 @@
     self = [super init];
     delegate = nil;
     name = [[NSNull null] retain];
-    environmentContext = [[NSNull null] retain];
-    parameterContext = [[NSNull null] retain];
-    resultContext = [[NSNull null] retain];
-    environmentKeyPath = [[NSNull null] retain];
-    parameterKeyPath = [[NSNull null] retain];
-    resultKeyPath = [[NSNull null] retain];
+    _runBeforeMain = [[NSMutableArray alloc] init];
+    _runAfterMain = [[NSMutableArray alloc] init];
     return self;
 }
 
 -(void)dealloc
 {
     [name release];
-    [environmentContext release];
-    [parameterContext release];
-    [resultContext release];
-    [environmentKeyPath release];
-    [parameterKeyPath release];
-    [resultKeyPath release];
     [super dealloc];
 }
 
 @synthesize name;
 @synthesize delegate;
-@synthesize environmentContext;
-@synthesize parameterContext;
-@synthesize resultContext;
-@synthesize environmentKeyPath;
-@synthesize parameterKeyPath;
-@synthesize resultKeyPath;
 
--(void)operationStarted
+/* main thread */
+-(void)updateBoundInParameter:(NSString*)parameter atObject:(id)obj withKeyPath:(NSString*)keyPath
 {
-    [self delegateSelector:@selector(operationStarted:) withArguments:[NSArray arrayWithObject:self]];
+        [self setValue:[obj valueForKeyPath:keyPath] forKey:parameter];
 }
 
+/* main thread */
+-(void)updateBoundOutParameter:(NSString*)parameter atObject:(id)obj withKeyPath:(NSString*)keyPath
+{
+    [obj setValue:[self valueForKey:parameter] forKeyPath:keyPath];
+}
+
+/* client code */
+-(void)bindParameter:(NSString*)parameter direction:(LCSParameterDirection)direction toObject:(id)obj withKeyPath:(NSString*)keyPath
+{
+    if (direction & LCSParameterIn) {
+        NSInvocation *inv = [NSInvocation invocationWithMethodSignature:
+                             [self methodSignatureForSelector:@selector(updateBoundInParameter:atObject:withKeyPath:)]];
+
+        [inv setSelector:@selector(updateBoundInParameter:atObject:withKeyPath:)];
+        [inv setArgument:&parameter atIndex:2];
+        [inv setArgument:&obj atIndex:3];
+        [inv setArgument:&keyPath atIndex:4];
+        [inv retainArguments];
+
+        [_runBeforeMain addObject:inv];
+    }
+    if(direction == LCSParameterOut) {
+        NSInvocation *inv = [NSInvocation invocationWithMethodSignature:
+                             [self methodSignatureForSelector:@selector(updateBoundOutParameter:atObject:withKeyPath:)]];
+
+        [inv setSelector:@selector(updateBoundOutParameter:atObject:withKeyPath:)];
+        [inv setArgument:&parameter atIndex:2];
+        [inv setArgument:&obj atIndex:3];
+        [inv setArgument:&keyPath atIndex:4];
+        [inv retainArguments];
+
+        [_runAfterMain addObject:inv];
+    }
+}
+
+/* client code */
+-(void)setParameter:(NSString*)parameter to:(id)value
+{
+    [self setValue:value forKey:parameter];
+}
+
+/* override */
 -(void)updateProgress:(float)progress
 {
     [self delegateSelector:@selector(operation:updateProgress:)
              withArguments:[NSArray arrayWithObjects:self, [NSNumber numberWithFloat:progress], nil]];
 }
 
--(void)operationFinished
-{
-    [self delegateSelector:@selector(operationFinished:) withArguments:[NSArray arrayWithObject:self]];
-}
-
+/* override */
 -(void)handleError:(NSError*)error
 {
     [self delegateSelector:@selector(operation:handleError:)
              withArguments:[NSArray arrayWithObjects:self, error, nil]];
 }
 
--(void)handleResult:(id)result
-{
-    if (![resultContext isKindOfClass:[NSNull class]] && ![resultKeyPath isKindOfClass:[NSNull class]]) {
-        [resultContext setValue:result forKeyPath:resultKeyPath];
-    }
-
-    [self delegateSelector:@selector(operation:handleResult:)
-             withArguments:[NSArray arrayWithObjects:self, result, nil]];
-}
-
+/* perform a selector on the delegate in main thread */
 -(void)delegateSelector:(SEL)selector withArguments:(NSArray*)arguments
 {
     /* nothing to perform if there is no delegate */
@@ -107,31 +120,40 @@
     }
 }
 
--(void)observeValueForKeyPath:(NSString *)keyPath
-                     ofObject:(id)object
-                       change:(NSDictionary *)change
-                      context:(void *)context
+-(void)execute
 {
-    if (object == self && [keyPath isEqualToString:@"isFinished"]) {
-        [self operationFinished];
-    }
+    /* override */
 }
 
--(void)prepareMain
+-(void)main
 {
     /* check for cancelation */
     if ([self isCancelled]) {
-        NSError *cancelError = [NSError errorWithDomain:NSCocoaErrorDomain
-                                                   code:NSUserCancelledError
-                                               userInfo:[NSDictionary dictionary]];
-        [self handleError:cancelError];
+        return;
     }
 
-    /* notify delegate that we're preparing for launch now */
-    [self operationStarted];
+    /* populate in-parameters (with values from main thread) */
+    for(NSInvocation *inv in _runBeforeMain) {
+        @try {        
+            [inv performSelectorOnMainThread:@selector(invokeWithTarget:) withObject:self waitUntilDone:YES];
+        }
+        @catch (NSException * e) {
+            NSLog(@"Failed to update in-parameter: %@", [e description]);
+        }
+    }
 
-    /* register finished handler */
-    [self addObserver:self forKeyPath:@"isFinished" options:0 context:nil];    
+    /* perforrm operation */
+    [self execute];
+    
+    /* write results out (on main thread) */
+    for(NSInvocation *inv in _runAfterMain) {
+        @try {        
+            [inv performSelectorOnMainThread:@selector(invokeWithTarget:) withObject:self waitUntilDone:YES];
+        }
+        @catch (NSException * e) {
+            NSLog(@"Failed to update out-parameter: %@", [e description]);
+        }            
+    }        
 }
 
 -(void)cancel
