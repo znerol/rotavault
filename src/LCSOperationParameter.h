@@ -16,3 +16,7 @@
 @protocol LCSOperationInOutParameter
 @property(readwrite,retain) id value;
 @end
+
+@protocol LCSOperationOutputParameter
+@property(readwrite,retain) id value;
+@end

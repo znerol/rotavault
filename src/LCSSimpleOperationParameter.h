@@ -14,7 +14,7 @@
 -(id)initWithValue:(id)inValue;
 @end
 
-@interface LCSSimpleOperationOutputParameter : NSObject <LCSOperationInOutParameter>
+@interface LCSSimpleOperationOutputParameter : NSObject <LCSOperationOutputParameter>
 {
     id* value;
 }

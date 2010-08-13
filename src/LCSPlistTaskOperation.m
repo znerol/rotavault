@@ -8,6 +8,7 @@
 
 #import "LCSPlistTaskOperation.h"
 #import "LCSTaskOperationError.h"
+#import "LCSOperationParameterMarker.h"
 
 
 @implementation LCSPlistTaskOperation
@@ -19,16 +20,16 @@
 {
     self = [super init];
     _outputData = [[NSMutableData alloc] init];
-    extractKeyPath = [[NSNull null] retain];
-    result = [[NSNull null] retain];
+    extractKeyPath = [[LCSOperationOptionalInputParameterMarker alloc] initWithDefaultValue:@"SELF"];
+    result = [[LCSOperationOptionalOutputParameterMarker alloc] init];
     return self;
 }
 
 -(void)dealloc
 {
     [_outputData release];
-    [extractKeyPath release];
-    [result release];
+    [(NSObject*)extractKeyPath release];
+    [(NSObject*)result release];
     [super dealloc];
 }
 
@@ -51,10 +52,8 @@
                                                             errorDescription:&errorDescription];
 
     if (plist) {
-        if (![extractKeyPath isKindOfClass:[NSNull class]]) {
-            plist = [plist valueForKeyPath:extractKeyPath];
-        }
-        result = [plist retain];
+        plist = [plist valueForKeyPath:extractKeyPath.value];
+        result.value = [plist retain];
     }
     else {
         NSError *error = [LCSTaskOperationError errorReceivedUnexpectedOutputFromLaunchPath:[task launchPath]

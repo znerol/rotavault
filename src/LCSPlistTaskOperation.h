@@ -8,13 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "LCSTaskOperation.h"
+#import "LCSOperationParameter.h"
 
 
 @interface LCSPlistTaskOperation : LCSTaskOperation {
     NSMutableData   *_outputData;
-    NSString        *extractKeyPath;
-    NSDictionary    *result;
+    id <LCSOperationInputParameter> extractKeyPath; /* NSString */
+    id <LCSOperationInOutParameter> result; /* NSDictionary/NSArray */
 }
-@property(retain) NSString *extractKeyPath;
-@property(readonly) NSDictionary* result;
+@property(retain) id <LCSOperationInputParameter> extractKeyPath;
+@property(retain) id <LCSOperationInOutParameter> result;
 @end

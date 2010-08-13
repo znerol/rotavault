@@ -39,6 +39,10 @@
 		CA45BA5A12159D0F00D3E40A /* LCSRotavaultErrorDomain.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB1C0CE120C66D10076DB12 /* LCSRotavaultErrorDomain.m */; };
 		CA45BA5B12159D1A00D3E40A /* NSOperationQueue+NonBlockingWaitUntilFinished.m in Sources */ = {isa = PBXBuildFile; fileRef = CA2E638F1212AB760031C4FA /* NSOperationQueue+NonBlockingWaitUntilFinished.m */; };
 		CA45BA5C12159D2300D3E40A /* LCSTaskOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB1BEFF120C3D8A0076DB12 /* LCSTaskOperationTest.m */; };
+		CA45BA8D1215A06A00D3E40A /* LCSPlistTaskOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB1BD93120C1E800076DB12 /* LCSPlistTaskOperationTest.m */; };
+		CA45BA8E1215A07000D3E40A /* LCSPlistTaskOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB1BD61120C1C860076DB12 /* LCSPlistTaskOperation.m */; };
+		CA45BABF1215A8F100D3E40A /* LCSOperationParameterMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = CA45BABE1215A8F100D3E40A /* LCSOperationParameterMarker.m */; };
+		CA45BAC01215A8F100D3E40A /* LCSOperationParameterMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = CA45BABE1215A8F100D3E40A /* LCSOperationParameterMarker.m */; };
 		CA54744A120B66120014E9E8 /* LCSBlockCopyOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA547448120B66120014E9E8 /* LCSBlockCopyOperation.m */; };
 		CA547492120B76F80014E9E8 /* LCSBlockCopyOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA547490120B76F80014E9E8 /* LCSBlockCopyOperationTest.m */; };
 		CA9488821211895B00415257 /* rvcopyd.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9488811211895B00415257 /* rvcopyd.m */; };
@@ -132,6 +136,8 @@
 		CA45BA1412158F1D00D3E40A /* LCSSimpleOperationParameterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSSimpleOperationParameterTest.m; sourceTree = "<group>"; };
 		CA45BA1F121591C000D3E40A /* LCSKeyValueOperationParameterTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSKeyValueOperationParameterTest.h; sourceTree = "<group>"; };
 		CA45BA20121591C000D3E40A /* LCSKeyValueOperationParameterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSKeyValueOperationParameterTest.m; sourceTree = "<group>"; };
+		CA45BABD1215A8F100D3E40A /* LCSOperationParameterMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSOperationParameterMarker.h; sourceTree = "<group>"; };
+		CA45BABE1215A8F100D3E40A /* LCSOperationParameterMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSOperationParameterMarker.m; sourceTree = "<group>"; };
 		CA547447120B66120014E9E8 /* LCSBlockCopyOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSBlockCopyOperation.h; sourceTree = "<group>"; };
 		CA547448120B66120014E9E8 /* LCSBlockCopyOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSBlockCopyOperation.m; sourceTree = "<group>"; };
 		CA54748F120B76F80014E9E8 /* LCSBlockCopyOperationTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSBlockCopyOperationTest.h; sourceTree = "<group>"; };
@@ -267,6 +273,8 @@
 				CA28AF3012132D4000C9BE6F /* LCSOperation.h */,
 				CA28AF3112132D4000C9BE6F /* LCSOperation.m */,
 				CA45B9C0121581C600D3E40A /* LCSOperationParameter.h */,
+				CA45BABD1215A8F100D3E40A /* LCSOperationParameterMarker.h */,
+				CA45BABE1215A8F100D3E40A /* LCSOperationParameterMarker.m */,
 				CA45B9C11215824E00D3E40A /* LCSSimpleOperationParameter.h */,
 				CA45B9C21215824E00D3E40A /* LCSSimpleOperationParameter.m */,
 				CA45B9CD1215842800D3E40A /* LCSKeyValueOperationParameter.h */,
@@ -486,6 +494,7 @@
 				CA45B9CF1215842800D3E40A /* LCSKeyValueOperationParameter.m in Sources */,
 				CA45BA1512158F1D00D3E40A /* LCSSimpleOperationParameterTest.m in Sources */,
 				CA45BA21121591C000D3E40A /* LCSKeyValueOperationParameterTest.m in Sources */,
+				CA45BABF1215A8F100D3E40A /* LCSOperationParameterMarker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -527,6 +536,9 @@
 				CA45BA5A12159D0F00D3E40A /* LCSRotavaultErrorDomain.m in Sources */,
 				CA45BA5B12159D1A00D3E40A /* NSOperationQueue+NonBlockingWaitUntilFinished.m in Sources */,
 				CA45BA5C12159D2300D3E40A /* LCSTaskOperationTest.m in Sources */,
+				CA45BA8D1215A06A00D3E40A /* LCSPlistTaskOperationTest.m in Sources */,
+				CA45BA8E1215A07000D3E40A /* LCSPlistTaskOperation.m in Sources */,
+				CA45BAC01215A8F100D3E40A /* LCSOperationParameterMarker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

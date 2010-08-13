@@ -20,5 +20,5 @@
 @interface LCSKeyValueOperationInOutParameter : LCSKeyValueOperationInputParameter <LCSOperationInOutParameter>
 @end
 
-@interface LCSKeyValueOperationOutputParameter : LCSKeyValueOperationInOutParameter
+@interface LCSKeyValueOperationOutputParameter : LCSKeyValueOperationInOutParameter <LCSOperationOutputParameter>
 @end

@@ -10,7 +10,6 @@
 
 
 @interface LCSPlistTaskOperationTest : SenTestCase {
-    id result;
     NSError *error;
 }
 

@@ -8,6 +8,7 @@
 
 #import "LCSTaskOperation.h"
 #import "LCSSimpleOperationParameter.h"
+#import "LCSOperationParameterMarker.h"
 
 
 @implementation LCSTaskOperation
@@ -20,8 +21,8 @@
     errEOF = NO;
     outPipe = [[NSPipe alloc] init];
     outEOF = NO;
-    launchPath = [[NSNull null] retain];
-    arguments = [[LCSSimpleOperationInputParameter alloc] initWithValue:[NSArray array]];
+    launchPath = [[LCSOperationRequiredInputParameterMarker alloc] init];
+    arguments = [[LCSOperationOptionalInputParameterMarker alloc] initWithDefaultValue:[NSArray array]];
     return self;
 }
 
