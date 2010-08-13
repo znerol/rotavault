@@ -16,32 +16,33 @@
 		CA28AF3312132D4000C9BE6F /* LCSOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA28AF3112132D4000C9BE6F /* LCSOperation.m */; };
 		CA28B00312134EDD00C9BE6F /* LCSCalculateVolumeUsedSpaceOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA28B00212134EDD00C9BE6F /* LCSCalculateVolumeUsedSpaceOperation.m */; };
 		CA28B00412134EDD00C9BE6F /* LCSCalculateVolumeUsedSpaceOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA28B00212134EDD00C9BE6F /* LCSCalculateVolumeUsedSpaceOperation.m */; };
-		CA2E635C12129D5B0031C4FA /* LCSTaskOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB1BEFF120C3D8A0076DB12 /* LCSTaskOperationTest.m */; };
 		CA2E63901212AB760031C4FA /* NSOperationQueue+NonBlockingWaitUntilFinished.m in Sources */ = {isa = PBXBuildFile; fileRef = CA2E638F1212AB760031C4FA /* NSOperationQueue+NonBlockingWaitUntilFinished.m */; };
-		CA2E63911212AB760031C4FA /* NSOperationQueue+NonBlockingWaitUntilFinished.m in Sources */ = {isa = PBXBuildFile; fileRef = CA2E638F1212AB760031C4FA /* NSOperationQueue+NonBlockingWaitUntilFinished.m */; };
 		CA2E63F81212C34D0031C4FA /* NSOperationQueue+NonBlockingWaitUntilFinished.m in Sources */ = {isa = PBXBuildFile; fileRef = CA2E638F1212AB760031C4FA /* NSOperationQueue+NonBlockingWaitUntilFinished.m */; };
 		CA2E64991212CF980031C4FA /* LCSSignalHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = CA2E64981212CF980031C4FA /* LCSSignalHandler.m */; };
 		CA2E649B1212CF980031C4FA /* LCSSignalHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = CA2E64981212CF980031C4FA /* LCSSignalHandler.m */; };
 		CA2E6538121300C70031C4FA /* LCSNanosecondTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = CA2E6537121300C70031C4FA /* LCSNanosecondTimer.m */; };
 		CA2E653A121300C70031C4FA /* LCSNanosecondTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = CA2E6537121300C70031C4FA /* LCSNanosecondTimer.m */; };
+		CA45B9581215727D00D3E40A /* LCSOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA28AF3112132D4000C9BE6F /* LCSOperation.m */; };
+		CA45B9C31215824E00D3E40A /* LCSSimpleOperationParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = CA45B9C21215824E00D3E40A /* LCSSimpleOperationParameter.m */; };
+		CA45B9C41215824E00D3E40A /* LCSSimpleOperationParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = CA45B9C21215824E00D3E40A /* LCSSimpleOperationParameter.m */; };
+		CA45B9C51215824E00D3E40A /* LCSSimpleOperationParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = CA45B9C21215824E00D3E40A /* LCSSimpleOperationParameter.m */; };
+		CA45B9CF1215842800D3E40A /* LCSKeyValueOperationParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = CA45B9CE1215842800D3E40A /* LCSKeyValueOperationParameter.m */; };
+		CA45B9D01215842800D3E40A /* LCSKeyValueOperationParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = CA45B9CE1215842800D3E40A /* LCSKeyValueOperationParameter.m */; };
+		CA45B9D11215842800D3E40A /* LCSKeyValueOperationParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = CA45B9CE1215842800D3E40A /* LCSKeyValueOperationParameter.m */; };
+		CA45BA1512158F1D00D3E40A /* LCSSimpleOperationParameterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA45BA1412158F1D00D3E40A /* LCSSimpleOperationParameterTest.m */; };
+		CA45BA1612158F1D00D3E40A /* LCSSimpleOperationParameterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA45BA1412158F1D00D3E40A /* LCSSimpleOperationParameterTest.m */; };
+		CA45BA21121591C000D3E40A /* LCSKeyValueOperationParameterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA45BA20121591C000D3E40A /* LCSKeyValueOperationParameterTest.m */; };
+		CA45BA22121591C000D3E40A /* LCSKeyValueOperationParameterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA45BA20121591C000D3E40A /* LCSKeyValueOperationParameterTest.m */; };
+		CA45BA4D12159CB400D3E40A /* LCSTestdir.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB72D7A120708220093D08A /* LCSTestdir.m */; };
 		CA54744A120B66120014E9E8 /* LCSBlockCopyOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA547448120B66120014E9E8 /* LCSBlockCopyOperation.m */; };
 		CA547492120B76F80014E9E8 /* LCSBlockCopyOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA547490120B76F80014E9E8 /* LCSBlockCopyOperationTest.m */; };
-		CA642566120FF28600913F90 /* LCSTestdir.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB72D7A120708220093D08A /* LCSTestdir.m */; };
 		CA9488821211895B00415257 /* rvcopyd.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9488811211895B00415257 /* rvcopyd.m */; };
-		CA94888A121189A200415257 /* LCSTaskOperationError.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA635B8120C0E080036B643 /* LCSTaskOperationError.m */; };
 		CA948894121189DC00415257 /* LCSBlockCopyOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA547448120B66120014E9E8 /* LCSBlockCopyOperation.m */; };
 		CA948895121189DE00415257 /* LCSDiskUtilOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC655FB120EB3A700069286 /* LCSDiskUtilOperation.m */; };
 		CA948896121189E000415257 /* LCSPlistTaskOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB1BD61120C1C860076DB12 /* LCSPlistTaskOperation.m */; };
 		CA948897121189E100415257 /* LCSRotavaultErrorDomain.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB1C0CE120C66D10076DB12 /* LCSRotavaultErrorDomain.m */; };
 		CA948898121189E200415257 /* LCSTaskOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA635BD120C0F0E0036B643 /* LCSTaskOperation.m */; };
 		CA948899121189E700415257 /* LCSTaskOperationError.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA635B8120C0E080036B643 /* LCSTaskOperationError.m */; };
-		CA9D00B61213C78C008AE27B /* LCSOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA28AF3112132D4000C9BE6F /* LCSOperation.m */; };
-		CA9D00B71213C791008AE27B /* LCSTaskOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA635BD120C0F0E0036B643 /* LCSTaskOperation.m */; };
-		CA9D00BC1213C7A1008AE27B /* LCSRotavaultErrorDomain.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB1C0CE120C66D10076DB12 /* LCSRotavaultErrorDomain.m */; };
-		CA9D014C1213D812008AE27B /* LCSPlistTaskOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB1BD61120C1C860076DB12 /* LCSPlistTaskOperation.m */; };
-		CA9D014D1213D81B008AE27B /* LCSPlistTaskOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB1BD93120C1E800076DB12 /* LCSPlistTaskOperationTest.m */; };
-		CA9D01D21213DD78008AE27B /* LCSHdiUtilPlistOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC656E4120EC41E00069286 /* LCSHdiUtilPlistOperationTest.m */; };
-		CA9D01D71213DD86008AE27B /* LCSHdiUtilPlistOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC65694120EBF7100069286 /* LCSHdiUtilPlistOperation.m */; };
 		CA9E2D59120F398D006C4DE7 /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA9E2D58120F398D006C4DE7 /* OCMock.framework */; };
 		CA9E2D5A120F398D006C4DE7 /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA9E2D58120F398D006C4DE7 /* OCMock.framework */; };
 		CAA635BA120C0E080036B643 /* LCSTaskOperationError.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA635B8120C0E080036B643 /* LCSTaskOperationError.m */; };
@@ -61,13 +62,6 @@
 		CAC657E9120EDC9400069286 /* LCSHdiUtilWithProgressOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC657E8120EDC9400069286 /* LCSHdiUtilWithProgressOperation.m */; };
 		CAC65827120EE1F100069286 /* LCSTaskOperation+TestPassword.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC65825120EE1F100069286 /* LCSTaskOperation+TestPassword.m */; };
 		CAC65848120EE39000069286 /* LCSHdiUtilWithProgressOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC65846120EE39000069286 /* LCSHdiUtilWithProgressOperationTest.m */; };
-		CAF98D3912145A0200A68270 /* LCSDiskUtilOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC655FB120EB3A700069286 /* LCSDiskUtilOperation.m */; };
-		CAF98D3B12145A0E00A68270 /* LCSDiskUtilOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC65615120EB74200069286 /* LCSDiskUtilOperationTest.m */; };
-		CAF98D6812145CD000A68270 /* LCSHdiUtilWithProgressOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC65846120EE39000069286 /* LCSHdiUtilWithProgressOperationTest.m */; };
-		CAF98D6912145CD800A68270 /* LCSHdiUtilWithProgressOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC657E8120EDC9400069286 /* LCSHdiUtilWithProgressOperation.m */; };
-		CAF98D7C1214619900A68270 /* LCSTaskOperation+TestPassword.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC65825120EE1F100069286 /* LCSTaskOperation+TestPassword.m */; };
-		CAF98D8D1214622400A68270 /* LCSBlockCopyOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA547448120B66120014E9E8 /* LCSBlockCopyOperation.m */; };
-		CAF98D94121462D300A68270 /* LCSBlockCopyOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA547490120B76F80014E9E8 /* LCSBlockCopyOperationTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,6 +118,15 @@
 		CA2E64981212CF980031C4FA /* LCSSignalHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSSignalHandler.m; sourceTree = "<group>"; };
 		CA2E6536121300C70031C4FA /* LCSNanosecondTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSNanosecondTimer.h; sourceTree = "<group>"; };
 		CA2E6537121300C70031C4FA /* LCSNanosecondTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSNanosecondTimer.m; sourceTree = "<group>"; };
+		CA45B9C0121581C600D3E40A /* LCSOperationParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSOperationParameter.h; sourceTree = "<group>"; };
+		CA45B9C11215824E00D3E40A /* LCSSimpleOperationParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSSimpleOperationParameter.h; sourceTree = "<group>"; };
+		CA45B9C21215824E00D3E40A /* LCSSimpleOperationParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSSimpleOperationParameter.m; sourceTree = "<group>"; };
+		CA45B9CD1215842800D3E40A /* LCSKeyValueOperationParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSKeyValueOperationParameter.h; sourceTree = "<group>"; };
+		CA45B9CE1215842800D3E40A /* LCSKeyValueOperationParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSKeyValueOperationParameter.m; sourceTree = "<group>"; };
+		CA45BA1312158F1D00D3E40A /* LCSSimpleOperationParameterTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSSimpleOperationParameterTest.h; sourceTree = "<group>"; };
+		CA45BA1412158F1D00D3E40A /* LCSSimpleOperationParameterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSSimpleOperationParameterTest.m; sourceTree = "<group>"; };
+		CA45BA1F121591C000D3E40A /* LCSKeyValueOperationParameterTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSKeyValueOperationParameterTest.h; sourceTree = "<group>"; };
+		CA45BA20121591C000D3E40A /* LCSKeyValueOperationParameterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSKeyValueOperationParameterTest.m; sourceTree = "<group>"; };
 		CA547447120B66120014E9E8 /* LCSBlockCopyOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSBlockCopyOperation.h; sourceTree = "<group>"; };
 		CA547448120B66120014E9E8 /* LCSBlockCopyOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSBlockCopyOperation.m; sourceTree = "<group>"; };
 		CA54748F120B76F80014E9E8 /* LCSBlockCopyOperationTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSBlockCopyOperationTest.h; sourceTree = "<group>"; };
@@ -258,6 +261,11 @@
 				CAC65694120EBF7100069286 /* LCSHdiUtilPlistOperation.m */,
 				CA28AF3012132D4000C9BE6F /* LCSOperation.h */,
 				CA28AF3112132D4000C9BE6F /* LCSOperation.m */,
+				CA45B9C0121581C600D3E40A /* LCSOperationParameter.h */,
+				CA45B9C11215824E00D3E40A /* LCSSimpleOperationParameter.h */,
+				CA45B9C21215824E00D3E40A /* LCSSimpleOperationParameter.m */,
+				CA45B9CD1215842800D3E40A /* LCSKeyValueOperationParameter.h */,
+				CA45B9CE1215842800D3E40A /* LCSKeyValueOperationParameter.m */,
 				CAB1BD60120C1C860076DB12 /* LCSPlistTaskOperation.h */,
 				CAB1BD61120C1C860076DB12 /* LCSPlistTaskOperation.m */,
 				CAB1C0CD120C66D10076DB12 /* LCSRotavaultErrorDomain.h */,
@@ -298,11 +306,15 @@
 				CAC656E4120EC41E00069286 /* LCSHdiUtilPlistOperationTest.m */,
 				CAB1BD92120C1E800076DB12 /* LCSPlistTaskOperationTest.h */,
 				CAB1BD93120C1E800076DB12 /* LCSPlistTaskOperationTest.m */,
+				CA45BA1312158F1D00D3E40A /* LCSSimpleOperationParameterTest.h */,
+				CA45BA1412158F1D00D3E40A /* LCSSimpleOperationParameterTest.m */,
 				CAB1BEFE120C3D8A0076DB12 /* LCSTaskOperationTest.h */,
 				CAB1BEFF120C3D8A0076DB12 /* LCSTaskOperationTest.m */,
 				CAB72D79120708220093D08A /* LCSTestdir.h */,
 				CAB72D7A120708220093D08A /* LCSTestdir.m */,
 				CAA74ADD120A12DB00D234F9 /* rotavault_test.m */,
+				CA45BA1F121591C000D3E40A /* LCSKeyValueOperationParameterTest.h */,
+				CA45BA20121591C000D3E40A /* LCSKeyValueOperationParameterTest.m */,
 			);
 			path = test;
 			sourceTree = "<group>";
@@ -465,6 +477,10 @@
 				CAC656E5120EC41E00069286 /* LCSHdiUtilPlistOperationTest.m in Sources */,
 				CAC65827120EE1F100069286 /* LCSTaskOperation+TestPassword.m in Sources */,
 				CAC65848120EE39000069286 /* LCSHdiUtilWithProgressOperationTest.m in Sources */,
+				CA45B9C41215824E00D3E40A /* LCSSimpleOperationParameter.m in Sources */,
+				CA45B9CF1215842800D3E40A /* LCSKeyValueOperationParameter.m in Sources */,
+				CA45BA1512158F1D00D3E40A /* LCSSimpleOperationParameterTest.m in Sources */,
+				CA45BA21121591C000D3E40A /* LCSKeyValueOperationParameterTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -485,6 +501,8 @@
 				CA28AF0912132AB900C9BE6F /* LCSVerifyDiskInfoChecksumOperation.m in Sources */,
 				CA28AF3212132D4000C9BE6F /* LCSOperation.m in Sources */,
 				CA28B00312134EDD00C9BE6F /* LCSCalculateVolumeUsedSpaceOperation.m in Sources */,
+				CA45B9C51215824E00D3E40A /* LCSSimpleOperationParameter.m in Sources */,
+				CA45B9D11215842800D3E40A /* LCSKeyValueOperationParameter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,24 +511,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				CAA74BB6120A14CD00D234F9 /* rotavault_test.m in Sources */,
-				CA642566120FF28600913F90 /* LCSTestdir.m in Sources */,
-				CA94888A121189A200415257 /* LCSTaskOperationError.m in Sources */,
-				CA2E635C12129D5B0031C4FA /* LCSTaskOperationTest.m in Sources */,
-				CA2E63911212AB760031C4FA /* NSOperationQueue+NonBlockingWaitUntilFinished.m in Sources */,
-				CA9D00B61213C78C008AE27B /* LCSOperation.m in Sources */,
-				CA9D00B71213C791008AE27B /* LCSTaskOperation.m in Sources */,
-				CA9D00BC1213C7A1008AE27B /* LCSRotavaultErrorDomain.m in Sources */,
-				CA9D014C1213D812008AE27B /* LCSPlistTaskOperation.m in Sources */,
-				CA9D014D1213D81B008AE27B /* LCSPlistTaskOperationTest.m in Sources */,
-				CA9D01D21213DD78008AE27B /* LCSHdiUtilPlistOperationTest.m in Sources */,
-				CA9D01D71213DD86008AE27B /* LCSHdiUtilPlistOperation.m in Sources */,
-				CAF98D3912145A0200A68270 /* LCSDiskUtilOperation.m in Sources */,
-				CAF98D3B12145A0E00A68270 /* LCSDiskUtilOperationTest.m in Sources */,
-				CAF98D6812145CD000A68270 /* LCSHdiUtilWithProgressOperationTest.m in Sources */,
-				CAF98D6912145CD800A68270 /* LCSHdiUtilWithProgressOperation.m in Sources */,
-				CAF98D7C1214619900A68270 /* LCSTaskOperation+TestPassword.m in Sources */,
-				CAF98D8D1214622400A68270 /* LCSBlockCopyOperation.m in Sources */,
-				CAF98D94121462D300A68270 /* LCSBlockCopyOperationTest.m in Sources */,
+				CA45B9581215727D00D3E40A /* LCSOperation.m in Sources */,
+				CA45B9C31215824E00D3E40A /* LCSSimpleOperationParameter.m in Sources */,
+				CA45B9D01215842800D3E40A /* LCSKeyValueOperationParameter.m in Sources */,
+				CA45BA1612158F1D00D3E40A /* LCSSimpleOperationParameterTest.m in Sources */,
+				CA45BA22121591C000D3E40A /* LCSKeyValueOperationParameterTest.m in Sources */,
+				CA45BA4D12159CB400D3E40A /* LCSTestdir.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
