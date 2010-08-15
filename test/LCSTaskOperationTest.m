@@ -54,17 +54,17 @@
     dataerr = nil;
 }
 
--(void)operation:(LCSTaskOperation*)operation updateStandardOutput:(NSData*)stdoutData
+-(void)operation:(LCSTaskOperationBase*)operation updateStandardOutput:(NSData*)stdoutData
 {
     [dataout appendData:stdoutData];
 }
 
--(void)operation:(LCSTaskOperation*)operation updateStandardError:(NSData*)stderrData
+-(void)operation:(LCSTaskOperationBase*)operation updateStandardError:(NSData*)stderrData
 {
     [dataerr appendData:stderrData];
 }
 
--(void)taskOperationLaunched:(LCSTaskOperation*)operation
+-(void)taskOperationLaunched:(LCSTaskOperationBase*)operation
 {
     launched = YES;
 }
