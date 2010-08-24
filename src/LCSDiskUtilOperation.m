@@ -7,14 +7,18 @@
 //
 
 #import "LCSDiskUtilOperation.h"
+#import "LCSOperationParameterMarker.h"
+#import "LCSSimpleOperationParameter.h"
 
 
 @implementation LCSListDisksOperation
--(void)taskBuildArguments
+-(void)taskSetup
 {
-    self.extractKeyPath = @"AllDisks";
-    self.arguments = [NSArray arrayWithObjects:@"list", @"-plist", nil];
-    self.launchPath = @"/usr/sbin/diskutil";
+    self.extractKeyPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"AllDisks"];
+    self.arguments = [[LCSSimpleOperationInputParameter alloc] initWithValue:
+                      [NSArray arrayWithObjects:@"list", @"-plist", nil]];
+    self.launchPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/usr/sbin/diskutil"];
+    [super taskSetup];
 }
 @end
 
@@ -23,19 +27,21 @@
 -(id)init
 {
     self = [super init];
-    device = [[NSNull null] retain];
+    device = [[LCSOperationRequiredInputParameterMarker alloc] init];
     return self;
 }
 
 -(void)dealloc
 {
-    [device release];
+    [(id)device release];
     [super dealloc];
 }
 
--(void)taskBuildArguments
+-(void)taskSetup
 {
-    self.arguments = [NSArray arrayWithObjects:@"info", @"-plist", device, nil];
-    self.launchPath = @"/usr/sbin/diskutil";
+    self.arguments = [[LCSSimpleOperationInputParameter alloc] initWithValue:
+                      [NSArray arrayWithObjects:@"info", @"-plist", device.value, nil]];
+    self.launchPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/usr/sbin/diskutil"];
+    [super taskSetup];
 }
 @end

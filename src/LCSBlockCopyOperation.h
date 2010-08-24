@@ -11,9 +11,9 @@
 
 
 @interface LCSBlockCopyOperation : LCSTaskOperation {
-    NSString* source;
-    NSString* target;
+    id <LCSOperationInputParameter> source;
+    id <LCSOperationInputParameter> target;
 }
-@property(retain) NSString* source;
-@property(retain) NSString* target;
+@property(retain) id <LCSOperationInputParameter> source;
+@property(retain) id <LCSOperationInputParameter> target;
 @end

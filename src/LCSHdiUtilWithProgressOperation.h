@@ -14,10 +14,10 @@
 @end
 
 @interface LCSCreateEncryptedImageOperation : LCSHdiUtilWithProgressOperation {
-    NSString *path;
-    uint64_t sectors;
+    id <LCSOperationInputParameter> path;       //NSString
+    id <LCSOperationInputParameter> sectors;    //NSNumber
 }
-@property(retain) NSString  *path;
-@property(assign) uint64_t  sectors;
+@property(retain) id <LCSOperationInputParameter> path;
+@property(assign) id <LCSOperationInputParameter> sectors;
 @end
 

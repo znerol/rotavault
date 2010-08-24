@@ -24,9 +24,6 @@ typedef enum {
 @property(retain) NSString *name;
 @property(assign) id delegate;
 
--(void)bindParameter:(NSString*)parameter direction:(LCSParameterDirection)direction toObject:(id)obj withKeyPath:(NSString*)keyPath;
--(void)setParameter:(NSString*)parameter to:(id)value;
-
 -(void)handleError:(NSError*)error;
 @end
 

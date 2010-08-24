@@ -9,6 +9,8 @@
 #import "LCSBlockCopyOperationTest.h"
 #import "LCSBlockCopyOperation.h"
 #import "LCSPlistTaskOperation.h"
+#import "LCSSimpleOperationParameter.h"
+#import "LCSKeyValueOperationParameter.h"
 
 
 @implementation LCSBlockCopyOperationTest
@@ -45,11 +47,6 @@
     error = [inError retain];
 }
 
--(void)operation:(LCSTaskOperation*)operation handleResult:(id)inResult
-{
-    result = [inResult retain];
-}
-
 -(void)operation:(LCSOperation*)operation updateProgress:(NSNumber*)inProgress
 {
     float newProgress = [inProgress floatValue];
@@ -69,9 +66,9 @@
     NSArray *screateargs = [NSArray arrayWithObjects:@"create", @"-sectors", @"2000", spath, @"-plist", @"-layout",
                            @"NONE", @"-fs", @"HFS+", @"-attach", nil];
     LCSPlistTaskOperation *screateop = [[LCSPlistTaskOperation alloc] init];
-    screateop.launchPath = @"/usr/bin/hdiutil";
-    screateop.arguments = screateargs;
-    [screateop bindParameter:@"result" direction:LCSParameterOut toObject:self withKeyPath:@"result"];
+    screateop.launchPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/usr/bin/hdiutil"];
+    screateop.arguments = [[LCSSimpleOperationInputParameter alloc] initWithValue:screateargs];
+    screateop.result = [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:self keyPath:@"result"];
 
     [screateop setDelegate:self];
     [screateop start];
@@ -94,9 +91,9 @@
     NSArray *tcreateargs = [NSArray arrayWithObjects:@"create", @"-sectors", @"2000", tpath, @"-plist", @"-layout",
                             @"NONE", nil];
     LCSPlistTaskOperation *tcreateop = [[LCSPlistTaskOperation alloc] init];
-    tcreateop.launchPath = @"/usr/bin/hdiutil";
-    tcreateop.arguments = tcreateargs;
-    [tcreateop bindParameter:@"result" direction:LCSParameterOut toObject:self withKeyPath:@"result"];
+    tcreateop.launchPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/usr/bin/hdiutil"];
+    tcreateop.arguments = [[LCSSimpleOperationInputParameter alloc] initWithValue:tcreateargs];
+    tcreateop.result = [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:self keyPath:@"result"];
 
     [tcreateop setDelegate:self];
     [tcreateop start];
@@ -107,9 +104,9 @@
     /* attach target */
     NSArray *atargs = [NSArray arrayWithObjects:@"attach", tpath, @"-plist", @"-nomount", nil];
     LCSPlistTaskOperation *atop = [[LCSPlistTaskOperation alloc] init];
-    atop.launchPath = @"/usr/bin/hdiutil";
-    atop.arguments = atargs;
-    [atop bindParameter:@"result" direction:LCSParameterOut toObject:self withKeyPath:@"result"];
+    atop.launchPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/usr/bin/hdiutil"];
+    atop.arguments = [[LCSSimpleOperationInputParameter alloc] initWithValue:atargs];
+    atop.result = [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:self keyPath:@"result"];
 
     [atop setDelegate:self];
     [atop start];
@@ -121,8 +118,8 @@
     
     /* perform block copy operation */
     LCSBlockCopyOperation* op = [[LCSBlockCopyOperation alloc] init];
-    op.source = srcdev;
-    op.target = dstdev;
+    op.source = [[LCSSimpleOperationInputParameter alloc] initWithValue:srcdev];
+    op.target = [[LCSSimpleOperationInputParameter alloc] initWithValue:dstdev];
 
     [op setDelegate:self];
     [op start];
@@ -142,10 +139,12 @@
 
     NSArray *infargs = [NSArray arrayWithObjects:@"info", @"-plist", dstdev, nil];
     LCSPlistTaskOperation *infop = [[LCSPlistTaskOperation alloc] init];
-    [infop setLaunchPath:@"/usr/sbin/diskutil"];
-    [infop bindParameter:@"result" direction:LCSParameterOut toObject:self withKeyPath:@"result"];
-    [infop setArguments:infargs];
     [infop setDelegate:self];
+    
+    infop.launchPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/usr/sbin/diskutil"];
+    infop.arguments = [[LCSSimpleOperationInputParameter alloc] initWithValue:infargs];
+    infop.result = [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:self keyPath:@"result"];
+
     [infop start];
 
     STAssertNotNil(result, @"return value of diskutil must not be nil");

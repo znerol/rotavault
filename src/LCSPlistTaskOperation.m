@@ -20,7 +20,7 @@
 {
     self = [super init];
     _outputData = [[NSMutableData alloc] init];
-    extractKeyPath = [[LCSOperationOptionalInputParameterMarker alloc] initWithDefaultValue:@"SELF"];
+    extractKeyPath = [[LCSOperationOptionalInputParameterMarker alloc] initWithDefaultValue:[NSNull null]];
     result = [[LCSOperationOptionalOutputParameterMarker alloc] init];
     return self;
 }
@@ -52,7 +52,9 @@
                                                             errorDescription:&errorDescription];
 
     if (plist) {
-        plist = [plist valueForKeyPath:extractKeyPath.value];
+        if (![extractKeyPath.value isKindOfClass:[NSNull class]]) {
+            plist = [plist valueForKeyPath:extractKeyPath.value];
+        }
         result.value = [plist retain];
     }
     else {

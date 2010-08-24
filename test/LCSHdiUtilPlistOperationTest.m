@@ -8,6 +8,8 @@
 
 #import "LCSHdiUtilPlistOperationTest.h"
 #import "LCSHdiUtilPlistOperation.h"
+#import "LCSSimpleOperationParameter.h"
+#import "LCSKeyValueOperationParameter.h"
 
 
 @implementation LCSHdiUtilPlistOperationTest
@@ -38,10 +40,11 @@
     error = nil;
 
     LCSPlistTaskOperation *op = [[LCSPlistTaskOperation alloc] init];
-    op.launchPath = @"/usr/bin/hdiutil";
-    op.arguments = [NSArray arrayWithObjects:@"create", @"-sectors", @"2000", imgpath, @"-plist", 
-                    @"-layout", @"GPTSPUD", @"-fs", @"HFS+", @"-attach", nil];
-    [op bindParameter:@"result" direction:LCSParameterOut toObject:self withKeyPath:@"result"];
+    NSArray *args = [NSArray arrayWithObjects:@"create", @"-sectors", @"2000", imgpath, @"-plist", 
+                     @"-layout", @"GPTSPUD", @"-fs", @"HFS+", @"-attach", nil];
+    op.launchPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/usr/bin/hdiutil"];
+    op.arguments = [[LCSSimpleOperationInputParameter alloc] initWithValue:args];
+    op.result = [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:self keyPath:@"result"];
 
     [op setDelegate:self];
     [op start];
@@ -61,8 +64,9 @@
     [self delegateCleanup];
 
     LCSPlistTaskOperation *op = [[LCSPlistTaskOperation alloc] init];
-    op.launchPath = @"/usr/bin/hdiutil";
-    op.arguments = [NSArray arrayWithObjects:@"detach", devpath, nil];
+    NSArray *args = [NSArray arrayWithObjects:@"detach", devpath, nil];
+    op.launchPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/usr/bin/hdiutil"];
+    op.arguments = [[LCSSimpleOperationInputParameter alloc] initWithValue:args];
     
     [op start];
     [op release];
@@ -79,16 +83,12 @@
     error = [inError retain];
 }
 
--(void)operation:(LCSTaskOperation*)operation handleResult:(id)inResult
-{
-    result = [inResult retain];
-}
-
 - (void)testHdiInfoOperation
 {
     LCSHdiInfoOperation *op = [[LCSHdiInfoOperation alloc] init];
     [op setDelegate:self];
-    [op bindParameter:@"result" direction:LCSParameterOut toObject:self withKeyPath:@"result"];
+    op.result = [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:self keyPath:@"result"];
+
     [op start];
 
     STAssertNil(error, @"LCSHdiUtilPlistOperation never should report any errors");

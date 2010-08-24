@@ -7,6 +7,8 @@
 //
 
 #import "LCSHdiUtilWithProgressOperation.h"
+#import "LCSOperationParameterMarker.h"
+#import "LCSSimpleOperationParameter.h"
 
 
 @implementation LCSHdiUtilWithProgressOperation
@@ -32,15 +34,32 @@
 @synthesize path;
 @synthesize sectors;
 
--(void)taskBuildArguments
+-(id)init
 {
-    self.launchPath = @"/usr/bin/hdiutil";
-    self.arguments = [NSArray arrayWithObjects:@"create", path,
+    self = [super init];
+    path = [[LCSOperationRequiredInputParameterMarker alloc] init];
+    sectors = [[LCSOperationRequiredInputParameterMarker alloc] init];
+    return self;
+}
+
+-(void)dealloc
+{
+    [(id)path release];
+    [(id)sectors release];
+    [super dealloc];
+}
+
+-(void)taskSetup
+{
+    self.launchPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/usr/bin/hdiutil"];
+    self.arguments = [[LCSSimpleOperationInputParameter alloc] initWithValue:
+                      [NSArray arrayWithObjects:@"create", path.value,
                       @"-puppetstrings",
-                      @"-sectors",[[NSNumber numberWithUnsignedLongLong:sectors] stringValue],
+                      @"-sectors",[sectors.value stringValue],
                       @"-type", @"UDIF",
                       @"-layout", @"NONE",
-                      @"-encryption", @"AES-256", nil];
+                      @"-encryption", @"AES-256", nil]];
+    [super taskSetup];
 }
 @end
 

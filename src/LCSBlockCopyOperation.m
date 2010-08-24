@@ -7,17 +7,29 @@
 //
 
 #import "LCSBlockCopyOperation.h"
+#import "LCSOperationParameterMarker.h"
+#import "LCSSimpleOperationParameter.h"
 
 
 @implementation LCSBlockCopyOperation
 @synthesize source;
 @synthesize target;
 
--(void)taskBuildArguments
+-(id)init
 {
-    self.launchPath = @"/usr/sbin/asr";
-    self.arguments = [NSArray arrayWithObjects:@"restore", @"--erase", @"--noprompt", @"--puppetstrings", 
-                      @"--source", source, @"--target", target, nil];
+    self = [super init];
+    source = [[LCSOperationRequiredInputParameterMarker alloc] init];
+    target = [[LCSOperationRequiredInputParameterMarker alloc] init];
+    return self;
+}
+
+-(void)taskSetup
+{
+    self.launchPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/usr/sbin/asr"];
+    self.arguments = [[LCSSimpleOperationInputParameter alloc] initWithValue:
+                      [NSArray arrayWithObjects:@"restore", @"--erase", @"--noprompt", @"--puppetstrings", @"--source",
+                       source.value, @"--target", target.value, nil]];
+    [super taskSetup];
 }
 
 -(void)updateStandardOutput:(NSData*)data

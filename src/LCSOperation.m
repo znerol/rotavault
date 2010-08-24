@@ -41,41 +41,6 @@
     [obj setValue:[self valueForKey:parameter] forKeyPath:keyPath];
 }
 
-/* client code */
--(void)bindParameter:(NSString*)parameter direction:(LCSParameterDirection)direction toObject:(id)obj withKeyPath:(NSString*)keyPath
-{
-    if (direction & LCSParameterIn) {
-        NSInvocation *inv = [NSInvocation invocationWithMethodSignature:
-                             [self methodSignatureForSelector:@selector(updateBoundInParameter:atObject:withKeyPath:)]];
-
-        [inv setSelector:@selector(updateBoundInParameter:atObject:withKeyPath:)];
-        [inv setArgument:&parameter atIndex:2];
-        [inv setArgument:&obj atIndex:3];
-        [inv setArgument:&keyPath atIndex:4];
-        [inv retainArguments];
-
-        [_runBeforeMain addObject:inv];
-    }
-    if(direction == LCSParameterOut) {
-        NSInvocation *inv = [NSInvocation invocationWithMethodSignature:
-                             [self methodSignatureForSelector:@selector(updateBoundOutParameter:atObject:withKeyPath:)]];
-
-        [inv setSelector:@selector(updateBoundOutParameter:atObject:withKeyPath:)];
-        [inv setArgument:&parameter atIndex:2];
-        [inv setArgument:&obj atIndex:3];
-        [inv setArgument:&keyPath atIndex:4];
-        [inv retainArguments];
-
-        [_runAfterMain addObject:inv];
-    }
-}
-
-/* client code */
--(void)setParameter:(NSString*)parameter to:(id)value
-{
-    [self setValue:value forKey:parameter];
-}
-
 /* override */
 -(void)updateProgress:(float)progress
 {

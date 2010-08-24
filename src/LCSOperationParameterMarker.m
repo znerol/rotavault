@@ -13,7 +13,7 @@
 -(id)value
 {
     NSAssert(YES, [NSString stringWithFormat:@"Attempt to access the value of an unset input parameter."]);
-    return nil; /* suppress complier warning */
+    return nil; /* suppress compiler warning */
 }
 @end
 
@@ -21,7 +21,7 @@
 -(id)value
 {
     NSAssert(YES, [NSString stringWithFormat:@"Attempt to access the value of an unset input parameter."]);
-    return nil; /* suppress complier warning */
+    return nil; /* suppress compiler warning */
 }
 
 -(void)setValue:(id)newValue
@@ -34,7 +34,7 @@
 -(id)value
 {
     NSAssert(YES, @"Tried to assign a value to an output only parameter");
-    return nil; /* suppress complier warning */
+    return nil; /* suppress compiler warning */
 }
 
 -(void)setValue:(id)newValue
@@ -81,7 +81,7 @@
 -(id)value
 {
     NSAssert(YES, @"Tried to assign a value to an output only parameter");
-    return nil; /* suppress complier warning */
+    return nil; /* suppress compiler warning */
 }
 
 -(void)setValue:(id)newValue

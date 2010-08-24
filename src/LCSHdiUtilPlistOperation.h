@@ -14,13 +14,13 @@
 @end
 
 @interface LCSAttachImageOperation : LCSPlistTaskOperation {
-    NSString* path;
+    id <LCSOperationInputParameter> path;
 }
-@property(retain) NSString* path;
+@property(retain) id <LCSOperationInputParameter> path;
 @end
 
 @interface LCSDetachImageOperation : LCSTaskOperation {
-    NSString* path;
+    id <LCSOperationInputParameter> path;
 }
-@property(retain) NSString* path;
+@property(retain) id <LCSOperationInputParameter> path;
 @end

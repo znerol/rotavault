@@ -8,13 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "LCSPlistTaskOperation.h"
+#import "LCSOperationParameter.h"
 
 
 @interface LCSListDisksOperation : LCSPlistTaskOperation
 @end
 
 @interface LCSInformationForDiskOperation : LCSPlistTaskOperation {
-    NSString *device;
+    id <LCSOperationInputParameter> device;
 }
-@property(retain) NSString *device;
+@property(retain) id <LCSOperationInputParameter> device;
 @end

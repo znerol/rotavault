@@ -8,6 +8,8 @@
 
 #import "LCSDiskUtilOperationTest.h"
 #import "LCSDiskUtilOperation.h"
+#import "LCSSimpleOperationParameter.h"
+#import "LCSKeyValueOperationParameter.h"
 
 
 @implementation LCSDiskUtilOperationTest
@@ -34,15 +36,11 @@
     error = [inError retain];
 }
 
--(void)operation:(LCSTaskOperation*)operation handleResult:(id)inResult
-{
-    result = [inResult retain];
-}
 - (void) testListDisks
 {
     LCSListDisksOperation *op = [[LCSListDisksOperation alloc] init];
     [op setDelegate:self];
-    [op bindParameter:@"result" direction:LCSParameterOut toObject:self withKeyPath:@"result"];
+    op.result = [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:self keyPath:@"result"];
 
     [op start];
     STAssertNil(error, @"LCSListDiskOperation should not cause any errors");
@@ -57,8 +55,8 @@
 {
     LCSInformationForDiskOperation *op = [[LCSInformationForDiskOperation alloc] init];
     [op setDelegate:self];
-    [op setParameter:@"device" to:@"/dev/disk0"];
-    [op bindParameter:@"result" direction:LCSParameterOut toObject:self withKeyPath:@"result"];
+    op.device = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/dev/disk0"];
+    op.result = [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:self keyPath:@"result"];
 
     [op start];
     STAssertNil(error, @"LCSInformationForDiskOperation should not cause any errors for the startup disk");

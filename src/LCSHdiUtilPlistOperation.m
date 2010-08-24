@@ -7,13 +7,17 @@
 //
 
 #import "LCSHdiUtilPlistOperation.h"
+#import "LCSOperationParameterMarker.h"
+#import "LCSSimpleOperationParameter.h"
 
 
 @implementation LCSHdiInfoOperation
--(void)taskBuildArguments
+-(void)taskSetup
 {
-    self.launchPath = @"/usr/bin/hdiutil";
-    self.arguments = [NSArray arrayWithObjects:@"info", @"-plist", nil];
+    self.launchPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/usr/bin/hdiutil"];
+    self.arguments = [[LCSSimpleOperationInputParameter alloc] initWithValue:
+                      [NSArray arrayWithObjects:@"info", @"-plist", nil]];
+    [super taskSetup];
 }
 @end
 
@@ -21,10 +25,25 @@
 
 @synthesize path;
 
--(void)taskBuildArguments
+-(id)init
 {
-    self.launchPath = @"/usr/bin/hdiutil";
-    self.arguments = [NSArray arrayWithObjects:@"attach", path, @"-plist", @"-nomount", nil];
+    self = [super init];
+    path = [[LCSOperationRequiredInputParameterMarker alloc] init];
+    return self;
+}
+
+-(void)dealloc
+{
+    [(id)path release];
+    [super dealloc];
+}
+
+-(void)taskSetup
+{
+    self.launchPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/usr/bin/hdiutil"];
+    self.arguments = [[LCSSimpleOperationInputParameter alloc] initWithValue:
+                      [NSArray arrayWithObjects:@"attach", path.value, @"-plist", @"-nomount", nil]];
+    [super taskSetup];
 }
 @end
 
@@ -32,9 +51,24 @@
 
 @synthesize path;
 
--(void)taskBuildArguments
+-(id)init
 {
-    self.launchPath = @"/usr/bin/hdiutil";
-    self.arguments = [NSArray arrayWithObjects:@"detach", path, nil];
+    self = [super init];
+    path = [[LCSOperationRequiredInputParameterMarker alloc] init];
+    return self;
+}
+
+-(void)dealloc
+{
+    [(id)path release];
+    [super dealloc];
+}
+
+-(void)taskSetup
+{
+    self.launchPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/usr/bin/hdiutil"];
+    self.arguments = [[LCSSimpleOperationInputParameter alloc] initWithValue:
+                      [NSArray arrayWithObjects:@"detach", path.value, nil]];
+    [super taskSetup];
 }
 @end

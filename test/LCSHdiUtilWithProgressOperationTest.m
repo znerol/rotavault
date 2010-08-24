@@ -10,6 +10,8 @@
 #import "LCSHdiUtilWithProgressOperation.h"
 #import "LCSHdiUtilPlistOperation.h"
 #import "LCSTaskOperation+TestPassword.h"
+#import "LCSKeyValueOperationParameter.h"
+#import "LCSSimpleOperationParameter.h"
 
 
 @implementation LCSHdiUtilWithProgressOperationTest
@@ -45,11 +47,6 @@
     error = [inError retain];
 }
 
--(void)operation:(LCSTaskOperation*)operation handleResult:(id)inResult
-{
-    result = [inResult retain];
-}
-
 -(void)operation:(LCSOperation*)operation updateProgress:(NSNumber*)inProgress
 {
     float newProgress = [inProgress floatValue];
@@ -67,27 +64,27 @@
     NSString *imgpath = [[testdir path] stringByAppendingPathComponent:@"crypt.dmg"];
 
     LCSCreateEncryptedImageOperation *createop = [[LCSCreateEncryptedImageOperation alloc] init];
-    [createop setPath:imgpath];
-    [createop setSectors:2000];
-    [createop setDelegate:self];
+    createop.path = [[LCSSimpleOperationInputParameter alloc] initWithValue:imgpath];
+    createop.sectors = [[LCSSimpleOperationInputParameter alloc] initWithValue:[NSNumber numberWithInt:2000]];
 
     [createop injectTestPassword:@"TEST"];
 
+    [createop setDelegate:self];
     [createop start];
 
     STAssertNil(error, @"Failed to create a new test-image: LCSCreateEncryptedImageOperation reported an error");
     STAssertEquals(progress, (float)100.0, @"Progress should be at 100.0 after creating the image");
     STAssertTrue([[NSFileManager defaultManager] fileExistsAtPath:imgpath], @"Failed to create a new test-image: file "
-                 @"was not created at path @%", imgpath);
+                 @"was not created at path %@", imgpath);
     [self delegateCleanup];
 
     LCSAttachImageOperation *wrongop = [[LCSAttachImageOperation alloc] init];
-    [wrongop setPath:imgpath];
-    [wrongop bindParameter:@"result" direction:LCSParameterOut toObject:self withKeyPath:@"result"];
-    [wrongop setDelegate:self];
+    wrongop.path = [[LCSSimpleOperationInputParameter alloc] initWithValue:imgpath];
+    wrongop.result = [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:self keyPath:@"result"];
 
     [wrongop injectTestPassword:@"WRONG"];
 
+    [wrongop setDelegate:self];
     [wrongop start];
 
     STAssertNotNil(error, @"LCSAttachImageOperation must report an error if password is wrong");
@@ -102,12 +99,12 @@
     [self delegateCleanup];
 
     LCSAttachImageOperation *attachop = [[LCSAttachImageOperation alloc] init];
-    [attachop setPath:imgpath];
-    [attachop bindParameter:@"result" direction:LCSParameterOut toObject:self withKeyPath:@"result"];
-    [attachop setDelegate:self];
+    attachop.path = [[LCSSimpleOperationInputParameter alloc] initWithValue:imgpath];
+    attachop.result = [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:self keyPath:@"result"];
     
     [attachop injectTestPassword:@"TEST"];
     
+    [attachop setDelegate:self];
     [attachop start];
     
     STAssertNil(error, @"Failed to attach test-image: LCSAttachImageOperation reported an error");
@@ -119,9 +116,7 @@
     [self delegateCleanup];
 
     LCSDetachImageOperation *detachop = [[LCSDetachImageOperation alloc] init];
-    [detachop start];
-    [detachop setPath:imgpath];
-    [detachop bindParameter:@"result" direction:LCSParameterOut toObject:self withKeyPath:@"result"];
+    detachop.path = [[LCSSimpleOperationInputParameter alloc] initWithValue:devpath];
     [detachop setDelegate:self];
     
     [detachop start];
