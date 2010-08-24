@@ -11,6 +11,9 @@
 
 
 @interface LCSSimpleOperationInputParameter : NSObject <LCSOperationInputParameter>
+{
+    id value;
+}
 -(id)initWithValue:(id)inValue;
 @end
 

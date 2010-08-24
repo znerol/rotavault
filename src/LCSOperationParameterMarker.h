@@ -20,10 +20,16 @@
 @end
 
 @interface LCSOperationOptionalInputParameterMarker : NSObject <LCSOperationInputParameter>
+{
+    id value;
+}
 -(id)initWithDefaultValue:(id)defaultValue;
 @end
 
 @interface LCSOperationOptionalInOutParameterMarker : NSObject <LCSOperationInOutParameter>
+{
+    id value;
+}
 -(id)initWithDefaultValue:(id)defaultValue;
 @end
 

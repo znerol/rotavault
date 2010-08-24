@@ -23,6 +23,13 @@
     return self;
 }
 
+-(void)dealloc
+{
+    [(id)source release];
+    [(id)target release];
+    [super dealloc];
+}
+
 -(void)taskSetup
 {
     self.launchPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/usr/sbin/asr"];

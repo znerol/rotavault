@@ -28,6 +28,8 @@
 
     [paramValues setValue:@"changed" forKeyPath:@"foo"];
     STAssertTrue([inputParam1.value isEqualToString:@"changed"], @"Parameter must return the actual (changed) value");
+    [inputParam1 release];
+    [inputParam2 release];
 }
 
 -(void)testKeyValueOperationOutputParameterNoThreads
@@ -52,6 +54,8 @@
     outParam2.value = @"changed";
     STAssertTrue([[paramValues valueForKeyPath:@"more.stuff"] isEqualToString:@"changed"],
                  @"Output parameter must be set correctly also using a key path");
+    [outParam1 release];
+    [outParam2 release];
 }
 
 @end

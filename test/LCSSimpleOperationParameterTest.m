@@ -18,6 +18,7 @@
     STAssertTrue([inparam.value isEqualToString:@"Test"], @"Parameter value must be set correctly");
     [paramValue appendString:@" copy Test"];
     STAssertTrue([inparam.value isEqualToString:@"Test"], @"Parameter value must be a copy of original value");
+    [inparam release];
 }
 
 -(void)testSimpleOperationOutputParameterNoThread
@@ -29,5 +30,6 @@
     outparam.value = @"Test";
     STAssertNotNil(returnValue, @"Return value must not be nil after assignement");
     STAssertTrue([returnValue isEqualToString:@"Test"], @"Return value must be equal to the test string");
+    [outparam release];
 }
 @end
