@@ -17,8 +17,6 @@ typedef enum {
 @interface LCSOperation : NSOperation {
     NSString        *name;
     id              delegate;
-    NSMutableArray  *_runBeforeMain;
-    NSMutableArray  *_runAfterMain;
 }
 
 @property(retain) NSString *name;

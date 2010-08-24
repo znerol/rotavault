@@ -15,8 +15,6 @@
     self = [super init];
     delegate = nil;
     name = [[NSNull null] retain];
-    _runBeforeMain = [[NSMutableArray alloc] init];
-    _runAfterMain = [[NSMutableArray alloc] init];
     return self;
 }
 
@@ -97,28 +95,8 @@
         return;
     }
 
-    /* populate in-parameters (with values from main thread) */
-    for(NSInvocation *inv in _runBeforeMain) {
-        @try {        
-            [inv performSelectorOnMainThread:@selector(invokeWithTarget:) withObject:self waitUntilDone:YES];
-        }
-        @catch (NSException * e) {
-            NSLog(@"Failed to update in-parameter: %@", [e description]);
-        }
-    }
-
-    /* perforrm operation */
+    /* perform operation */
     [self execute];
-    
-    /* write results out (on main thread) */
-    for(NSInvocation *inv in _runAfterMain) {
-        @try {        
-            [inv performSelectorOnMainThread:@selector(invokeWithTarget:) withObject:self waitUntilDone:YES];
-        }
-        @catch (NSException * e) {
-            NSLog(@"Failed to update out-parameter: %@", [e description]);
-        }            
-    }        
 }
 
 -(void)cancel

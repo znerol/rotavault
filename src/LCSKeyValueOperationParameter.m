@@ -47,6 +47,7 @@
 
 -(void)setValueOnMainThread:(id)newValue
 {
+    /* we don't have to retain the value here because we expect our target to do this for us */
     [target setValue:newValue forKeyPath:keyPath];
 }
 

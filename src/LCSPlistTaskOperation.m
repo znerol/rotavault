@@ -55,7 +55,7 @@
         if (![extractKeyPath.value isKindOfClass:[NSNull class]]) {
             plist = [plist valueForKeyPath:extractKeyPath.value];
         }
-        result.value = [plist retain];
+        result.value = plist;
     }
     else {
         NSError *error = [LCSTaskOperationError errorReceivedUnexpectedOutputFromLaunchPath:[task launchPath]

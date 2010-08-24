@@ -41,7 +41,11 @@
 
 -(void)setValueOnMainThread:(id)newValue
 {
+    if (*value) {
+        [*value release];
+    }
     *value = newValue;
+    [*value retain];
 }
 
 -(void)setValue:(id)newValue
