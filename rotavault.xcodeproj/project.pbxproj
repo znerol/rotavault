@@ -45,6 +45,9 @@
 		CA45BAC01215A8F100D3E40A /* LCSOperationParameterMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = CA45BABE1215A8F100D3E40A /* LCSOperationParameterMarker.m */; };
 		CA54744A120B66120014E9E8 /* LCSBlockCopyOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA547448120B66120014E9E8 /* LCSBlockCopyOperation.m */; };
 		CA547492120B76F80014E9E8 /* LCSBlockCopyOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA547490120B76F80014E9E8 /* LCSBlockCopyOperationTest.m */; };
+		CA7D62B512295FF000FB42C4 /* LCSCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA7D62B412295FF000FB42C4 /* LCSCommand.m */; };
+		CA7D62B612295FF000FB42C4 /* LCSCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA7D62B412295FF000FB42C4 /* LCSCommand.m */; };
+		CA7D62B712295FF000FB42C4 /* LCSCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA7D62B412295FF000FB42C4 /* LCSCommand.m */; };
 		CA9488821211895B00415257 /* rvcopyd.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9488811211895B00415257 /* rvcopyd.m */; };
 		CA948894121189DC00415257 /* LCSBlockCopyOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA547448120B66120014E9E8 /* LCSBlockCopyOperation.m */; };
 		CA948895121189DE00415257 /* LCSDiskUtilOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC655FB120EB3A700069286 /* LCSDiskUtilOperation.m */; };
@@ -155,6 +158,8 @@
 		CA547448120B66120014E9E8 /* LCSBlockCopyOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSBlockCopyOperation.m; sourceTree = "<group>"; };
 		CA54748F120B76F80014E9E8 /* LCSBlockCopyOperationTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSBlockCopyOperationTest.h; sourceTree = "<group>"; };
 		CA547490120B76F80014E9E8 /* LCSBlockCopyOperationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSBlockCopyOperationTest.m; sourceTree = "<group>"; };
+		CA7D62B312295FF000FB42C4 /* LCSCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSCommand.h; sourceTree = "<group>"; };
+		CA7D62B412295FF000FB42C4 /* LCSCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSCommand.m; sourceTree = "<group>"; };
 		CA94887A1211892500415257 /* rvcopyd */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = rvcopyd; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA9488811211895B00415257 /* rvcopyd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rvcopyd.m; sourceTree = "<group>"; };
 		CA9E2D58120F398D006C4DE7 /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMock.framework; path = Frameworks/OCMock.framework; sourceTree = "<group>"; };
@@ -279,6 +284,8 @@
 			children = (
 				CA547447120B66120014E9E8 /* LCSBlockCopyOperation.h */,
 				CA547448120B66120014E9E8 /* LCSBlockCopyOperation.m */,
+				CA7D62B312295FF000FB42C4 /* LCSCommand.h */,
+				CA7D62B412295FF000FB42C4 /* LCSCommand.m */,
 				CAC655FA120EB3A700069286 /* LCSDiskUtilOperation.h */,
 				CAC655FB120EB3A700069286 /* LCSDiskUtilOperation.m */,
 				CAC657E7120EDC9400069286 /* LCSHdiUtilWithProgressOperation.h */,
@@ -513,6 +520,7 @@
 				CA45BA21121591C000D3E40A /* LCSKeyValueOperationParameterTest.m in Sources */,
 				CA45BABF1215A8F100D3E40A /* LCSOperationParameterMarker.m in Sources */,
 				CAAB12D61215B3B500A22678 /* LCSTaskOperationBase.m in Sources */,
+				CA7D62B612295FF000FB42C4 /* LCSCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -537,6 +545,7 @@
 				CA45B9D11215842800D3E40A /* LCSKeyValueOperationParameter.m in Sources */,
 				CAB8931A12295546003C3308 /* LCSTaskOperationBase.m in Sources */,
 				CAB8931B12295548003C3308 /* LCSOperationParameterMarker.m in Sources */,
+				CA7D62B712295FF000FB42C4 /* LCSCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -569,6 +578,7 @@
 				CAFED615122456FD00F27A23 /* LCSHdiUtilPlistOperationTest.m in Sources */,
 				CAFED61E1224570F00F27A23 /* LCSDiskUtilOperationTest.m in Sources */,
 				CAFED6291224577A00F27A23 /* LCSBlockCopyOperationTest.m in Sources */,
+				CA7D62B512295FF000FB42C4 /* LCSCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

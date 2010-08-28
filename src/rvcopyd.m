@@ -1,21 +1,14 @@
 #include <asl.h>
 #import <Foundation/Foundation.h>
+#import "LCSCommand.h"
 #import "LCSBlockCopyOperation.h"
 #import "LCSDiskUtilOperation.h"
-#import "NSOperationQueue+NonBlockingWaitUntilFinished.h"
-#import "LCSRotavaultErrorDomain.h"
-#import "LCSTaskOperationError.h"
-#import "LCSSignalHandler.h"
-//#import "LCSNanosecondTimer.h"
 #import "LCSVerifyDiskInfoChecksumOperation.h"
 #import "LCSSimpleOperationParameter.h"
 #import "LCSKeyValueOperationParameter.h"
 
-@interface LCSRotavaultCopyCommand : NSObject
+@interface LCSRotavaultCopyCommand : LCSCommand
 {
-    NSOperationQueue* queue;
-    NSError* originalError;
-//    LCSNanosecondTimer *timer;
     NSMutableDictionary *context;
 }
 @end
@@ -26,12 +19,9 @@
              targetDevice:(NSString*)targetDevice
            targetChecksum:(NSString*)targetChecksum
 {
-    self = [super init];
-    originalError = nil;
-
-    /* setup operations */
-    queue = [[NSOperationQueue alloc] init];
-    [queue setSuspended:YES];
+    if(!(self = [super init])) {
+        return nil;
+    }
 
     context = [[NSMutableDictionary alloc] init];
     [context setValue:[NSNull null] forKey:@"sourceInfo"];
@@ -78,96 +68,27 @@
     [blockCopyOperation addDependency:verifyTargetInfoOperation];
     [queue addOperation:blockCopyOperation];
 
-//    timer = [[LCSNanosecondTimer alloc] init];
-
-    /* setup signal handler and signal pipe */
-    LCSSignalHandler *sh = [LCSSignalHandler defaultSignalHandler];
-    [sh setDelegate:self];
-    [sh addSignal:SIGHUP];
-    [sh addSignal:SIGINT];
-    [sh addSignal:SIGPIPE];
-    [sh addSignal:SIGALRM];
-    [sh addSignal:SIGTERM];
-
     return self;
 }
 
 -(void)dealloc
 {
-    [queue release];
-    
-    if(originalError) {
-        [originalError release];
-    }
+    [context release];
     [super dealloc];
-}
-
-
--(void)operation:(LCSTaskOperation*)operation updateStandardError:(NSData*)data
-{
-}
-
--(void)operation:(LCSOperation*)operation handleError:(NSError*)error
-{
-    if(!originalError) {
-        originalError = [error retain];
-    }
-
-    if ([error domain] == NSCocoaErrorDomain && [error code] == NSUserCancelledError) {
-        return;
-    }
-
-    NSLog(@"ERROR: %@", [error localizedDescription]);
-    [queue cancelAllOperations];
-}
-
--(void)operation:(LCSOperation*)operation updateProgress:(NSNumber*)progress
-{
-}
-
--(void)operation:(LCSTaskOperation*)operation terminatedWithStatus:(NSNumber*)status
-{
-    if([status intValue] == 0) {
-        return;
-    }
-    NSError *error = [NSError errorWithDomain:LCSRotavaultErrorDomain
-                                         code:LCSExecutableReturnedNonZeroStatus
-                                     userInfo:[NSDictionary dictionary]];
-    /*
-     * it is save to call back into the operation because we block the operation thread when calling delegate methods!
-     */
-    [operation handleError:error];
-}
-
--(void)handleSignal:(NSNumber*)signal
-{
-    [queue cancelAllOperations];
 }
 
 -(NSError*)execute
 {
-//    [timer setReferenceTime];
+    NSError *err = [super execute];
 
-    [queue setSuspended:NO];
-    [queue waitUntilAllOperationsAreFinishedPollingRunLoopInMode:NSDefaultRunLoopMode];
-
-    if(originalError)
+    if(err)
     {
         /* try to mount the source volume */
         NSArray* remountArgs = [NSArray arrayWithObjects:@"mount", [context objectForKey:@"sourceDevice"], nil];
         [[NSTask launchedTaskWithLaunchPath:@"/usr/sbin/diskutil" arguments:remountArgs] waitUntilExit];
-        return originalError;
     }
-    else {
-        /*
-        long double milliseconds = [timer nanosecondsSinceReferenceTime] / 1000000.;
-        long double speed = UInt64ToLongDouble(srcsize) / milliseconds;
 
-        NSLog(@"Duration of copy & verification of %d bytes took %.2Lf seconds (%.2Lf bytes/sec)",
-              srcsize, milliseconds / 1000., speed * 1000.);
-         */
-        return nil;
-    }
+    return err;
 }
 @end
 
