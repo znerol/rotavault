@@ -41,11 +41,13 @@
 
 -(void)setValueOnMainThread:(id)newValue
 {
-    if (*value) {
-        [*value release];
+    /* if the new value is equal to the stored, no change should take place (memory management) */
+    if (*value == newValue) {
+        return;
     }
-    *value = newValue;
-    [*value retain];
+
+    [*value release];
+    *value = [newValue retain];
 }
 
 -(void)setValue:(id)newValue
