@@ -8,6 +8,8 @@
 #import "LCSSignalHandler.h"
 //#import "LCSNanosecondTimer.h"
 #import "LCSVerifyDiskInfoChecksumOperation.h"
+#import "LCSSimpleOperationParameter.h"
+#import "LCSKeyValueOperationParameter.h"
 
 @interface LCSRotavaultCopyCommand : NSObject
 {
@@ -32,44 +34,46 @@
     [queue setSuspended:YES];
 
     context = [[NSMutableDictionary alloc] init];
-    [context setValue:sourceDevice forKey:@"sourceDevice"];
     [context setValue:[NSNull null] forKey:@"sourceInfo"];
-    [context setValue:[NSNull null] forKey:@"sourceSize"];
-    [context setValue:targetDevice forKey:@"targetDevice"];
+//    [context setValue:[NSNull null] forKey:@"sourceSize"];
     [context setValue:[NSNull null] forKey:@"targetInfo"];
 
     LCSInformationForDiskOperation *sourceInfoOperation = [[[LCSInformationForDiskOperation alloc] init] autorelease];
-    [sourceInfoOperation setDelegate:self];
-    [sourceInfoOperation bindParameter:@"device" direction:LCSParameterIn toObject:context withKeyPath:@"sourceDevice"];
-    [sourceInfoOperation bindParameter:@"result" direction:LCSParameterOut toObject:context withKeyPath:@"sourceInfo"];
+    sourceInfoOperation.delegate = self;
+    sourceInfoOperation.device = [[LCSSimpleOperationInputParameter alloc] initWithValue:sourceDevice];
+    sourceInfoOperation.result =
+        [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:context keyPath:@"sourceInfo"];
     [queue addOperation:sourceInfoOperation];
 
     LCSVerifyDiskInfoChecksumOperation *verifySourceInfoOperation =
         [[[LCSVerifyDiskInfoChecksumOperation alloc] init] autorelease];
-    [verifySourceInfoOperation setDelegate:self];
-    [verifySourceInfoOperation bindParameter:@"diskinfo" direction:LCSParameterIn toObject:context withKeyPath:@"sourceDevice"];
-    [verifySourceInfoOperation setParameter:@"checksum" to:sourceChecksum];
+    verifySourceInfoOperation.delegate = self;
+    verifySourceInfoOperation.diskinfo =
+        [[LCSKeyValueOperationInputParameter alloc] initWithTarget:context keyPath:@"sourceInfo"];
+    verifySourceInfoOperation.checksum = [[LCSSimpleOperationInputParameter alloc] initWithValue:sourceChecksum];
     [verifySourceInfoOperation addDependency:sourceInfoOperation];
     [queue addOperation:verifySourceInfoOperation];
 
     LCSInformationForDiskOperation *targetInfoOperation = [[[LCSInformationForDiskOperation alloc] init] autorelease];
-    [targetInfoOperation setDelegate:self];
-    [targetInfoOperation bindParameter:@"device" direction:LCSParameterIn toObject:context withKeyPath:@"targetDevice"];
-    [targetInfoOperation bindParameter:@"result" direction:LCSParameterIn toObject:context withKeyPath:@"targetInfo"];
+    targetInfoOperation.delegate = self;
+    targetInfoOperation.device = [[LCSSimpleOperationInputParameter alloc] initWithValue:sourceDevice];
+    targetInfoOperation.result =
+        [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:context keyPath:@"targetInfo"];
     [queue addOperation:targetInfoOperation];
 
     LCSVerifyDiskInfoChecksumOperation *verifyTargetInfoOperation =
-    [[[LCSVerifyDiskInfoChecksumOperation alloc] init] autorelease];
-    [verifyTargetInfoOperation setDelegate:self];
-    [verifyTargetInfoOperation bindParameter:@"diskinfo" direction:LCSParameterIn toObject:context withKeyPath:@"targetDevice"];
-    [verifyTargetInfoOperation setParameter:@"checksum" to:targetChecksum];
+        [[[LCSVerifyDiskInfoChecksumOperation alloc] init] autorelease];
+    verifySourceInfoOperation.delegate = self;
+    verifySourceInfoOperation.diskinfo =
+        [[LCSKeyValueOperationInputParameter alloc] initWithTarget:context keyPath:@"targetInfo"];
+    verifySourceInfoOperation.checksum = [[LCSSimpleOperationInputParameter alloc] initWithValue:targetChecksum];
     [verifyTargetInfoOperation addDependency:targetInfoOperation];
     [queue addOperation:verifyTargetInfoOperation];
 
     LCSBlockCopyOperation *blockCopyOperation = [[[LCSBlockCopyOperation alloc] init] autorelease];
-    [blockCopyOperation setDelegate:self];
-    [blockCopyOperation bindParameter:@"source" direction:LCSParameterIn toObject:context withKeyPath:@"sourceDevice"];
-    [blockCopyOperation bindParameter:@"target" direction:LCSParameterIn toObject:context withKeyPath:@"targetDevice"];
+    blockCopyOperation.delegate = self;
+    blockCopyOperation.source = [[LCSSimpleOperationInputParameter alloc] initWithValue:sourceDevice];
+    blockCopyOperation.target = [[LCSSimpleOperationInputParameter alloc] initWithValue:targetDevice];
     [blockCopyOperation addDependency:verifySourceInfoOperation];
     [blockCopyOperation addDependency:verifyTargetInfoOperation];
     [queue addOperation:blockCopyOperation];
