@@ -45,3 +45,27 @@
     [super taskSetup];
 }
 @end
+
+@implementation LCSMountOperation
+@synthesize device;
+-(id)init
+{
+    self = [super init];
+    device = [[LCSOperationRequiredInputParameterMarker alloc] init];
+    return self;
+}
+
+-(void)dealloc
+{
+    [(id)device release];
+    [super dealloc];
+}
+
+-(void)taskSetup
+{
+    self.arguments = [[LCSSimpleOperationInputParameter alloc] initWithValue:
+                      [NSArray arrayWithObjects:@"mount",  device.value, nil]];
+    self.launchPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/usr/sbin/diskutil"];
+    [super taskSetup];
+}
+@end

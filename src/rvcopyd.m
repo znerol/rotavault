@@ -9,8 +9,12 @@
 
 @interface LCSRotavaultCopyCommand : LCSCommand
 {
-    NSMutableDictionary *context;
+    NSDictionary        *sourceInfo;
+    NSDictionary        *targetInfo;
+    LCSMountOperation   *sourceRemountOperation;
 }
+@property(retain) NSDictionary *sourceInfo;
+@property(retain) NSDictionary *targetInfo;
 @end
 
 @implementation LCSRotavaultCopyCommand
@@ -23,40 +27,38 @@
         return nil;
     }
 
-    context = [[NSMutableDictionary alloc] init];
-    [context setValue:[NSNull null] forKey:@"sourceInfo"];
-//    [context setValue:[NSNull null] forKey:@"sourceSize"];
-    [context setValue:[NSNull null] forKey:@"targetInfo"];
+    sourceInfo = nil;
+    targetInfo = nil;
 
     LCSInformationForDiskOperation *sourceInfoOperation = [[[LCSInformationForDiskOperation alloc] init] autorelease];
     sourceInfoOperation.delegate = self;
     sourceInfoOperation.device = [[LCSSimpleOperationInputParameter alloc] initWithValue:sourceDevice];
     sourceInfoOperation.result =
-        [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:context keyPath:@"sourceInfo"];
+        [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:self keyPath:@"sourceInfo"];
     [queue addOperation:sourceInfoOperation];
 
     LCSVerifyDiskInfoChecksumOperation *verifySourceInfoOperation =
         [[[LCSVerifyDiskInfoChecksumOperation alloc] init] autorelease];
     verifySourceInfoOperation.delegate = self;
     verifySourceInfoOperation.diskinfo =
-        [[LCSKeyValueOperationInputParameter alloc] initWithTarget:context keyPath:@"sourceInfo"];
+        [[LCSKeyValueOperationInputParameter alloc] initWithTarget:self keyPath:@"sourceInfo"];
     verifySourceInfoOperation.checksum = [[LCSSimpleOperationInputParameter alloc] initWithValue:sourceChecksum];
     [verifySourceInfoOperation addDependency:sourceInfoOperation];
     [queue addOperation:verifySourceInfoOperation];
 
     LCSInformationForDiskOperation *targetInfoOperation = [[[LCSInformationForDiskOperation alloc] init] autorelease];
     targetInfoOperation.delegate = self;
-    targetInfoOperation.device = [[LCSSimpleOperationInputParameter alloc] initWithValue:sourceDevice];
+    targetInfoOperation.device = [[LCSSimpleOperationInputParameter alloc] initWithValue:targetDevice];
     targetInfoOperation.result =
-        [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:context keyPath:@"targetInfo"];
+        [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:self keyPath:@"targetInfo"];
     [queue addOperation:targetInfoOperation];
 
     LCSVerifyDiskInfoChecksumOperation *verifyTargetInfoOperation =
         [[[LCSVerifyDiskInfoChecksumOperation alloc] init] autorelease];
-    verifySourceInfoOperation.delegate = self;
-    verifySourceInfoOperation.diskinfo =
-        [[LCSKeyValueOperationInputParameter alloc] initWithTarget:context keyPath:@"targetInfo"];
-    verifySourceInfoOperation.checksum = [[LCSSimpleOperationInputParameter alloc] initWithValue:targetChecksum];
+    verifyTargetInfoOperation.delegate = self;
+    verifyTargetInfoOperation.diskinfo =
+        [[LCSKeyValueOperationInputParameter alloc] initWithTarget:self keyPath:@"targetInfo"];
+    verifyTargetInfoOperation.checksum = [[LCSSimpleOperationInputParameter alloc] initWithValue:targetChecksum];
     [verifyTargetInfoOperation addDependency:targetInfoOperation];
     [queue addOperation:verifyTargetInfoOperation];
 
@@ -68,12 +70,21 @@
     [blockCopyOperation addDependency:verifyTargetInfoOperation];
     [queue addOperation:blockCopyOperation];
 
+    sourceRemountOperation = [[LCSMountOperation alloc] init];
+    sourceRemountOperation.delegate = self;
+    sourceRemountOperation.device = [[LCSSimpleOperationInputParameter alloc] initWithValue:sourceDevice];
+
     return self;
 }
 
+@synthesize sourceInfo;
+@synthesize targetInfo;
+
 -(void)dealloc
 {
-    [context release];
+    [sourceInfo release];
+    [targetInfo release];
+    [sourceRemountOperation release];
     [super dealloc];
 }
 
@@ -84,8 +95,7 @@
     if(err)
     {
         /* try to mount the source volume */
-        NSArray* remountArgs = [NSArray arrayWithObjects:@"mount", [context objectForKey:@"sourceDevice"], nil];
-        [[NSTask launchedTaskWithLaunchPath:@"/usr/sbin/diskutil" arguments:remountArgs] waitUntilExit];
+        [sourceRemountOperation execute];
     }
 
     return err;

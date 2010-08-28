@@ -19,3 +19,9 @@
 }
 @property(retain) id <LCSOperationInputParameter> device;
 @end
+
+@interface LCSMountOperation : LCSTaskOperation {
+    id <LCSOperationInputParameter> device;
+}
+@property(retain) id <LCSOperationInputParameter> device;
+@end
