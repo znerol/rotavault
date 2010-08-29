@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LCSTaskOperation.h"
+#import "LCSTaskOperationBase.h"
 
 
-@interface LCSHdiUtilWithProgressOperation : LCSTaskOperation
+@interface LCSHdiUtilWithProgressOperation : LCSTaskOperationBase
 @end
 
 @interface LCSCreateEncryptedImageOperation : LCSHdiUtilWithProgressOperation {

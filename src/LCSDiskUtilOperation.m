@@ -63,9 +63,8 @@
 
 -(void)taskSetup
 {
-    self.arguments = [[LCSSimpleOperationInputParameter alloc] initWithValue:
-                      [NSArray arrayWithObjects:@"mount",  device.value, nil]];
-    self.launchPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/usr/sbin/diskutil"];
+    [task setLaunchPath:@"/usr/sbin/diskutil"];
+    [task setArguments:[NSArray arrayWithObjects:@"mount",  device.value, nil]];
     [super taskSetup];
 }
 @end

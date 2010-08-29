@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "LCSPlistTaskOperation.h"
-#import "LCSOperationParameter.h"
+#import "LCSTaskOperationBase.h"
 
 
 @interface LCSListDisksOperation : LCSPlistTaskOperation
@@ -20,7 +20,7 @@
 @property(retain) id <LCSOperationInputParameter> device;
 @end
 
-@interface LCSMountOperation : LCSTaskOperation {
+@interface LCSMountOperation : LCSTaskOperationBase {
     id <LCSOperationInputParameter> device;
 }
 @property(retain) id <LCSOperationInputParameter> device;

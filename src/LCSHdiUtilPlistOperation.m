@@ -66,9 +66,8 @@
 
 -(void)taskSetup
 {
-    self.launchPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/usr/bin/hdiutil"];
-    self.arguments = [[LCSSimpleOperationInputParameter alloc] initWithValue:
-                      [NSArray arrayWithObjects:@"detach", path.value, nil]];
+    [task setLaunchPath:@"/usr/bin/hdiutil"];
+    [task setArguments:[NSArray arrayWithObjects:@"detach", path.value, nil]];
     [super taskSetup];
 }
 @end

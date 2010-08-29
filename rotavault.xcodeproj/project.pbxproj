@@ -45,7 +45,6 @@
 		CA45BAC01215A8F100D3E40A /* LCSOperationParameterMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = CA45BABE1215A8F100D3E40A /* LCSOperationParameterMarker.m */; };
 		CA54744A120B66120014E9E8 /* LCSBlockCopyOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA547448120B66120014E9E8 /* LCSBlockCopyOperation.m */; };
 		CA547492120B76F80014E9E8 /* LCSBlockCopyOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA547490120B76F80014E9E8 /* LCSBlockCopyOperationTest.m */; };
-		CA7D62B512295FF000FB42C4 /* LCSCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA7D62B412295FF000FB42C4 /* LCSCommand.m */; };
 		CA7D62B612295FF000FB42C4 /* LCSCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA7D62B412295FF000FB42C4 /* LCSCommand.m */; };
 		CA7D62B712295FF000FB42C4 /* LCSCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA7D62B412295FF000FB42C4 /* LCSCommand.m */; };
 		CA9488821211895B00415257 /* rvcopyd.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9488811211895B00415257 /* rvcopyd.m */; };
@@ -578,7 +577,6 @@
 				CAFED615122456FD00F27A23 /* LCSHdiUtilPlistOperationTest.m in Sources */,
 				CAFED61E1224570F00F27A23 /* LCSDiskUtilOperationTest.m in Sources */,
 				CAFED6291224577A00F27A23 /* LCSBlockCopyOperationTest.m in Sources */,
-				CA7D62B512295FF000FB42C4 /* LCSCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,6 +10,6 @@
 #import "LCSTaskOperation.h"
 
 
-@interface LCSTaskOperation (TestPassword)
+@interface LCSTaskOperationBase (TestPassword)
 - (void)injectTestPassword:(NSString*)password;
 @end

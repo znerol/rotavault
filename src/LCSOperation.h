@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "LCSTaskOperationError.h"
+#import "LCSOperationParameter.h"
 
 typedef enum {
     LCSParameterIn      = 1,

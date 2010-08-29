@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LCSTaskOperation.h"
+#import "LCSTaskOperationBase.h"
 
 
-@interface LCSBlockCopyOperation : LCSTaskOperation {
+@interface LCSBlockCopyOperation : LCSTaskOperationBase {
     id <LCSOperationInputParameter> source;
     id <LCSOperationInputParameter> target;
 }

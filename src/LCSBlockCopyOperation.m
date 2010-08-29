@@ -32,9 +32,8 @@
 
 -(void)taskSetup
 {
-    self.launchPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/usr/sbin/asr"];
-    self.arguments = [[LCSSimpleOperationInputParameter alloc] initWithValue:
-                      [NSArray arrayWithObjects:@"restore", @"--erase", @"--noprompt", @"--puppetstrings", @"--source",
+    [task setLaunchPath:@"/usr/sbin/asr"];
+    [task setArguments:[NSArray arrayWithObjects:@"restore", @"--erase", @"--noprompt", @"--puppetstrings", @"--source",
                        source.value, @"--target", target.value, nil]];
     [super taskSetup];
 }

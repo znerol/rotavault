@@ -51,14 +51,13 @@
 
 -(void)taskSetup
 {
-    self.launchPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/usr/bin/hdiutil"];
-    self.arguments = [[LCSSimpleOperationInputParameter alloc] initWithValue:
-                      [NSArray arrayWithObjects:@"create", path.value,
-                      @"-puppetstrings",
-                      @"-sectors",[sectors.value stringValue],
-                      @"-type", @"UDIF",
-                      @"-layout", @"NONE",
-                      @"-encryption", @"AES-256", nil]];
+    [task setLaunchPath:@"/usr/bin/hdiutil"];
+    [task setArguments:[NSArray arrayWithObjects:@"create", path.value,
+                        @"-puppetstrings",
+                        @"-sectors",[sectors.value stringValue],
+                        @"-type", @"UDIF",
+                        @"-layout", @"NONE",
+                        @"-encryption", @"AES-256", nil]];
     [super taskSetup];
 }
 @end

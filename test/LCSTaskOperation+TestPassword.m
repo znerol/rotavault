@@ -9,7 +9,7 @@
 #import "LCSTaskOperation+TestPassword.h"
 
 
-@implementation LCSTaskOperation (TestPassword)
+@implementation LCSTaskOperationBase (TestPassword)
 - (void)injectTestPassword:(NSString*)password
 {
     NSPipe *stdinPipe = [NSPipe pipe];
