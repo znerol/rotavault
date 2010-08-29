@@ -7,11 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LCSTaskOperationBase.h"
-#import "LCSOperationParameter.h"
+#import "LCSPlistTaskOperationBase.h"
 
 
-@interface LCSTaskOperation : LCSTaskOperationBase {
+@interface LCSTaskOperation : LCSPlistTaskOperationBase {
     id <LCSOperationInputParameter> launchPath;    /* NSString */
     id <LCSOperationInputParameter> arguments;     /* NSArray of NSString */
 }
