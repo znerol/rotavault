@@ -9,7 +9,7 @@
 #import "LCSHdiUtilWithProgressOperationTest.h"
 #import "LCSHdiUtilWithProgressOperation.h"
 #import "LCSHdiUtilPlistOperation.h"
-#import "LCSTaskOperation+TestPassword.h"
+#import "LCSTaskOperationBase+TestPassword.h"
 #import "LCSKeyValueOperationParameter.h"
 #import "LCSSimpleOperationParameter.h"
 

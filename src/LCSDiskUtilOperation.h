@@ -7,14 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LCSPlistTaskOperation.h"
+#import "LCSPlistTaskOperationBase.h"
 #import "LCSTaskOperationBase.h"
 
 
-@interface LCSListDisksOperation : LCSPlistTaskOperation
+@interface LCSListDisksOperation : LCSPlistTaskOperationBase
 @end
 
-@interface LCSInformationForDiskOperation : LCSPlistTaskOperation {
+@interface LCSInformationForDiskOperation : LCSPlistTaskOperationBase {
     id <LCSOperationInputParameter> device;
 }
 @property(retain) id <LCSOperationInputParameter> device;

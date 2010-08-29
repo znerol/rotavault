@@ -14,9 +14,8 @@
 @implementation LCSHdiInfoOperation
 -(void)taskSetup
 {
-    self.launchPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/usr/bin/hdiutil"];
-    self.arguments = [[LCSSimpleOperationInputParameter alloc] initWithValue:
-                      [NSArray arrayWithObjects:@"info", @"-plist", nil]];
+    [task setLaunchPath:@"/usr/bin/hdiutil"];
+    [task setArguments:[NSArray arrayWithObjects:@"info", @"-plist", nil]];
     [super taskSetup];
 }
 @end
@@ -40,9 +39,8 @@
 
 -(void)taskSetup
 {
-    self.launchPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/usr/bin/hdiutil"];
-    self.arguments = [[LCSSimpleOperationInputParameter alloc] initWithValue:
-                      [NSArray arrayWithObjects:@"attach", path.value, @"-plist", @"-nomount", nil]];
+    [task setLaunchPath:@"/usr/bin/hdiutil"];
+    [task setArguments:[NSArray arrayWithObjects:@"attach", path.value, @"-plist", @"-nomount", nil]];
     [super taskSetup];
 }
 @end

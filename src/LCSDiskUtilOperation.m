@@ -15,9 +15,8 @@
 -(void)taskSetup
 {
     self.extractKeyPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"AllDisks"];
-    self.arguments = [[LCSSimpleOperationInputParameter alloc] initWithValue:
-                      [NSArray arrayWithObjects:@"list", @"-plist", nil]];
-    self.launchPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/usr/sbin/diskutil"];
+    [task setLaunchPath:@"/usr/sbin/diskutil"];
+    [task setArguments:[NSArray arrayWithObjects:@"list", @"-plist", nil]];
     [super taskSetup];
 }
 @end
@@ -39,9 +38,8 @@
 
 -(void)taskSetup
 {
-    self.arguments = [[LCSSimpleOperationInputParameter alloc] initWithValue:
-                      [NSArray arrayWithObjects:@"info", @"-plist", device.value, nil]];
-    self.launchPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/usr/sbin/diskutil"];
+    [task setLaunchPath:@"/usr/sbin/diskutil"];
+    [task setArguments:[NSArray arrayWithObjects:@"info", @"-plist", device.value, nil]];
     [super taskSetup];
 }
 @end

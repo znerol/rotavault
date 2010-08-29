@@ -7,14 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LCSPlistTaskOperation.h"
+#import "LCSPlistTaskOperationBase.h"
 #import "LCSTaskOperationBase.h"
 
 
-@interface LCSHdiInfoOperation : LCSPlistTaskOperation
+@interface LCSHdiInfoOperation : LCSPlistTaskOperationBase
 @end
 
-@interface LCSAttachImageOperation : LCSPlistTaskOperation {
+@interface LCSAttachImageOperation : LCSPlistTaskOperationBase {
     id <LCSOperationInputParameter> path;
 }
 @property(retain) id <LCSOperationInputParameter> path;

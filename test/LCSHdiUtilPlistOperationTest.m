@@ -10,6 +10,7 @@
 #import "LCSHdiUtilPlistOperation.h"
 #import "LCSSimpleOperationParameter.h"
 #import "LCSKeyValueOperationParameter.h"
+#import "LCSPlistTaskOperation.h"
 
 
 @implementation LCSHdiUtilPlistOperationTest

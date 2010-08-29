@@ -6,7 +6,7 @@
 //  Copyright 2010 znerol.ch. All rights reserved.
 //
 
-#import "LCSTaskOperation+TestPassword.h"
+#import "LCSTaskOperationBase+TestPassword.h"
 
 
 @implementation LCSTaskOperationBase (TestPassword)
