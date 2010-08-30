@@ -57,6 +57,9 @@
 		CA948895121189DE00415257 /* LCSDiskUtilOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC655FB120EB3A700069286 /* LCSDiskUtilOperation.m */; };
 		CA948897121189E100415257 /* LCSRotavaultErrorDomain.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB1C0CE120C66D10076DB12 /* LCSRotavaultErrorDomain.m */; };
 		CA948899121189E700415257 /* LCSTaskOperationError.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA635B8120C0E080036B643 /* LCSTaskOperationError.m */; };
+		CA9D0982122B73F70087D391 /* LCSRotavaultCopyCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9D0981122B73F70087D391 /* LCSRotavaultCopyCommand.m */; };
+		CA9D0983122B73F70087D391 /* LCSRotavaultCopyCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9D0981122B73F70087D391 /* LCSRotavaultCopyCommand.m */; };
+		CA9D0984122B73F70087D391 /* LCSRotavaultCopyCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9D0981122B73F70087D391 /* LCSRotavaultCopyCommand.m */; };
 		CA9E2D59120F398D006C4DE7 /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA9E2D58120F398D006C4DE7 /* OCMock.framework */; };
 		CA9E2D5A120F398D006C4DE7 /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA9E2D58120F398D006C4DE7 /* OCMock.framework */; };
 		CAA635BA120C0E080036B643 /* LCSTaskOperationError.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA635B8120C0E080036B643 /* LCSTaskOperationError.m */; };
@@ -168,6 +171,8 @@
 		CA7D62B412295FF000FB42C4 /* LCSCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSCommand.m; sourceTree = "<group>"; };
 		CA94887A1211892500415257 /* rvcopyd */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = rvcopyd; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA9488811211895B00415257 /* rvcopyd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rvcopyd.m; sourceTree = "<group>"; };
+		CA9D0980122B73F70087D391 /* LCSRotavaultCopyCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSRotavaultCopyCommand.h; sourceTree = "<group>"; };
+		CA9D0981122B73F70087D391 /* LCSRotavaultCopyCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSRotavaultCopyCommand.m; sourceTree = "<group>"; };
 		CA9E2D58120F398D006C4DE7 /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMock.framework; path = Frameworks/OCMock.framework; sourceTree = "<group>"; };
 		CAA635B7120C0E080036B643 /* LCSTaskOperationError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSTaskOperationError.h; sourceTree = "<group>"; };
 		CAA635B8120C0E080036B643 /* LCSTaskOperationError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSTaskOperationError.m; sourceTree = "<group>"; };
@@ -324,6 +329,8 @@
 				CA28AF0812132AB900C9BE6F /* LCSVerifyDiskInfoChecksumOperation.m */,
 				CA28B00112134EDD00C9BE6F /* LCSCalculateVolumeUsedSpaceOperation.h */,
 				CA28B00212134EDD00C9BE6F /* LCSCalculateVolumeUsedSpaceOperation.m */,
+				CA9D0980122B73F70087D391 /* LCSRotavaultCopyCommand.h */,
+				CA9D0981122B73F70087D391 /* LCSRotavaultCopyCommand.m */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -526,6 +533,7 @@
 				CA60E236122AE04700DE6A3B /* LCSPlistTaskOperationBase.m in Sources */,
 				CA60E27B122AE45100DE6A3B /* LCSTaskOperation.m in Sources */,
 				CA60E27F122AE46100DE6A3B /* LCSPlistTaskOperation.m in Sources */,
+				CA9D0983122B73F70087D391 /* LCSRotavaultCopyCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -550,6 +558,7 @@
 				CAB8931B12295548003C3308 /* LCSOperationParameterMarker.m in Sources */,
 				CA7D62B712295FF000FB42C4 /* LCSCommand.m in Sources */,
 				CA60E237122AE04700DE6A3B /* LCSPlistTaskOperationBase.m in Sources */,
+				CA9D0984122B73F70087D391 /* LCSRotavaultCopyCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -583,6 +592,7 @@
 				CA60E235122AE04700DE6A3B /* LCSPlistTaskOperationBase.m in Sources */,
 				CA60E27C122AE45100DE6A3B /* LCSTaskOperation.m in Sources */,
 				CA60E280122AE46100DE6A3B /* LCSPlistTaskOperation.m in Sources */,
+				CA9D0982122B73F70087D391 /* LCSRotavaultCopyCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
