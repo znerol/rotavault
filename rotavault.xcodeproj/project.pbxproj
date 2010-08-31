@@ -61,6 +61,17 @@
 		CA9ED575122CC693005CBA5B /* LCSCommandSignalHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9ED573122CC693005CBA5B /* LCSCommandSignalHandler.m */; };
 		CA9ED57C122CC819005CBA5B /* LCSCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA7D62B412295FF000FB42C4 /* LCSCommand.m */; };
 		CA9ED5DC122CCB4C005CBA5B /* LCSCommandSignalHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9ED573122CC693005CBA5B /* LCSCommandSignalHandler.m */; };
+		CA9ED61A122CD0D2005CBA5B /* rvcksum.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9ED60E122CCCDC005CBA5B /* rvcksum.m */; };
+		CA9ED61B122CD0D5005CBA5B /* NSData+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = CAE82D84122C361F00715BCF /* NSData+Hex.m */; };
+		CA9ED61C122CD0D9005CBA5B /* LCSTaskOperationError.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA635B8120C0E080036B643 /* LCSTaskOperationError.m */; };
+		CA9ED61D122CD0DB005CBA5B /* LCSTaskOperationBase.m in Sources */ = {isa = PBXBuildFile; fileRef = CAAB12D51215B3B500A22678 /* LCSTaskOperationBase.m */; };
+		CA9ED61E122CD0DD005CBA5B /* LCSSimpleOperationParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = CA45B9C21215824E00D3E40A /* LCSSimpleOperationParameter.m */; };
+		CA9ED61F122CD0E6005CBA5B /* LCSRotavaultErrorDomain.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB1C0CE120C66D10076DB12 /* LCSRotavaultErrorDomain.m */; };
+		CA9ED620122CD0E9005CBA5B /* LCSPropertyListSHA1Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9D09A8122B7A400087D391 /* LCSPropertyListSHA1Hash.m */; };
+		CA9ED621122CD0EB005CBA5B /* LCSPlistTaskOperationBase.m in Sources */ = {isa = PBXBuildFile; fileRef = CA60E234122AE04700DE6A3B /* LCSPlistTaskOperationBase.m */; };
+		CA9ED622122CD0F1005CBA5B /* LCSOperationParameterMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = CA45BABE1215A8F100D3E40A /* LCSOperationParameterMarker.m */; };
+		CA9ED623122CD0F3005CBA5B /* LCSOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA28AF3112132D4000C9BE6F /* LCSOperation.m */; };
+		CA9ED629122CD104005CBA5B /* LCSDiskUtilOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC655FB120EB3A700069286 /* LCSDiskUtilOperation.m */; };
 		CAA635BA120C0E080036B643 /* LCSTaskOperationError.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA635B8120C0E080036B643 /* LCSTaskOperationError.m */; };
 		CAA74A38120930AE00D234F9 /* LCSTestdir.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB72D7A120708220093D08A /* LCSTestdir.m */; };
 		CAA74BAC120A146600D234F9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
@@ -179,6 +190,8 @@
 		CA9E2D58120F398D006C4DE7 /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMock.framework; path = Frameworks/OCMock.framework; sourceTree = "<group>"; };
 		CA9ED572122CC693005CBA5B /* LCSCommandSignalHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSCommandSignalHandler.h; sourceTree = "<group>"; };
 		CA9ED573122CC693005CBA5B /* LCSCommandSignalHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSCommandSignalHandler.m; sourceTree = "<group>"; };
+		CA9ED60E122CCCDC005CBA5B /* rvcksum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rvcksum.m; sourceTree = "<group>"; };
+		CA9ED616122CD0BE005CBA5B /* rvcksum */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = rvcksum; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAA635B7120C0E080036B643 /* LCSTaskOperationError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSTaskOperationError.h; sourceTree = "<group>"; };
 		CAA635B8120C0E080036B643 /* LCSTaskOperationError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSTaskOperationError.m; sourceTree = "<group>"; };
 		CAA74ADD120A12DB00D234F9 /* rotavault_test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rotavault_test.m; sourceTree = "<group>"; };
@@ -239,6 +252,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CA9ED614122CD0BE005CBA5B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CAA74BAB120A146600D234F9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -284,6 +304,7 @@
 				CA0DF0C911F71AB30029B5F7 /* Unit Tests.octest */,
 				CAA74BB1120A146600D234F9 /* rotavault_test */,
 				CA94887A1211892500415257 /* rvcopyd */,
+				CA9ED616122CD0BE005CBA5B /* rvcksum */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -348,6 +369,7 @@
 				CAE82D84122C361F00715BCF /* NSData+Hex.m */,
 				CA9ED572122CC693005CBA5B /* LCSCommandSignalHandler.h */,
 				CA9ED573122CC693005CBA5B /* LCSCommandSignalHandler.m */,
+				CA9ED60E122CCCDC005CBA5B /* rvcksum.m */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -444,6 +466,22 @@
 			productReference = CA94887A1211892500415257 /* rvcopyd */;
 			productType = "com.apple.product-type.tool";
 		};
+		CA9ED615122CD0BE005CBA5B /* rvcksum */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CA9ED630122CD138005CBA5B /* Build configuration list for PBXNativeTarget "rvcksum" */;
+			buildPhases = (
+				CA9ED613122CD0BE005CBA5B /* Sources */,
+				CA9ED614122CD0BE005CBA5B /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = rvcksum;
+			productName = rvcksum;
+			productReference = CA9ED616122CD0BE005CBA5B /* rvcksum */;
+			productType = "com.apple.product-type.tool";
+		};
 		CAA74BA4120A146600D234F9 /* rotavault_test */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CAA74BAE120A146600D234F9 /* Build configuration list for PBXNativeTarget "rotavault_test" */;
@@ -481,6 +519,7 @@
 				CA0DF0C811F71AB30029B5F7 /* Unit Tests */,
 				CAA74BA4120A146600D234F9 /* rotavault_test */,
 				CA9488791211892500415257 /* rvcopyd */,
+				CA9ED615122CD0BE005CBA5B /* rvcksum */,
 			);
 		};
 /* End PBXProject section */
@@ -588,6 +627,24 @@
 				CA9D09A9122B7A400087D391 /* LCSPropertyListSHA1Hash.m in Sources */,
 				CAE82D85122C361F00715BCF /* NSData+Hex.m in Sources */,
 				CA9ED5DC122CCB4C005CBA5B /* LCSCommandSignalHandler.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CA9ED613122CD0BE005CBA5B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA9ED61A122CD0D2005CBA5B /* rvcksum.m in Sources */,
+				CA9ED61B122CD0D5005CBA5B /* NSData+Hex.m in Sources */,
+				CA9ED61C122CD0D9005CBA5B /* LCSTaskOperationError.m in Sources */,
+				CA9ED61D122CD0DB005CBA5B /* LCSTaskOperationBase.m in Sources */,
+				CA9ED61E122CD0DD005CBA5B /* LCSSimpleOperationParameter.m in Sources */,
+				CA9ED61F122CD0E6005CBA5B /* LCSRotavaultErrorDomain.m in Sources */,
+				CA9ED620122CD0E9005CBA5B /* LCSPropertyListSHA1Hash.m in Sources */,
+				CA9ED621122CD0EB005CBA5B /* LCSPlistTaskOperationBase.m in Sources */,
+				CA9ED622122CD0F1005CBA5B /* LCSOperationParameterMarker.m in Sources */,
+				CA9ED623122CD0F3005CBA5B /* LCSOperation.m in Sources */,
+				CA9ED629122CD104005CBA5B /* LCSDiskUtilOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -799,6 +856,52 @@
 			};
 			name = Release;
 		};
+		CA9ED618122CD0BE005CBA5B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = rvcksum;
+			};
+			name = Debug;
+		};
+		CA9ED619122CD0BE005CBA5B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = rvcksum;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		CAA74BAF120A146600D234F9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -873,6 +976,15 @@
 			buildConfigurations = (
 				CA94887C1211892500415257 /* Debug */,
 				CA94887D1211892500415257 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CA9ED630122CD138005CBA5B /* Build configuration list for PBXNativeTarget "rvcksum" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CA9ED618122CD0BE005CBA5B /* Debug */,
+				CA9ED619122CD0BE005CBA5B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
