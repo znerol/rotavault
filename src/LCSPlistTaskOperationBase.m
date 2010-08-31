@@ -26,8 +26,8 @@
 -(void)dealloc
 {
     [_outputData release];
-    [(NSObject*)extractKeyPath release];
-    [(NSObject*)result release];
+    [extractKeyPath release];
+    [result release];
     [super dealloc];
 }
 

@@ -9,14 +9,14 @@
 #import <Foundation/Foundation.h>
 
 
-@protocol LCSOperationInputParameter
+@protocol LCSOperationInputParameter <NSObject>
 @property(readonly,retain) id value;
 @end
 
-@protocol LCSOperationInOutParameter
+@protocol LCSOperationInOutParameter <NSObject>
 @property(readwrite,retain) id value;
 @end
 
-@protocol LCSOperationOutputParameter
+@protocol LCSOperationOutputParameter <NSObject>
 @property(readwrite,retain) id value;
 @end

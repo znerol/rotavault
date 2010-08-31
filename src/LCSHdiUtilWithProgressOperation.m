@@ -44,8 +44,8 @@
 
 -(void)dealloc
 {
-    [(id)path release];
-    [(id)sectors release];
+    [path release];
+    [sectors release];
     [super dealloc];
 }
 

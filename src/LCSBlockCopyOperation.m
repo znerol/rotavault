@@ -25,8 +25,8 @@
 
 -(void)dealloc
 {
-    [(id)source release];
-    [(id)target release];
+    [source release];
+    [target release];
     [super dealloc];
 }
 

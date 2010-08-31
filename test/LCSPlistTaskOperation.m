@@ -23,8 +23,8 @@
 
 -(void)dealloc
 {
-    [(NSObject*)launchPath release];
-    [(NSObject*)arguments release];
+    [launchPath release];
+    [arguments release];
     [super dealloc];
 }
 

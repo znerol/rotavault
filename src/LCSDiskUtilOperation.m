@@ -32,7 +32,7 @@
 
 -(void)dealloc
 {
-    [(id)device release];
+    [device release];
     [super dealloc];
 }
 
@@ -55,7 +55,7 @@
 
 -(void)dealloc
 {
-    [(id)device release];
+    [device release];
     [super dealloc];
 }
 

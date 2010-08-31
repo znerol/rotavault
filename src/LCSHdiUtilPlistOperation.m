@@ -33,7 +33,7 @@
 
 -(void)dealloc
 {
-    [(id)path release];
+    [path release];
     [super dealloc];
 }
 
@@ -58,7 +58,7 @@
 
 -(void)dealloc
 {
-    [(id)path release];
+    [path release];
     [super dealloc];
 }
 
