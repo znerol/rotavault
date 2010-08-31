@@ -14,7 +14,7 @@
 	NSMutableString *result = [NSMutableString stringWithCapacity:([self length] * 2)];
 	const unsigned char *data = [self bytes];
 
-	for (int i = 0; i < [self length]; i++) {
+	for (unsigned int i = 0; i < [self length]; i++) {
 		[result appendFormat:@"%02X", data[i]];
     }
 
@@ -27,7 +27,7 @@
     unsigned char byte = 0;
 
     NSMutableData* result = [NSMutableData dataWithCapacity:[hexString length] / 2];
-    for (int i; i < [hexString length]; i++) {
+    for (unsigned int i; i < [hexString length]; i++) {
         unsigned char nibble = [hexString characterAtIndex:i];
 
         switch (nibble & 0xF0) {

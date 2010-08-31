@@ -21,6 +21,6 @@
         0x8e, 0x7f, 0x26, 0x20, 0xd7, 0xb5, 0x65};
     NSData *expected = [NSData dataWithBytes:expectedBytes length:sizeof(expectedBytes)];
 
-    STAssertTrue([testhash isEqualTo:expected], @"base64 representation of hash value does not match expected value");
+    STAssertTrue([testhash isEqualTo:expected], @"%@", @"base64 representation of hash value does not match expected value");
 }
 @end
