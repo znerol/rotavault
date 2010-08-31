@@ -58,6 +58,9 @@
 		CA9D09AB122B7A400087D391 /* LCSPropertyListSHA1Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9D09A8122B7A400087D391 /* LCSPropertyListSHA1Hash.m */; };
 		CA9E2D59120F398D006C4DE7 /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA9E2D58120F398D006C4DE7 /* OCMock.framework */; };
 		CA9E2D5A120F398D006C4DE7 /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA9E2D58120F398D006C4DE7 /* OCMock.framework */; };
+		CA9ED575122CC693005CBA5B /* LCSCommandSignalHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9ED573122CC693005CBA5B /* LCSCommandSignalHandler.m */; };
+		CA9ED57C122CC819005CBA5B /* LCSCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA7D62B412295FF000FB42C4 /* LCSCommand.m */; };
+		CA9ED5DC122CCB4C005CBA5B /* LCSCommandSignalHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9ED573122CC693005CBA5B /* LCSCommandSignalHandler.m */; };
 		CAA635BA120C0E080036B643 /* LCSTaskOperationError.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA635B8120C0E080036B643 /* LCSTaskOperationError.m */; };
 		CAA74A38120930AE00D234F9 /* LCSTestdir.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB72D7A120708220093D08A /* LCSTestdir.m */; };
 		CAA74BAC120A146600D234F9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
@@ -174,6 +177,8 @@
 		CA9D09A7122B7A400087D391 /* LCSPropertyListSHA1Hash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSPropertyListSHA1Hash.h; sourceTree = "<group>"; };
 		CA9D09A8122B7A400087D391 /* LCSPropertyListSHA1Hash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSPropertyListSHA1Hash.m; sourceTree = "<group>"; };
 		CA9E2D58120F398D006C4DE7 /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMock.framework; path = Frameworks/OCMock.framework; sourceTree = "<group>"; };
+		CA9ED572122CC693005CBA5B /* LCSCommandSignalHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSCommandSignalHandler.h; sourceTree = "<group>"; };
+		CA9ED573122CC693005CBA5B /* LCSCommandSignalHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSCommandSignalHandler.m; sourceTree = "<group>"; };
 		CAA635B7120C0E080036B643 /* LCSTaskOperationError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSTaskOperationError.h; sourceTree = "<group>"; };
 		CAA635B8120C0E080036B643 /* LCSTaskOperationError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSTaskOperationError.m; sourceTree = "<group>"; };
 		CAA74ADD120A12DB00D234F9 /* rotavault_test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rotavault_test.m; sourceTree = "<group>"; };
@@ -341,6 +346,8 @@
 				CA9D09A8122B7A400087D391 /* LCSPropertyListSHA1Hash.m */,
 				CAE82D83122C361F00715BCF /* NSData+Hex.h */,
 				CAE82D84122C361F00715BCF /* NSData+Hex.m */,
+				CA9ED572122CC693005CBA5B /* LCSCommandSignalHandler.h */,
+				CA9ED573122CC693005CBA5B /* LCSCommandSignalHandler.m */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -552,6 +559,7 @@
 				CAE82D38122C311F00715BCF /* LCSPropertyListSHA1HashTest.m in Sources */,
 				CAE82D87122C361F00715BCF /* NSData+Hex.m in Sources */,
 				CAE82DA4122C45CF00715BCF /* NSData+HexTest.m in Sources */,
+				CA9ED575122CC693005CBA5B /* LCSCommandSignalHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -579,6 +587,7 @@
 				CA9D0984122B73F70087D391 /* LCSRotavaultCopyCommand.m in Sources */,
 				CA9D09A9122B7A400087D391 /* LCSPropertyListSHA1Hash.m in Sources */,
 				CAE82D85122C361F00715BCF /* NSData+Hex.m in Sources */,
+				CA9ED5DC122CCB4C005CBA5B /* LCSCommandSignalHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -605,6 +614,7 @@
 				CAE82D53122C32B500715BCF /* LCSPropertyListSHA1HashTest.m in Sources */,
 				CAE82D86122C361F00715BCF /* NSData+Hex.m in Sources */,
 				CAE82DA3122C45CF00715BCF /* NSData+HexTest.m in Sources */,
+				CA9ED57C122CC819005CBA5B /* LCSCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -16,5 +16,6 @@
     NSMutableData*      stderrData;
 }
 @property(readonly) NSOperationQueue* queue;
+-(void)cancel;
 -(NSError*)execute;
 @end

@@ -7,7 +7,6 @@
 //
 
 #import "LCSCommand.h"
-#import "LCSSignalHandler.h"
 #import "LCSOperation.h"
 #import "LCSTaskOperation.h"
 #import "LCSRotavaultErrorDomain.h"
@@ -31,16 +30,7 @@
     queue = [[NSOperationQueue alloc] init];
     [queue setSuspended:YES];
 
-    /* setup signal handler and signal pipe */
-    LCSSignalHandler *sh = [LCSSignalHandler defaultSignalHandler];
-    [sh setDelegate:self];
-    [sh addSignal:SIGHUP];
-    [sh addSignal:SIGINT];
-    [sh addSignal:SIGPIPE];
-    [sh addSignal:SIGALRM];
-    [sh addSignal:SIGTERM];
-
-    if (stderrData == nil || queue == nil || sh == nil) {
+    if (stderrData == nil || queue == nil) {
         [self release];
         return nil;
     }
@@ -95,7 +85,7 @@
     [operation handleError:error];
 }
 
--(void)handleSignal:(NSNumber*)signal
+-(void)cancel
 {
     [queue cancelAllOperations];
 }

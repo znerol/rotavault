@@ -1,6 +1,7 @@
 #include <asl.h>
 #import <Foundation/Foundation.h>
 #import "LCSRotavaultCopyCommand.h"
+#import "LCSCommandSignalHandler.h"
 
 int main (int argc, const char * argv[]) {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
@@ -22,7 +23,7 @@ int main (int argc, const char * argv[]) {
 
     /* FIXME: check / create pid file */
     // NSString *pidfile = [args stringForKey:@"pidfile"];
-    
+
     /* alloc and run operation queue */
     NSString *sourcedev = [args stringForKey:@"sourcedev"];
     NSString *sourcecheck = [args stringForKey:@"sourcecheck"];
@@ -34,12 +35,16 @@ int main (int argc, const char * argv[]) {
                                                                             targetDevice:targetdev
                                                                           targetChecksum:targetcheck];
 
+    LCSCommandSignalHandler *handler = [[LCSCommandSignalHandler alloc] initWithCommand:cmd];
+
     NSError *error = [cmd execute];
 
     int status = 0;
     if (error) {
         status = 1;
     }
+
+    [handler release];
 
     [pool drain];
     return status;
