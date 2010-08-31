@@ -11,7 +11,8 @@
 enum {
     LCSExecutableReturnedNonZeroStatus  = 1,
     LCSLaunchOfExecutableFailed         = 2,
-    LCSUnexpectedOutputReceived         = 3
+    LCSUnexpectedOutputReceived         = 3,
+    LCSUnexpectedInputReceived          = 4
 };
 
 extern NSString* LCSExecutableReturnStatus;
