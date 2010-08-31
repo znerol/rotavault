@@ -11,7 +11,7 @@ typedef enum {
 
 int main (int argc, const char * argv[]) {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-    
+
     /* process command line arguments */
     NSUserDefaults *args = [[NSUserDefaults alloc] init];
     [args addSuiteNamed:NSArgumentDomain];
@@ -25,7 +25,7 @@ int main (int argc, const char * argv[]) {
         algo = kLCSUUID;
     }
     else {
-        fprintf(stderr, "Usage: rvcksum [-sha1|uuid] /dev/diskXsY\n");
+        fprintf(stderr, "Usage: rvcksum [-sha1|-uuid] /dev/diskX[sY]\n");
         return 1;
     }
 
@@ -50,7 +50,8 @@ int main (int argc, const char * argv[]) {
             }
             printf("sha1:%s\n", [cksum cStringUsingEncoding:NSASCIIStringEncoding]);
             break;
-        default:
+
+        case kLCSUUID:
             cksum = [result objectForKey:@"VolumeUUID"];
             if(!cksum) {
                 fprintf(stderr, "Failed to retreive volume UUID for the specified device path\n");
@@ -58,7 +59,12 @@ int main (int argc, const char * argv[]) {
             }
             printf("uuid:%s\n", [cksum cStringUsingEncoding:NSASCIIStringEncoding]);
             break;
+
+        default:
+            fprintf(stderr, "Internal error, unkexpected checksum algorithm\n");
+            return 1;
     }
+
     [pool drain];
     return 0;
 }
