@@ -50,10 +50,10 @@
     [op setDelegate:self];
     [op start];
 
-    STAssertNil(error, @"Failed to create a new test-image");
+    STAssertNil(error, @"%@", @"Failed to create a new test-image");
     devpath = [[[result valueForKeyPath:@"system-entities.dev-entry"]
                 sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:0];
-    STAssertNotNil(devpath, @"Failed to retrieve the device path of the newly created test image");
+    STAssertNotNil(devpath, @"%@", @"Failed to retrieve the device path of the newly created test image");
     devpath = [devpath retain];
     [self delegateCleanup];
 
@@ -92,11 +92,11 @@
 
     [op start];
 
-    STAssertNil(error, @"LCSHdiUtilPlistOperation never should report any errors");
-    STAssertNotNil(result, @"LCSHdiUtilPlistOperation should report results");
-    STAssertTrue([result isKindOfClass:[NSDictionary class]], @"result of LCSHdiUtilPlistOperation must be a "
+    STAssertNil(error, @"%@", @"LCSHdiUtilPlistOperation never should report any errors");
+    STAssertNotNil(result, @"%@", @"LCSHdiUtilPlistOperation should report results");
+    STAssertTrue([result isKindOfClass:[NSDictionary class]], @"%@", @"result of LCSHdiUtilPlistOperation must be a "
                  @"dictionary");
-    STAssertTrue([[result objectForKey:@"images"] isKindOfClass:[NSArray class]], @"Vaule for images of the "
+    STAssertTrue([[result objectForKey:@"images"] isKindOfClass:[NSArray class]], @"%@", @"Vaule for images of the "
                  @"resulting dictionary of LCSHdiUtilPlistOperation must be an array");
 
     [op release];

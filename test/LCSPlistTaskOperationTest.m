@@ -44,8 +44,8 @@
     [op setDelegate:self];
     [op start];
 
-    STAssertNil(error, @"error must be nil for successfull run");
-    STAssertTrue([result isKindOfClass:[NSArray class]], @"Result must contain an array");
+    STAssertNil(error, @"%@", @"error must be nil for successfull run");
+    STAssertTrue([result isKindOfClass:[NSArray class]], @"%@", @"Result must contain an array");
     [op release];
 }
 
@@ -62,11 +62,11 @@
     [op setDelegate:self];
     [op start];
 
-    STAssertNotNil(error, @"error must be set if the output of the task is not a property list");
-    STAssertEquals([error class], [LCSTaskOperationError class],
+    STAssertNotNil(error, @"%@", @"error must be set if the output of the task is not a property list");
+    STAssertEquals([error class], [LCSTaskOperationError class], @"%@",
                    @"LCSTaskOperation must return an LCSTaskOperationError if the output of the task is not a property"
                    @"list");
-    STAssertEquals([error code], (NSInteger)LCSUnexpectedOutputReceived,
+    STAssertEquals([error code], (NSInteger)LCSUnexpectedOutputReceived, @"%@",
                    @"LCSTaskOperation must set the error code to LCSLaunchOfExecutableFailed if the output of the "
                    @"task is not a property list");
     [op release];

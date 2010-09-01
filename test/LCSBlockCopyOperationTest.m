@@ -73,12 +73,12 @@
     [screateop setDelegate:self];
     [screateop start];
 
-    STAssertNotNil(result, @"return value of hdiutil must not be nil");
+    STAssertNotNil(result, @"%@", @"return value of hdiutil must not be nil");
     NSString *srcdev = [[[[result objectForKey:@"system-entities"] objectAtIndex:0] objectForKey:@"dev-entry"] retain];
-    STAssertNotNil(srcdev, @"source device must not be nil");
+    STAssertNotNil(srcdev, @"%@", @"source device must not be nil");
     NSString *srcmount = [[[[result objectForKey:@"system-entities"] objectAtIndex:0]
                            objectForKey:@"mount-point"] retain];
-    STAssertNotNil(srcmount, @"source mount must not be nil");
+    STAssertNotNil(srcmount, @"%@", @"source mount must not be nil");
     [self delegateCleanup];
     
     /* populate the source */
@@ -98,7 +98,7 @@
     [tcreateop setDelegate:self];
     [tcreateop start];
 
-    STAssertNotNil(result, @"return value of hdiutil must not be nil");
+    STAssertNotNil(result, @"%@", @"return value of hdiutil must not be nil");
     [self delegateCleanup];
     
     /* attach target */
@@ -111,9 +111,9 @@
     [atop setDelegate:self];
     [atop start];
 
-    STAssertNotNil(result, @"return value of hdiutil must not be nil");
+    STAssertNotNil(result, @"%@", @"return value of hdiutil must not be nil");
     NSString *dstdev = [[[[result objectForKey:@"system-entities"] objectAtIndex:0] objectForKey:@"dev-entry"] retain];
-    STAssertNotNil(dstdev, @"target device must not be nil");
+    STAssertNotNil(dstdev, @"%@", @"target device must not be nil");
     [self delegateCleanup];
     
     /* perform block copy operation */
@@ -124,8 +124,8 @@
     [op setDelegate:self];
     [op start];
 
-    STAssertNil(error, @"error must be nil if operation was successfull");
-    STAssertEquals(progress, (float)100, @"progress must be 100.0 after completion of the operation");
+    STAssertNil(error, @"%@", @"error must be nil if operation was successfull");
+    STAssertEquals(progress, (float)100, @"%@", @"progress must be 100.0 after completion of the operation");
     [self delegateCleanup];
 
     /* mount target */
@@ -147,13 +147,13 @@
 
     [infop start];
 
-    STAssertNotNil(result, @"return value of diskutil must not be nil");
+    STAssertNotNil(result, @"%@", @"return value of diskutil must not be nil");
     NSString *dstmount = [[result objectForKey:@"MountPoint"] retain];
-    STAssertNotNil(dstmount, @"target mount must not be nil");
+    STAssertNotNil(dstmount, @"%@", @"target mount must not be nil");
     [self delegateCleanup];
     
     /* now we compare the mounts using NSFileManager */
-    STAssertTrue([[NSFileManager defaultManager] contentsEqualAtPath:srcmount andPath:dstmount],
+    STAssertTrue([[NSFileManager defaultManager] contentsEqualAtPath:srcmount andPath:dstmount], @"%@",
                  @"contents of the two images must be the same after restoreFromSource:toTarget");
     
     /* eject devices */

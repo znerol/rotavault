@@ -43,10 +43,10 @@
     op.result = [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:self keyPath:@"result"];
 
     [op start];
-    STAssertNil(error, @"LCSListDiskOperation should not cause any errors");
-    STAssertNotNil(result, @"LCSListDiskOperation must return a result");
-    STAssertTrue([result isKindOfClass:[NSArray class]], @"Result of LCSListDiskOperation must be an array");
-    STAssertTrue([result count] > 0, @"LCSListDiskOperation must report at least one entry (startup disk)");
+    STAssertNil(error, @"%@", @"LCSListDiskOperation should not cause any errors");
+    STAssertNotNil(result, @"%@", @"LCSListDiskOperation must return a result");
+    STAssertTrue([result isKindOfClass:[NSArray class]], @"%@", @"Result of LCSListDiskOperation must be an array");
+    STAssertTrue([result count] > 0, @"%@", @"LCSListDiskOperation must report at least one entry (startup disk)");
 
     [op release];
 }
@@ -59,11 +59,11 @@
     op.result = [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:self keyPath:@"result"];
 
     [op start];
-    STAssertNil(error, @"LCSInformationForDiskOperation should not cause any errors for the startup disk");
-    STAssertNotNil(result, @"LCSInformationForDiskOperation must return a result for the startup disk");
-    STAssertTrue([result isKindOfClass:[NSDictionary class]], @"Result of LCSInformationForDiskOperation must be a"
-                   @"dictionary");
-    STAssertTrue([result count] > 0, @"Resulting dictionary may not be empty");
+    STAssertNil(error, @"%@", @"LCSInformationForDiskOperation should not cause any errors for the startup disk");
+    STAssertNotNil(result, @"%@", @"LCSInformationForDiskOperation must return a result for the startup disk");
+    STAssertTrue([result isKindOfClass:[NSDictionary class]], @"%@", @"Result of LCSInformationForDiskOperation must "
+                 @"be a dictionary");
+    STAssertTrue([result count] > 0, @"%@", @"Resulting dictionary may not be empty");
 
     [op release];
 }

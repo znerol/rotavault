@@ -72,8 +72,8 @@
     [createop setDelegate:self];
     [createop start];
 
-    STAssertNil(error, @"Failed to create a new test-image: LCSCreateEncryptedImageOperation reported an error");
-    STAssertEquals(progress, (float)100.0, @"Progress should be at 100.0 after creating the image");
+    STAssertNil(error, @"%@", @"Failed to create a new test-image: LCSCreateEncryptedImageOperation reported an error");
+    STAssertEquals(progress, (float)100.0, @"%@", @"Progress should be at 100.0 after creating the image");
     STAssertTrue([[NSFileManager defaultManager] fileExistsAtPath:imgpath], @"Failed to create a new test-image: file "
                  @"was not created at path %@", imgpath);
     [self delegateCleanup];
@@ -87,10 +87,10 @@
     [wrongop setDelegate:self];
     [wrongop start];
 
-    STAssertNotNil(error, @"LCSAttachImageOperation must report an error if password is wrong");
-    STAssertEquals([error class], [LCSTaskOperationError class], @"reported error must be a "
+    STAssertNotNil(error, @"%@", @"LCSAttachImageOperation must report an error if password is wrong");
+    STAssertEquals([error class], [LCSTaskOperationError class], @"%@", @"reported error must be a "
                    @"LCSTaskOperationError");
-    STAssertEquals([error code], (NSInteger)LCSExecutableReturnedNonZeroStatus, @"reported error code must be "
+    STAssertEquals([error code], (NSInteger)LCSExecutableReturnedNonZeroStatus, @"%@", @"reported error code must be "
                    @"LCSExecutableReturnedNonZeroStatus");
     /*
     NSLog(@"localizedDescription: %@", [error localizedDescription]);
@@ -107,12 +107,12 @@
     [attachop setDelegate:self];
     [attachop start];
     
-    STAssertNil(error, @"Failed to attach test-image: LCSAttachImageOperation reported an error");
-    STAssertNotNil(result, @"LCSAttachImageOperation should report results");
-    STAssertTrue([result isKindOfClass:[NSDictionary class]], @"result of LCSAttachImageOperation must be a "
+    STAssertNil(error, @"%@", @"Failed to attach test-image: LCSAttachImageOperation reported an error");
+    STAssertNotNil(result, @"%@", @"LCSAttachImageOperation should report results");
+    STAssertTrue([result isKindOfClass:[NSDictionary class]], @"%@", @"result of LCSAttachImageOperation must be a "
                  @"dictionary");
     NSString* devpath = [[[[result objectForKey:@"system-entities"] objectAtIndex:0] objectForKey:@"dev-entry"] retain];
-    STAssertNotNil(devpath, @"Failed to retrieve the device path of the newly attached test image");
+    STAssertNotNil(devpath, @"%@", @"Failed to retrieve the device path of the newly attached test image");
     [self delegateCleanup];
 
     LCSDetachImageOperation *detachop = [[LCSDetachImageOperation alloc] init];
@@ -121,7 +121,7 @@
     
     [detachop start];
     
-    STAssertNil(error, @"Failed to detach test-image: LCSDetachImageOperation reported an error");
+    STAssertNil(error, @"%@", @"Failed to detach test-image: LCSDetachImageOperation reported an error");
 
     [devpath release];
     [createop release];

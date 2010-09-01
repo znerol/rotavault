@@ -183,7 +183,7 @@
     [op start];
 
     NSString *outstring = [[NSString alloc] initWithData:dataout encoding:NSUTF8StringEncoding];
-    STAssertTrue([outstring isEqualToString:@"Hello\n"], @"Output missmatch");
+    STAssertTrue([outstring isEqualToString:@"Hello\n"], @"%@", @"Output missmatch");
     [outstring release];
 
     [mock verify];
