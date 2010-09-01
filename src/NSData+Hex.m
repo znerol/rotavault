@@ -35,22 +35,22 @@
                 /* digits 0-7 at ascii 0x30-0x37 */
                 nibble &= 0x0F;
                 if (nibble > 0x09) {
-                    nibble = 0xFF;
+                    return nil;
                 }
                 break;
 
             case 0x40:
             case 0x60:
                 /* chars a-f at ascii 0x41-0x46 and 0x61-0x66 */
-                nibble &= 0x07;
+                nibble &= 0x0F;
                 nibble += 0x09;
                 if (nibble < 0x0A || nibble > 0x0F) {
-                    nibble = 0xFF;
+                    return nil;
                 }
                 break;
 
             default:
-                nibble = 0xFF;
+                return nil;
                 break;
         }
 
