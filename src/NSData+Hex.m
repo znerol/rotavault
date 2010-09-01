@@ -27,7 +27,7 @@
     unsigned char byte = 0;
 
     NSMutableData* result = [NSMutableData dataWithCapacity:[hexString length] / 2];
-    for (unsigned int i; i < [hexString length]; i++) {
+    for (NSUInteger i = 0; i < [hexString length]; i++) {
         unsigned char nibble = [hexString characterAtIndex:i];
 
         switch (nibble & 0xF0) {

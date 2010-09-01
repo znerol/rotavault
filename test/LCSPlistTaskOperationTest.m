@@ -38,7 +38,7 @@
     op.arguments = [[LCSSimpleOperationInputParameter alloc] initWithValue:
                     [NSArray arrayWithObjects: @"-xml", @"SPDiagnosticsDataType", nil]];
 
-    id result;
+    id result = nil;
     op.result = [[LCSSimpleOperationOutputParameter alloc] initWithReturnValue:&result];
 
     [op setDelegate:self];
