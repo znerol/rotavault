@@ -66,3 +66,26 @@
     [super taskSetup];
 }
 @end
+
+@implementation LCSUnmountOperation
+@synthesize device;
+-(id)init
+{
+    self = [super init];
+    device = [[LCSOperationRequiredInputParameterMarker alloc] init];
+    return self;
+}
+
+-(void)dealloc
+{
+    [device release];
+    [super dealloc];
+}
+
+-(void)taskSetup
+{
+    [task setLaunchPath:@"/usr/sbin/diskutil"];
+    [task setArguments:[NSArray arrayWithObjects:@"unmount",  device.value, nil]];
+    [super taskSetup];
+}
+@end

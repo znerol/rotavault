@@ -25,3 +25,9 @@
 }
 @property(retain) id <LCSOperationInputParameter> device;
 @end
+
+@interface LCSUnmountOperation : LCSTaskOperationBase {
+    id <LCSOperationInputParameter> device;
+}
+@property(retain) id <LCSOperationInputParameter> device;
+@end
