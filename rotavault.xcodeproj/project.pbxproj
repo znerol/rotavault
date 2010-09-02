@@ -6,23 +6,6 @@
 	objectVersion = 44;
 	objects = {
 
-/* Begin PBXAggregateTarget section */
-		CAA70E1A122FE19500017DB7 /* All */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = CAA70E26122FE1D200017DB7 /* Build configuration list for PBXAggregateTarget "All" */;
-			buildPhases = (
-			);
-			dependencies = (
-				CAA70E28122FE21E00017DB7 /* PBXTargetDependency */,
-				CAA70E1F122FE1A300017DB7 /* PBXTargetDependency */,
-				CAA70E21122FE1A700017DB7 /* PBXTargetDependency */,
-				CAA70E23122FE1AA00017DB7 /* PBXTargetDependency */,
-			);
-			name = All;
-			productName = All;
-		};
-/* End PBXAggregateTarget section */
-
 /* Begin PBXBuildFile section */
 		CA1409E5122E33C9002B4650 /* LCSGenerateRotavaultCopyLaunchdPlistOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA1409E4122E33C9002B4650 /* LCSGenerateRotavaultCopyLaunchdPlistOperation.m */; };
 		CA1409F3122E4349002B4650 /* LCSWritePlistOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA1409F2122E4349002B4650 /* LCSWritePlistOperation.m */; };
@@ -119,58 +102,6 @@
 		CAEF3DD2122427B9000C2D98 /* LCSHdiUtilPlistOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC65694120EBF7100069286 /* LCSHdiUtilPlistOperation.m */; };
 		CAEF3DD3122427BA000C2D98 /* LCSHdiUtilWithProgressOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC657E8120EDC9400069286 /* LCSHdiUtilWithProgressOperation.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		CAA70E14122FE17800017DB7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CAA74BA4120A146600D234F9 /* rotavault_test */;
-			remoteInfo = rotavault_test;
-		};
-		CAA70E16122FE17B00017DB7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CAA74BA4120A146600D234F9 /* rotavault_test */;
-			remoteInfo = rotavault_test;
-		};
-		CAA70E18122FE17E00017DB7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CAA74BA4120A146600D234F9 /* rotavault_test */;
-			remoteInfo = rotavault_test;
-		};
-		CAA70E1E122FE1A300017DB7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CA9488791211892500415257 /* rvcopyd */;
-			remoteInfo = rvcopyd;
-		};
-		CAA70E20122FE1A700017DB7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CA9ED615122CD0BE005CBA5B /* rvcksum */;
-			remoteInfo = rvcksum;
-		};
-		CAA70E22122FE1AA00017DB7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CAA58244122F8AE10091247B /* rvschedule */;
-			remoteInfo = rvschedule;
-		};
-		CAA70E27122FE21E00017DB7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CAA74BA4120A146600D234F9 /* rotavault_test */;
-			remoteInfo = rotavault_test;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		CAA74BAD120A146600D234F9 /* CopyFiles */ = {
@@ -489,7 +420,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				CAA70E15122FE17800017DB7 /* PBXTargetDependency */,
 			);
 			name = rvcopyd;
 			productName = rvcopyd;
@@ -506,7 +436,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				CAA70E17122FE17B00017DB7 /* PBXTargetDependency */,
 			);
 			name = rvcksum;
 			productName = rvcksum;
@@ -523,7 +452,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				CAA70E19122FE17E00017DB7 /* PBXTargetDependency */,
 			);
 			name = rvschedule;
 			productName = rvschedule;
@@ -564,7 +492,6 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CAA70E1A122FE19500017DB7 /* All */,
 				CAA74BA4120A146600D234F9 /* rotavault_test */,
 				CA9488791211892500415257 /* rvcopyd */,
 				CA9ED615122CD0BE005CBA5B /* rvcksum */,
@@ -585,7 +512,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"$BUILD_STYLE\" == \"Debug\" -o \"$EXECUTABLE_NAME\" != \"rotavault_test\" ]; then\n\texit 0\nfi\n\n# run tests\nexport DYLD_FALLBACK_FRAMEWORK_PATH=\"$DEVELOPER_LIBRARY_DIR/Frameworks:$SRCROOT/Frameworks\"\n\"$BUILT_PRODUCTS_DIR/$EXECUTABLE_PATH\"\n\nif [ \"$BUILD_STYLE\" != \"Coverage\" ]; then\n\texit 0\nfi\n\n# run gcov\npushd $OBJECT_FILE_DIR_normal/$NATIVE_ARCH\nfind . -name '*.gcda' -exec gcov -o . {} \\;\nopen -a coverstory .\npopd";
+			shellScript = "if [ \"$BUILD_STYLE\" == \"Debug\" -o \"$EXECUTABLE_NAME\" != \"rotavault_test\" ]; then\n\texit 0\nfi\n\n# run tests\nexport DYLD_FALLBACK_FRAMEWORK_PATH=\"$DEVELOPER_LIBRARY_DIR/Frameworks:$SRCROOT/Frameworks\"\n\"$BUILT_PRODUCTS_DIR/$EXECUTABLE_PATH\"\n\nif [ \"$BUILD_STYLE\" != \"Coverage\" ]; then\n\texit 0\nfi\n\n# run gcov\npushd $OBJECT_FILE_DIR_normal/$CURRENT_ARCH\nfind . -name '*.gcda' -exec gcov -o . {} \\;\nopen -a CoverStory .\npopd\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -709,44 +636,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		CAA70E15122FE17800017DB7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CAA74BA4120A146600D234F9 /* rotavault_test */;
-			targetProxy = CAA70E14122FE17800017DB7 /* PBXContainerItemProxy */;
-		};
-		CAA70E17122FE17B00017DB7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CAA74BA4120A146600D234F9 /* rotavault_test */;
-			targetProxy = CAA70E16122FE17B00017DB7 /* PBXContainerItemProxy */;
-		};
-		CAA70E19122FE17E00017DB7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CAA74BA4120A146600D234F9 /* rotavault_test */;
-			targetProxy = CAA70E18122FE17E00017DB7 /* PBXContainerItemProxy */;
-		};
-		CAA70E1F122FE1A300017DB7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CA9488791211892500415257 /* rvcopyd */;
-			targetProxy = CAA70E1E122FE1A300017DB7 /* PBXContainerItemProxy */;
-		};
-		CAA70E21122FE1A700017DB7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CA9ED615122CD0BE005CBA5B /* rvcksum */;
-			targetProxy = CAA70E20122FE1A700017DB7 /* PBXContainerItemProxy */;
-		};
-		CAA70E23122FE1AA00017DB7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CAA58244122F8AE10091247B /* rvschedule */;
-			targetProxy = CAA70E22122FE1AA00017DB7 /* PBXContainerItemProxy */;
-		};
-		CAA70E28122FE21E00017DB7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CAA74BA4120A146600D234F9 /* rotavault_test */;
-			targetProxy = CAA70E27122FE21E00017DB7 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		1DEB927908733DD40010E9CD /* Debug */ = {
@@ -1005,34 +894,6 @@
 			};
 			name = Release;
 		};
-		CAA70E1B122FE19600017DB7 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				PRODUCT_NAME = All;
-			};
-			name = Debug;
-		};
-		CAA70E1C122FE19600017DB7 /* Coverage */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = All;
-			};
-			name = Coverage;
-		};
-		CAA70E1D122FE19600017DB7 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				PRODUCT_NAME = All;
-				ZERO_LINK = NO;
-			};
-			name = Release;
-		};
 		CAA74BAF120A146600D234F9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1107,16 +968,6 @@
 				CAA58247122F8AE20091247B /* Debug */,
 				CAA58248122F8AE20091247B /* Coverage */,
 				CAA58249122F8AE20091247B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		CAA70E26122FE1D200017DB7 /* Build configuration list for PBXAggregateTarget "All" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				CAA70E1B122FE19600017DB7 /* Debug */,
-				CAA70E1C122FE19600017DB7 /* Coverage */,
-				CAA70E1D122FE19600017DB7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
