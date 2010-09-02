@@ -37,8 +37,7 @@
 
 -(void)operation:(LCSOperation*)op handleError:(NSError*)error
 {
-    if (error != _firstError) {
-        [_firstError release];
+    if (!_firstError) {
         _firstError = [error retain];
     }
 
