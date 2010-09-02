@@ -15,9 +15,7 @@ int main (int argc, const char * argv[]) {
     NSString *targetdev = [args stringForKey:@"targetdev"];
     NSDate *rundate = [NSDate dateWithTimeIntervalSinceNow:60];
 
-    NSFileManager *fm = [[NSFileManager alloc] init];
     NSError *error;
-    NSDictionary *fattrs;
 
     LCSRotavaultScheduleInstallCommand *cmd = [[LCSRotavaultScheduleInstallCommand alloc]
                                                initWithSourceDevice:sourcedev targetDevice:targetdev runAt:rundate];
