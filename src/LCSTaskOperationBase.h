@@ -28,8 +28,8 @@
 @end
 
 @protocol LCSTaskOperationDelegate <LCSOperationDelegate>
--(void)taskOperationLaunched:(LCSTaskOperationBase*)operation;
--(void)operation:(LCSTaskOperationBase*)operation updateStandardOutput:(NSData*)stdoutData;
--(void)operation:(LCSTaskOperationBase*)operation updateStandardError:(NSData*)stderrData;
--(void)operation:(LCSTaskOperationBase*)operation terminatedWithStatus:(NSNumber*)status;
+@optional -(void)taskOperationLaunched:(LCSTaskOperationBase*)operation;
+@optional -(void)operation:(LCSTaskOperationBase*)operation updateStandardOutput:(NSData*)stdoutData;
+@optional -(void)operation:(LCSTaskOperationBase*)operation updateStandardError:(NSData*)stderrData;
+@optional -(void)operation:(LCSTaskOperationBase*)operation terminatedWithStatus:(NSNumber*)status;
 @end

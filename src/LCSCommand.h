@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface LCSCommand : NSObject
+@interface LCSCommand : NSObject <LCSTaskOperationDelegate>
 {
     NSOperationQueue*   queue;
     NSError*            originalError;
