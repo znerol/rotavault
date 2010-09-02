@@ -168,7 +168,7 @@
             pid = [NSNumber numberWithInteger:i];
         }
         else if(![scanner scanString:@"-" intoString:nil]) {
-            LCSTaskOperationError *err = [LCSTaskOperationError
+            LCSTaskOperationError *err = [[LCSTaskOperationError alloc]
                                           initReceivedUnexpectedOutputFromLaunchPath:[task launchPath] 
                                           message:@"Failed to parse value in pid column"];
             [self handleError:err];
@@ -176,7 +176,7 @@
         }
 
         if (![scanner scanString:@"\t" intoString:nil]) {
-            LCSTaskOperationError *err = [LCSTaskOperationError
+            LCSTaskOperationError *err = [[LCSTaskOperationError alloc]
                                           initReceivedUnexpectedOutputFromLaunchPath:[task launchPath] 
                                           message:@"Failed to parse column separator"];
             [self handleError:err];
@@ -193,7 +193,7 @@
             status = [NSNumber numberWithInteger:i];
         }
         else {
-            LCSTaskOperationError *err = [LCSTaskOperationError
+            LCSTaskOperationError *err = [[LCSTaskOperationError alloc]
                                           initReceivedUnexpectedOutputFromLaunchPath:[task launchPath] 
                                           message:@"Failed to parse value in signal column"];
             [self handleError:err];
@@ -201,7 +201,7 @@
         }
 
         if (![scanner scanString:@"\t" intoString:nil]) {
-            LCSTaskOperationError *err = [LCSTaskOperationError
+            LCSTaskOperationError *err = [[LCSTaskOperationError alloc]
                                           initReceivedUnexpectedOutputFromLaunchPath:[task launchPath] 
                                           message:@"Failed to parse column separator"];
             [self handleError:err];
@@ -211,7 +211,7 @@
         /* scan label */
         if (![scanner scanCharactersFromSet:[[NSCharacterSet whitespaceAndNewlineCharacterSet] invertedSet]
                                  intoString:&label]) {
-            LCSTaskOperationError *err = [LCSTaskOperationError
+            LCSTaskOperationError *err = [[LCSTaskOperationError alloc]
                                           initReceivedUnexpectedOutputFromLaunchPath:[task launchPath] 
                                           message:@"Failed to parse value in label column"];
             [self handleError:err];
@@ -219,7 +219,7 @@
         }
 
         if (![scanner scanString:@"\n" intoString:nil]) {
-            LCSTaskOperationError *err = [LCSTaskOperationError
+            LCSTaskOperationError *err = [[LCSTaskOperationError alloc]
                                           initReceivedUnexpectedOutputFromLaunchPath:[task launchPath] 
                                           message:@"Failed to parse newline"];
             [self handleError:err];
