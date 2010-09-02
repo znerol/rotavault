@@ -20,13 +20,13 @@
 @implementation LCSOperationRequiredInOutParameterMarker
 -(id)value
 {
-    NSAssert(YES, [NSString stringWithFormat:@"Attempt to access the value of an unset input parameter."]);
+    NSAssert(YES, [NSString stringWithFormat:@"Attempt to access the value of an unset inout parameter."]);
     return nil; /* suppress compiler warning */
 }
 
 -(void)setValue:(id)newValue
 {
-    NSAssert(YES, [NSString stringWithFormat:@"Attempt to access the value of an unset input parameter."]);
+    NSAssert(YES, [NSString stringWithFormat:@"Attempt to access the value of an unset inout parameter."]);
 }
 @end
 
