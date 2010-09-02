@@ -11,9 +11,9 @@
 
 
 @interface LCSWritePlistOperation : LCSOperation {
-    id <LCSOperationInputParameter> launchdPlist; //NSDictionary
+    id <LCSOperationInputParameter> plist; //NSDictionary
     id <LCSOperationInOutParameter> plistPath; //NSString
 }
-@property(retain) id <LCSOperationInputParameter> launchdPlist;
+@property(retain) id <LCSOperationInputParameter> plist;
 @property(retain) id <LCSOperationInputParameter> plistPath;
 @end

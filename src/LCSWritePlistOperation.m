@@ -18,10 +18,10 @@
         return nil;
     }
 
-    launchdPlist = [[LCSOperationRequiredInputParameterMarker alloc] init];
+    plist = [[LCSOperationRequiredInputParameterMarker alloc] init];
     plistPath = [[LCSOperationRequiredInOutParameterMarker alloc] init];
     
-    if (!launchdPlist || !plistPath) {
+    if (!plist || !plistPath) {
         [self release];
         return nil;
     }
@@ -30,19 +30,19 @@
 
 -(void)dealloc
 {
-    [launchdPlist release];
+    [plist release];
     [plistPath release];
     [super dealloc];
 }
 
-@synthesize launchdPlist;
+@synthesize plist;
 @synthesize plistPath;
 
 -(void)execute
 {
     NSString *errstring = nil;
     NSError *error = nil;
-    NSData *data = [NSPropertyListSerialization dataFromPropertyList:launchdPlist.value
+    NSData *data = [NSPropertyListSerialization dataFromPropertyList:plist.value
                                                               format:NSPropertyListXMLFormat_v1_0
                                                     errorDescription:&errstring];
     if (!data) {
@@ -55,11 +55,14 @@
     /* Write the data to a temporary file if the path-parameter is not set */
     NSString* path = plistPath.value;
     if(!path) {
-        int fd;
-        char template[] = "/tmp/plist.XXXXXXXX";
+        static const char template[] = "/tmp/plist.XXXXXXXX";
+        char *pathBuffer = malloc(sizeof(template));
+        memcpy(pathBuffer, template, sizeof(template));
+        pathBuffer[sizeof(template)-1]=0;
 
-        fd = mkstemp(template);
-        path = [NSString stringWithCString:template];
+        int fd = mkstemp(pathBuffer);
+        path = [NSString stringWithCString:pathBuffer encoding:NSASCIIStringEncoding];
+        free(pathBuffer);
 
         NSFileHandle *fh = [[NSFileHandle alloc] initWithFileDescriptor:fd closeOnDealloc:NO];
         @try {
