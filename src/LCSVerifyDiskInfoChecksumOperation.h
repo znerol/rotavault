@@ -12,9 +12,9 @@
 
 @interface LCSVerifyDiskInfoChecksumOperation : LCSOperation
 {
-    NSDictionary *diskinfo;
-    NSString *checksum;
+    id <LCSOperationInputParameter> diskinfo;
+    id <LCSOperationInputParameter> checksum;
 }
-@property(retain)NSDictionary *diskinfo;
-@property(retain)NSString *checksum;
+@property(retain)id <LCSOperationInputParameter> diskinfo;
+@property(retain)id <LCSOperationInputParameter> checksum;
 @end

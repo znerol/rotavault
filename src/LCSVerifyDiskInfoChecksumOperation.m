@@ -7,6 +7,7 @@
 //
 
 #import "LCSVerifyDiskInfoChecksumOperation.h"
+#import "LCSOperationParameterMarker.h"
 #import "LCSRotavaultErrorDomain.h"
 #import "LCSPropertyListSHA1Hash.h"
 #import "NSData+Hex.h"
@@ -16,9 +17,16 @@
 @synthesize checksum;
 -(id)init
 {
-    self = [super init];
-    diskinfo = [[NSNull null] retain];
-    checksum = [[NSNull null] retain];
+    if (!(self = [super init])) {
+        return nil;
+    }
+
+    diskinfo = [[LCSOperationRequiredInputParameterMarker alloc] init];
+    checksum = [[LCSOperationRequiredInputParameterMarker alloc] init];
+
+    if (!diskinfo || ! checksum) {
+        [self release];
+    }
     return self;
 }
 
