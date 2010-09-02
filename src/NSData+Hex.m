@@ -28,7 +28,14 @@
 
     NSMutableData* result = [NSMutableData dataWithCapacity:[hexString length] / 2];
     for (NSUInteger i = 0; i < [hexString length]; i++) {
-        unsigned char nibble = [hexString characterAtIndex:i];
+        unichar chr = [hexString characterAtIndex:i];
+
+        /* We don't look at anything which is below the digits and above 'f' in the ascii table */
+        if (chr < 0x30 || chr > 0x66 ) {
+            return nil;
+        }
+
+        unsigned char nibble = chr;
 
         switch (nibble & 0xF0) {
             case 0x30:
