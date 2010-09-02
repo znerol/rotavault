@@ -465,7 +465,7 @@
 				CAA74BA5120A146600D234F9 /* Sources */,
 				CAA74BAB120A146600D234F9 /* Frameworks */,
 				CAA74BAD120A146600D234F9 /* CopyFiles */,
-				CAA70D03122FCA0700017DB7 /* ShellScript */,
+				CAA70D03122FCA0700017DB7 /* Run Unit Tests */,
 			);
 			buildRules = (
 			);
@@ -501,13 +501,15 @@
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		CAA70D03122FCA0700017DB7 /* ShellScript */ = {
+		CAA70D03122FCA0700017DB7 /* Run Unit Tests */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(PRODUCT_NAME)",
 			);
+			name = "Run Unit Tests";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
