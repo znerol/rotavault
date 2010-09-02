@@ -39,6 +39,11 @@
     [result release];
 }
 
+@synthesize runAtDate;
+@synthesize sourceInfo;
+@synthesize targetInfo;
+@synthesize result;
+
 -(void)execute
 {
     NSString *sourceDevice = [sourceInfo.value objectForKey:@"DeviceNode"];
@@ -48,8 +53,8 @@
 
     // FIXME: handle nil/empty values
     NSArray *args = [NSArray arrayWithObjects:@"/usr/local/bin/rvcopyd", @"-sourcedev", sourceDevice, @"-targetdev",
-                     targetDevice, @"-sourcecheck", [@"uuid:" stringByAppendingString:sourceUUID], @"-targetcheck", 
-                     [@"sha1:" stringByAppendingString:targetSHA1]];
+                     targetDevice, @"-sourcecheck", [NSString stringWithFormat:@"uuid:%@", sourceUUID], @"-targetcheck", 
+                     [NSString stringWithFormat:@"sha1:%@", targetSHA1], nil];
 
     NSDateFormatter *minFormatter = [[NSDateFormatter alloc] init];
     [minFormatter setDateFormat:@"mm"];
@@ -59,12 +64,15 @@
     [dayFormatter setDateFormat:@"dd"];
     NSDateFormatter *monthFormatter = [[NSDateFormatter alloc] init];
     [monthFormatter setDateFormat:@"MM"];
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setAllowsFloats:NO];
+    [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
 
     NSDictionary *date = [NSDictionary dictionaryWithObjectsAndKeys:
-                          [minFormatter stringFromDate:runAtDate.value], @"Minute",
-                          [hourFormatter stringFromDate:runAtDate.value], @"Hour",
-                          [dayFormatter stringFromDate:runAtDate.value], @"Day",
-                          [monthFormatter stringFromDate:runAtDate.value], @"Month",
+                          [numberFormatter numberFromString:[minFormatter stringFromDate:runAtDate.value]], @"Minute",
+                          [numberFormatter numberFromString:[hourFormatter stringFromDate:runAtDate.value]], @"Hour",
+                          [numberFormatter numberFromString:[dayFormatter stringFromDate:runAtDate.value]], @"Day",
+                          [numberFormatter numberFromString:[monthFormatter stringFromDate:runAtDate.value]], @"Month",
                           nil];
 
     result.value = [NSDictionary dictionaryWithObjectsAndKeys:
