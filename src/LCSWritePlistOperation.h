@@ -1,5 +1,5 @@
 //
-//  LCSInstallRotavaultCopyLaunchdPlistOperation.h
+//  LCSWritePlistOperation.h
 //  rotavault
 //
 //  Created by Lorenz Schori on 01.09.10.
@@ -10,10 +10,10 @@
 #import "LCSOperation.h"
 
 
-@interface LCSInstallRotavaultCopyLaunchdPlistOperation : LCSOperation {
+@interface LCSWritePlistOperation : LCSOperation {
     id <LCSOperationInputParameter> launchdPlist; //NSDictionary
-    id <LCSOperationInputParameter> installPath; //NSString
+    id <LCSOperationInOutParameter> plistPath; //NSString
 }
 @property(retain) id <LCSOperationInputParameter> launchdPlist;
-@property(retain) id <LCSOperationInputParameter> installPath;
+@property(retain) id <LCSOperationInputParameter> plistPath;
 @end
