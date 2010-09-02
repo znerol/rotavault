@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "LCSTaskOperation.h"
 
 
-@interface LCSCommand : NSObject <LCSTaskOperationDelegate>
+@interface LCSCommand : NSObject
 {
     NSOperationQueue*   queue;
     NSError*            originalError;
@@ -17,5 +18,6 @@
 }
 @property(readonly) NSOperationQueue* queue;
 -(void)cancel;
+-(void)operation:(LCSOperation*)operation handleError:(NSError*)error;
 -(NSError*)execute;
 @end
