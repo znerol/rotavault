@@ -37,6 +37,7 @@
     [sourceInfo release];
     [targetInfo release];
     [result release];
+    [super dealloc];
 }
 
 @synthesize runAtDate;
