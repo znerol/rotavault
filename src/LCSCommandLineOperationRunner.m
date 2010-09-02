@@ -41,6 +41,11 @@
         _firstError = [error retain];
     }
 
+    /*
+     * It is possible that self is delegate for more than the operation held in _operation. If some suboperation got
+     * into trouble we cancel also the main operation (which is an instance of LCSOperationQueueOperation in the
+     * typical case.
+     */
     if (op != _operation) {
         [_operation cancel];
     }
