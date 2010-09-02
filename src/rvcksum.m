@@ -18,10 +18,10 @@ int main (int argc, const char * argv[]) {
 
     NSString* device;
     LCSChecksumAlgo algo;
-    if (device = [args objectForKey:@"sha1"]) {
+    if ((device = [args objectForKey:@"sha1"])) {
         algo = kLCSSHA1;
     }
-    else if (device = [args objectForKey:@"uuid"]) {
+    else if ((device = [args objectForKey:@"uuid"])) {
         algo = kLCSUUID;
     }
     else {
