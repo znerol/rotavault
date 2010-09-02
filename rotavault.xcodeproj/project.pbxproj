@@ -13,8 +13,8 @@
 		CA1409E0122E2D22002B4650 /* LCSRotavaultScheduleInstallCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA1409DE122E2D22002B4650 /* LCSRotavaultScheduleInstallCommand.m */; };
 		CA1409E5122E33C9002B4650 /* LCSGenerateRotavaultCopyLaunchdPlistOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA1409E4122E33C9002B4650 /* LCSGenerateRotavaultCopyLaunchdPlistOperation.m */; };
 		CA1409E6122E33C9002B4650 /* LCSGenerateRotavaultCopyLaunchdPlistOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA1409E4122E33C9002B4650 /* LCSGenerateRotavaultCopyLaunchdPlistOperation.m */; };
-		CA1409F3122E4349002B4650 /* LCSInstallRotavaultCopyLaunchdPlistOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA1409F2122E4349002B4650 /* LCSInstallRotavaultCopyLaunchdPlistOperation.m */; };
-		CA1409F4122E4349002B4650 /* LCSInstallRotavaultCopyLaunchdPlistOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA1409F2122E4349002B4650 /* LCSInstallRotavaultCopyLaunchdPlistOperation.m */; };
+		CA1409F3122E4349002B4650 /* LCSWritePlistOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA1409F2122E4349002B4650 /* LCSWritePlistOperation.m */; };
+		CA1409F4122E4349002B4650 /* LCSWritePlistOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA1409F2122E4349002B4650 /* LCSWritePlistOperation.m */; };
 		CA140A21122E5FD3002B4650 /* LCSLaunchctlOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA140A20122E5FD3002B4650 /* LCSLaunchctlOperation.m */; };
 		CA140A22122E5FD3002B4650 /* LCSLaunchctlOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA140A20122E5FD3002B4650 /* LCSLaunchctlOperation.m */; };
 		CA140A53122E7671002B4650 /* LCSLaunchctlOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA140A52122E7671002B4650 /* LCSLaunchctlOperationTest.m */; };
@@ -170,8 +170,8 @@
 		CA1409DE122E2D22002B4650 /* LCSRotavaultScheduleInstallCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSRotavaultScheduleInstallCommand.m; sourceTree = "<group>"; };
 		CA1409E3122E33C9002B4650 /* LCSGenerateRotavaultCopyLaunchdPlistOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSGenerateRotavaultCopyLaunchdPlistOperation.h; sourceTree = "<group>"; };
 		CA1409E4122E33C9002B4650 /* LCSGenerateRotavaultCopyLaunchdPlistOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSGenerateRotavaultCopyLaunchdPlistOperation.m; sourceTree = "<group>"; };
-		CA1409F1122E4349002B4650 /* LCSInstallRotavaultCopyLaunchdPlistOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSInstallRotavaultCopyLaunchdPlistOperation.h; sourceTree = "<group>"; };
-		CA1409F2122E4349002B4650 /* LCSInstallRotavaultCopyLaunchdPlistOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSInstallRotavaultCopyLaunchdPlistOperation.m; sourceTree = "<group>"; };
+		CA1409F1122E4349002B4650 /* LCSWritePlistOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSWritePlistOperation.h; sourceTree = "<group>"; };
+		CA1409F2122E4349002B4650 /* LCSWritePlistOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSWritePlistOperation.m; sourceTree = "<group>"; };
 		CA140A1F122E5FD3002B4650 /* LCSLaunchctlOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSLaunchctlOperation.h; sourceTree = "<group>"; };
 		CA140A20122E5FD3002B4650 /* LCSLaunchctlOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSLaunchctlOperation.m; sourceTree = "<group>"; };
 		CA140A51122E7671002B4650 /* LCSLaunchctlOperationTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSLaunchctlOperationTest.h; sourceTree = "<group>"; };
@@ -405,8 +405,8 @@
 				CA1409DE122E2D22002B4650 /* LCSRotavaultScheduleInstallCommand.m */,
 				CA1409E3122E33C9002B4650 /* LCSGenerateRotavaultCopyLaunchdPlistOperation.h */,
 				CA1409E4122E33C9002B4650 /* LCSGenerateRotavaultCopyLaunchdPlistOperation.m */,
-				CA1409F1122E4349002B4650 /* LCSInstallRotavaultCopyLaunchdPlistOperation.h */,
-				CA1409F2122E4349002B4650 /* LCSInstallRotavaultCopyLaunchdPlistOperation.m */,
+				CA1409F1122E4349002B4650 /* LCSWritePlistOperation.h */,
+				CA1409F2122E4349002B4650 /* LCSWritePlistOperation.m */,
 				CA140A1F122E5FD3002B4650 /* LCSLaunchctlOperation.h */,
 				CA140A20122E5FD3002B4650 /* LCSLaunchctlOperation.m */,
 			);
@@ -611,7 +611,7 @@
 				CA28B00412134EDD00C9BE6F /* LCSCalculateVolumeUsedSpaceOperation.m in Sources */,
 				CA1409E0122E2D22002B4650 /* LCSRotavaultScheduleInstallCommand.m in Sources */,
 				CA1409E6122E33C9002B4650 /* LCSGenerateRotavaultCopyLaunchdPlistOperation.m in Sources */,
-				CA1409F4122E4349002B4650 /* LCSInstallRotavaultCopyLaunchdPlistOperation.m in Sources */,
+				CA1409F4122E4349002B4650 /* LCSWritePlistOperation.m in Sources */,
 				CA140A22122E5FD3002B4650 /* LCSLaunchctlOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -717,7 +717,7 @@
 				CA9ED57C122CC819005CBA5B /* LCSCommand.m in Sources */,
 				CA1409DF122E2D22002B4650 /* LCSRotavaultScheduleInstallCommand.m in Sources */,
 				CA1409E5122E33C9002B4650 /* LCSGenerateRotavaultCopyLaunchdPlistOperation.m in Sources */,
-				CA1409F3122E4349002B4650 /* LCSInstallRotavaultCopyLaunchdPlistOperation.m in Sources */,
+				CA1409F3122E4349002B4650 /* LCSWritePlistOperation.m in Sources */,
 				CA140A21122E5FD3002B4650 /* LCSLaunchctlOperation.m in Sources */,
 				CA140A53122E7671002B4650 /* LCSLaunchctlOperationTest.m in Sources */,
 				CA140A6E122E843B002B4650 /* LCSTestdir.m in Sources */,
