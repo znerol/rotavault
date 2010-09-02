@@ -14,6 +14,7 @@
 @interface LCSRotavaultScheduleInstallCommand : LCSCommand {
     NSDictionary    *sourceInfo;
     NSDictionary    *targetInfo;
+    NSDictionary    *bootdiskInfo;
     NSDictionary    *launchdPlist;
     NSString        *plistPath;
     LCSLaunchctlRemoveOperation *launchctlRemoveOperation;

@@ -8,6 +8,7 @@
 
 #import "LCSRotavaultScheduleInstallCommand.h"
 #import "LCSGenerateRotavaultCopyLaunchdPlistOperation.h"
+#import "LCSBlockCopyValidateDiskInfoOperation.h"
 #import "LCSWritePlistOperation.h"
 #import "LCSDiskUtilOperation.h"
 #import "LCSSimpleOperationParameter.h"
@@ -41,6 +42,27 @@
         [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:self keyPath:@"targetInfo"];
     [queue addOperation:targetInfoOperation];
 
+    LCSInformationForDiskOperation *bootdiskInfoOperation = [[[LCSInformationForDiskOperation alloc] init] autorelease];
+    bootdiskInfoOperation.delegate = self;
+    bootdiskInfoOperation.device = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/"];
+    bootdiskInfoOperation.result =
+        [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:self keyPath:@"bootdiskInfo"];
+    [queue addOperation:bootdiskInfoOperation];
+
+    LCSBlockCopyValidateDiskInfoOperation *validateDiskInfoOperation =
+        [[LCSBlockCopyValidateDiskInfoOperation alloc] init];
+    validateDiskInfoOperation.delegate = self;
+    validateDiskInfoOperation.sourceInfo =
+        [[LCSKeyValueOperationInputParameter alloc] initWithTarget:self keyPath:@"sourceInfo"];
+    validateDiskInfoOperation.targetInfo =
+        [[LCSKeyValueOperationInputParameter alloc] initWithTarget:self keyPath:@"targetInfo"];
+    validateDiskInfoOperation.bootdiskInfo =
+        [[LCSKeyValueOperationInputParameter alloc] initWithTarget:self keyPath:@"bootdiskInfo"];
+    [validateDiskInfoOperation addDependency:sourceInfoOperation];
+    [validateDiskInfoOperation addDependency:targetInfoOperation];
+    [validateDiskInfoOperation addDependency:bootdiskInfoOperation];
+    [queue addOperation:validateDiskInfoOperation];
+
     LCSGenerateRotavaultCopyLaunchdPlistOperation *plistGenOperation =
         [[[LCSGenerateRotavaultCopyLaunchdPlistOperation alloc] init] autorelease];
     plistGenOperation.delegate = self;
@@ -51,8 +73,7 @@
         [[LCSKeyValueOperationInputParameter alloc] initWithTarget:self keyPath:@"targetInfo"];
     plistGenOperation.result =
         [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:self keyPath:@"launchdPlist"];
-    [plistGenOperation addDependency:sourceInfoOperation];
-    [plistGenOperation addDependency:targetInfoOperation];
+    [plistGenOperation addDependency:validateDiskInfoOperation];
     [queue addOperation:plistGenOperation];
 
     LCSWritePlistOperation *plistInstallOperation = 
