@@ -51,7 +51,7 @@
 
 -(void)taskTerminatedWithStatus:(int)status
 {
-    if (status != 0) {
+    if (status != 0 && [self isCancelled] == NO) {
         NSError *error = [LCSTaskOperationError errorWithLaunchPath:[task launchPath] status:status];
         [self handleError:error];
     }
@@ -134,21 +134,21 @@
     }
     
     [self taskLaunched];
-    
     [task waitUntilExit];
-    
     [self taskTerminatedWithStatus:[task terminationStatus]];
-    
-    /* spin until eof is reached for both streams */
-    while(outEOF == NO || errEOF == NO){
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+
+    if (![self isCancelled]) {
+        /* spin until eof is reached for both streams */
+        while(outEOF == NO || errEOF == NO){
+            [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+        }
+
+        /* last chance to interpret and store output */
+        [self taskOutputComplete];
     }
-    
+
     /* finally remove us from the notification center */
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-    /* last chance to interpret and store output */
-    [self taskOutputComplete];
 }
 
 -(void)cancel

@@ -116,15 +116,7 @@
                                                code:NSUserCancelledError
                                            userInfo:[NSDictionary dictionary]];
     id equalToCancelError = [OCMArg checkWithSelector:@selector(isEqualToError:) onObject:cancelError];
-    
-    /* expect non-zero status error */
     [[mock expect] operation:op handleError:equalToCancelError];
-    NSError *termError = [NSError errorWithDomain:LCSRotavaultErrorDomain
-                                               code:LCSExecutableReturnedNonZeroStatus
-                                           userInfo:[NSDictionary dictionary]];
-    id equalToTermError = [OCMArg checkWithSelector:@selector(isEqualToError:) onObject:termError];
-    [[mock expect] operation:op handleError:equalToTermError];
-    
     [[mock expect] operation:op terminatedWithStatus:[NSNumber numberWithInt:2]];
     [op setDelegate:mock];
 
