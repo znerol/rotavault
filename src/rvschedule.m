@@ -1,6 +1,7 @@
 #import <Foundation/Foundation.h>
-#import "LCSRotavaultScheduleInstallCommand.h"
-#import "LCSCommandSignalHandler.h"
+#import "LCSRotavaultScheduleInstallOperation.h"
+#import "LCSSimpleOperationParameter.h"
+#import "LCSCommandLineOperationRunner.h"
 
 
 int main (int argc, const char * argv[]) {
@@ -17,20 +18,19 @@ int main (int argc, const char * argv[]) {
 
     NSError *error;
 
-    LCSRotavaultScheduleInstallCommand *cmd = [[LCSRotavaultScheduleInstallCommand alloc]
-                                               initWithSourceDevice:sourcedev targetDevice:targetdev runAt:rundate];
+    LCSRotavaultScheduleInstallOperation *op = [[LCSRotavaultScheduleInstallOperation alloc] init];
+    op.runAtDate = [[LCSSimpleOperationInputParameter alloc] initWithValue:rundate];
+    op.sourceDevice = [[LCSSimpleOperationInputParameter alloc] initWithValue:sourcedev];
+    op.targetDevice = [[LCSSimpleOperationInputParameter alloc] initWithValue:targetdev];
 
-    LCSCommandSignalHandler *handler = [[LCSCommandSignalHandler alloc] initWithCommand:cmd];
-
-    error = [cmd execute];
+    error = [LCSCommandLineOperationRunner runOperation:op];
 
     int status = 0;
     if (error) {
         status = 1;
     }
 
-    [handler release];
-
+    [op release];
     [pool drain];
     return status;
 }

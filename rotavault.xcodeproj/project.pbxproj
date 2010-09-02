@@ -95,6 +95,18 @@
 		CAAB12D71215B3B500A22678 /* LCSTaskOperationBase.m in Sources */ = {isa = PBXBuildFile; fileRef = CAAB12D51215B3B500A22678 /* LCSTaskOperationBase.m */; };
 		CAB8931A12295546003C3308 /* LCSTaskOperationBase.m in Sources */ = {isa = PBXBuildFile; fileRef = CAAB12D51215B3B500A22678 /* LCSTaskOperationBase.m */; };
 		CAB8931B12295548003C3308 /* LCSOperationParameterMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = CA45BABE1215A8F100D3E40A /* LCSOperationParameterMarker.m */; };
+		CABC904E12300BAB00B4A81E /* LCSOperationQueueOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CABC904D12300BAB00B4A81E /* LCSOperationQueueOperation.m */; };
+		CABC904F12300BAB00B4A81E /* LCSOperationQueueOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CABC904D12300BAB00B4A81E /* LCSOperationQueueOperation.m */; };
+		CABC905012300BAB00B4A81E /* LCSOperationQueueOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CABC904D12300BAB00B4A81E /* LCSOperationQueueOperation.m */; };
+		CABC905112300BAB00B4A81E /* LCSOperationQueueOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CABC904D12300BAB00B4A81E /* LCSOperationQueueOperation.m */; };
+		CABC905A12300F5E00B4A81E /* LCSCommandLineOperationRunner.m in Sources */ = {isa = PBXBuildFile; fileRef = CABC905912300F5E00B4A81E /* LCSCommandLineOperationRunner.m */; };
+		CABC905B12300F5E00B4A81E /* LCSCommandLineOperationRunner.m in Sources */ = {isa = PBXBuildFile; fileRef = CABC905912300F5E00B4A81E /* LCSCommandLineOperationRunner.m */; };
+		CABC905C12300F5E00B4A81E /* LCSCommandLineOperationRunner.m in Sources */ = {isa = PBXBuildFile; fileRef = CABC905912300F5E00B4A81E /* LCSCommandLineOperationRunner.m */; };
+		CABC905D12300F5E00B4A81E /* LCSCommandLineOperationRunner.m in Sources */ = {isa = PBXBuildFile; fileRef = CABC905912300F5E00B4A81E /* LCSCommandLineOperationRunner.m */; };
+		CABC908B1230291200B4A81E /* LCSRotavaultScheduleInstallOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CABC908A1230291200B4A81E /* LCSRotavaultScheduleInstallOperation.m */; };
+		CABC908C1230291200B4A81E /* LCSRotavaultScheduleInstallOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CABC908A1230291200B4A81E /* LCSRotavaultScheduleInstallOperation.m */; };
+		CABC908D1230291200B4A81E /* LCSRotavaultScheduleInstallOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CABC908A1230291200B4A81E /* LCSRotavaultScheduleInstallOperation.m */; };
+		CABC908E1230291200B4A81E /* LCSRotavaultScheduleInstallOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CABC908A1230291200B4A81E /* LCSRotavaultScheduleInstallOperation.m */; };
 		CAE82D85122C361F00715BCF /* NSData+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = CAE82D84122C361F00715BCF /* NSData+Hex.m */; };
 		CAE82D86122C361F00715BCF /* NSData+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = CAE82D84122C361F00715BCF /* NSData+Hex.m */; };
 		CAEF3DD0122427B6000C2D98 /* LCSBlockCopyOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA547448120B66120014E9E8 /* LCSBlockCopyOperation.m */; };
@@ -199,6 +211,12 @@
 		CAB1C0CE120C66D10076DB12 /* LCSRotavaultErrorDomain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSRotavaultErrorDomain.m; sourceTree = "<group>"; };
 		CAB72D79120708220093D08A /* LCSTestdir.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSTestdir.h; sourceTree = "<group>"; };
 		CAB72D7A120708220093D08A /* LCSTestdir.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSTestdir.m; sourceTree = "<group>"; };
+		CABC904C12300BAB00B4A81E /* LCSOperationQueueOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSOperationQueueOperation.h; sourceTree = "<group>"; };
+		CABC904D12300BAB00B4A81E /* LCSOperationQueueOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSOperationQueueOperation.m; sourceTree = "<group>"; };
+		CABC905812300F5E00B4A81E /* LCSCommandLineOperationRunner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSCommandLineOperationRunner.h; sourceTree = "<group>"; };
+		CABC905912300F5E00B4A81E /* LCSCommandLineOperationRunner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSCommandLineOperationRunner.m; sourceTree = "<group>"; };
+		CABC90891230291200B4A81E /* LCSRotavaultScheduleInstallOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSRotavaultScheduleInstallOperation.h; sourceTree = "<group>"; };
+		CABC908A1230291200B4A81E /* LCSRotavaultScheduleInstallOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSRotavaultScheduleInstallOperation.m; sourceTree = "<group>"; };
 		CAC655FA120EB3A700069286 /* LCSDiskUtilOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSDiskUtilOperation.h; sourceTree = "<group>"; };
 		CAC655FB120EB3A700069286 /* LCSDiskUtilOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSDiskUtilOperation.m; sourceTree = "<group>"; };
 		CAC65614120EB74200069286 /* LCSDiskUtilOperationTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSDiskUtilOperationTest.h; sourceTree = "<group>"; };
@@ -363,6 +381,12 @@
 				CAA58241122F8ABF0091247B /* rvschedule.m */,
 				CAA5833A122FA5440091247B /* LCSBlockCopyValidateDiskInfoOperation.h */,
 				CAA5833B122FA5440091247B /* LCSBlockCopyValidateDiskInfoOperation.m */,
+				CABC904C12300BAB00B4A81E /* LCSOperationQueueOperation.h */,
+				CABC904D12300BAB00B4A81E /* LCSOperationQueueOperation.m */,
+				CABC905812300F5E00B4A81E /* LCSCommandLineOperationRunner.h */,
+				CABC905912300F5E00B4A81E /* LCSCommandLineOperationRunner.m */,
+				CABC90891230291200B4A81E /* LCSRotavaultScheduleInstallOperation.h */,
+				CABC908A1230291200B4A81E /* LCSRotavaultScheduleInstallOperation.m */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -545,6 +569,9 @@
 				CAE82D85122C361F00715BCF /* NSData+Hex.m in Sources */,
 				CA9ED5DC122CCB4C005CBA5B /* LCSCommandSignalHandler.m in Sources */,
 				CAA5833D122FA5440091247B /* LCSBlockCopyValidateDiskInfoOperation.m in Sources */,
+				CABC904F12300BAB00B4A81E /* LCSOperationQueueOperation.m in Sources */,
+				CABC905A12300F5E00B4A81E /* LCSCommandLineOperationRunner.m in Sources */,
+				CABC908B1230291200B4A81E /* LCSRotavaultScheduleInstallOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -563,6 +590,9 @@
 				CA9ED622122CD0F1005CBA5B /* LCSOperationParameterMarker.m in Sources */,
 				CA9ED623122CD0F3005CBA5B /* LCSOperation.m in Sources */,
 				CA9ED629122CD104005CBA5B /* LCSDiskUtilOperation.m in Sources */,
+				CABC905112300BAB00B4A81E /* LCSOperationQueueOperation.m in Sources */,
+				CABC905C12300F5E00B4A81E /* LCSCommandLineOperationRunner.m in Sources */,
+				CABC908D1230291200B4A81E /* LCSRotavaultScheduleInstallOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -591,6 +621,9 @@
 				CAA5825C122F8B5A0091247B /* NSOperationQueue+NonBlockingWaitUntilFinished.m in Sources */,
 				CAA5825D122F8B5D0091247B /* rvschedule.m in Sources */,
 				CAA5833C122FA5440091247B /* LCSBlockCopyValidateDiskInfoOperation.m in Sources */,
+				CABC905012300BAB00B4A81E /* LCSOperationQueueOperation.m in Sources */,
+				CABC905D12300F5E00B4A81E /* LCSCommandLineOperationRunner.m in Sources */,
+				CABC908E1230291200B4A81E /* LCSRotavaultScheduleInstallOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -634,6 +667,9 @@
 				CAA70E57122FE30A00017DB7 /* LCSHdiUtilPlistOperationTest.m in Sources */,
 				CAA70E58122FE30A00017DB7 /* LCSDiskUtilOperationTest.m in Sources */,
 				CAA70E59122FE30B00017DB7 /* LCSBlockCopyOperationTest.m in Sources */,
+				CABC904E12300BAB00B4A81E /* LCSOperationQueueOperation.m in Sources */,
+				CABC905B12300F5E00B4A81E /* LCSCommandLineOperationRunner.m in Sources */,
+				CABC908C1230291200B4A81E /* LCSRotavaultScheduleInstallOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
