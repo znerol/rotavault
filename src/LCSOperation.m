@@ -101,10 +101,16 @@
 
 -(void)cancel
 {
+    /* check for cancelation */
+    if ([self isCancelled]) {
+        return;
+    }
+
+    [super cancel];
+
     NSError *cancelError = [NSError errorWithDomain:NSCocoaErrorDomain
                                                code:NSUserCancelledError
                                            userInfo:[NSDictionary dictionary]];
     [self handleError:cancelError];
-    [super cancel];
 }
 @end
