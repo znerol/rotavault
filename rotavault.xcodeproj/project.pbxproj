@@ -6,6 +6,20 @@
 	objectVersion = 44;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		CAFF452212329DBC00B4AB77 /* Developer Documentation */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = CAFF452712329DD900B4AB77 /* Build configuration list for PBXAggregateTarget "Developer Documentation" */;
+			buildPhases = (
+				CAFF452112329DBC00B4AB77 /* Run Doxygen */,
+			);
+			dependencies = (
+			);
+			name = "Developer Documentation";
+			productName = "Developer Documentation";
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		CA1409E5122E33C9002B4650 /* LCSGenerateRotavaultCopyLaunchdPlistOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA1409E4122E33C9002B4650 /* LCSGenerateRotavaultCopyLaunchdPlistOperation.m */; };
 		CA1409F3122E4349002B4650 /* LCSWritePlistOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA1409F2122E4349002B4650 /* LCSWritePlistOperation.m */; };
@@ -243,6 +257,7 @@
 		CAE82D84122C361F00715BCF /* NSData+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Hex.m"; sourceTree = "<group>"; };
 		CAE82DA1122C45CF00715BCF /* NSData+HexTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+HexTest.h"; sourceTree = "<group>"; };
 		CAE82DA2122C45CF00715BCF /* NSData+HexTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+HexTest.m"; sourceTree = "<group>"; };
+		CAFF453312329FDD00B4AB77 /* doxygen.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = doxygen.conf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -318,6 +333,7 @@
 		CA0DF0D911F71D8B0029B5F7 /* docs */ = {
 			isa = PBXGroup;
 			children = (
+				CAFF453312329FDD00B4AB77 /* doxygen.conf */,
 				CA0DF0DA11F71D8B0029B5F7 /* internals.txt */,
 				CA0DF0DB11F71D8B0029B5F7 /* rotavault.1 */,
 			);
@@ -530,6 +546,7 @@
 				CA9488791211892500415257 /* rvcopyd */,
 				CA9ED615122CD0BE005CBA5B /* rvcksum */,
 				CAA58244122F8AE10091247B /* rvschedule */,
+				CAFF452212329DBC00B4AB77 /* Developer Documentation */,
 			);
 		};
 /* End PBXProject section */
@@ -549,6 +566,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [ \"$BUILD_STYLE\" == \"Debug\" -o \"$EXECUTABLE_NAME\" != \"rotavault_test\" ]; then\n\texit 0\nfi\n\n# run tests\nexport DYLD_FALLBACK_FRAMEWORK_PATH=\"$DEVELOPER_LIBRARY_DIR/Frameworks:$SRCROOT/Frameworks\"\n\"$BUILT_PRODUCTS_DIR/$EXECUTABLE_PATH\"\n\nif [ \"$BUILD_STYLE\" != \"Coverage\" ]; then\n\texit 0\nfi\n\n# run gcov\npushd $OBJECT_FILE_DIR_normal/$CURRENT_ARCH\nfind . -name '*.gcda' -exec gcov -o . {} \\;\nopen -a CoverStory .\npopd\n";
+		};
+		CAFF452112329DBC00B4AB77 /* Run Doxygen */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Doxygen";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/Applications/Doxygen.app/Contents/Resources/doxygen docs/doxygen.conf\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -979,6 +1010,34 @@
 			};
 			name = Release;
 		};
+		CAFF452312329DBC00B4AB77 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "Developer Documentation";
+			};
+			name = Debug;
+		};
+		CAFF452412329DBC00B4AB77 /* Coverage */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "Developer Documentation";
+			};
+			name = Coverage;
+		};
+		CAFF452512329DBC00B4AB77 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = "Developer Documentation";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1028,6 +1087,16 @@
 				CAA74BAF120A146600D234F9 /* Debug */,
 				CA28AE62122EA20A00C432A9 /* Coverage */,
 				CAA74BB0120A146600D234F9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CAFF452712329DD900B4AB77 /* Build configuration list for PBXAggregateTarget "Developer Documentation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CAFF452312329DBC00B4AB77 /* Debug */,
+				CAFF452412329DBC00B4AB77 /* Coverage */,
+				CAFF452512329DBC00B4AB77 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
