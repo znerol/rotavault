@@ -43,6 +43,7 @@
 
 -(void)cancel
 {
+    [queue setSuspended:YES];
     [queue cancelAllOperations];
     [super cancel];
 }
