@@ -7,6 +7,22 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
+		CABAC865123575DF00DBEA0F /* All */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = CABAC87F1235764100DBEA0F /* Build configuration list for PBXAggregateTarget "All" */;
+			buildPhases = (
+			);
+			dependencies = (
+				CABAC86A123575F800DBEA0F /* PBXTargetDependency */,
+				CABAC86C123575F800DBEA0F /* PBXTargetDependency */,
+				CABAC86E123575F800DBEA0F /* PBXTargetDependency */,
+				CABAC870123575F800DBEA0F /* PBXTargetDependency */,
+				CABAC874123575F800DBEA0F /* PBXTargetDependency */,
+				CABAC876123575F800DBEA0F /* PBXTargetDependency */,
+			);
+			name = All;
+			productName = All;
+		};
 		CAFF452212329DBC00B4AB77 /* Developer Documentation */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = CAFF452712329DD900B4AB77 /* Build configuration list for PBXAggregateTarget "Developer Documentation" */;
@@ -43,7 +59,6 @@
 		CABAC41012353AD700DBEA0F /* LCSHdiUtilWithProgressOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC657E8120EDC9400069286 /* LCSHdiUtilWithProgressOperation.m */; };
 		CABAC41112353AD900DBEA0F /* LCSKeyValueOperationParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = CA45B9CE1215842800D3E40A /* LCSKeyValueOperationParameter.m */; };
 		CABAC41212353ADA00DBEA0F /* LCSLaunchctlOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA140A20122E5FD3002B4650 /* LCSLaunchctlOperation.m */; };
-		CABAC41312353ADA00DBEA0F /* LCSNanosecondTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = CA2E6537121300C70031C4FA /* LCSNanosecondTimer.m */; };
 		CABAC41412353ADC00DBEA0F /* LCSOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA28AF3112132D4000C9BE6F /* LCSOperation.m */; };
 		CABAC41512353ADD00DBEA0F /* LCSOperationParameterMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = CA45BABE1215A8F100D3E40A /* LCSOperationParameterMarker.m */; };
 		CABAC41912353AE300DBEA0F /* LCSOperationQueueOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CABC904D12300BAB00B4A81E /* LCSOperationQueueOperation.m */; };
@@ -59,31 +74,11 @@
 		CABAC42312353AF000DBEA0F /* LCSTaskOperationError.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA635B8120C0E080036B643 /* LCSTaskOperationError.m */; };
 		CABAC42412353AF000DBEA0F /* LCSVerifyDiskInfoChecksumOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA28AF0812132AB900C9BE6F /* LCSVerifyDiskInfoChecksumOperation.m */; };
 		CABAC42512353AF100DBEA0F /* LCSWritePlistOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA1409F2122E4349002B4650 /* LCSWritePlistOperation.m */; };
-		CABAC42612353AF200DBEA0F /* NSData+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = CAE82D84122C361F00715BCF /* NSData+Hex.m */; };
-		CABAC42712353AF300DBEA0F /* NSOperationQueue+NonBlockingWaitUntilFinished.m in Sources */ = {isa = PBXBuildFile; fileRef = CA2E638F1212AB760031C4FA /* NSOperationQueue+NonBlockingWaitUntilFinished.m */; };
 		CABAC42912353B0500DBEA0F /* NSData+HexTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAE82DA2122C45CF00715BCF /* NSData+HexTest.m */; };
-		CABAC42A12353B0600DBEA0F /* LCSWritePlistOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA58148122F7B330091247B /* LCSWritePlistOperationTest.m */; };
-		CABAC42B12353B0700DBEA0F /* LCSTestdir.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB72D7A120708220093D08A /* LCSTestdir.m */; };
-		CABAC42C12353B0800DBEA0F /* LCSTaskOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB1BEFF120C3D8A0076DB12 /* LCSTaskOperationTest.m */; };
-		CABAC42D12353B0800DBEA0F /* LCSTaskOperationBase+TestPassword.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC65825120EE1F100069286 /* LCSTaskOperationBase+TestPassword.m */; };
-		CABAC42E12353B0900DBEA0F /* LCSTaskOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA60E27A122AE45100DE6A3B /* LCSTaskOperation.m */; };
-		CABAC42F12353B0A00DBEA0F /* LCSSimpleOperationParameterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA45BA1412158F1D00D3E40A /* LCSSimpleOperationParameterTest.m */; };
-		CABAC43012353B0B00DBEA0F /* LCSPropertyListSHA1HashTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAE82D35122C311F00715BCF /* LCSPropertyListSHA1HashTest.m */; };
-		CABAC43112353B0C00DBEA0F /* LCSPlistTaskOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB1BD93120C1E800076DB12 /* LCSPlistTaskOperationTest.m */; };
-		CABAC43212353B0D00DBEA0F /* LCSPlistTaskOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA60E27E122AE46100DE6A3B /* LCSPlistTaskOperation.m */; };
-		CABAC43312353B0D00DBEA0F /* LCSOperationQueueOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAABADD6123275D200E46012 /* LCSOperationQueueOperationTest.m */; };
-		CABAC43412353B0E00DBEA0F /* LCSLaunchctlOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA140A52122E7671002B4650 /* LCSLaunchctlOperationTest.m */; };
-		CABAC43512353B0F00DBEA0F /* LCSKeyValueOperationParameterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA45BA20121591C000D3E40A /* LCSKeyValueOperationParameterTest.m */; };
-		CABAC43612353B1000DBEA0F /* LCSHdiUtilWithProgressOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC65846120EE39000069286 /* LCSHdiUtilWithProgressOperationTest.m */; };
-		CABAC43712353B1000DBEA0F /* LCSHdiUtilPlistOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC656E4120EC41E00069286 /* LCSHdiUtilPlistOperationTest.m */; };
-		CABAC43812353B1100DBEA0F /* LCSDiskUtilOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC65615120EB74200069286 /* LCSDiskUtilOperationTest.m */; };
-		CABAC43912353B1200DBEA0F /* LCSBlockCopyValidateDiskInfoOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAABAD381232590A00E46012 /* LCSBlockCopyValidateDiskInfoOperationTest.m */; };
-		CABAC43A12353B1300DBEA0F /* LCSBlockCopyOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA547490120B76F80014E9E8 /* LCSBlockCopyOperationTest.m */; };
 		CABAC44412353B7700DBEA0F /* librotavault_test.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CABAC40012353A9900DBEA0F /* librotavault_test.a */; };
 		CABAC44B12353C5E00DBEA0F /* GHUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CABAC213123535CC00DBEA0F /* GHUnit.framework */; };
 		CABAC44C12353C5F00DBEA0F /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA9E2D58120F398D006C4DE7 /* OCMock.framework */; };
 		CABAC44D12353C6000DBEA0F /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA0DF11811F7216D0029B5F7 /* SenTestingKit.framework */; };
-		CABAC4631235406C00DBEA0F /* librotavault.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CABAC3F812353A8100DBEA0F /* librotavault.a */; };
 		CABAC4971235436C00DBEA0F /* librotavault.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CABAC3F812353A8100DBEA0F /* librotavault.a */; };
 		CABAC49A1235437C00DBEA0F /* librotavault.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CABAC3F812353A8100DBEA0F /* librotavault.a */; };
 		CABAC49D1235439D00DBEA0F /* librotavault.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CABAC3F812353A8100DBEA0F /* librotavault.a */; };
@@ -96,6 +91,33 @@
 		CABAC60B1235467700DBEA0F /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CABAC5551235464300DBEA0F /* AppKit.framework */; };
 		CABAC60C1235467800DBEA0F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
 		CABAC60D1235467800DBEA0F /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA28AF1F12132C7600C9BE6F /* CoreServices.framework */; };
+		CABAC93E1235825D00DBEA0F /* librotavault.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CABAC3F812353A8100DBEA0F /* librotavault.a */; };
+		CABAC95F1235838B00DBEA0F /* NSOperationQueue+NonBlockingWaitUntilFinished.m in Sources */ = {isa = PBXBuildFile; fileRef = CA2E638F1212AB760031C4FA /* NSOperationQueue+NonBlockingWaitUntilFinished.m */; };
+		CABAC9601235838B00DBEA0F /* NSData+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = CAE82D84122C361F00715BCF /* NSData+Hex.m */; };
+		CABAC9611235838F00DBEA0F /* NSOperationQueue+NonBlockingWaitUntilFinished.m in Sources */ = {isa = PBXBuildFile; fileRef = CA2E638F1212AB760031C4FA /* NSOperationQueue+NonBlockingWaitUntilFinished.m */; };
+		CABAC9621235839000DBEA0F /* NSData+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = CAE82D84122C361F00715BCF /* NSData+Hex.m */; };
+		CABAC9631235839400DBEA0F /* NSOperationQueue+NonBlockingWaitUntilFinished.m in Sources */ = {isa = PBXBuildFile; fileRef = CA2E638F1212AB760031C4FA /* NSOperationQueue+NonBlockingWaitUntilFinished.m */; };
+		CABAC9641235839500DBEA0F /* NSData+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = CAE82D84122C361F00715BCF /* NSData+Hex.m */; };
+		CABAC98B123586EA00DBEA0F /* LCSWritePlistOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA58148122F7B330091247B /* LCSWritePlistOperationTest.m */; };
+		CABAC98C123586EB00DBEA0F /* LCSTestdir.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB72D7A120708220093D08A /* LCSTestdir.m */; };
+		CABAC98D123586EC00DBEA0F /* LCSTaskOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB1BEFF120C3D8A0076DB12 /* LCSTaskOperationTest.m */; };
+		CABAC98F123586EE00DBEA0F /* LCSTaskOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA60E27A122AE45100DE6A3B /* LCSTaskOperation.m */; };
+		CABAC990123586EE00DBEA0F /* LCSSimpleOperationParameterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA45BA1412158F1D00D3E40A /* LCSSimpleOperationParameterTest.m */; };
+		CABAC991123586EF00DBEA0F /* LCSPropertyListSHA1HashTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAE82D35122C311F00715BCF /* LCSPropertyListSHA1HashTest.m */; };
+		CABAC992123586F000DBEA0F /* LCSPlistTaskOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB1BD93120C1E800076DB12 /* LCSPlistTaskOperationTest.m */; };
+		CABAC993123586F100DBEA0F /* LCSPlistTaskOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA60E27E122AE46100DE6A3B /* LCSPlistTaskOperation.m */; };
+		CABAC994123586F200DBEA0F /* LCSOperationQueueOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAABADD6123275D200E46012 /* LCSOperationQueueOperationTest.m */; };
+		CABAC995123586F300DBEA0F /* LCSLaunchctlOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA140A52122E7671002B4650 /* LCSLaunchctlOperationTest.m */; };
+		CABAC996123586F400DBEA0F /* LCSKeyValueOperationParameterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA45BA20121591C000D3E40A /* LCSKeyValueOperationParameterTest.m */; };
+		CABAC997123586F500DBEA0F /* LCSHdiUtilWithProgressOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC65846120EE39000069286 /* LCSHdiUtilWithProgressOperationTest.m */; };
+		CABAC998123586F600DBEA0F /* LCSHdiUtilPlistOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC656E4120EC41E00069286 /* LCSHdiUtilPlistOperationTest.m */; };
+		CABAC999123586F700DBEA0F /* LCSDiskUtilOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC65615120EB74200069286 /* LCSDiskUtilOperationTest.m */; };
+		CABAC99A123586F800DBEA0F /* LCSBlockCopyValidateDiskInfoOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAABAD381232590A00E46012 /* LCSBlockCopyValidateDiskInfoOperationTest.m */; };
+		CABAC99B123586F900DBEA0F /* LCSBlockCopyOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA547490120B76F80014E9E8 /* LCSBlockCopyOperationTest.m */; };
+		CABAC99C123586FB00DBEA0F /* GHUnitMain.m in Sources */ = {isa = PBXBuildFile; fileRef = CABAC3DB1235385F00DBEA0F /* GHUnitMain.m */; };
+		CABAC9B71235892200DBEA0F /* NSData+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = CAE82D84122C361F00715BCF /* NSData+Hex.m */; };
+		CABAC9B81235892300DBEA0F /* NSOperationQueue+NonBlockingWaitUntilFinished.m in Sources */ = {isa = PBXBuildFile; fileRef = CA2E638F1212AB760031C4FA /* NSOperationQueue+NonBlockingWaitUntilFinished.m */; };
+		CABAC9BA1235892600DBEA0F /* LCSTaskOperationBase+TestPassword.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC65825120EE1F100069286 /* LCSTaskOperationBase+TestPassword.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,13 +127,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = CABAC3FF12353A9900DBEA0F /* librotavault_test */;
 			remoteInfo = librotavault_test;
-		};
-		CABAC4611235406800DBEA0F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CABAC3F712353A8100DBEA0F /* rotavault */;
-			remoteInfo = rotavault;
 		};
 		CABAC4951235436200DBEA0F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -128,6 +143,55 @@
 			remoteInfo = rotavault;
 		};
 		CABAC49B1235439A00DBEA0F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CABAC3F712353A8100DBEA0F /* rotavault */;
+			remoteInfo = rotavault;
+		};
+		CABAC869123575F800DBEA0F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CABAC20B123535A300DBEA0F /* Rotavault Tests */;
+			remoteInfo = "Rotavault Tests";
+		};
+		CABAC86B123575F800DBEA0F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CA9488791211892500415257 /* rvcopyd */;
+			remoteInfo = rvcopyd;
+		};
+		CABAC86D123575F800DBEA0F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CA9ED615122CD0BE005CBA5B /* rvcksum */;
+			remoteInfo = rvcksum;
+		};
+		CABAC86F123575F800DBEA0F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CAA58244122F8AE10091247B /* rvschedule */;
+			remoteInfo = rvschedule;
+		};
+		CABAC873123575F800DBEA0F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CABAC3F712353A8100DBEA0F /* rotavault */;
+			remoteInfo = rotavault;
+		};
+		CABAC875123575F800DBEA0F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CABAC3FF12353A9900DBEA0F /* rotavault_test */;
+			remoteInfo = rotavault_test;
+		};
+		CABAC93F1235826200DBEA0F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
 			proxyType = 1;
@@ -246,6 +310,7 @@
 		CABAC3F812353A8100DBEA0F /* librotavault.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = librotavault.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CABAC40012353A9900DBEA0F /* librotavault_test.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = librotavault_test.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CABAC5551235464300DBEA0F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		CABAC6EA1235738400DBEA0F /* libgcov.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgcov.a; path = lib/libgcov.a; sourceTree = "<group>"; };
 		CABC904C12300BAB00B4A81E /* LCSOperationQueueOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSOperationQueueOperation.h; sourceTree = "<group>"; };
 		CABC904D12300BAB00B4A81E /* LCSOperationQueueOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSOperationQueueOperation.m; sourceTree = "<group>"; };
 		CABC905812300F5E00B4A81E /* LCSCommandLineOperationRunner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSCommandLineOperationRunner.h; sourceTree = "<group>"; };
@@ -317,6 +382,7 @@
 				CABAC60B1235467700DBEA0F /* AppKit.framework in Frameworks */,
 				CABAC60C1235467800DBEA0F /* Foundation.framework in Frameworks */,
 				CABAC60D1235467800DBEA0F /* CoreServices.framework in Frameworks */,
+				CABAC93E1235825D00DBEA0F /* librotavault.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,7 +400,6 @@
 				CABAC44B12353C5E00DBEA0F /* GHUnit.framework in Frameworks */,
 				CABAC44C12353C5F00DBEA0F /* OCMock.framework in Frameworks */,
 				CABAC44D12353C6000DBEA0F /* SenTestingKit.framework in Frameworks */,
-				CABAC4631235406C00DBEA0F /* librotavault.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,12 +422,13 @@
 		08FB779DFE84155DC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				08FB779EFE84155DC02AAC07 /* Foundation.framework */,
-				CA28AF1F12132C7600C9BE6F /* CoreServices.framework */,
 				CABAC5551235464300DBEA0F /* AppKit.framework */,
-				CA0DF11811F7216D0029B5F7 /* SenTestingKit.framework */,
-				CA9E2D58120F398D006C4DE7 /* OCMock.framework */,
+				CA28AF1F12132C7600C9BE6F /* CoreServices.framework */,
+				08FB779EFE84155DC02AAC07 /* Foundation.framework */,
 				CABAC213123535CC00DBEA0F /* GHUnit.framework */,
+				CA9E2D58120F398D006C4DE7 /* OCMock.framework */,
+				CA0DF11811F7216D0029B5F7 /* SenTestingKit.framework */,
+				CABAC6EA1235738400DBEA0F /* libgcov.a */,
 			);
 			name = "External Frameworks and Libraries";
 			sourceTree = "<group>";
@@ -370,10 +436,10 @@
 		1AB674ADFE9D54B511CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				CABAC20C123535A300DBEA0F /* Rotavault Test.app */,
 				CA94887A1211892500415257 /* rvcopyd */,
 				CA9ED616122CD0BE005CBA5B /* rvcksum */,
 				CAA58245122F8AE10091247B /* rvschedule */,
-				CABAC20C123535A300DBEA0F /* Rotavault Test.app */,
 				CABAC3F812353A8100DBEA0F /* librotavault.a */,
 				CABAC40012353A9900DBEA0F /* librotavault_test.a */,
 			);
@@ -593,6 +659,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				CABAC9401235826200DBEA0F /* PBXTargetDependency */,
 				CABAC44012353B6B00DBEA0F /* PBXTargetDependency */,
 			);
 			name = "Rotavault Tests";
@@ -628,7 +695,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				CABAC4621235406800DBEA0F /* PBXTargetDependency */,
 			);
 			name = rotavault_test;
 			productName = librotavault_test;
@@ -650,11 +716,12 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				CABAC865123575DF00DBEA0F /* All */,
+				CABAC20B123535A300DBEA0F /* Rotavault Tests */,
 				CA9488791211892500415257 /* rvcopyd */,
 				CA9ED615122CD0BE005CBA5B /* rvcksum */,
 				CAA58244122F8AE10091247B /* rvschedule */,
 				CAFF452212329DBC00B4AB77 /* Developer Documentation */,
-				CABAC20B123535A300DBEA0F /* Rotavault Tests */,
 				CABAC3F712353A8100DBEA0F /* rotavault */,
 				CABAC3FF12353A9900DBEA0F /* rotavault_test */,
 			);
@@ -713,7 +780,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/Applications/Doxygen.app/Contents/Resources/doxygen docs/doxygen.conf\n";
+			shellScript = "export PATH=/usr/bin:/usr/local/bin:/Applications/Doxygen.app/Contents/Resources\ndoxygen docs/doxygen.conf\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -723,6 +790,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA9488821211895B00415257 /* rvcopyd.m in Sources */,
+				CABAC95F1235838B00DBEA0F /* NSOperationQueue+NonBlockingWaitUntilFinished.m in Sources */,
+				CABAC9601235838B00DBEA0F /* NSData+Hex.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -731,6 +800,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA9ED61A122CD0D2005CBA5B /* rvcksum.m in Sources */,
+				CABAC9611235838F00DBEA0F /* NSOperationQueue+NonBlockingWaitUntilFinished.m in Sources */,
+				CABAC9621235839000DBEA0F /* NSData+Hex.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -739,6 +810,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CAA5825D122F8B5D0091247B /* rvschedule.m in Sources */,
+				CABAC9631235839400DBEA0F /* NSOperationQueue+NonBlockingWaitUntilFinished.m in Sources */,
+				CABAC9641235839500DBEA0F /* NSData+Hex.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -747,6 +820,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				CABAC3DC1235385F00DBEA0F /* GHUnitMain.m in Sources */,
+				CABAC9B71235892200DBEA0F /* NSData+Hex.m in Sources */,
+				CABAC9B81235892300DBEA0F /* NSOperationQueue+NonBlockingWaitUntilFinished.m in Sources */,
+				CABAC9BA1235892600DBEA0F /* LCSTaskOperationBase+TestPassword.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -766,7 +842,6 @@
 				CABAC41012353AD700DBEA0F /* LCSHdiUtilWithProgressOperation.m in Sources */,
 				CABAC41112353AD900DBEA0F /* LCSKeyValueOperationParameter.m in Sources */,
 				CABAC41212353ADA00DBEA0F /* LCSLaunchctlOperation.m in Sources */,
-				CABAC41312353ADA00DBEA0F /* LCSNanosecondTimer.m in Sources */,
 				CABAC41412353ADC00DBEA0F /* LCSOperation.m in Sources */,
 				CABAC41512353ADD00DBEA0F /* LCSOperationParameterMarker.m in Sources */,
 				CABAC41912353AE300DBEA0F /* LCSOperationQueueOperation.m in Sources */,
@@ -782,8 +857,6 @@
 				CABAC42312353AF000DBEA0F /* LCSTaskOperationError.m in Sources */,
 				CABAC42412353AF000DBEA0F /* LCSVerifyDiskInfoChecksumOperation.m in Sources */,
 				CABAC42512353AF100DBEA0F /* LCSWritePlistOperation.m in Sources */,
-				CABAC42612353AF200DBEA0F /* NSData+Hex.m in Sources */,
-				CABAC42712353AF300DBEA0F /* NSOperationQueue+NonBlockingWaitUntilFinished.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -792,23 +865,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				CABAC42912353B0500DBEA0F /* NSData+HexTest.m in Sources */,
-				CABAC42A12353B0600DBEA0F /* LCSWritePlistOperationTest.m in Sources */,
-				CABAC42B12353B0700DBEA0F /* LCSTestdir.m in Sources */,
-				CABAC42C12353B0800DBEA0F /* LCSTaskOperationTest.m in Sources */,
-				CABAC42D12353B0800DBEA0F /* LCSTaskOperationBase+TestPassword.m in Sources */,
-				CABAC42E12353B0900DBEA0F /* LCSTaskOperation.m in Sources */,
-				CABAC42F12353B0A00DBEA0F /* LCSSimpleOperationParameterTest.m in Sources */,
-				CABAC43012353B0B00DBEA0F /* LCSPropertyListSHA1HashTest.m in Sources */,
-				CABAC43112353B0C00DBEA0F /* LCSPlistTaskOperationTest.m in Sources */,
-				CABAC43212353B0D00DBEA0F /* LCSPlistTaskOperation.m in Sources */,
-				CABAC43312353B0D00DBEA0F /* LCSOperationQueueOperationTest.m in Sources */,
-				CABAC43412353B0E00DBEA0F /* LCSLaunchctlOperationTest.m in Sources */,
-				CABAC43512353B0F00DBEA0F /* LCSKeyValueOperationParameterTest.m in Sources */,
-				CABAC43612353B1000DBEA0F /* LCSHdiUtilWithProgressOperationTest.m in Sources */,
-				CABAC43712353B1000DBEA0F /* LCSHdiUtilPlistOperationTest.m in Sources */,
-				CABAC43812353B1100DBEA0F /* LCSDiskUtilOperationTest.m in Sources */,
-				CABAC43912353B1200DBEA0F /* LCSBlockCopyValidateDiskInfoOperationTest.m in Sources */,
-				CABAC43A12353B1300DBEA0F /* LCSBlockCopyOperationTest.m in Sources */,
+				CABAC98B123586EA00DBEA0F /* LCSWritePlistOperationTest.m in Sources */,
+				CABAC98C123586EB00DBEA0F /* LCSTestdir.m in Sources */,
+				CABAC98D123586EC00DBEA0F /* LCSTaskOperationTest.m in Sources */,
+				CABAC98F123586EE00DBEA0F /* LCSTaskOperation.m in Sources */,
+				CABAC990123586EE00DBEA0F /* LCSSimpleOperationParameterTest.m in Sources */,
+				CABAC991123586EF00DBEA0F /* LCSPropertyListSHA1HashTest.m in Sources */,
+				CABAC992123586F000DBEA0F /* LCSPlistTaskOperationTest.m in Sources */,
+				CABAC993123586F100DBEA0F /* LCSPlistTaskOperation.m in Sources */,
+				CABAC994123586F200DBEA0F /* LCSOperationQueueOperationTest.m in Sources */,
+				CABAC995123586F300DBEA0F /* LCSLaunchctlOperationTest.m in Sources */,
+				CABAC996123586F400DBEA0F /* LCSKeyValueOperationParameterTest.m in Sources */,
+				CABAC997123586F500DBEA0F /* LCSHdiUtilWithProgressOperationTest.m in Sources */,
+				CABAC998123586F600DBEA0F /* LCSHdiUtilPlistOperationTest.m in Sources */,
+				CABAC999123586F700DBEA0F /* LCSDiskUtilOperationTest.m in Sources */,
+				CABAC99A123586F800DBEA0F /* LCSBlockCopyValidateDiskInfoOperationTest.m in Sources */,
+				CABAC99B123586F900DBEA0F /* LCSBlockCopyOperationTest.m in Sources */,
+				CABAC99C123586FB00DBEA0F /* GHUnitMain.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -819,11 +892,6 @@
 			isa = PBXTargetDependency;
 			target = CABAC3FF12353A9900DBEA0F /* rotavault_test */;
 			targetProxy = CABAC43F12353B6B00DBEA0F /* PBXContainerItemProxy */;
-		};
-		CABAC4621235406800DBEA0F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CABAC3F712353A8100DBEA0F /* rotavault */;
-			targetProxy = CABAC4611235406800DBEA0F /* PBXContainerItemProxy */;
 		};
 		CABAC4961235436200DBEA0F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -839,6 +907,41 @@
 			isa = PBXTargetDependency;
 			target = CABAC3F712353A8100DBEA0F /* rotavault */;
 			targetProxy = CABAC49B1235439A00DBEA0F /* PBXContainerItemProxy */;
+		};
+		CABAC86A123575F800DBEA0F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CABAC20B123535A300DBEA0F /* Rotavault Tests */;
+			targetProxy = CABAC869123575F800DBEA0F /* PBXContainerItemProxy */;
+		};
+		CABAC86C123575F800DBEA0F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CA9488791211892500415257 /* rvcopyd */;
+			targetProxy = CABAC86B123575F800DBEA0F /* PBXContainerItemProxy */;
+		};
+		CABAC86E123575F800DBEA0F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CA9ED615122CD0BE005CBA5B /* rvcksum */;
+			targetProxy = CABAC86D123575F800DBEA0F /* PBXContainerItemProxy */;
+		};
+		CABAC870123575F800DBEA0F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CAA58244122F8AE10091247B /* rvschedule */;
+			targetProxy = CABAC86F123575F800DBEA0F /* PBXContainerItemProxy */;
+		};
+		CABAC874123575F800DBEA0F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CABAC3F712353A8100DBEA0F /* rotavault */;
+			targetProxy = CABAC873123575F800DBEA0F /* PBXContainerItemProxy */;
+		};
+		CABAC876123575F800DBEA0F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CABAC3FF12353A9900DBEA0F /* rotavault_test */;
+			targetProxy = CABAC875123575F800DBEA0F /* PBXContainerItemProxy */;
+		};
+		CABAC9401235826200DBEA0F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CABAC3F712353A8100DBEA0F /* rotavault */;
+			targetProxy = CABAC93F1235826200DBEA0F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -874,7 +977,6 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
-				VALID_ARCHS = "i386 x86_64";
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = Release;
@@ -890,11 +992,9 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				ONLY_ACTIVE_ARCH_PRE_XCODE_3_1 = "$(NATIVE_ARCH_ACTUAL)";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-lgcov",
-				);
+				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
 				STRIP_INSTALLED_PRODUCT = NO;
 				WARNING_CFLAGS = "-Wall";
 			};
@@ -904,7 +1004,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -919,7 +1018,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -934,7 +1032,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -949,7 +1046,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
@@ -964,7 +1060,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -979,7 +1074,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
@@ -994,7 +1088,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -1021,7 +1114,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
@@ -1048,6 +1140,10 @@
 				INFOPLIST_FILE = "Tests-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/lib\"",
+				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "Rotavault Test";
 			};
@@ -1067,6 +1163,14 @@
 				INFOPLIST_FILE = "Tests-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/lib\"",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lgcov",
+				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "Rotavault Test";
 			};
@@ -1076,7 +1180,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Frameworks\"",
@@ -1087,8 +1191,13 @@
 				INFOPLIST_FILE = "Tests-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/lib\"",
+				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "Rotavault Test";
+				STRIP_INSTALLED_PRODUCT = NO;
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -1096,16 +1205,12 @@
 		CABAC3F912353A8100DBEA0F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INSTALL_PATH = /usr/local/lib;
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-				);
+				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				PRODUCT_NAME = rotavault;
 			};
@@ -1117,12 +1222,7 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				INSTALL_PATH = /usr/local/lib;
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
+				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				PRODUCT_NAME = rotavault;
 			};
@@ -1131,19 +1231,15 @@
 		CABAC3FB12353A8100DBEA0F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = YES;
+				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
 				INSTALL_PATH = /usr/local/lib;
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
+				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				PRODUCT_NAME = rotavault;
+				STRIP_INSTALLED_PRODUCT = NO;
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -1152,7 +1248,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Frameworks\"",
@@ -1163,10 +1258,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INSTALL_PATH = /usr/local/lib;
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-				);
+				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				PRODUCT_NAME = rotavault_test;
 			};
@@ -1184,10 +1276,7 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				INSTALL_PATH = /usr/local/lib;
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-				);
+				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				PRODUCT_NAME = rotavault_test;
 			};
@@ -1197,7 +1286,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
+				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1207,12 +1296,38 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
 				INSTALL_PATH = /usr/local/lib;
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-				);
+				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				PRODUCT_NAME = rotavault_test;
+				STRIP_INSTALLED_PRODUCT = NO;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		CABAC866123575DF00DBEA0F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = All;
+			};
+			name = Debug;
+		};
+		CABAC867123575DF00DBEA0F /* Coverage */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = All;
+			};
+			name = Coverage;
+		};
+		CABAC868123575DF00DBEA0F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = All;
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -1314,6 +1429,16 @@
 				CABAC40112353A9A00DBEA0F /* Debug */,
 				CABAC40212353A9A00DBEA0F /* Coverage */,
 				CABAC40312353A9A00DBEA0F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CABAC87F1235764100DBEA0F /* Build configuration list for PBXAggregateTarget "All" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CABAC866123575DF00DBEA0F /* Debug */,
+				CABAC867123575DF00DBEA0F /* Coverage */,
+				CABAC868123575DF00DBEA0F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
