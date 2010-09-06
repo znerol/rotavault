@@ -209,7 +209,7 @@
         }
         
         /* scan label */
-        if (![scanner scanCharactersFromSet:[[NSCharacterSet whitespaceAndNewlineCharacterSet] invertedSet]
+        if (![scanner scanCharactersFromSet:[[NSCharacterSet newlineCharacterSet] invertedSet]
                                  intoString:&label]) {
             LCSTaskOperationError *err = [[LCSTaskOperationError alloc]
                                           initReceivedUnexpectedOutputFromLaunchPath:[task launchPath] 
