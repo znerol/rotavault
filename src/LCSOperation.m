@@ -75,6 +75,8 @@
 
 -(void)main
 {
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+
     /* check for cancelation */
     if ([self isCancelled]) {
         return;
@@ -82,6 +84,8 @@
 
     /* perform operation */
     [self execute];
+
+    [pool drain];
 }
 
 -(void)cancel
