@@ -7,23 +7,19 @@
 //
 
 #import "LCSOperationQueueOperation.h"
+#import "LCSInitMacros.h"
 #import "NSOperationQueue+NonBlockingWaitUntilFinished.h"
 
 
 @implementation LCSOperationQueueOperation
 -(id)init
 {
-    if (!(self = [super init])) {
-        return nil;
-    }
+    LCSINIT_SUPER_OR_RETURN_NIL();
 
     queue = [[NSOperationQueue alloc] init];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(queue);
     [queue setSuspended:YES];
-    
-    if (!queue) {
-        [self release];
-        return nil;
-    }
+
     return self;
 }
 

@@ -7,6 +7,7 @@
 //
 
 #import "LCSOperationQueueOperationTest.h"
+#import "LCSInitMacros.h"
 #import "LCSOperationQueueOperation.h"
 #import "LCSOperationParameterMarker.h"
 #import "LCSSimpleOperationParameter.h"
@@ -25,15 +26,13 @@
 @implementation LCSTestOperation1
 -(id)init
 {
-    if (!(self = [super init])) {
-        return nil;
-    }
+    LCSINIT_SUPER_OR_RETURN_NIL();
+
     param = [[LCSOperationRequiredInputParameterMarker alloc] init];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(param);
+    
     result = [[LCSOperationRequiredOutputParameterMarker alloc] init];
-    if (!param || !result) {
-        [self release];
-        return nil;
-    }
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(result);
     return self;
 }
 
@@ -68,23 +67,23 @@
 @implementation LCSTestQueueOperation1
 -(id)init
 {
-    if (!(self = [super init])) {
-        return nil;
-    }    
+    LCSINIT_SUPER_OR_RETURN_NIL();
+
     op1 = [[LCSTestOperation1 alloc] init];
-    /* op1.param */
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(op1);
+    /* op1.param intentionally left out */
     op1.result = [LCSKeyValueOperationOutputParameter parameterWithTarget:self keyPath:@"transit"];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(op1.result);
     [queue addOperation:op1];
     
     op2 = [[LCSTestOperation1 alloc] init];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(op2);
     op2.param = [LCSKeyValueOperationInputParameter parameterWithTarget:self keyPath:@"transit"];
-    /* op2.result */
+    /* op2.result intentionally left out */
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(op2.param);    
     [op2 addDependency:op1];
     [queue addOperation:op2];
-    if (!op1 || !op2) {
-        [self release];
-        return nil;
-    }
+
     return self;
 }
 

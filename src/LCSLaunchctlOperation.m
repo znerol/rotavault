@@ -7,6 +7,7 @@
 //
 
 #import "LCSLaunchctlOperation.h"
+#import "LCSInitMacros.h"
 #import "LCSOperationParameterMarker.h"
 #import "LCSTaskOperationError.h"
 
@@ -14,16 +15,11 @@
 @implementation LCSLaunchctlLoadOperation
 -(id)init
 {
-    if (!(self = [super init])) {
-        return nil;
-    }
-    
+    LCSINIT_SUPER_OR_RETURN_NIL();
+
     path = [[LCSOperationRequiredInputParameterMarker alloc] init];
-    
-    if (!path) {
-        [self release];
-        return nil;
-    }
+
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(path);
     return self;
 }
 
@@ -45,16 +41,11 @@
 @implementation LCSLaunchctlUnloadOperation
 -(id)init
 {
-    if (!(self = [super init])) {
-        return nil;
-    }
+    LCSINIT_SUPER_OR_RETURN_NIL();
     
     path = [[LCSOperationRequiredInputParameterMarker alloc] init];
     
-    if (!path) {
-        [self release];
-        return nil;
-    }
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(path);
     return self;
 }
 
@@ -77,16 +68,11 @@
 @implementation LCSLaunchctlRemoveOperation
 -(id)init
 {
-    if (!(self = [super init])) {
-        return nil;
-    }
+    LCSINIT_SUPER_OR_RETURN_NIL();
     
     label = [[LCSOperationRequiredInputParameterMarker alloc] init];
     
-    if (!label) {
-        [self release];
-        return nil;
-    }
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(label);
     return self;
 }
 
@@ -108,17 +94,13 @@
 @implementation LCSLaunchctlListOperation
 -(id)init
 {
-    if (!(self = [super init])) {
-        return nil;
-    }
+    LCSINIT_SUPER_OR_RETURN_NIL();
     
     result = [[LCSOperationOptionalOutputParameterMarker alloc] init];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(result);
+
     stdoutData = [[NSMutableData alloc] init];
-    
-    if (!result) {
-        [self release];
-        return nil;
-    }
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(stdoutData);
     return self;
 }
 
@@ -247,16 +229,11 @@
 @implementation LCSLaunchctlInfoOperation
 -(id)init
 {
-    if (!(self = [super init])) {
-        return nil;
-    }
-    
+    LCSINIT_SUPER_OR_RETURN_NIL();
+
     label = [[LCSOperationRequiredInputParameterMarker alloc] init];
-    
-    if (!label) {
-        [self release];
-        return nil;
-    }
+
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(label);
     return self;
 }
 

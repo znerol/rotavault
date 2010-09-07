@@ -7,6 +7,7 @@
 //
 
 #import "LCSCommand.h"
+#import "LCSInitMacros.h"
 #import "LCSOperation.h"
 #import "LCSTaskOperation.h"
 #import "LCSRotavaultErrorDomain.h"
@@ -17,23 +18,18 @@
 @implementation LCSCommand
 -(id)init
 {
-    if(!(self = [super init])) {
-        return nil;
-    }
+    LCSINIT_SUPER_OR_RETURN_NIL();
 
     originalError = nil;
 
     /* collected stuff from stderr */
     stderrData = [[NSMutableData alloc] init];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(stderrData);
 
     /* setup operations */
     queue = [[NSOperationQueue alloc] init];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(queue);
     [queue setSuspended:YES];
-
-    if (stderrData == nil || queue == nil) {
-        [self release];
-        return nil;
-    }
 
     return self;
 }

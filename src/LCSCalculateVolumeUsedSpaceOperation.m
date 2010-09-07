@@ -7,15 +7,23 @@
 //
 
 #import "LCSCalculateVolumeUsedSpaceOperation.h"
+#import "LCSInitMacros.h"
+
+
 @implementation LCSCalculateVolumeUsedSpaceOperation
 @synthesize diskinfo;
 @synthesize result;
 
 - (id)init
 {
-    self = [super init];
+    LCSINIT_SUPER_OR_RETURN_NIL();
+
     diskinfo = [[NSNull null] retain];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(diskinfo);
+
     result = [[NSNull null] retain];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(result);
+    
     return self;
 }
 

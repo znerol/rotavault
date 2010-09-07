@@ -7,6 +7,7 @@
 //
 
 #import "LCSWritePlistOperation.h"
+#import "LCSInitMacros.h"
 #import "LCSOperationParameterMarker.h"
 #import "LCSRotavaultErrorDomain.h"
 
@@ -14,17 +15,14 @@
 @implementation LCSWritePlistOperation
 -(id)init
 {
-    if(!(self = [super init])) {
-        return nil;
-    }
+    LCSINIT_SUPER_OR_RETURN_NIL();
 
     plist = [[LCSOperationRequiredInputParameterMarker alloc] init];
-    plistPath = [[LCSOperationRequiredInOutParameterMarker alloc] init];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(plist);
     
-    if (!plist || !plistPath) {
-        [self release];
-        return nil;
-    }
+    plistPath = [[LCSOperationRequiredInOutParameterMarker alloc] init];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(plistPath);
+    
     return self;
 }
 

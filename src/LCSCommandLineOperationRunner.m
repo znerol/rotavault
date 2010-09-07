@@ -7,24 +7,20 @@
 //
 
 #import "LCSCommandLineOperationRunner.h"
+#import "LCSInitMacros.h"
 
 
 @implementation LCSCommandLineOperationRunner
 
 -(id)initWithOperation:(LCSOperation *)operation
 {
-    if (!(self = [super init])) {
-        return nil;
-    }
+    LCSINIT_SUPER_OR_RETURN_NIL();
 
     _firstError = nil;
     _operation = [operation retain];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(_operation);
     _operation.delegate = self;
 
-    if (!_operation) {
-        [self release];
-        return nil;
-    }
     return self;
 }
 

@@ -7,6 +7,7 @@
 //
 
 #import "LCSHdiUtilPlistOperation.h"
+#import "LCSInitMacros.h"
 #import "LCSOperationParameterMarker.h"
 #import "LCSSimpleOperationParameter.h"
 
@@ -26,8 +27,11 @@
 
 -(id)init
 {
-    self = [super init];
+    LCSINIT_SUPER_OR_RETURN_NIL();
+
     path = [[LCSOperationRequiredInputParameterMarker alloc] init];
+
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(path);
     return self;
 }
 
@@ -51,8 +55,11 @@
 
 -(id)init
 {
-    self = [super init];
+    LCSINIT_SUPER_OR_RETURN_NIL();
+    
     path = [[LCSOperationRequiredInputParameterMarker alloc] init];
+    
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(path);
     return self;
 }
 

@@ -7,6 +7,7 @@
 //
 
 #import "LCSBlockCopyOperation.h"
+#import "LCSInitMacros.h"
 #import "LCSOperationParameterMarker.h"
 #import "LCSSimpleOperationParameter.h"
 
@@ -17,9 +18,13 @@
 
 -(id)init
 {
-    self = [super init];
+    LCSINIT_SUPER_OR_RETURN_NIL();
+    
     source = [[LCSOperationRequiredInputParameterMarker alloc] init];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(source);
+    
     target = [[LCSOperationRequiredInputParameterMarker alloc] init];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(target);
     return self;
 }
 

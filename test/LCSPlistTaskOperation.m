@@ -7,6 +7,7 @@
 //
 
 #import "LCSPlistTaskOperation.h"
+#import "LCSInitMacros.h"
 #import "LCSTaskOperationError.h"
 #import "LCSOperationParameterMarker.h"
 
@@ -15,9 +16,13 @@
 
 -(id)init
 {
-    self = [super init];
+    LCSINIT_SUPER_OR_RETURN_NIL();
+
     launchPath = [[LCSOperationRequiredInputParameterMarker alloc] init];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(launchPath);
+    
     arguments = [[LCSOperationOptionalInputParameterMarker alloc] initWithDefaultValue:[NSArray array]];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(arguments);
     return self;
 }
 

@@ -233,6 +233,7 @@
 		CA140A20122E5FD3002B4650 /* LCSLaunchctlOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSLaunchctlOperation.m; sourceTree = "<group>"; };
 		CA140A51122E7671002B4650 /* LCSLaunchctlOperationTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSLaunchctlOperationTest.h; sourceTree = "<group>"; };
 		CA140A52122E7671002B4650 /* LCSLaunchctlOperationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSLaunchctlOperationTest.m; sourceTree = "<group>"; };
+		CA1A8E2E1236ABA5009F9FFC /* LCSInitMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSInitMacros.h; sourceTree = "<group>"; };
 		CA28AF0712132AB900C9BE6F /* LCSVerifyDiskInfoChecksumOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSVerifyDiskInfoChecksumOperation.h; sourceTree = "<group>"; };
 		CA28AF0812132AB900C9BE6F /* LCSVerifyDiskInfoChecksumOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSVerifyDiskInfoChecksumOperation.m; sourceTree = "<group>"; };
 		CA28AF1F12132C7600C9BE6F /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
@@ -525,6 +526,7 @@
 				CABC905912300F5E00B4A81E /* LCSCommandLineOperationRunner.m */,
 				CABC90891230291200B4A81E /* LCSRotavaultScheduleInstallOperation.h */,
 				CABC908A1230291200B4A81E /* LCSRotavaultScheduleInstallOperation.m */,
+				CA1A8E2E1236ABA5009F9FFC /* LCSInitMacros.h */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -745,7 +747,6 @@
 			files = (
 			);
 			inputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/$(EXECUTABLE_PATH)",
 			);
 			name = "Run Tests if not in Debug Configuration";
 			outputPaths = (

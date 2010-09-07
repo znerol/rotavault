@@ -7,6 +7,7 @@
 //
 
 #import "LCSGenerateRotavaultCopyLaunchdPlistOperation.h"
+#import "LCSInitMacros.h"
 #import "LCSOperationParameterMarker.h"
 #import "LCSPropertyListSHA1Hash.h"
 #import "NSData+Hex.h"
@@ -15,19 +16,20 @@
 @implementation LCSGenerateRotavaultCopyLaunchdPlistOperation
 -(id)init
 {
-    if (!(self = [super init])) {
-        return nil;
-    }
+    LCSINIT_SUPER_OR_RETURN_NIL();
     
     runAtDate = [[LCSOperationRequiredInputParameterMarker alloc] init];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(runAtDate);
+    
     sourceInfo = [[LCSOperationRequiredInputParameterMarker alloc] init];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(sourceInfo);
+    
     targetInfo = [[LCSOperationRequiredInputParameterMarker alloc] init];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(targetInfo);
+    
     result = [[LCSOperationOptionalOutputParameterMarker alloc] init];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(result);
 
-    if (!runAtDate || !sourceInfo || !targetInfo || !result) {
-        [self release];
-        return nil;
-    }
     return self;
 }
 

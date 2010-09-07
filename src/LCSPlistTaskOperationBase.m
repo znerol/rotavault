@@ -7,6 +7,7 @@
 //
 
 #import "LCSPlistTaskOperationBase.h"
+#import "LCSInitMacros.h"
 #import "LCSOperationParameterMarker.h"
 
 
@@ -16,10 +17,17 @@
 
 -(id)init
 {
-    self = [super init];
+    LCSINIT_SUPER_OR_RETURN_NIL();
+
     _outputData = [[NSMutableData alloc] init];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(_outputData);
+    
     extractKeyPath = [[LCSOperationOptionalInputParameterMarker alloc] initWithDefaultValue:nil];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(extractKeyPath);
+    
     result = [[LCSOperationOptionalOutputParameterMarker alloc] init];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(result);
+
     return self;
 }
 

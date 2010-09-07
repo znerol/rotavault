@@ -7,6 +7,7 @@
 //
 
 #import "LCSTaskOperationError.h"
+#import "LCSInitMacros.h"
 #import "LCSRotavaultErrorDomain.h"
 
 NSString* LCSExecutableReturnStatus   = @"ch.znerol.rotavault.LCSExecutableReturnStatus";
@@ -21,7 +22,11 @@ NSString* LCSExecutableErrorString    = @"ch.znerol.rotavault.LCSExecutableError
                               [NSNumber numberWithInt:status], LCSExecutableReturnStatus,
                               path, NSFilePathErrorKey, nil];
 
-    self = [super initWithDomain:LCSRotavaultErrorDomain code:LCSExecutableReturnedNonZeroStatus userInfo:userInfo];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(userInfo);
+    
+    LCSINIT_OR_RETURN_NIL([super initWithDomain:LCSRotavaultErrorDomain
+                                           code:LCSExecutableReturnedNonZeroStatus
+                                       userInfo:userInfo]);
     return self;
 }
 
@@ -32,8 +37,12 @@ NSString* LCSExecutableErrorString    = @"ch.znerol.rotavault.LCSExecutableError
                               [NSString localizedStringWithFormat:@"Failed to launch command %1$@\n%2$@",
                                                                     path, message], NSLocalizedDescriptionKey,
                               path, NSFilePathErrorKey, nil];
+    
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(userInfo);
 
-    self = [super initWithDomain:LCSRotavaultErrorDomain code:LCSLaunchOfExecutableFailed userInfo:userInfo];
+    LCSINIT_OR_RETURN_NIL([super initWithDomain:LCSRotavaultErrorDomain
+                                           code:LCSLaunchOfExecutableFailed
+                                       userInfo:userInfo]);
     return self;
 }
 
@@ -45,7 +54,11 @@ NSString* LCSExecutableErrorString    = @"ch.znerol.rotavault.LCSExecutableError
                                                                     path, message], NSLocalizedDescriptionKey,
                               path, NSFilePathErrorKey, nil];
 
-    self = [super initWithDomain:LCSRotavaultErrorDomain code:LCSUnexpectedOutputReceived userInfo:userInfo];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(userInfo);
+    
+    LCSINIT_OR_RETURN_NIL([super initWithDomain:LCSRotavaultErrorDomain
+                                           code:LCSUnexpectedOutputReceived
+                                       userInfo:userInfo]);
     return self;
 }
 

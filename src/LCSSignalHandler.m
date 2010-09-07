@@ -7,6 +7,7 @@
 //
 
 #import "LCSSignalHandler.h"
+#import "LCSInitMacros.h"
 
 /* 
  * http://lists.apple.com/archives/Cocoa-dev/2001/Dec/msg00160.html
@@ -33,8 +34,10 @@ LCSSignalHandler* _LCSSignalHandlerSharedInstance = nil;
 
 -(id)init
 {
-    self = [super init];
+    LCSINIT_SUPER_OR_RETURN_NIL();
+
     sigpipe = [[NSPipe alloc] init];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(sigpipe);
 
     [[sigpipe fileHandleForReading] readInBackgroundAndNotify];
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -43,6 +46,8 @@ LCSSignalHandler* _LCSSignalHandlerSharedInstance = nil;
                                                object:[sigpipe fileHandleForReading]];
 
     _LCSSignalHandlerPipeWriteEnd = [[sigpipe fileHandleForWriting] fileDescriptor];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(_LCSSignalHandlerPipeWriteEnd);
+
     return self;
 }
 

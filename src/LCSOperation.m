@@ -7,12 +7,14 @@
 //
 
 #import "LCSOperation.h"
+#import "LCSInitMacros.h"
+
 
 @implementation LCSOperation
 
 -(id)init
 {
-    self = [super init];
+    LCSINIT_SUPER_OR_RETURN_NIL();
     delegate = nil;
     return self;
 }

@@ -7,14 +7,20 @@
 //
 
 #import "LCSKeyValueOperationParameter.h"
+#import "LCSInitMacros.h"
 
 
 @implementation LCSKeyValueOperationParameterBase
 -(id)initWithTarget:(id)targetObject keyPath:(NSString*)targetKeyPath
 {
-    self = [super init];
+    LCSINIT_SUPER_OR_RETURN_NIL();
+
     target = [targetObject retain];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(target);
+    
     keyPath = [targetKeyPath copy];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(keyPath);
+    
     return self;
 }
 

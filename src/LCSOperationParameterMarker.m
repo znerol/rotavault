@@ -7,6 +7,7 @@
 //
 
 #import "LCSOperationParameterMarker.h"
+#import "LCSInitMacros.h"
 
 
 @implementation LCSOperationRequiredInputParameterMarker
@@ -46,8 +47,9 @@
 @implementation LCSOperationOptionalInputParameterMarker
 -(id)initWithDefaultValue:(id)defaultValue
 {
-    self = [super init];
+    LCSINIT_SUPER_OR_RETURN_NIL();
     value = [defaultValue retain];
+    /* LCSINIT_RELEASE_AND_RETURN_IF_NIL(value); check for nil parameter omitted on purpose */
     return self;
 }
 
@@ -66,8 +68,9 @@
 @implementation LCSOperationOptionalInOutParameterMarker
 -(id)initWithDefaultValue:(id)defaultValue
 {
-    self = [super init];
+    LCSINIT_SUPER_OR_RETURN_NIL();
     value = [defaultValue retain];
+    /* LCSINIT_RELEASE_AND_RETURN_IF_NIL(value); check for nil parameter omitted on purpose */
     return self;
 }
 

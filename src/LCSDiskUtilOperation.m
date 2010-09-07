@@ -7,6 +7,7 @@
 //
 
 #import "LCSDiskUtilOperation.h"
+#import "LCSInitMacros.h"
 #import "LCSOperationParameterMarker.h"
 #import "LCSSimpleOperationParameter.h"
 
@@ -25,8 +26,11 @@
 @synthesize device;
 -(id)init
 {
-    self = [super init];
+    LCSINIT_SUPER_OR_RETURN_NIL();
+
     device = [[LCSOperationRequiredInputParameterMarker alloc] init];
+
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(device);
     return self;
 }
 
@@ -48,8 +52,11 @@
 @synthesize device;
 -(id)init
 {
-    self = [super init];
+    LCSINIT_SUPER_OR_RETURN_NIL();
+    
     device = [[LCSOperationRequiredInputParameterMarker alloc] init];
+    
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(device);
     return self;
 }
 
@@ -71,8 +78,11 @@
 @synthesize device;
 -(id)init
 {
-    self = [super init];
+    LCSINIT_SUPER_OR_RETURN_NIL();
+    
     device = [[LCSOperationRequiredInputParameterMarker alloc] init];
+    
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(device);
     return self;
 }
 

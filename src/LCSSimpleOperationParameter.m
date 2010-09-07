@@ -7,6 +7,7 @@
 //
 
 #import "LCSSimpleOperationParameter.h"
+#import "LCSInitMacros.h"
 
 
 @implementation LCSSimpleOperationInputParameter
@@ -17,8 +18,11 @@
 
 -(id)initWithValue:(id)newValue
 {
-    self = [super init];
+    LCSINIT_SUPER_OR_RETURN_NIL();
+    
     value = [newValue copy];
+    
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(value);
     return self;
 }
 
@@ -42,8 +46,11 @@
 
 -(id)initWithReturnValue:(id *)returnPointer
 {
-    self = [super init];
+    LCSINIT_SUPER_OR_RETURN_NIL();
+    
     value = returnPointer;
+    
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(value);
     return self;
 }
 
@@ -55,12 +62,9 @@
 
 -(void)setValueOnMainThread:(id)newValue
 {
-    if ((*value) == newValue) {
-        return;
-    }
-
-    [(*value) release];
-    (*value) = [newValue copy];
+    id tmp = [newValue copy];
+    [*value release];
+    *value = tmp;
 }
 
 -(void)setOutValue:(id)newValue

@@ -7,6 +7,7 @@
 //
 
 #import "LCSTaskOperationBase.h"
+#import "LCSInitMacros.h"
 #import "LCSSimpleOperationParameter.h"
 #import "LCSOperationParameterMarker.h"
 
@@ -15,12 +16,19 @@
 
 -(id)init
 {
-    self = [super init];
+    LCSINIT_SUPER_OR_RETURN_NIL();
+    
     task = [[NSTask alloc] init];
-    errPipe = [[NSPipe alloc] init];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(task);
+    
     errEOF = NO;
-    outPipe = [[NSPipe alloc] init];
+    errPipe = [[NSPipe alloc] init];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(errPipe);
+    
     outEOF = NO;
+    outPipe = [[NSPipe alloc] init];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(outPipe);
+    
     return self;
 }
 

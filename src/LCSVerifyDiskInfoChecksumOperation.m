@@ -7,6 +7,7 @@
 //
 
 #import "LCSVerifyDiskInfoChecksumOperation.h"
+#import "LCSInitMacros.h"
 #import "LCSOperationParameterMarker.h"
 #import "LCSRotavaultErrorDomain.h"
 #import "LCSPropertyListSHA1Hash.h"
@@ -17,16 +18,14 @@
 @synthesize checksum;
 -(id)init
 {
-    if (!(self = [super init])) {
-        return nil;
-    }
+    LCSINIT_SUPER_OR_RETURN_NIL();
 
     diskinfo = [[LCSOperationRequiredInputParameterMarker alloc] init];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(diskinfo);
+    
     checksum = [[LCSOperationRequiredInputParameterMarker alloc] init];
-
-    if (!diskinfo || ! checksum) {
-        [self release];
-    }
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(checksum);
+    
     return self;
 }
 

@@ -7,6 +7,7 @@
 //
 
 #import "LCSBlockCopyValidateDiskInfoOperation.h"
+#import "LCSInitMacros.h"
 #import "LCSOperationParameterMarker.h"
 #import "LCSRotavaultErrorDomain.h"
 
@@ -14,18 +15,17 @@
 @implementation LCSBlockCopyValidateDiskInfoOperation
 -(id)init
 {
-    if (!([super init])) {
-        return nil;
-    }
+    LCSINIT_SUPER_OR_RETURN_NIL();
 
     sourceInfo = [[LCSOperationRequiredInputParameterMarker alloc] init];
-    targetInfo = [[LCSOperationRequiredInputParameterMarker alloc] init];
-    bootdiskInfo = [[LCSOperationRequiredInputParameterMarker alloc] init];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(sourceInfo);
 
-    if (!sourceInfo || ! targetInfo) {
-        [self release];
-        return nil;
-    }
+    targetInfo = [[LCSOperationRequiredInputParameterMarker alloc] init];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(targetInfo);
+
+    bootdiskInfo = [[LCSOperationRequiredInputParameterMarker alloc] init];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(bootdiskInfo);
+    
     return self;
 }
 

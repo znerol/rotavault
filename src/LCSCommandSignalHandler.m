@@ -8,19 +8,20 @@
 
 #import "LCSCommandSignalHandler.h"
 #import "LCSSignalHandler.h"
+#import "LCSInitMacros.h"
 
 
 @implementation LCSCommandSignalHandler
 -(id)initWithCommand:(LCSCommand*)command
 {
-    if(!(self = [super init])) {
-        return nil;
-    }
+    LCSINIT_SUPER_OR_RETURN_NIL();
 
     target = [command retain];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(target);
 
     /* setup signal handler and signal pipe */
     LCSSignalHandler *sh = [LCSSignalHandler defaultSignalHandler];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(sh);
     [sh setDelegate:self];
     [sh addSignal:SIGHUP];
     [sh addSignal:SIGINT];

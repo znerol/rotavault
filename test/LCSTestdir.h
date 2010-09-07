@@ -12,7 +12,6 @@
 @interface LCSTestdir : NSObject {
     NSString *tmpdir;
 }
-- (LCSTestdir*) init;
 - (NSString*) path;
 - (void) remove;
 @end
