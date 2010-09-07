@@ -43,9 +43,9 @@
     LCSPlistTaskOperation *op = [[LCSPlistTaskOperation alloc] init];
     NSArray *args = [NSArray arrayWithObjects:@"create", @"-sectors", @"2000", imgpath, @"-plist", 
                      @"-layout", @"GPTSPUD", @"-fs", @"HFS+", @"-attach", nil];
-    op.launchPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/usr/bin/hdiutil"];
-    op.arguments = [[LCSSimpleOperationInputParameter alloc] initWithValue:args];
-    op.result = [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:self keyPath:@"result"];
+    op.launchPath = [LCSSimpleOperationInputParameter parameterWithValue:@"/usr/bin/hdiutil"];
+    op.arguments = [LCSSimpleOperationInputParameter parameterWithValue:args];
+    op.result = [LCSKeyValueOperationOutputParameter parameterWithTarget:self keyPath:@"result"];
 
     [op setDelegate:self];
     [op start];
@@ -66,8 +66,8 @@
 
     LCSPlistTaskOperation *op = [[LCSPlistTaskOperation alloc] init];
     NSArray *args = [NSArray arrayWithObjects:@"detach", devpath, nil];
-    op.launchPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/usr/bin/hdiutil"];
-    op.arguments = [[LCSSimpleOperationInputParameter alloc] initWithValue:args];
+    op.launchPath = [LCSSimpleOperationInputParameter parameterWithValue:@"/usr/bin/hdiutil"];
+    op.arguments = [LCSSimpleOperationInputParameter parameterWithValue:args];
     
     [op start];
     [op release];
@@ -81,6 +81,10 @@
 
 -(void)operation:(LCSOperation*)operation handleError:(NSError*)inError
 {
+    if (error == inError) {
+        return;
+    }
+    [error release];
     error = [inError retain];
 }
 
@@ -88,7 +92,7 @@
 {
     LCSHdiInfoOperation *op = [[LCSHdiInfoOperation alloc] init];
     [op setDelegate:self];
-    op.result = [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:self keyPath:@"result"];
+    op.result = [LCSKeyValueOperationOutputParameter parameterWithTarget:self keyPath:@"result"];
 
     [op start];
 

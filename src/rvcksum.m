@@ -31,8 +31,8 @@ int main (int argc, const char * argv[]) {
 
     NSDictionary* result = nil;
     LCSInformationForDiskOperation *infoop = [[LCSInformationForDiskOperation alloc] init];
-    infoop.device = [[LCSSimpleOperationInputParameter alloc] initWithValue:device];
-    infoop.result = [[LCSSimpleOperationOutputParameter alloc] initWithReturnValue:&result];
+    infoop.device = [LCSSimpleOperationInputParameter parameterWithValue:device];
+    infoop.result = [LCSSimpleOperationOutputParameter parameterWithReturnValue:&result];
     [infoop start];
 
     if (result == nil) {
@@ -65,6 +65,7 @@ int main (int argc, const char * argv[]) {
             return 1;
     }
 
+    [result release];
     [pool drain];
     return 0;
 }

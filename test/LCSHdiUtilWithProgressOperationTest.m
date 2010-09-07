@@ -44,6 +44,10 @@
 
 -(void)operation:(LCSOperation*)operation handleError:(NSError*)inError
 {
+    if (error == inError) {
+        return;
+    }
+    [error release];
     error = [inError retain];
 }
 
@@ -64,8 +68,8 @@
     NSString *imgpath = [[testdir path] stringByAppendingPathComponent:@"crypt.dmg"];
 
     LCSCreateEncryptedImageOperation *createop = [[LCSCreateEncryptedImageOperation alloc] init];
-    createop.path = [[LCSSimpleOperationInputParameter alloc] initWithValue:imgpath];
-    createop.sectors = [[LCSSimpleOperationInputParameter alloc] initWithValue:[NSNumber numberWithInt:2000]];
+    createop.path = [LCSSimpleOperationInputParameter parameterWithValue:imgpath];
+    createop.sectors = [LCSSimpleOperationInputParameter parameterWithValue:[NSNumber numberWithInt:2000]];
 
     [createop injectTestPassword:@"TEST"];
 
@@ -79,8 +83,8 @@
     [self delegateCleanup];
 
     LCSAttachImageOperation *wrongop = [[LCSAttachImageOperation alloc] init];
-    wrongop.path = [[LCSSimpleOperationInputParameter alloc] initWithValue:imgpath];
-    wrongop.result = [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:self keyPath:@"result"];
+    wrongop.path = [LCSSimpleOperationInputParameter parameterWithValue:imgpath];
+    wrongop.result = [LCSKeyValueOperationOutputParameter parameterWithTarget:self keyPath:@"result"];
 
     [wrongop injectTestPassword:@"WRONG"];
 
@@ -99,8 +103,8 @@
     [self delegateCleanup];
 
     LCSAttachImageOperation *attachop = [[LCSAttachImageOperation alloc] init];
-    attachop.path = [[LCSSimpleOperationInputParameter alloc] initWithValue:imgpath];
-    attachop.result = [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:self keyPath:@"result"];
+    attachop.path = [LCSSimpleOperationInputParameter parameterWithValue:imgpath];
+    attachop.result = [LCSKeyValueOperationOutputParameter parameterWithTarget:self keyPath:@"result"];
     
     [attachop injectTestPassword:@"TEST"];
     
@@ -116,7 +120,7 @@
     [self delegateCleanup];
 
     LCSDetachImageOperation *detachop = [[LCSDetachImageOperation alloc] init];
-    detachop.path = [[LCSSimpleOperationInputParameter alloc] initWithValue:devpath];
+    detachop.path = [LCSSimpleOperationInputParameter parameterWithValue:devpath];
     [detachop setDelegate:self];
     
     [detachop start];

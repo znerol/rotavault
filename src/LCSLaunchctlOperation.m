@@ -38,7 +38,7 @@
 -(void)taskSetup
 {
     [task setLaunchPath:@"/bin/launchctl"];
-    [task setArguments:[NSArray arrayWithObjects:@"load", path.value, nil]];
+    [task setArguments:[NSArray arrayWithObjects:@"load", path.inValue, nil]];
 }
 @end
 
@@ -69,7 +69,7 @@
 -(void)taskSetup
 {
     [task setLaunchPath:@"/bin/launchctl"];
-    [task setArguments:[NSArray arrayWithObjects:@"unload", path.value, nil]];
+    [task setArguments:[NSArray arrayWithObjects:@"unload", path.inValue, nil]];
 }
      
 @end
@@ -101,7 +101,7 @@
 -(void)taskSetup
 {
     [task setLaunchPath:@"/bin/launchctl"];
-    [task setArguments:[NSArray arrayWithObjects:@"remove", label.value, nil]];
+    [task setArguments:[NSArray arrayWithObjects:@"remove", label.inValue, nil]];
 }
 @end
 
@@ -144,7 +144,7 @@
 
 -(void)taskOutputComplete
 {
-    NSString *stdoutString = [[NSString alloc] initWithData:stdoutData encoding:NSASCIIStringEncoding];
+    NSString *stdoutString = [[[NSString alloc] initWithData:stdoutData encoding:NSASCIIStringEncoding] autorelease];
     NSScanner *scanner = [NSScanner scannerWithString:stdoutString];
     [scanner setCharactersToBeSkipped:nil];
 
@@ -240,7 +240,7 @@
         [joblist addObject:[[job copy] autorelease]];
     }
 
-    result.value = [[joblist copy] autorelease];
+    result.outValue = [[joblist copy] autorelease];
 }
 @end
 
@@ -271,7 +271,7 @@
 -(void)taskSetup
 {
     [task setLaunchPath:@"/bin/launchctl"];
-    [task setArguments:[NSArray arrayWithObjects:@"list", @"-x", label.value, nil]];
+    [task setArguments:[NSArray arrayWithObjects:@"list", @"-x", label.inValue, nil]];
 }
 
 -(void)updateStandardOutput:(NSData *)data

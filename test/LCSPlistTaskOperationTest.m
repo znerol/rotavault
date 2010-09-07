@@ -20,44 +20,47 @@
 
 -(void)tearDown
 {
-    if(error) {
-        [error release];
-        error = nil;
-    }
+    [error release];
+    error = nil;
 }
 
 -(void)operation:(LCSOperation*)operation handleError:(NSError*)inError
 {
+    if (error == inError) {
+        return;
+    }
+    [error release];
     error = [inError retain];
 }
 
 - (void)testSimplePlistTaskOperation
 {
     LCSPlistTaskOperation* op = [[LCSPlistTaskOperation alloc] init];
-    op.launchPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/usr/sbin/system_profiler"];
-    op.arguments = [[LCSSimpleOperationInputParameter alloc] initWithValue:
+    op.launchPath = [LCSSimpleOperationInputParameter parameterWithValue:@"/usr/sbin/system_profiler"];
+    op.arguments = [LCSSimpleOperationInputParameter parameterWithValue:
                     [NSArray arrayWithObjects: @"-xml", @"SPDiagnosticsDataType", nil]];
 
     id result = nil;
-    op.result = [[LCSSimpleOperationOutputParameter alloc] initWithReturnValue:&result];
+    op.result = [LCSSimpleOperationOutputParameter parameterWithReturnValue:&result];
 
     [op setDelegate:self];
     [op start];
 
     STAssertNil(error, @"%@", @"error must be nil for successfull run");
     STAssertTrue([result isKindOfClass:[NSArray class]], @"%@", @"Result must contain an array");
+    [result release];
     [op release];
 }
 
 - (void)testNonPlistTaskOperation
 {
     LCSPlistTaskOperation* op = [[LCSPlistTaskOperation alloc] init];
-    op.launchPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/usr/sbin/system_profiler"];
-    op.arguments = [[LCSSimpleOperationInputParameter alloc] initWithValue:
+    op.launchPath = [LCSSimpleOperationInputParameter parameterWithValue:@"/usr/sbin/system_profiler"];
+    op.arguments = [LCSSimpleOperationInputParameter parameterWithValue:
                     [NSArray arrayWithObjects: @"SPDiagnosticsDataType", nil]];
 
-    id result;
-    op.result = [[LCSSimpleOperationOutputParameter alloc] initWithReturnValue:&result];
+    id result = nil;
+    op.result = [LCSSimpleOperationOutputParameter parameterWithReturnValue:&result];
     
     [op setDelegate:self];
     [op start];
@@ -69,6 +72,7 @@
     STAssertEquals([error code], (NSInteger)LCSUnexpectedOutputReceived, @"%@",
                    @"LCSTaskOperation must set the error code to LCSLaunchOfExecutableFailed if the output of the "
                    @"task is not a property list");
+    [result release];
     [op release];
 }
 

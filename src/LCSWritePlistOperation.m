@@ -42,7 +42,7 @@
 {
     NSString *errstring = nil;
     NSError *error = nil;
-    NSData *data = [NSPropertyListSerialization dataFromPropertyList:plist.value
+    NSData *data = [NSPropertyListSerialization dataFromPropertyList:plist.inValue
                                                               format:NSPropertyListXMLFormat_v1_0
                                                     errorDescription:&errstring];
     if (!data) {
@@ -53,7 +53,7 @@
     }
 
     /* Write the data to a temporary file if the path-parameter is not set */
-    NSString* path = plistPath.value;
+    NSString* path = plistPath.inOutValue;
     if(!path) {
         static const char template[] = "/tmp/plist.XXXXXXXX";
         char *pathBuffer = malloc(sizeof(template));
@@ -67,7 +67,7 @@
         NSFileHandle *fh = [[NSFileHandle alloc] initWithFileDescriptor:fd closeOnDealloc:NO];
         @try {
             [fh writeData:data];
-            plistPath.value = path;
+            plistPath.inOutValue = path;
         }
         @catch (NSException * e) {
             NSDictionary *errdict = [NSDictionary dictionaryWithObject:[e description]
@@ -83,7 +83,7 @@
     }
     /* otherwise just dump the plist to the specified path */
     else {
-        BOOL ok = [data writeToFile:plistPath.value options:NSAtomicWrite error:&error];
+        BOOL ok = [data writeToFile:plistPath.inOutValue options:NSAtomicWrite error:&error];
         if (!ok) {
             [self handleError:error];
             return;

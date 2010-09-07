@@ -9,16 +9,22 @@
 #import <Foundation/Foundation.h>
 #import "LCSOperationParameter.h"
 
-
-@interface LCSKeyValueOperationInputParameter : NSObject <LCSOperationInputParameter> {
+@interface LCSKeyValueOperationParameterBase : NSObject
+{
     id target;
-    NSString* keyPath;
+    NSString* keyPath;    
 }
 -(id)initWithTarget:(id)targetObject keyPath:(NSString*)targetKeyPath;
 @end
 
-@interface LCSKeyValueOperationInOutParameter : LCSKeyValueOperationInputParameter <LCSOperationInOutParameter>
+@interface LCSKeyValueOperationInputParameter : LCSKeyValueOperationParameterBase <LCSOperationInputParameter>
++(LCSKeyValueOperationInputParameter*)parameterWithTarget:(id)targetObject keyPath:(NSString*)targetKeyPath;
 @end
 
-@interface LCSKeyValueOperationOutputParameter : LCSKeyValueOperationInOutParameter <LCSOperationOutputParameter>
+@interface LCSKeyValueOperationInOutParameter : LCSKeyValueOperationParameterBase <LCSOperationInOutParameter>
++(LCSKeyValueOperationInOutParameter*)parameterWithTarget:(id)targetObject keyPath:(NSString*)targetKeyPath;
+@end
+
+@interface LCSKeyValueOperationOutputParameter : LCSKeyValueOperationParameterBase <LCSOperationOutputParameter>
++(LCSKeyValueOperationOutputParameter*)parameterWithTarget:(id)targetObject keyPath:(NSString*)targetKeyPath;
 @end

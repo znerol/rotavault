@@ -10,13 +10,13 @@
 
 
 @protocol LCSOperationInputParameter <NSObject>
-@property(readonly,retain) id value;
+@property(readonly,retain) id inValue;
 @end
 
 @protocol LCSOperationInOutParameter <NSObject>
-@property(readwrite,retain) id value;
+@property(readwrite,retain) id inOutValue;
 @end
 
 @protocol LCSOperationOutputParameter <NSObject>
-@property(readwrite,retain) id value;
+@property(readwrite,retain) id outValue;
 @end

@@ -72,7 +72,7 @@
 - (void)testSuccessfullTermination
 {
     LCSTaskOperation* op = [[LCSTaskOperation alloc] init];
-    op.launchPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/usr/bin/true"];
+    op.launchPath = [LCSSimpleOperationInputParameter parameterWithValue:@"/usr/bin/true"];
 
     [[mock expect] operation:op terminatedWithStatus:[NSNumber numberWithInt:0]];
 
@@ -86,7 +86,7 @@
 - (void)testNonZeroStatusTermination
 {
     LCSTaskOperation* op = [[LCSTaskOperation alloc] init];
-    op.launchPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/usr/bin/false"];
+    op.launchPath = [LCSSimpleOperationInputParameter parameterWithValue:@"/usr/bin/false"];
 
     /* expect non-zero status error */
     NSError *termError = [NSError errorWithDomain:LCSRotavaultErrorDomain
@@ -108,8 +108,8 @@
 - (void)testCancel
 {
     LCSTaskOperation* op = [[LCSTaskOperation alloc] init];
-    op.launchPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/bin/sleep"];
-    op.arguments = [[LCSSimpleOperationInputParameter alloc] initWithValue:[NSArray arrayWithObject:@"10"]];
+    op.launchPath = [LCSSimpleOperationInputParameter parameterWithValue:@"/bin/sleep"];
+    op.arguments = [LCSSimpleOperationInputParameter parameterWithValue:[NSArray arrayWithObject:@"10"]];
 
     /* expect cancel error */
     NSError *cancelError = [NSError errorWithDomain:NSCocoaErrorDomain
@@ -128,7 +128,7 @@
     }
 
     /* FIXME: hum... race condition here? */
-    usleep(1000);
+    usleep(10000);
 
     [op cancel];
 
@@ -146,7 +146,7 @@
 
     NSString *nowhere = [[testdir path] stringByAppendingPathComponent:@"nowhere"];
     LCSTaskOperation* op = [[LCSTaskOperation alloc] init];
-    op.launchPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:nowhere];
+    op.launchPath = [LCSSimpleOperationInputParameter parameterWithValue:nowhere];
 
     NSError *error = [NSError errorWithDomain:LCSRotavaultErrorDomain
                                          code:LCSLaunchOfExecutableFailed
@@ -167,8 +167,8 @@
 - (void)testEchoHello
 {
     LCSTaskOperation* op = [[LCSTaskOperation alloc] init];
-    op.launchPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/bin/echo"];
-    op.arguments = [[LCSSimpleOperationInputParameter alloc] initWithValue:[NSArray arrayWithObject:@"Hello"]];
+    op.launchPath = [LCSSimpleOperationInputParameter parameterWithValue:@"/bin/echo"];
+    op.arguments = [LCSSimpleOperationInputParameter parameterWithValue:[NSArray arrayWithObject:@"Hello"]];
     [[mock expect] operation:op terminatedWithStatus:[NSNumber numberWithInt:0]];
 
     [op setDelegate:mock];

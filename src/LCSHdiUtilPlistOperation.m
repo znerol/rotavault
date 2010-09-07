@@ -40,7 +40,7 @@
 -(void)taskSetup
 {
     [task setLaunchPath:@"/usr/bin/hdiutil"];
-    [task setArguments:[NSArray arrayWithObjects:@"attach", path.value, @"-plist", @"-nomount", nil]];
+    [task setArguments:[NSArray arrayWithObjects:@"attach", path.inValue, @"-plist", @"-nomount", nil]];
     [super taskSetup];
 }
 @end
@@ -65,7 +65,7 @@
 -(void)taskSetup
 {
     [task setLaunchPath:@"/usr/bin/hdiutil"];
-    [task setArguments:[NSArray arrayWithObjects:@"detach", path.value, nil]];
+    [task setArguments:[NSArray arrayWithObjects:@"detach", path.inValue, nil]];
     [super taskSetup];
 }
 @end

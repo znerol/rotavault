@@ -43,9 +43,9 @@
 
 -(void)execute
 {
-    NSDictionary *sinfo = [sourceInfo.value copy];
-    NSDictionary *tinfo = [targetInfo.value copy];
-    NSDictionary *binfo = [bootdiskInfo.value copy];
+    NSDictionary *sinfo = [[sourceInfo.inValue copy] autorelease];
+    NSDictionary *tinfo = [[targetInfo.inValue copy] autorelease];
+    NSDictionary *binfo = [[bootdiskInfo.inValue copy] autorelease];
 
     /* error if source device is the startup disk */
     if ([sinfo isEqual:binfo]) {
@@ -88,6 +88,6 @@
                                          userInfo:userInfo];
         [self handleError:error];
         return;
-    }    
+    }
 }
 @end

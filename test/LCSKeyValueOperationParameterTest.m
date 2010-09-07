@@ -18,19 +18,17 @@
     [paramValues setValue:@"two" forKeyPath:@"more.stuff"];
 
     LCSKeyValueOperationInputParameter *inputParam1 =
-        [[LCSKeyValueOperationInputParameter alloc] initWithTarget:paramValues keyPath:@"foo"];
-    STAssertTrue([inputParam1.value isEqualToString:@"one"], @"%@", @"Value of parameter must be reported correctly");
+        [LCSKeyValueOperationInputParameter parameterWithTarget:paramValues keyPath:@"foo"];
+    STAssertTrue([inputParam1.inValue isEqualToString:@"one"], @"%@", @"Value of parameter must be reported correctly");
 
     LCSKeyValueOperationInputParameter *inputParam2 = 
-        [[LCSKeyValueOperationInputParameter alloc] initWithTarget:paramValues keyPath:@"more.stuff"];
-    STAssertTrue([inputParam2.value isEqualToString:@"two"], @"%@",
+        [LCSKeyValueOperationInputParameter parameterWithTarget:paramValues keyPath:@"more.stuff"];
+    STAssertTrue([inputParam2.inValue isEqualToString:@"two"], @"%@",
                  @"Extraction of parameter value also must work with key paths");
 
     [paramValues setValue:@"changed" forKeyPath:@"foo"];
-    STAssertTrue([inputParam1.value isEqualToString:@"changed"], @"%@",
+    STAssertTrue([inputParam1.inValue isEqualToString:@"changed"], @"%@",
                  @"Parameter must return the actual (changed) value");
-    [inputParam1 release];
-    [inputParam2 release];
 }
 
 -(void)testKeyValueOperationOutputParameterNoThreads
@@ -41,22 +39,20 @@
     [paramValues setValue:[NSNull null] forKeyPath:@"more.stuff"];
 
     LCSKeyValueOperationOutputParameter *outParam1 = 
-        [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:paramValues keyPath:@"foo"];
+        [LCSKeyValueOperationOutputParameter parameterWithTarget:paramValues keyPath:@"foo"];
     STAssertTrue([[paramValues valueForKey:@"foo"] isEqualToString:@"to be overwritten"], @"%@",
                   @"Output parameter must not be set before property assignement");
-    outParam1.value = @"new value";
+    outParam1.outValue = @"new value";
     STAssertTrue([[paramValues valueForKey:@"foo"] isEqualToString:@"new value"], @"%@",
                   @"Output parameter must be set correctly");
 
     LCSKeyValueOperationOutputParameter *outParam2 = 
-        [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:paramValues keyPath:@"more.stuff"];
+        [LCSKeyValueOperationOutputParameter parameterWithTarget:paramValues keyPath:@"more.stuff"];
     STAssertTrue([[paramValues valueForKeyPath:@"more.stuff"] isEqualTo:[NSNull null]], @"%@",
                  @"Output parameter must not be set before property assignement");
-    outParam2.value = @"changed";
+    outParam2.outValue = @"changed";
     STAssertTrue([[paramValues valueForKeyPath:@"more.stuff"] isEqualToString:@"changed"], @"%@",
                  @"Output parameter must be set correctly also using a key path");
-    [outParam1 release];
-    [outParam2 release];
 }
 
 @end

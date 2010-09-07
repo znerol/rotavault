@@ -10,11 +10,15 @@
 
 
 @implementation LCSSimpleOperationInputParameter
-@synthesize value;
--(id)initWithValue:(id)inValue
++(LCSSimpleOperationInputParameter*)parameterWithValue:(id)newValue
+{
+    return [[[LCSSimpleOperationInputParameter alloc] initWithValue:newValue] autorelease];
+}
+
+-(id)initWithValue:(id)newValue
 {
     self = [super init];
-    value = [inValue copy];
+    value = [newValue copy];
     return self;
 }
 
@@ -23,34 +27,43 @@
     [value release];
     [super dealloc];
 }
+
+-(id)inValue
+{
+    return value;
+}
 @end
 
 @implementation LCSSimpleOperationOutputParameter
--(id)initWithReturnValue:(id *)outValue
++(LCSSimpleOperationOutputParameter*)parameterWithReturnValue:(id *)returnPointer
+{
+    return [[[LCSSimpleOperationOutputParameter alloc] initWithReturnValue:returnPointer] autorelease];
+}
+
+-(id)initWithReturnValue:(id *)returnPointer
 {
     self = [super init];
-    value = outValue;
+    value = returnPointer;
     return self;
 }
 
--(id)value
+-(id)outValue
 {
-    NSAssert(YES, @"Tried to read a value from an output only parameter");
+    NSAssert(0, @"Tried to read a value from an output only parameter");
     return nil; /* suppress complier warning */
 }
 
 -(void)setValueOnMainThread:(id)newValue
 {
-    /* if the new value is equal to the stored, no change should take place (memory management) */
-    if (*value == newValue) {
+    if ((*value) == newValue) {
         return;
     }
 
-    [*value release];
-    *value = [newValue retain];
+    [(*value) release];
+    (*value) = [newValue copy];
 }
 
--(void)setValue:(id)newValue
+-(void)setOutValue:(id)newValue
 {
     [self performSelectorOnMainThread:@selector(setValueOnMainThread:) withObject:newValue waitUntilDone:YES];
 }

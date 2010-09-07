@@ -52,9 +52,9 @@
 -(void)taskSetup
 {
     [task setLaunchPath:@"/usr/bin/hdiutil"];
-    [task setArguments:[NSArray arrayWithObjects:@"create", path.value,
+    [task setArguments:[NSArray arrayWithObjects:@"create", path.inValue,
                         @"-puppetstrings",
-                        @"-sectors",[sectors.value stringValue],
+                        @"-sectors",[sectors.inValue stringValue],
                         @"-type", @"UDIF",
                         @"-layout", @"NONE",
                         @"-encryption", @"AES-256", nil]];

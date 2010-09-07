@@ -13,8 +13,8 @@
 @interface LCSPlistTaskOperationBase : LCSTaskOperationBase {
     NSMutableData   *_outputData;
     id <LCSOperationInputParameter> extractKeyPath; /* NSString */
-    id <LCSOperationInOutParameter> result; /* NSDictionary/NSArray */
+    id <LCSOperationOutputParameter> result; /* NSDictionary/NSArray */
 }
 @property(retain) id <LCSOperationInputParameter> extractKeyPath;
-@property(retain) id <LCSOperationInOutParameter> result;
+@property(retain) id <LCSOperationOutputParameter> result;
 @end

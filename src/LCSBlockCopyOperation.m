@@ -34,7 +34,7 @@
 {
     [task setLaunchPath:@"/usr/sbin/asr"];
     [task setArguments:[NSArray arrayWithObjects:@"restore", @"--erase", @"--noprompt", @"--puppetstrings", @"--source",
-                       source.value, @"--target", target.value, nil]];
+                       source.inValue, @"--target", target.inValue, nil]];
     [super taskSetup];
 }
 

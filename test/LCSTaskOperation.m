@@ -32,7 +32,7 @@
 
 -(void)taskSetup
 {
-    [task setLaunchPath:launchPath.value];
-    [task setArguments:arguments.value];
+    [task setLaunchPath:launchPath.inValue];
+    [task setArguments:arguments.inValue];
 }
 @end

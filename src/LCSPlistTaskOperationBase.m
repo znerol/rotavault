@@ -18,7 +18,7 @@
 {
     self = [super init];
     _outputData = [[NSMutableData alloc] init];
-    extractKeyPath = [[LCSOperationOptionalInputParameterMarker alloc] initWithDefaultValue:[NSNull null]];
+    extractKeyPath = [[LCSOperationOptionalInputParameterMarker alloc] initWithDefaultValue:nil];
     result = [[LCSOperationOptionalOutputParameterMarker alloc] init];
     return self;
 }
@@ -45,19 +45,19 @@
     
     NSString *errorDescription;
     NSDictionary* plist = [NSPropertyListSerialization propertyListFromData:_outputData
-                                                           mutabilityOption:0
+                                                           mutabilityOption:kCFPropertyListImmutable
                                                                      format:nil
                                                            errorDescription:&errorDescription];
     
     if (plist) {
-        if (![extractKeyPath.value isKindOfClass:[NSNull class]]) {
-            plist = [plist valueForKeyPath:extractKeyPath.value];
+        if (extractKeyPath.inValue != nil) {
+            plist = [plist valueForKeyPath:extractKeyPath.inValue];
         }
-        result.value = plist;
+        result.outValue = plist;
     }
     else {
         NSError *error = [LCSTaskOperationError errorReceivedUnexpectedOutputFromLaunchPath:[task launchPath]
-                                                                                    message:errorDescription];
+                                                                                    message:[errorDescription autorelease]];
         [self handleError:error];
     }
     

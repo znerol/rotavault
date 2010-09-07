@@ -29,47 +29,45 @@
     
     LCSInformationForDiskOperation *sourceInfoOperation = [[[LCSInformationForDiskOperation alloc] init] autorelease];
     sourceInfoOperation.delegate = self;
-    sourceInfoOperation.device = [[LCSSimpleOperationInputParameter alloc] initWithValue:sourceDevice];
-    sourceInfoOperation.result =
-    [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:self keyPath:@"sourceInfo"];
+    sourceInfoOperation.device = [LCSSimpleOperationInputParameter parameterWithValue:sourceDevice];
+    sourceInfoOperation.result = [LCSKeyValueOperationOutputParameter parameterWithTarget:self keyPath:@"sourceInfo"];
     [queue addOperation:sourceInfoOperation];
     
     LCSVerifyDiskInfoChecksumOperation *verifySourceInfoOperation =
     [[[LCSVerifyDiskInfoChecksumOperation alloc] init] autorelease];
     verifySourceInfoOperation.delegate = self;
-    verifySourceInfoOperation.diskinfo =
-    [[LCSKeyValueOperationInputParameter alloc] initWithTarget:self keyPath:@"sourceInfo"];
-    verifySourceInfoOperation.checksum = [[LCSSimpleOperationInputParameter alloc] initWithValue:sourceChecksum];
+    verifySourceInfoOperation.diskinfo = 
+        [LCSKeyValueOperationInputParameter parameterWithTarget:self keyPath:@"sourceInfo"];
+    verifySourceInfoOperation.checksum = [LCSSimpleOperationInputParameter parameterWithValue:sourceChecksum];
     [verifySourceInfoOperation addDependency:sourceInfoOperation];
     [queue addOperation:verifySourceInfoOperation];
     
     LCSInformationForDiskOperation *targetInfoOperation = [[[LCSInformationForDiskOperation alloc] init] autorelease];
     targetInfoOperation.delegate = self;
-    targetInfoOperation.device = [[LCSSimpleOperationInputParameter alloc] initWithValue:targetDevice];
-    targetInfoOperation.result =
-    [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:self keyPath:@"targetInfo"];
+    targetInfoOperation.device = [LCSSimpleOperationInputParameter parameterWithValue:targetDevice];
+    targetInfoOperation.result = [LCSKeyValueOperationOutputParameter parameterWithTarget:self keyPath:@"targetInfo"];
     [queue addOperation:targetInfoOperation];
     
     LCSVerifyDiskInfoChecksumOperation *verifyTargetInfoOperation =
     [[[LCSVerifyDiskInfoChecksumOperation alloc] init] autorelease];
     verifyTargetInfoOperation.delegate = self;
     verifyTargetInfoOperation.diskinfo =
-    [[LCSKeyValueOperationInputParameter alloc] initWithTarget:self keyPath:@"targetInfo"];
-    verifyTargetInfoOperation.checksum = [[LCSSimpleOperationInputParameter alloc] initWithValue:targetChecksum];
+        [LCSKeyValueOperationInputParameter parameterWithTarget:self keyPath:@"targetInfo"];
+    verifyTargetInfoOperation.checksum = [LCSSimpleOperationInputParameter parameterWithValue:targetChecksum];
     [verifyTargetInfoOperation addDependency:targetInfoOperation];
     [queue addOperation:verifyTargetInfoOperation];
     
     LCSBlockCopyOperation *blockCopyOperation = [[[LCSBlockCopyOperation alloc] init] autorelease];
     blockCopyOperation.delegate = self;
-    blockCopyOperation.source = [[LCSSimpleOperationInputParameter alloc] initWithValue:sourceDevice];
-    blockCopyOperation.target = [[LCSSimpleOperationInputParameter alloc] initWithValue:targetDevice];
+    blockCopyOperation.source = [LCSSimpleOperationInputParameter parameterWithValue:sourceDevice];
+    blockCopyOperation.target = [LCSSimpleOperationInputParameter parameterWithValue:targetDevice];
     [blockCopyOperation addDependency:verifySourceInfoOperation];
     [blockCopyOperation addDependency:verifyTargetInfoOperation];
     [queue addOperation:blockCopyOperation];
     
     sourceRemountOperation = [[LCSMountOperation alloc] init];
     sourceRemountOperation.delegate = self;
-    sourceRemountOperation.device = [[LCSSimpleOperationInputParameter alloc] initWithValue:sourceDevice];
+    sourceRemountOperation.device = [LCSSimpleOperationInputParameter parameterWithValue:sourceDevice];
     
     return self;
 }

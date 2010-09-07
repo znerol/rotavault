@@ -14,22 +14,21 @@
 -(void)testSimpleOperationInputParameterNoThread
 {
     NSMutableString* paramValue = [NSMutableString stringWithString:@"Test"];
-    LCSSimpleOperationInputParameter* inparam = [[LCSSimpleOperationInputParameter alloc] initWithValue:paramValue];
-    STAssertTrue([inparam.value isEqualToString:@"Test"], @"%@", @"Parameter value must be set correctly");
+    LCSSimpleOperationInputParameter* inparam = [LCSSimpleOperationInputParameter parameterWithValue:paramValue];
+    STAssertEqualObjects(inparam.inValue, @"Test", @"Parameter value must be set correctly");
     [paramValue appendString:@" copy Test"];
-    STAssertTrue([inparam.value isEqualToString:@"Test"], @"%@", @"Parameter value must be a copy of original value");
-    [inparam release];
+    STAssertEqualObjects(inparam.inValue, @"Test", @"Parameter value must be a copy of original value");
 }
 
 -(void)testSimpleOperationOutputParameterNoThread
 {
     NSString* returnValue = nil;
     LCSSimpleOperationOutputParameter* outparam =
-        [[LCSSimpleOperationOutputParameter alloc] initWithReturnValue:&returnValue];
+        [LCSSimpleOperationOutputParameter parameterWithReturnValue:&returnValue];
     STAssertNil(returnValue, @"%@", @"Return value must be nil before assignement");
-    outparam.value = @"Test";
+    outparam.outValue = [NSString stringWithString:@"Test"];
     STAssertNotNil(returnValue, @"%@", @"Return value must not be nil after assignement");
     STAssertTrue([returnValue isEqualToString:@"Test"], @"%@", @"Return value must be equal to the test string");
-    [outparam release];
+    [returnValue release];
 }
 @end

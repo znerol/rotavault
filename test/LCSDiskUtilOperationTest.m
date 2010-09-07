@@ -31,6 +31,10 @@
 
 -(void)operation:(LCSOperation*)operation handleError:(NSError*)inError
 {
+    if (error == inError) {
+        return;
+    }
+    [error release];
     error = [inError retain];
 }
 
@@ -38,7 +42,7 @@
 {
     LCSListDisksOperation *op = [[LCSListDisksOperation alloc] init];
     [op setDelegate:self];
-    op.result = [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:self keyPath:@"result"];
+    op.result = [LCSKeyValueOperationOutputParameter parameterWithTarget:self keyPath:@"result"];
 
     [op start];
     STAssertNil(error, @"%@", @"LCSListDiskOperation should not cause any errors");
@@ -53,8 +57,8 @@
 {
     LCSInformationForDiskOperation *op = [[LCSInformationForDiskOperation alloc] init];
     [op setDelegate:self];
-    op.device = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/dev/disk0"];
-    op.result = [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:self keyPath:@"result"];
+    op.device = [LCSSimpleOperationInputParameter parameterWithValue:@"/dev/disk0"];
+    op.result = [LCSKeyValueOperationOutputParameter parameterWithTarget:self keyPath:@"result"];
 
     [op start];
     STAssertNil(error, @"%@", @"LCSInformationForDiskOperation should not cause any errors for the startup disk");
@@ -76,9 +80,9 @@
                             @"NONE", @"-fs", @"HFS+", @"-attach", nil];
     LCSPlistTaskOperation *createop = [[LCSPlistTaskOperation alloc] init];
     createop.delegate = self;
-    createop.launchPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/usr/bin/hdiutil"];
-    createop.arguments = [[LCSSimpleOperationInputParameter alloc] initWithValue:createargs];
-    createop.result = [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:self keyPath:@"result"];
+    createop.launchPath = [LCSSimpleOperationInputParameter parameterWithValue:@"/usr/bin/hdiutil"];
+    createop.arguments = [LCSSimpleOperationInputParameter parameterWithValue:createargs];
+    createop.result = [LCSKeyValueOperationOutputParameter parameterWithTarget:self keyPath:@"result"];
     [createop start];
 
     STAssertNotNil(result, @"%@", @"return value of hdiutil must not be nil");
@@ -92,7 +96,7 @@
     /* test unmount operation */
     LCSUnmountOperation *unmountop = [[LCSUnmountOperation alloc] init];
     unmountop.delegate = self;
-    unmountop.device = [[LCSSimpleOperationInputParameter alloc] initWithValue:dev];
+    unmountop.device = [LCSSimpleOperationInputParameter parameterWithValue:dev];
     [unmountop start];
 
     STAssertNil(error, @"%@", @"No error expected at this time");
@@ -100,7 +104,7 @@
     /* test mount operation */
     LCSMountOperation *mountop = [[LCSMountOperation alloc] init];
     mountop.delegate = self;
-    mountop.device = [[LCSSimpleOperationInputParameter alloc] initWithValue:dev];
+    mountop.device = [LCSSimpleOperationInputParameter parameterWithValue:dev];
     [mountop start];
 
     STAssertNil(error, @"%@", @"No error expected at this time");
@@ -111,6 +115,7 @@
     [ejecttask waitUntilExit];
 
     /* release objects */
+    [dev release];
     [createop release];
     [unmountop release];
     [mountop release];

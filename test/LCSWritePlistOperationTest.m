@@ -28,6 +28,10 @@
 
 -(void)operation:(LCSOperation*)operation handleError:(NSError*)inError
 {
+    if (error == inError) {
+        return;
+    }
+    [error release];
     error = [inError retain];
 }
 
@@ -39,8 +43,8 @@
 
     LCSWritePlistOperation *op = [[LCSWritePlistOperation alloc] init];
     op.delegate = self;
-    op.plistPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:plistPath];
-    op.plist = [[LCSSimpleOperationInputParameter alloc] initWithValue:plist];
+    op.plistPath = [LCSKeyValueOperationInOutParameter parameterWithTarget:self keyPath:@"plistPath"];
+    op.plist = [LCSSimpleOperationInputParameter parameterWithValue:plist];
     [op start];
 
     STAssertNil(error, @"%@", @"No error expected at this time");
@@ -59,8 +63,8 @@
 
     LCSWritePlistOperation *op = [[LCSWritePlistOperation alloc] init];
     op.delegate = self;
-    op.plistPath = [[LCSKeyValueOperationInOutParameter alloc] initWithTarget:self keyPath:@"plistPath"];
-    op.plist = [[LCSSimpleOperationInputParameter alloc] initWithValue:plist];
+    op.plistPath = [LCSKeyValueOperationInOutParameter parameterWithTarget:self keyPath:@"plistPath"];
+    op.plist = [LCSSimpleOperationInputParameter parameterWithValue:plist];
     [op start];
 
     STAssertNil(error, @"%@", @"No error expected at this time");

@@ -24,29 +24,27 @@
     
     sourceInfoOperation = [[LCSInformationForDiskOperation alloc] init];
     /* targetInfoOperation.device */
-    sourceInfoOperation.result =
-        [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:self keyPath:@"sourceInfo"];
+    sourceInfoOperation.result = [LCSKeyValueOperationOutputParameter parameterWithTarget:self keyPath:@"sourceInfo"];
     [queue addOperation:sourceInfoOperation];
     
     targetInfoOperation = [[LCSInformationForDiskOperation alloc] init];
     /* targetInfoOperation.device */
-    targetInfoOperation.result =
-        [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:self keyPath:@"targetInfo"];
+    targetInfoOperation.result = [LCSKeyValueOperationOutputParameter parameterWithTarget:self keyPath:@"targetInfo"];
     [queue addOperation:targetInfoOperation];
     
     bootdiskInfoOperation = [[LCSInformationForDiskOperation alloc] init];
-    bootdiskInfoOperation.device = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/"];
+    bootdiskInfoOperation.device = [LCSSimpleOperationInputParameter parameterWithValue:@"/"];
     bootdiskInfoOperation.result =
-        [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:self keyPath:@"bootdiskInfo"];
+        [LCSKeyValueOperationOutputParameter parameterWithTarget:self keyPath:@"bootdiskInfo"];
     [queue addOperation:bootdiskInfoOperation];
     
     validateDiskInfoOperation = [[LCSBlockCopyValidateDiskInfoOperation alloc] init];
     validateDiskInfoOperation.sourceInfo =
-        [[LCSKeyValueOperationInputParameter alloc] initWithTarget:self keyPath:@"sourceInfo"];
+        [LCSKeyValueOperationInputParameter parameterWithTarget:self keyPath:@"sourceInfo"];
     validateDiskInfoOperation.targetInfo =
-        [[LCSKeyValueOperationInputParameter alloc] initWithTarget:self keyPath:@"targetInfo"];
+        [LCSKeyValueOperationInputParameter parameterWithTarget:self keyPath:@"targetInfo"];
     validateDiskInfoOperation.bootdiskInfo =
-        [[LCSKeyValueOperationInputParameter alloc] initWithTarget:self keyPath:@"bootdiskInfo"];
+        [LCSKeyValueOperationInputParameter parameterWithTarget:self keyPath:@"bootdiskInfo"];
     [validateDiskInfoOperation addDependency:sourceInfoOperation];
     [validateDiskInfoOperation addDependency:targetInfoOperation];
     [validateDiskInfoOperation addDependency:bootdiskInfoOperation];
@@ -55,29 +53,30 @@
     plistGenOperation = [[LCSGenerateRotavaultCopyLaunchdPlistOperation alloc] init];
     /* plistGenOperation.runAtDate */
     plistGenOperation.sourceInfo =
-    [[LCSKeyValueOperationInputParameter alloc] initWithTarget:self keyPath:@"sourceInfo"];
+        [LCSKeyValueOperationInputParameter parameterWithTarget:self keyPath:@"sourceInfo"];
     plistGenOperation.targetInfo = 
-    [[LCSKeyValueOperationInputParameter alloc] initWithTarget:self keyPath:@"targetInfo"];
+        [LCSKeyValueOperationInputParameter parameterWithTarget:self keyPath:@"targetInfo"];
     plistGenOperation.result =
-    [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:self keyPath:@"launchdPlist"];
+        [LCSKeyValueOperationOutputParameter parameterWithTarget:self keyPath:@"launchdPlist"];
     [plistGenOperation addDependency:validateDiskInfoOperation];
     [queue addOperation:plistGenOperation];
     
     plistInstallOperation = 
     [[LCSWritePlistOperation alloc] init];
-    plistInstallOperation.plistPath = [[LCSKeyValueOperationInOutParameter alloc] initWithTarget:self keyPath:@"plistPath"];
+    plistInstallOperation.plistPath =
+        [LCSKeyValueOperationInOutParameter parameterWithTarget:self keyPath:@"plistPath"];
     plistInstallOperation.plist =
-    [[LCSKeyValueOperationInputParameter alloc] initWithTarget:self keyPath:@"launchdPlist"];
+        [LCSKeyValueOperationInputParameter parameterWithTarget:self keyPath:@"launchdPlist"];
     [plistInstallOperation addDependency:plistGenOperation];
     [queue addOperation:plistInstallOperation];
     
     launchctlRemoveOperation = [[LCSLaunchctlRemoveOperation alloc] init];
-    launchctlRemoveOperation.label = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"ch.znerol.rvcopyd"];
+    launchctlRemoveOperation.label = [LCSSimpleOperationInputParameter parameterWithValue:@"ch.znerol.rvcopyd"];
     [launchctlRemoveOperation addDependency:plistInstallOperation];
     [queue addOperation:launchctlRemoveOperation];
     
     launchctlLoadOperation = [[LCSLaunchctlLoadOperation alloc] init];
-    launchctlLoadOperation.path = [[LCSKeyValueOperationInputParameter alloc] initWithTarget:self keyPath:@"plistPath"];
+    launchctlLoadOperation.path = [LCSKeyValueOperationInputParameter parameterWithTarget:self keyPath:@"plistPath"];
     [launchctlLoadOperation addDependency: launchctlRemoveOperation];
     [queue addOperation:launchctlLoadOperation];
     

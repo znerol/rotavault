@@ -15,5 +15,5 @@
     id <LCSOperationInOutParameter> plistPath; //NSString
 }
 @property(retain) id <LCSOperationInputParameter> plist;
-@property(retain) id <LCSOperationInputParameter> plistPath;
+@property(retain) id <LCSOperationInOutParameter> plistPath;
 @end

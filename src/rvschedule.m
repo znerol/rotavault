@@ -19,9 +19,9 @@ int main (int argc, const char * argv[]) {
     NSError *error;
 
     LCSRotavaultScheduleInstallOperation *op = [[LCSRotavaultScheduleInstallOperation alloc] init];
-    op.runAtDate = [[LCSSimpleOperationInputParameter alloc] initWithValue:rundate];
-    op.sourceDevice = [[LCSSimpleOperationInputParameter alloc] initWithValue:sourcedev];
-    op.targetDevice = [[LCSSimpleOperationInputParameter alloc] initWithValue:targetdev];
+    op.runAtDate = [LCSSimpleOperationInputParameter parameterWithValue:rundate];
+    op.sourceDevice = [LCSSimpleOperationInputParameter parameterWithValue:sourcedev];
+    op.targetDevice = [LCSSimpleOperationInputParameter parameterWithValue:targetdev];
 
     error = [LCSCommandLineOperationRunner runOperation:op];
 

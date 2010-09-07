@@ -10,42 +10,40 @@
 
 
 @implementation LCSOperationRequiredInputParameterMarker
--(id)value
+-(id)inValue
 {
-    NSAssert(YES, [NSString stringWithFormat:@"Attempt to access the value of an unset input parameter."]);
+    NSAssert(0, [NSString stringWithFormat:@"Attempt to access the value of an unset input parameter."]);
     return nil; /* suppress compiler warning */
 }
 @end
 
 @implementation LCSOperationRequiredInOutParameterMarker
--(id)value
+-(id)inOutValue
 {
-    NSAssert(YES, [NSString stringWithFormat:@"Attempt to access the value of an unset inout parameter."]);
+    NSAssert(0, [NSString stringWithFormat:@"Attempt to access the value of an unset inout parameter."]);
     return nil; /* suppress compiler warning */
 }
 
--(void)setValue:(id)newValue
+-(void)setInOutValue:(id)newValue
 {
-    NSAssert(YES, [NSString stringWithFormat:@"Attempt to access the value of an unset inout parameter."]);
+    NSAssert(0, [NSString stringWithFormat:@"Attempt to access the value of an unset inout parameter."]);
 }
 @end
 
 @implementation LCSOperationRequiredOutputParameterMarker
--(id)value
+-(id)outValue
 {
-    NSAssert(YES, @"Tried to assign a value to an output only parameter");
+    NSAssert(0, @"Tried to assign a value to an output only parameter");
     return nil; /* suppress compiler warning */
 }
 
--(void)setValue:(id)newValue
+-(void)setOutValue:(id)newValue
 {
-    NSAssert(YES, [NSString stringWithFormat:@"Attempt to access the value of an unset input parameter."]);
+    NSAssert(0, [NSString stringWithFormat:@"Attempt to access the value of an unset input parameter."]);
 }
 @end
 
 @implementation LCSOperationOptionalInputParameterMarker
-@synthesize value;
-
 -(id)initWithDefaultValue:(id)defaultValue
 {
     self = [super init];
@@ -57,12 +55,15 @@
 {
     [value release];
     [super dealloc];
+}
+
+-(id)inValue
+{
+    return value;
 }
 @end
 
 @implementation LCSOperationOptionalInOutParameterMarker
-@synthesize value;
-
 -(id)initWithDefaultValue:(id)defaultValue
 {
     self = [super init];
@@ -75,16 +76,30 @@
     [value release];
     [super dealloc];
 }
+
+-(id)inOutValue
+{
+    return value;
+}
+
+-(void)setInOutValue:(id)newValue
+{
+    if (value == newValue) {
+        return;
+    }
+    [value release];
+    value = [newValue retain];
+}
 @end
 
 @implementation LCSOperationOptionalOutputParameterMarker
--(id)value
+-(id)outValue
 {
-    NSAssert(YES, @"Tried to assign a value to an output only parameter");
+    NSAssert(0, @"Tried to assign a value to an output only parameter");
     return nil; /* suppress compiler warning */
 }
 
--(void)setValue:(id)newValue
+-(void)setOutValue:(id)newValue
 {
     /* ignored */
 }

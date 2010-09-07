@@ -47,40 +47,40 @@
 
 -(void)execute
 {
-    NSString *sourceDevice = [sourceInfo.value objectForKey:@"DeviceNode"];
-    NSString *sourceUUID = [sourceInfo.value objectForKey:@"VolumeUUID"];
-    NSString *targetDevice = [targetInfo.value objectForKey:@"DeviceNode"];
-    NSString *targetSHA1 = [[LCSPropertyListSHA1Hash sha1HashFromPropertyList:targetInfo.value] stringWithHexBytes];
+    NSString *sourceDevice = [sourceInfo.inValue objectForKey:@"DeviceNode"];
+    NSString *sourceUUID = [sourceInfo.inValue objectForKey:@"VolumeUUID"];
+    NSString *targetDevice = [targetInfo.inValue objectForKey:@"DeviceNode"];
+    NSString *targetSHA1 = [[LCSPropertyListSHA1Hash sha1HashFromPropertyList:targetInfo.inValue] stringWithHexBytes];
 
     // FIXME: handle nil/empty values
     NSArray *args = [NSArray arrayWithObjects:@"/usr/local/bin/rvcopyd", @"-sourcedev", sourceDevice, @"-targetdev",
                      targetDevice, @"-sourcecheck", [NSString stringWithFormat:@"uuid:%@", sourceUUID], @"-targetcheck", 
                      [NSString stringWithFormat:@"sha1:%@", targetSHA1], nil];
 
-    NSDateFormatter *minFormatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter *minFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [minFormatter setDateFormat:@"mm"];
-    NSDateFormatter *hourFormatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter *hourFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [hourFormatter setDateFormat:@"HH"];
-    NSDateFormatter *dayFormatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter *dayFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [dayFormatter setDateFormat:@"dd"];
-    NSDateFormatter *monthFormatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter *monthFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [monthFormatter setDateFormat:@"MM"];
-    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    NSNumberFormatter *numberFormatter = [[[NSNumberFormatter alloc] init] autorelease];
     [numberFormatter setAllowsFloats:NO];
     [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
 
     NSDictionary *date = [NSDictionary dictionaryWithObjectsAndKeys:
-                          [numberFormatter numberFromString:[minFormatter stringFromDate:runAtDate.value]], @"Minute",
-                          [numberFormatter numberFromString:[hourFormatter stringFromDate:runAtDate.value]], @"Hour",
-                          [numberFormatter numberFromString:[dayFormatter stringFromDate:runAtDate.value]], @"Day",
-                          [numberFormatter numberFromString:[monthFormatter stringFromDate:runAtDate.value]], @"Month",
+                          [numberFormatter numberFromString:[minFormatter stringFromDate:runAtDate.inValue]], @"Minute",
+                          [numberFormatter numberFromString:[hourFormatter stringFromDate:runAtDate.inValue]], @"Hour",
+                          [numberFormatter numberFromString:[dayFormatter stringFromDate:runAtDate.inValue]], @"Day",
+                          [numberFormatter numberFromString:[monthFormatter stringFromDate:runAtDate.inValue]], @"Month",
                           nil];
 
-    result.value = [NSDictionary dictionaryWithObjectsAndKeys:
-                    @"ch.znerol.rvcopyd", @"Label",
-                    args, @"ProgramArguments",
-                    [NSNumber numberWithBool:TRUE], @"LaunchOnlyOnce",
-                    date, @"StartCalendarInterval",
-                    nil];
+    result.outValue = [NSDictionary dictionaryWithObjectsAndKeys:
+                       @"ch.znerol.rvcopyd", @"Label",
+                       args, @"ProgramArguments",
+                       [NSNumber numberWithBool:TRUE], @"LaunchOnlyOnce",
+                       date, @"StartCalendarInterval",
+                       nil];
 }
 @end

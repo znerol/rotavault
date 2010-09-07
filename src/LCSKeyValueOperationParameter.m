@@ -9,7 +9,7 @@
 #import "LCSKeyValueOperationParameter.h"
 
 
-@implementation LCSKeyValueOperationInputParameter
+@implementation LCSKeyValueOperationParameterBase
 -(id)initWithTarget:(id)targetObject keyPath:(NSString*)targetKeyPath
 {
     self = [super init];
@@ -25,47 +25,74 @@
     [super dealloc];
 }
 
--(id)value
+-(id)baseValue
 {
     id returnValue;
     NSInvocation *inv = [NSInvocation invocationWithMethodSignature:
                          [target methodSignatureForSelector:@selector(valueForKeyPath:)]];
     [inv setSelector:@selector(valueForKeyPath:)];
     [inv setArgument:&keyPath atIndex:2];
-
+    
     [inv performSelectorOnMainThread:@selector(invokeWithTarget:) withObject:target waitUntilDone:YES];
     [inv getReturnValue:&returnValue];
     return returnValue;
 }
-@end
 
-@implementation LCSKeyValueOperationInOutParameter
--(id)value
-{
-    return [super value];
-}
-
--(void)setValueOnMainThread:(id)newValue
+-(void)baseSetValueOnMainThread:(id)newValue
 {
     /* we don't have to retain the value here because we expect our target to do this for us */
     [target setValue:newValue forKeyPath:keyPath];
 }
 
--(void)setValue:(id)newValue
+-(void)baseSetValue:(id)newValue
 {
-    [self performSelectorOnMainThread:@selector(setValueOnMainThread:) withObject:newValue waitUntilDone:YES];
+    [self performSelectorOnMainThread:@selector(baseSetValueOnMainThread:) withObject:newValue waitUntilDone:YES];
+}
+@end
+
+
+@implementation LCSKeyValueOperationInputParameter
++(LCSKeyValueOperationInputParameter*)parameterWithTarget:(id)targetObject keyPath:(NSString*)targetKeyPath
+{
+    return [[[LCSKeyValueOperationInputParameter alloc] initWithTarget:targetObject keyPath:targetKeyPath] autorelease];
+}
+
+-(id)inValue
+{
+    return [super baseValue];
+}
+@end
+
+@implementation LCSKeyValueOperationInOutParameter
++(LCSKeyValueOperationInOutParameter*)parameterWithTarget:(id)targetObject keyPath:(NSString*)targetKeyPath
+{
+    return [[[LCSKeyValueOperationInOutParameter alloc] initWithTarget:targetObject keyPath:targetKeyPath] autorelease];
+}
+
+-(id)inOutValue
+{
+    return [super baseValue];
+}
+
+-(void)setInOutValue:(id)newValue
+{
+    [super baseSetValue:newValue];
 }
 @end
 
 @implementation LCSKeyValueOperationOutputParameter
--(id)value
++(LCSKeyValueOperationOutputParameter*)parameterWithTarget:(id)targetObject keyPath:(NSString *)targetKeyPath
 {
-    NSAssert(YES, @"Tried to assign a value to an output only parameter");
+    return [[[LCSKeyValueOperationOutputParameter alloc] initWithTarget:targetObject keyPath:targetKeyPath] autorelease];
+}
+-(id)outValue
+{
+    NSAssert(0, @"Tried to read from an output-only parameter");
     return nil; /* suppress complier warning */
 }
 
--(void)setValue:(id)newValue
+-(void)setOutValue:(id)newValue
 {
-    [super setValue:newValue];
+    [super baseSetValue:newValue];
 }
 @end

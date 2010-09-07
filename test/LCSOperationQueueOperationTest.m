@@ -49,7 +49,7 @@
 
 -(void)execute
 {
-    result.value = param.value;
+    result.outValue = param.inValue;
 }
 @end
 
@@ -73,11 +73,11 @@
     }    
     op1 = [[LCSTestOperation1 alloc] init];
     /* op1.param */
-    op1.result = [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:self keyPath:@"transit"];
+    op1.result = [LCSKeyValueOperationOutputParameter parameterWithTarget:self keyPath:@"transit"];
     [queue addOperation:op1];
     
     op2 = [[LCSTestOperation1 alloc] init];
-    op2.param = [[LCSKeyValueOperationInputParameter alloc] initWithTarget:self keyPath:@"transit"];
+    op2.param = [LCSKeyValueOperationInputParameter parameterWithTarget:self keyPath:@"transit"];
     /* op2.result */
     [op2 addDependency:op1];
     [queue addOperation:op2];
@@ -124,12 +124,13 @@
 
     LCSTestQueueOperation1 *qop = [[LCSTestQueueOperation1 alloc] init];
     qop.delegate = self;
-    qop.param = [[[LCSSimpleOperationInputParameter alloc] initWithValue:@"Test"] autorelease];;
-    qop.result = [[[LCSSimpleOperationOutputParameter alloc] initWithReturnValue:&result] autorelease];
+    qop.param = [LCSSimpleOperationInputParameter parameterWithValue:@"Test"];
+    qop.result = [LCSSimpleOperationOutputParameter parameterWithReturnValue:&result];
     [qop start];
     
     STAssertEqualObjects(@"Test", result, @"Queue operation should copy objects from param to result");
     
+    [result release];
     [qop release];
 }
 
@@ -139,13 +140,14 @@
     
     LCSTestQueueOperation1 *qop = [[LCSTestQueueOperation1 alloc] init];
     qop.delegate = self;
-    qop.param = [[[LCSSimpleOperationInputParameter alloc] initWithValue:@"Test"] autorelease];;
-    qop.result = [[[LCSSimpleOperationOutputParameter alloc] initWithReturnValue:&result] autorelease];
+    qop.param = [LCSSimpleOperationInputParameter parameterWithValue:@"Test"];
+    qop.result = [LCSSimpleOperationOutputParameter parameterWithReturnValue:&result];
     [qop cancel];
     [qop start];
     
     STAssertNil(result, @"Nil expected as a result for a run-call to a cancelled queue");
     
+    [result release];
     [qop release];
 }
 

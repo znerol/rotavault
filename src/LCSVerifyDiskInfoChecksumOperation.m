@@ -39,7 +39,7 @@
 
 -(void)execute
 {
-    NSArray* components = [checksum.value componentsSeparatedByString:@":"];
+    NSArray* components = [checksum.inValue componentsSeparatedByString:@":"];
 
     if ([components count] != 2) {
         NSError *err = [NSError errorWithDomain:LCSRotavaultErrorDomain code:LCSUnexpectedInputReceived
@@ -53,10 +53,10 @@
     NSString* expected;
 
     if ([algo isEqualToString:@"sha1"]) {
-        expected = [[LCSPropertyListSHA1Hash sha1HashFromPropertyList:diskinfo.value] stringWithHexBytes];
+        expected = [[LCSPropertyListSHA1Hash sha1HashFromPropertyList:diskinfo.inValue] stringWithHexBytes];
     }
     else if ([algo isEqualToString:@"uuid"]) {
-        expected = [diskinfo.value objectForKey:@"VolumeUUID"];
+        expected = [diskinfo.inValue objectForKey:@"VolumeUUID"];
     }
     else {
         NSError *err = [NSError errorWithDomain:LCSRotavaultErrorDomain code:LCSUnexpectedInputReceived

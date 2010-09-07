@@ -27,6 +27,10 @@
 
 -(void)operation:(LCSOperation*)operation handleError:(NSError*)inError
 {
+    if (error == inError) {
+        return;
+    }
+    [error release];
     error = [inError retain];
 }
 
@@ -44,8 +48,8 @@
 
     NSDictionary* result = nil;
     LCSLaunchctlInfoOperation *op = [[LCSLaunchctlInfoOperation alloc] init];
-    op.label = [[LCSSimpleOperationInputParameter alloc] initWithValue:label];
-    op.result = [[LCSSimpleOperationOutputParameter alloc] initWithReturnValue:&result];
+    op.label = [LCSSimpleOperationInputParameter parameterWithValue:label];
+    op.result = [LCSSimpleOperationOutputParameter parameterWithReturnValue:&result];
     op.delegate = self;
     [op start];
 
@@ -58,6 +62,8 @@
     [removeTestSleepCommand waitUntilExit];
     STAssertEquals([removeTestSleepCommand terminationStatus], 0,
                    @"Failed to remove testjob with label %@ to launchctl", label);
+    [result release];
+    [op release];
     
 }
 
@@ -69,13 +75,16 @@
         
     NSDictionary* result = nil;
     LCSLaunchctlInfoOperation *op = [[LCSLaunchctlInfoOperation alloc] init];
-    op.label = [[LCSSimpleOperationInputParameter alloc] initWithValue:label];
-    op.result = [[LCSSimpleOperationOutputParameter alloc] initWithReturnValue:&result];
+    op.label = [LCSSimpleOperationInputParameter parameterWithValue:label];
+    op.result = [LCSSimpleOperationOutputParameter parameterWithReturnValue:&result];
     op.delegate = self;
     [op start];
-    
+
     STAssertNil(result, @"%@", @"Result may not be nil after the launchctl info operation");
-    STAssertNotNil(error, @"%@", @"Operation must report an error launchctl job was not found");    
+    STAssertNotNil(error, @"%@", @"Operation must report an error launchctl job was not found");
+
+    [result release];
+    [op release];
 }
 
 -(void)testLaunchctlListOperation
@@ -92,7 +101,7 @@
     
     NSArray* result = nil;
     LCSLaunchctlListOperation *op = [[LCSLaunchctlListOperation alloc] init];
-    op.result = [[LCSSimpleOperationOutputParameter alloc] initWithReturnValue:&result];
+    op.result = [LCSSimpleOperationOutputParameter parameterWithReturnValue:&result];
     op.delegate = self;
     [op start];
 
@@ -108,7 +117,9 @@
     [removeTestSleepCommand waitUntilExit];
     STAssertEquals([removeTestSleepCommand terminationStatus], 0,
                    @"Failed to remove testjob with label %@ to launchctl", label);
-    
+
+    [result release];
+    [op release];
 }
 
 -(void)testLaunchctlLoadUnloadOperation
@@ -131,7 +142,7 @@
     /* test load operation */
     LCSLaunchctlLoadOperation *loadop = [[LCSLaunchctlLoadOperation alloc] init];
     loadop.delegate = self;
-    loadop.path = [[LCSSimpleOperationInputParameter alloc] initWithValue:path];
+    loadop.path = [LCSSimpleOperationInputParameter parameterWithValue:path];
     [loadop start];
 
     STAssertNil(error, @"%@", @"No error expected here");
@@ -143,13 +154,16 @@
     /* test unload operation */
     LCSLaunchctlUnloadOperation *unloadop = [[LCSLaunchctlUnloadOperation alloc] init];
     unloadop.delegate = self;
-    unloadop.path = [[LCSSimpleOperationInputParameter alloc] initWithValue:path];
+    unloadop.path = [LCSSimpleOperationInputParameter parameterWithValue:path];
     [unloadop start];
 
     STAssertNil(error, @"%@", @"No error expected here");
-    
+
     [testdir remove];
     [testdir release];
+
+    [loadop release];
+    [unloadop release];
 }
 
 -(void)testLaunchctlLoadUnloadOperationPathNotExisting
@@ -161,7 +175,7 @@
     /* test load operation */
     LCSLaunchctlLoadOperation *loadop = [[LCSLaunchctlLoadOperation alloc] init];
     loadop.delegate = self;
-    loadop.path = [[LCSSimpleOperationInputParameter alloc] initWithValue:path];
+    loadop.path = [LCSSimpleOperationInputParameter parameterWithValue:path];
     [loadop start];
 
     STAssertNotNil(error, @"%@", @"Error should be set if load of not existing plist file is attempted");
@@ -172,13 +186,16 @@
     /* test unload operation */
     LCSLaunchctlUnloadOperation *unloadop = [[LCSLaunchctlUnloadOperation alloc] init];
     unloadop.delegate = self;
-    unloadop.path = [[LCSSimpleOperationInputParameter alloc] initWithValue:path];
+    unloadop.path = [LCSSimpleOperationInputParameter parameterWithValue:path];
     [unloadop start];
     
     STAssertNotNil(error, @"%@", @"Error should be set if load of not existing plist file is attempted");
     
     [testdir remove];
     [testdir release];
+    
+    [loadop release];
+    [unloadop release];
 }
 
 -(void)testLaunchctlRemoveOperation
@@ -195,7 +212,7 @@
 
     LCSLaunchctlRemoveOperation *op = [[LCSLaunchctlRemoveOperation alloc] init];
     op.delegate = self;
-    op.label = [[LCSSimpleOperationInputParameter alloc] initWithValue:label];
+    op.label = [LCSSimpleOperationInputParameter parameterWithValue:label];
     [op start];
 
     STAssertNil(error, @"%@", @"No error expected here");
@@ -203,6 +220,8 @@
     NSTask *infoTask = [NSTask launchedTaskWithLaunchPath:@"/bin/launchctl" arguments:infoArray];
     [infoTask waitUntilExit];
     STAssertEquals([infoTask terminationStatus], 1, @"launchctl info for removed job %@ must return non-zero status", label);
+
+    [op release];
 }
 
 -(void)testLaunchctlRemoveOperationJobNotExisting
@@ -213,9 +232,11 @@
     
     LCSLaunchctlRemoveOperation *op = [[LCSLaunchctlRemoveOperation alloc] init];
     op.delegate = self;
-    op.label = [[LCSSimpleOperationInputParameter alloc] initWithValue:label];
+    op.label = [LCSSimpleOperationInputParameter parameterWithValue:label];
     [op start];
     
-    STAssertNotNil(error, @"%@", @"Operation must report an error launchctl job was not found");    
+    STAssertNotNil(error, @"%@", @"Operation must report an error launchctl job was not found");
+
+    [op release];
 }
 @end

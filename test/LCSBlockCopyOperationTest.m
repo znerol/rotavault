@@ -44,6 +44,10 @@
 
 -(void)operation:(LCSOperation*)operation handleError:(NSError*)inError
 {
+    if (error == inError) {
+        return;
+    }
+    [error release];
     error = [inError retain];
 }
 
@@ -66,9 +70,9 @@
     NSArray *screateargs = [NSArray arrayWithObjects:@"create", @"-sectors", @"2000", spath, @"-plist", @"-layout",
                            @"NONE", @"-fs", @"HFS+", @"-attach", nil];
     LCSPlistTaskOperation *screateop = [[LCSPlistTaskOperation alloc] init];
-    screateop.launchPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/usr/bin/hdiutil"];
-    screateop.arguments = [[LCSSimpleOperationInputParameter alloc] initWithValue:screateargs];
-    screateop.result = [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:self keyPath:@"result"];
+    screateop.launchPath = [LCSSimpleOperationInputParameter parameterWithValue:@"/usr/bin/hdiutil"];
+    screateop.arguments = [LCSSimpleOperationInputParameter parameterWithValue:screateargs];
+    screateop.result = [LCSKeyValueOperationOutputParameter parameterWithTarget:self keyPath:@"result"];
 
     [screateop setDelegate:self];
     [screateop start];
@@ -91,9 +95,9 @@
     NSArray *tcreateargs = [NSArray arrayWithObjects:@"create", @"-sectors", @"2000", tpath, @"-plist", @"-layout",
                             @"NONE", nil];
     LCSPlistTaskOperation *tcreateop = [[LCSPlistTaskOperation alloc] init];
-    tcreateop.launchPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/usr/bin/hdiutil"];
-    tcreateop.arguments = [[LCSSimpleOperationInputParameter alloc] initWithValue:tcreateargs];
-    tcreateop.result = [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:self keyPath:@"result"];
+    tcreateop.launchPath = [LCSSimpleOperationInputParameter parameterWithValue:@"/usr/bin/hdiutil"];
+    tcreateop.arguments = [LCSSimpleOperationInputParameter parameterWithValue:tcreateargs];
+    tcreateop.result = [LCSKeyValueOperationOutputParameter parameterWithTarget:self keyPath:@"result"];
 
     [tcreateop setDelegate:self];
     [tcreateop start];
@@ -104,9 +108,9 @@
     /* attach target */
     NSArray *atargs = [NSArray arrayWithObjects:@"attach", tpath, @"-plist", @"-nomount", nil];
     LCSPlistTaskOperation *atop = [[LCSPlistTaskOperation alloc] init];
-    atop.launchPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/usr/bin/hdiutil"];
-    atop.arguments = [[LCSSimpleOperationInputParameter alloc] initWithValue:atargs];
-    atop.result = [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:self keyPath:@"result"];
+    atop.launchPath = [LCSSimpleOperationInputParameter parameterWithValue:@"/usr/bin/hdiutil"];
+    atop.arguments = [LCSSimpleOperationInputParameter parameterWithValue:atargs];
+    atop.result = [LCSKeyValueOperationOutputParameter parameterWithTarget:self keyPath:@"result"];
 
     [atop setDelegate:self];
     [atop start];
@@ -118,8 +122,8 @@
     
     /* perform block copy operation */
     LCSBlockCopyOperation* op = [[LCSBlockCopyOperation alloc] init];
-    op.source = [[LCSSimpleOperationInputParameter alloc] initWithValue:srcdev];
-    op.target = [[LCSSimpleOperationInputParameter alloc] initWithValue:dstdev];
+    op.source = [LCSSimpleOperationInputParameter parameterWithValue:srcdev];
+    op.target = [LCSSimpleOperationInputParameter parameterWithValue:dstdev];
 
     [op setDelegate:self];
     [op start];
@@ -141,9 +145,9 @@
     LCSPlistTaskOperation *infop = [[LCSPlistTaskOperation alloc] init];
     [infop setDelegate:self];
     
-    infop.launchPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"/usr/sbin/diskutil"];
-    infop.arguments = [[LCSSimpleOperationInputParameter alloc] initWithValue:infargs];
-    infop.result = [[LCSKeyValueOperationOutputParameter alloc] initWithTarget:self keyPath:@"result"];
+    infop.launchPath = [LCSSimpleOperationInputParameter parameterWithValue:@"/usr/sbin/diskutil"];
+    infop.arguments = [LCSSimpleOperationInputParameter parameterWithValue:infargs];
+    infop.result = [LCSKeyValueOperationOutputParameter parameterWithTarget:self keyPath:@"result"];
 
     [infop start];
 

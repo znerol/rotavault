@@ -14,12 +14,14 @@
 {
     id value;
 }
--(id)initWithValue:(id)inValue;
++(LCSSimpleOperationInputParameter*)parameterWithValue:(id)newValue;
+-(id)initWithValue:(id)newValue;
 @end
 
 @interface LCSSimpleOperationOutputParameter : NSObject <LCSOperationOutputParameter>
 {
     id* value;
 }
--(id)initWithReturnValue:(id*)outValue;
++(LCSSimpleOperationOutputParameter*)parameterWithReturnValue:(id*)returnPointer;
+-(id)initWithReturnValue:(id*)returnPointer;
 @end

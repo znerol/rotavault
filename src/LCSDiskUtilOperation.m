@@ -14,7 +14,7 @@
 @implementation LCSListDisksOperation
 -(void)taskSetup
 {
-    self.extractKeyPath = [[LCSSimpleOperationInputParameter alloc] initWithValue:@"AllDisks"];
+    self.extractKeyPath = [LCSSimpleOperationInputParameter parameterWithValue:@"AllDisks"];
     [task setLaunchPath:@"/usr/sbin/diskutil"];
     [task setArguments:[NSArray arrayWithObjects:@"list", @"-plist", nil]];
     [super taskSetup];
@@ -39,7 +39,7 @@
 -(void)taskSetup
 {
     [task setLaunchPath:@"/usr/sbin/diskutil"];
-    [task setArguments:[NSArray arrayWithObjects:@"info", @"-plist", device.value, nil]];
+    [task setArguments:[NSArray arrayWithObjects:@"info", @"-plist", device.inValue, nil]];
     [super taskSetup];
 }
 @end
@@ -62,7 +62,7 @@
 -(void)taskSetup
 {
     [task setLaunchPath:@"/usr/sbin/diskutil"];
-    [task setArguments:[NSArray arrayWithObjects:@"mount",  device.value, nil]];
+    [task setArguments:[NSArray arrayWithObjects:@"mount",  device.inValue, nil]];
     [super taskSetup];
 }
 @end
@@ -85,7 +85,7 @@
 -(void)taskSetup
 {
     [task setLaunchPath:@"/usr/sbin/diskutil"];
-    [task setArguments:[NSArray arrayWithObjects:@"unmount",  device.value, nil]];
+    [task setArguments:[NSArray arrayWithObjects:@"unmount",  device.inValue, nil]];
     [super taskSetup];
 }
 @end

@@ -18,6 +18,6 @@
     id <LCSOperationInputParameter> sectors;    //NSNumber
 }
 @property(retain) id <LCSOperationInputParameter> path;
-@property(assign) id <LCSOperationInputParameter> sectors;
+@property(retain) id <LCSOperationInputParameter> sectors;
 @end
 
