@@ -8,6 +8,7 @@
 
 #import "LCSCommandLineOperationRunner.h"
 #import "LCSInitMacros.h"
+#import "LCSSignalHandler.h"
 
 
 @implementation LCSCommandLineOperationRunner
@@ -21,11 +22,24 @@
     LCSINIT_RELEASE_AND_RETURN_IF_NIL(_operation);
     _operation.delegate = self;
 
+    /* setup signal handler and signal pipe */
+    LCSSignalHandler *sh = [LCSSignalHandler defaultSignalHandler];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(sh);
+    [sh setDelegate:self];
+    [sh addSignal:SIGHUP];
+    [sh addSignal:SIGINT];
+    [sh addSignal:SIGPIPE];
+    [sh addSignal:SIGALRM];
+    [sh addSignal:SIGTERM];
+    
     return self;
 }
 
 -(void)dealloc
 {
+    LCSSignalHandler *sh = [LCSSignalHandler defaultSignalHandler];
+    [sh setDelegate:nil];
+
     [_firstError release];
     [_operation release];
     [super dealloc];
@@ -52,6 +66,12 @@
 
     NSLog(@"ERROR: %@", [error localizedDescription]);
     [op cancel];
+}
+
+-(void)handleSignal:(NSNumber*)signal
+{
+    NSLog(@"SIGNAL: terminating on signal %d", [signal longValue]);
+    [_operation cancel];
 }
 
 -(void)operation:(LCSOperation*)op updateProgress:(NSNumber*)progress

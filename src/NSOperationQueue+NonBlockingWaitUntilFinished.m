@@ -12,7 +12,7 @@
 @implementation NSOperationQueue (NonBlockingWaitUntilFinished)
 -(void)waitUntilAllOperationsAreFinishedPollingRunLoopInMode:(NSString*)runloopMode
 {
-    NSPredicate *isFinished = [NSPredicate predicateWithFormat:@"isFinished = NO"];
+    NSPredicate *isFinished = [NSPredicate predicateWithFormat:@"isFinished = NO AND isCancelled = NO"];
     while ([[[self operations] filteredArrayUsingPredicate:isFinished] count] > 0) {
         /* FXME: runloop needs signal */
         [[NSRunLoop currentRunLoop] runMode:runloopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];

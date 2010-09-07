@@ -10,7 +10,6 @@
 #import "LCSInitMacros.h"
 #import "NSOperationQueue+NonBlockingWaitUntilFinished.h"
 
-
 @implementation LCSOperationQueueOperation
 -(id)init
 {
@@ -40,8 +39,8 @@
 -(void)cancel
 {
     [queue setSuspended:YES];
-    [queue cancelAllOperations];
     [super cancel];
+    [queue cancelAllOperations];
 }
 
 -(void)execute
