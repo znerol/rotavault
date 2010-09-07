@@ -14,30 +14,15 @@
 {
     self = [super init];
     delegate = nil;
-    name = [[NSNull null] retain];
     return self;
 }
 
 -(void)dealloc
 {
-    [name release];
     [super dealloc];
 }
 
-@synthesize name;
 @synthesize delegate;
-
-/* main thread */
--(void)updateBoundInParameter:(NSString*)parameter atObject:(id)obj withKeyPath:(NSString*)keyPath
-{
-        [self setValue:[obj valueForKeyPath:keyPath] forKey:parameter];
-}
-
-/* main thread */
--(void)updateBoundOutParameter:(NSString*)parameter atObject:(id)obj withKeyPath:(NSString*)keyPath
-{
-    [obj setValue:[self valueForKey:parameter] forKeyPath:keyPath];
-}
 
 /* override */
 -(void)updateProgress:(float)progress

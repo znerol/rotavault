@@ -16,11 +16,9 @@ typedef enum {
 } LCSParameterDirection;
 
 @interface LCSOperation : NSOperation {
-    NSString        *name;
     id              delegate;
 }
 
-@property(retain) NSString *name;
 @property(assign) id delegate;
 
 -(void)handleError:(NSError*)error;
