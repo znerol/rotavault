@@ -52,7 +52,8 @@
     NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     [queue addOperation:op];
     [queue waitUntilAllOperationsAreFinishedPollingRunLoopInMode:NSDefaultRunLoopMode];
-    
+
+    [queue release];
     [op release];
     
     [mock verify];
