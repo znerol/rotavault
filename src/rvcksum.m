@@ -13,7 +13,7 @@ int main (int argc, const char * argv[]) {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 
     /* process command line arguments */
-    NSUserDefaults *args = [[NSUserDefaults alloc] init];
+    NSUserDefaults *args = [[[NSUserDefaults alloc] init] autorelease];
     [args addSuiteNamed:NSArgumentDomain];
 
     NSString* device;
@@ -30,7 +30,7 @@ int main (int argc, const char * argv[]) {
     }
 
     NSDictionary* result = nil;
-    LCSInformationForDiskOperation *infoop = [[LCSInformationForDiskOperation alloc] init];
+    LCSInformationForDiskOperation *infoop = [[[LCSInformationForDiskOperation alloc] init] autorelease];
     infoop.device = [LCSSimpleOperationInputParameter parameterWithValue:device];
     infoop.result = [LCSSimpleOperationOutputParameter parameterWithReturnValue:&result];
     [infoop start];

@@ -8,7 +8,7 @@ int main (int argc, const char * argv[]) {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 
     /* process command line arguments */
-    NSUserDefaults *args = [[NSUserDefaults alloc] init];
+    NSUserDefaults *args = [[[NSUserDefaults alloc] init] autorelease];
     [args addSuiteNamed:NSArgumentDomain];
 
     /* alloc and run operation queue */

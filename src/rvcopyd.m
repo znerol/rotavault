@@ -8,7 +8,7 @@ int main (int argc, const char * argv[]) {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 
     /* process command line arguments */
-    NSUserDefaults *args = [[NSUserDefaults alloc] init];
+    NSUserDefaults *args = [[[NSUserDefaults alloc] init] autorelease];
     [args addSuiteNamed:NSArgumentDomain];
 
     BOOL debug = [args boolForKey:@"debug"];
@@ -26,7 +26,7 @@ int main (int argc, const char * argv[]) {
     // NSString *pidfile = [args stringForKey:@"pidfile"];
 
     /* alloc and run operation queue */
-    LCSRotavaultCopyOperation *op = [[LCSRotavaultCopyOperation alloc] init];
+    LCSRotavaultCopyOperation *op = [[[LCSRotavaultCopyOperation alloc] init] autorelease];
     op.sourceDevice = [[LCSSimpleOperationInputParameter alloc] initWithValue:[args stringForKey:@"sourcedev"]];
     op.targetDevice = [[LCSSimpleOperationInputParameter alloc] initWithValue:[args stringForKey:@"targetdev"]];
     op.sourceChecksum = [[LCSSimpleOperationInputParameter alloc] initWithValue:[args stringForKey:@"sourcecheck"]];
