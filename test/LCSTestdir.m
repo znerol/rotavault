@@ -16,25 +16,17 @@
 {
     LCSINIT_SUPER_OR_RETURN_NIL();
 
-    NSTask  *mktemp = [[NSTask alloc] init];
-    LCSINIT_RELEASE_AND_RETURN_IF_NIL(mktemp);
-    [mktemp setLaunchPath:@"/usr/bin/mktemp"];
-    [mktemp setArguments:[NSArray arrayWithObjects:@"-d", @"/tmp/testdir_XXXXXXXX", nil]];
-
-    NSPipe  *pipe = [[NSPipe alloc] init];
-    LCSINIT_RELEASE_AND_RETURN_IF_NIL(pipe);
-    [mktemp setStandardOutput:pipe];
-    [mktemp launch];
-    [mktemp waitUntilExit];
-
-    NSData  *output = [[pipe fileHandleForReading] availableData];
-    LCSINIT_RELEASE_AND_RETURN_IF_NIL(output);
-    tmpdir = [[[NSString alloc] initWithData:output encoding:NSUTF8StringEncoding] autorelease];
-    tmpdir = [[tmpdir stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] retain];
-
-    [pipe release];
-    [mktemp release];
-
+    static const char template[] = "/tmp/testdir_XXXXXXXX";
+    char *pathBuffer = malloc(sizeof(template));
+    memcpy(pathBuffer, template, sizeof(template));
+    pathBuffer[sizeof(template)-1]=0;
+    
+    if (mkdtemp(pathBuffer)) {
+        tmpdir = [[NSString alloc] initWithCString:pathBuffer encoding:NSASCIIStringEncoding];
+    }
+    free(pathBuffer);
+    
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(tmpdir);
     return self;
 }
 
