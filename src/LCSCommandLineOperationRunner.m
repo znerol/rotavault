@@ -45,6 +45,12 @@
     [super dealloc];
 }
 
+-(void)operation:(LCSOperation*)op handleException:(NSException*)exception
+{
+    NSLog(@"UNHANDLED EXCEPTION: %@:%@", [op description], [exception description]);
+    [_operation cancel];
+}
+
 -(void)operation:(LCSOperation*)op handleError:(NSError*)error
 {
     if (!_firstError) {

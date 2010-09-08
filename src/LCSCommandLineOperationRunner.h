@@ -10,7 +10,7 @@
 #import "LCSOperation.h"
 
 
-@interface LCSCommandLineOperationRunner : NSObject {
+@interface LCSCommandLineOperationRunner : NSObject <LCSOperationDelegate> {
     LCSOperation*   _operation;
     NSError*        _firstError;
 }

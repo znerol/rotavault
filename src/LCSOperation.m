@@ -40,6 +40,13 @@
              withArguments:[NSArray arrayWithObjects:self, error, nil]];
 }
 
+/* override */
+-(void)handleException:(NSException*)exception
+{
+    [self delegateSelector:@selector(operation:handleException:)
+             withArguments:[NSArray arrayWithObjects:self, exception, nil]];
+}
+
 /* perform a selector on the delegate in main thread */
 -(void)delegateSelector:(SEL)selector withArguments:(NSArray*)arguments
 {
@@ -66,7 +73,14 @@
         [inv performSelectorOnMainThread:@selector(invokeWithTarget:) withObject:delegate waitUntilDone:YES];
     }
     @catch (NSException * e) {
-        NSLog(@"Failed to perform delegate method: %@", [e description]);
+        NSLog(@"Operation %@ failed to perform selector %@ on delegate %@: %@", [self description],
+              NSStringFromSelector(selector), [delegate description], [e description]);
+        if (selector == @selector(operation:handleException:)) {
+            [self cancel];
+        }
+        else {
+            [self handleException:e];
+        }
     }
 }
 
@@ -77,17 +91,18 @@
 
 -(void)main
 {
-    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+    @try {
+        NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 
-    /* check for cancelation */
-    if ([self isCancelled]) {
-        return;
+        if (![self isCancelled]) {
+            [self execute];
+        }
+
+        [pool drain];
     }
-
-    /* perform operation */
-    [self execute];
-
-    [pool drain];
+    @catch (NSException *e) {
+        [self handleException:e];
+    }
 }
 
 -(void)cancel

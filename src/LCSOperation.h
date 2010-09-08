@@ -22,6 +22,7 @@ typedef enum {
 @property(assign) id delegate;
 
 -(void)handleError:(NSError*)error;
+-(void)handleException:(NSException*)exception;
 @end
 
 /* private methods overridden by subclasses */
@@ -38,5 +39,6 @@ typedef enum {
 /* methods optionally implemented by the delegate */
 @protocol LCSOperationDelegate
 -(void)operation:(LCSOperation*)operation handleError:(NSError*)error;
+-(void)operation:(LCSOperation*)operation handleException:(NSException*)exception;
 -(void)operation:(LCSOperation*)operation updateProgress:(NSNumber*)progress;
 @end
