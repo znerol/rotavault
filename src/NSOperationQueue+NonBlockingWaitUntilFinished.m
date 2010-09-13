@@ -7,14 +7,30 @@
 //
 
 #import "NSOperationQueue+NonBlockingWaitUntilFinished.h"
+#import "LCSInitMacros.h"
 
-@interface LCSNonBlockingWaitUntilFinishedDummyKVO : NSObject
+@interface LCSNonBlockingWaitUntilFinishedDummyKVO : NSObject {
+    NSThread *target;
+}
 @end
 
 @implementation LCSNonBlockingWaitUntilFinishedDummyKVO
+-(id)init
+{
+    LCSINIT_SUPER_OR_RETURN_NIL();
+    target = [NSThread currentThread];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(target);
+    return self;
+}
+
+-(void)wakeRunloop
+{
+    /* do nothing */
+}
+
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    /* noop */
+    [self performSelector:@selector(wakeRunloop) onThread:target withObject:nil waitUntilDone:YES];
 }
 @end
 
@@ -27,8 +43,11 @@
         @"(isReady = NO AND isExecuting = NO AND (isFinished = YES OR isCancelled = YES)) OR "
         @"(isReady = YES AND isExecuting = NO AND isFinished = NO AND isCancelled = YES))";
     
-    
     LCSNonBlockingWaitUntilFinishedDummyKVO *dummy = [[LCSNonBlockingWaitUntilFinishedDummyKVO alloc] init];
+    
+    /* FIXME: we definitely have a race condition around here */
+    usleep(100000);
+
     NSPredicate *executingOperations = [NSPredicate predicateWithFormat:filter];
     NSMutableSet *hasObservers = [NSMutableSet set];
     
