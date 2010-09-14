@@ -103,6 +103,8 @@
 
 -(void)execute
 {
+    operationThread = [NSThread currentThread];
+    
     [self taskSetup];
     
     /* install standard error pipe */
@@ -159,11 +161,16 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
--(void)cancel
+-(void)stopTask
 {
     if ([task isRunning]) {
         [task interrupt];
     }
+}
+
+-(void)cancel
+{
+    [self performSelector:@selector(stopTask) onThread:operationThread withObject:nil waitUntilDone:YES];
     [super cancel];
 }
 

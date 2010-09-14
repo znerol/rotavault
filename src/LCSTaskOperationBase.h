@@ -16,6 +16,7 @@
     NSPipe  *outPipe;
     BOOL    errEOF;
     BOOL    outEOF;
+    NSThread *operationThread;
 }
 
 -(void)updateStandardOutput:(NSData*)data;
