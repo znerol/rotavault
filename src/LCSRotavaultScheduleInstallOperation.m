@@ -10,22 +10,29 @@
 #import "LCSInitMacros.h"
 #import "LCSSimpleOperationParameter.h"
 #import "LCSKeyValueOperationParameter.h"
+#import "LCSForwardOperationParameter.h"
+#import "LCSOperationParameterMarker.h"
 
 @implementation LCSRotavaultScheduleInstallOperation
 -(id)init
 {
     LCSINIT_SUPER_OR_RETURN_NIL();
     
+    sourceDevice = [[LCSOperationRequiredInputParameterMarker alloc] init];
+    targetDevice = [[LCSOperationRequiredInputParameterMarker alloc] init];
+    runAtDate = [[LCSOperationRequiredInputParameterMarker alloc] init];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(sourceDevice && targetDevice && runAtDate);
+    
     sourceInfoOperation = [[LCSInformationForDiskOperation alloc] init];
     LCSINIT_RELEASE_AND_RETURN_IF_NIL(sourceInfoOperation);
-    /* initialization of targetInfoOperation.device left out on purpose*/
+    sourceInfoOperation.device = [LCSForwardOperationInputParameter parameterWithParameterPointer:&sourceDevice];
     sourceInfoOperation.result = [LCSKeyValueOperationOutputParameter parameterWithTarget:self keyPath:@"sourceInfo"];
-    LCSINIT_RELEASE_AND_RETURN_IF_NIL(sourceInfoOperation.result);
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(sourceInfoOperation.device && sourceInfoOperation.result);
     [queue addOperation:sourceInfoOperation];
     
     targetInfoOperation = [[LCSInformationForDiskOperation alloc] init];
     LCSINIT_RELEASE_AND_RETURN_IF_NIL(targetInfoOperation);
-    /* initialization of targetInfoOperation.device left out on purpose */
+    targetInfoOperation.device = [LCSForwardOperationInputParameter parameterWithParameterPointer:&targetDevice];
     targetInfoOperation.result = [LCSKeyValueOperationOutputParameter parameterWithTarget:self keyPath:@"targetInfo"];
     LCSINIT_RELEASE_AND_RETURN_IF_NIL(targetInfoOperation.result);
     [queue addOperation:targetInfoOperation];
@@ -57,7 +64,7 @@
     
     plistGenOperation = [[LCSGenerateRotavaultCopyLaunchdPlistOperation alloc] init];
     LCSINIT_RELEASE_AND_RETURN_IF_NIL(plistGenOperation);
-    /* initialization of plistGenOperation.runAtDate left out on purpose*/
+    plistGenOperation.runAtDate = [LCSForwardOperationInputParameter parameterWithParameterPointer:&runAtDate];
     plistGenOperation.sourceInfo =
         [LCSKeyValueOperationInputParameter parameterWithTarget:self keyPath:@"sourceInfo"];
     plistGenOperation.targetInfo = 
@@ -125,33 +132,7 @@
     [launchctlRemoveOperation setDelegate:nil];
 }
 
--(void)setSourceDevice:(id <LCSOperationInputParameter>)sourceDeviceParam
-{
-    [sourceInfoOperation setDevice:sourceDeviceParam];
-}
-
--(id <LCSOperationInputParameter>)sourceDevice
-{
-    return [sourceInfoOperation device];
-}
-
--(void)setTargetDevice:(id <LCSOperationInputParameter>)targetDeviceParam
-{
-    [targetInfoOperation setDevice:targetDeviceParam];
-}
-
--(id <LCSOperationInputParameter>)targetDevice
-{
-    return [targetInfoOperation device];
-}
-
--(void)setRunAtDate:(id <LCSOperationInputParameter>)runAtDateParam
-{
-    [plistGenOperation setRunAtDate:runAtDateParam];
-}
-
--(id <LCSOperationInputParameter>)runAtDate
-{
-    return [plistGenOperation runAtDate];
-}
+@synthesize sourceDevice;
+@synthesize targetDevice;
+@synthesize runAtDate;
 @end

@@ -18,6 +18,10 @@
 
 @interface LCSRotavaultScheduleInstallOperation : LCSOperationQueueOperation
 {
+    id <LCSOperationInputParameter> sourceDevice;
+    id <LCSOperationInputParameter> targetDevice;
+    id <LCSOperationInputParameter> runAtDate;
+    
     NSDictionary    *sourceInfo;
     NSDictionary    *targetInfo;
     NSDictionary    *bootdiskInfo;
