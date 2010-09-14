@@ -24,9 +24,9 @@
 
 -(void)setDelegate:(id)newDelegate
 {
-    delegate = newDelegate;
+    [super setDelegate:newDelegate];
     for (LCSOperation* op in [queue operations]) {
-        op.delegate = newDelegate;
+        [op setDelegate:newDelegate];
     }
 }
 
