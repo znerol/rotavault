@@ -21,6 +21,8 @@
     keyPath = [targetKeyPath copy];
     LCSINIT_RELEASE_AND_RETURN_IF_NIL(keyPath);
     
+    targetThread = [NSThread currentThread];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(targetThread);
     return self;
 }
 
@@ -28,6 +30,7 @@
 {
     [target release];
     [keyPath release];
+    targetThread = nil;
     [super dealloc];
 }
 
@@ -39,7 +42,7 @@
     [inv setSelector:@selector(valueForKeyPath:)];
     [inv setArgument:&keyPath atIndex:2];
     
-    [inv performSelectorOnMainThread:@selector(invokeWithTarget:) withObject:target waitUntilDone:YES];
+    [inv performSelector:@selector(invokeWithTarget:) onThread:targetThread withObject:target waitUntilDone:YES];
     [inv getReturnValue:&returnValue];
     return returnValue;
 }
@@ -52,7 +55,7 @@
 
 -(void)baseSetValue:(id)newValue
 {
-    [self performSelectorOnMainThread:@selector(baseSetValueOnMainThread:) withObject:newValue waitUntilDone:YES];
+    [self performSelector:@selector(baseSetValueOnMainThread:) onThread:targetThread withObject:newValue waitUntilDone:YES];
 }
 @end
 

@@ -15,16 +15,26 @@
 -(id)init
 {
     LCSINIT_SUPER_OR_RETURN_NIL();
-    delegate = nil;
     return self;
 }
 
 -(void)dealloc
 {
+    delegate = nil;
+    delegateThread = nil;
     [super dealloc];
 }
 
-@synthesize delegate;
+-(void)setDelegate:(id)newDelegate
+{
+    delegate = newDelegate;
+    delegateThread = [NSThread currentThread];
+}
+
+-(id)delegate
+{
+    return delegate;
+}
 
 /* override */
 -(void)updateProgress:(float)progress
@@ -70,7 +80,7 @@
     }
 
     @try {
-        [inv performSelectorOnMainThread:@selector(invokeWithTarget:) withObject:delegate waitUntilDone:YES];
+        [inv performSelector:@selector(invokeWithTarget:) onThread:delegateThread withObject:delegate waitUntilDone:YES];
     }
     @catch (NSException * e) {
         NSLog(@"Operation %@ failed to perform selector %@ on delegate %@: %@", [self description],

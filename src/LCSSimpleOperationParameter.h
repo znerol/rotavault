@@ -21,6 +21,7 @@
 @interface LCSSimpleOperationOutputParameter : NSObject <LCSOperationOutputParameter>
 {
     id* value;
+    NSThread* valueThread;
 }
 +(LCSSimpleOperationOutputParameter*)parameterWithReturnValue:(id*)returnPointer;
 -(id)initWithReturnValue:(id*)returnPointer;

@@ -17,6 +17,7 @@ typedef enum {
 
 @interface LCSOperation : NSOperation {
     id              delegate;
+    NSThread*       delegateThread;
 }
 
 @property(assign) id delegate;

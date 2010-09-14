@@ -51,6 +51,9 @@
     value = returnPointer;
     
     LCSINIT_RELEASE_AND_RETURN_IF_NIL(value);
+    
+    valueThread = [NSThread currentThread];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(valueThread);
     return self;
 }
 
@@ -69,6 +72,6 @@
 
 -(void)setOutValue:(id)newValue
 {
-    [self performSelectorOnMainThread:@selector(setValueOnMainThread:) withObject:newValue waitUntilDone:YES];
+    [self performSelector:@selector(setValueOnMainThread:) onThread:valueThread withObject:newValue waitUntilDone:YES];
 }
 @end

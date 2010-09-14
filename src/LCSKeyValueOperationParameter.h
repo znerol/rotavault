@@ -12,6 +12,7 @@
 @interface LCSKeyValueOperationParameterBase : NSObject
 {
     id target;
+    NSThread* targetThread;
     NSString* keyPath;    
 }
 -(id)initWithTarget:(id)targetObject keyPath:(NSString*)targetKeyPath;
