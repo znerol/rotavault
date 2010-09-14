@@ -101,17 +101,17 @@
 
 -(void)main
 {
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
     @try {
-        NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-
         if (![self isCancelled]) {
             [self execute];
         }
-
-        [pool drain];
     }
     @catch (NSException *e) {
         [self handleException:e];
+    }
+    @finally {
+        [pool drain];
     }
 }
 
