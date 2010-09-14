@@ -45,7 +45,7 @@
 
 -(void)execute
 {
-    [queue setSuspended:NO];
+    [queue performSelector:@selector(setSuspended:) withObject:NO afterDelay:0];
     [queue waitUntilAllOperationsAreFinishedPollingRunLoopInMode:NSDefaultRunLoopMode];
 }
 @end
