@@ -109,7 +109,7 @@
 {
     LCSTaskOperation* op = [[LCSTaskOperation alloc] init];
     op.launchPath = [LCSSimpleOperationInputParameter parameterWithValue:@"/bin/sleep"];
-    op.arguments = [LCSSimpleOperationInputParameter parameterWithValue:[NSArray arrayWithObject:@"10"]];
+    op.arguments = [LCSSimpleOperationInputParameter parameterWithValue:[NSArray arrayWithObject:@"5"]];
 
     /* expect cancel error */
     NSError *cancelError = [NSError errorWithDomain:NSCocoaErrorDomain
@@ -126,9 +126,6 @@
     while(!launched) {
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
     }
-
-    /* FIXME: hum... race condition here? */
-    usleep(10000);
 
     [op cancel];
 
