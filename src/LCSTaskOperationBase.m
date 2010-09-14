@@ -170,7 +170,7 @@
 
 -(void)cancel
 {
-    [self performSelector:@selector(stopTask) onThread:operationThread withObject:nil waitUntilDone:YES];
+    [self performSelector:@selector(stopTask) onThread:operationThread withObject:nil waitUntilDone:NO];
     [super cancel];
 }
 
