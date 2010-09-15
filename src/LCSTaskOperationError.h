@@ -8,13 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-enum {
-    LCSExecutableReturnedNonZeroStatus  = 1,
-    LCSLaunchOfExecutableFailed         = 2,
-    LCSUnexpectedOutputReceived         = 3,
-    LCSUnexpectedInputReceived          = 4
-};
-
 extern NSString* LCSExecutableReturnStatus;
 extern NSString* LCSExecutableErrorString;
 

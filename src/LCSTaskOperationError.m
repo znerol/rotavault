@@ -8,10 +8,12 @@
 
 #import "LCSTaskOperationError.h"
 #import "LCSInitMacros.h"
-#import "LCSRotavaultErrorDomain.h"
+#import "LCSRotavaultError.h"
 
-NSString* LCSExecutableReturnStatus   = @"ch.znerol.rotavault.LCSExecutableReturnStatus";
-NSString* LCSExecutableErrorString    = @"ch.znerol.rotavault.LCSExecutableErrorString";
+NSString* LCSExecutableReturnStatus = @"ch.znerol.rotavault.LCSExecutableReturnStatus";
+NSString* LCSExecutableErrorString = @"ch.znerol.rotavault.LCSExecutableErrorString";
+
+
 
 @implementation LCSTaskOperationError
 -(id)initWithLaunchPath:(NSString*)path status:(NSInteger)status

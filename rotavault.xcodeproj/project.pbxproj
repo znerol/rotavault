@@ -37,6 +37,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		CA12461D1240B301004C1191 /* LCSRotavaultErrorTest.h in Headers */ = {isa = PBXBuildFile; fileRef = CA12461B1240B301004C1191 /* LCSRotavaultErrorTest.h */; };
+		CA12461E1240B301004C1191 /* LCSRotavaultErrorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA12461C1240B301004C1191 /* LCSRotavaultErrorTest.m */; };
 		CA1A8EA51236D955009F9FFC /* LCSRotavaultCopyOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = CA1A8EA31236D955009F9FFC /* LCSRotavaultCopyOperation.h */; };
 		CA1A8EA61236D955009F9FFC /* LCSRotavaultCopyOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA1A8EA41236D955009F9FFC /* LCSRotavaultCopyOperation.m */; };
 		CA22A444123FF89A00AE6D45 /* LCSForwardOperationParameter.h in Headers */ = {isa = PBXBuildFile; fileRef = CA22A442123FF89A00AE6D45 /* LCSForwardOperationParameter.h */; };
@@ -44,6 +46,8 @@
 		CA22A4A11240050D00AE6D45 /* LCSForwardOperationParameterTest.h in Headers */ = {isa = PBXBuildFile; fileRef = CA22A49F1240050D00AE6D45 /* LCSForwardOperationParameterTest.h */; };
 		CA22A4A21240050D00AE6D45 /* LCSForwardOperationParameterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA22A4A01240050D00AE6D45 /* LCSForwardOperationParameterTest.m */; };
 		CA9488821211895B00415257 /* rvcopyd.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9488811211895B00415257 /* rvcopyd.m */; };
+		CA9B7740124094570006B5B9 /* LCSRotavaultError.h in Headers */ = {isa = PBXBuildFile; fileRef = CA9B773E124094570006B5B9 /* LCSRotavaultError.h */; };
+		CA9B7741124094570006B5B9 /* LCSRotavaultError.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9B773F124094570006B5B9 /* LCSRotavaultError.m */; };
 		CA9ED61A122CD0D2005CBA5B /* rvcksum.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9ED60E122CCCDC005CBA5B /* rvcksum.m */; };
 		CAA5825D122F8B5D0091247B /* rvschedule.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA58241122F8ABF0091247B /* rvschedule.m */; };
 		CABAC214123535CC00DBEA0F /* GHUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CABAC213123535CC00DBEA0F /* GHUnit.framework */; };
@@ -68,7 +72,6 @@
 		CABAC41912353AE300DBEA0F /* LCSOperationQueueOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CABC904D12300BAB00B4A81E /* LCSOperationQueueOperation.m */; };
 		CABAC41A12353AE400DBEA0F /* LCSPlistTaskOperationBase.m in Sources */ = {isa = PBXBuildFile; fileRef = CA60E234122AE04700DE6A3B /* LCSPlistTaskOperationBase.m */; };
 		CABAC41B12353AE500DBEA0F /* LCSPropertyListSHA1Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9D09A8122B7A400087D391 /* LCSPropertyListSHA1Hash.m */; };
-		CABAC41D12353AEA00DBEA0F /* LCSRotavaultErrorDomain.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB1C0CE120C66D10076DB12 /* LCSRotavaultErrorDomain.m */; };
 		CABAC41F12353AEC00DBEA0F /* LCSRotavaultScheduleInstallOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CABC908A1230291200B4A81E /* LCSRotavaultScheduleInstallOperation.m */; };
 		CABAC42012353AED00DBEA0F /* LCSSignalHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = CA2E64981212CF980031C4FA /* LCSSignalHandler.m */; };
 		CABAC42112353AEE00DBEA0F /* LCSSimpleOperationParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = CA45B9C21215824E00D3E40A /* LCSSimpleOperationParameter.m */; };
@@ -227,6 +230,8 @@
 		CA0DF0DD11F71D8B0029B5F7 /* rotavault.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rotavault.m; sourceTree = "<group>"; };
 		CA0DF0DE11F71D8B0029B5F7 /* rotavault_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rotavault_Prefix.pch; sourceTree = "<group>"; };
 		CA0DF11811F7216D0029B5F7 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		CA12461B1240B301004C1191 /* LCSRotavaultErrorTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSRotavaultErrorTest.h; sourceTree = "<group>"; };
+		CA12461C1240B301004C1191 /* LCSRotavaultErrorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSRotavaultErrorTest.m; sourceTree = "<group>"; };
 		CA1409E3122E33C9002B4650 /* LCSGenerateRotavaultCopyLaunchdPlistOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSGenerateRotavaultCopyLaunchdPlistOperation.h; sourceTree = "<group>"; };
 		CA1409E4122E33C9002B4650 /* LCSGenerateRotavaultCopyLaunchdPlistOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSGenerateRotavaultCopyLaunchdPlistOperation.m; sourceTree = "<group>"; };
 		CA1409F1122E4349002B4650 /* LCSWritePlistOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSWritePlistOperation.h; sourceTree = "<group>"; };
@@ -278,6 +283,8 @@
 		CA60E27E122AE46100DE6A3B /* LCSPlistTaskOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSPlistTaskOperation.m; sourceTree = "<group>"; };
 		CA94887A1211892500415257 /* rvcopyd */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = rvcopyd; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA9488811211895B00415257 /* rvcopyd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rvcopyd.m; sourceTree = "<group>"; };
+		CA9B773E124094570006B5B9 /* LCSRotavaultError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSRotavaultError.h; sourceTree = "<group>"; };
+		CA9B773F124094570006B5B9 /* LCSRotavaultError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSRotavaultError.m; sourceTree = "<group>"; };
 		CA9D09A7122B7A400087D391 /* LCSPropertyListSHA1Hash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSPropertyListSHA1Hash.h; sourceTree = "<group>"; };
 		CA9D09A8122B7A400087D391 /* LCSPropertyListSHA1Hash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSPropertyListSHA1Hash.m; sourceTree = "<group>"; };
 		CA9E2D58120F398D006C4DE7 /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMock.framework; path = Frameworks/OCMock.framework; sourceTree = "<group>"; };
@@ -302,8 +309,6 @@
 		CAB1BD93120C1E800076DB12 /* LCSPlistTaskOperationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSPlistTaskOperationTest.m; sourceTree = "<group>"; };
 		CAB1BEFE120C3D8A0076DB12 /* LCSTaskOperationTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSTaskOperationTest.h; sourceTree = "<group>"; };
 		CAB1BEFF120C3D8A0076DB12 /* LCSTaskOperationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSTaskOperationTest.m; sourceTree = "<group>"; };
-		CAB1C0CD120C66D10076DB12 /* LCSRotavaultErrorDomain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSRotavaultErrorDomain.h; sourceTree = "<group>"; };
-		CAB1C0CE120C66D10076DB12 /* LCSRotavaultErrorDomain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSRotavaultErrorDomain.m; sourceTree = "<group>"; };
 		CAB72D79120708220093D08A /* LCSTestdir.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSTestdir.h; sourceTree = "<group>"; };
 		CAB72D7A120708220093D08A /* LCSTestdir.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSTestdir.m; sourceTree = "<group>"; };
 		CABAC20C123535A300DBEA0F /* Rotavault Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rotavault Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -483,8 +488,6 @@
 				CA45B9CE1215842800D3E40A /* LCSKeyValueOperationParameter.m */,
 				CA60E233122AE04700DE6A3B /* LCSPlistTaskOperationBase.h */,
 				CA60E234122AE04700DE6A3B /* LCSPlistTaskOperationBase.m */,
-				CAB1C0CD120C66D10076DB12 /* LCSRotavaultErrorDomain.h */,
-				CAB1C0CE120C66D10076DB12 /* LCSRotavaultErrorDomain.m */,
 				CAAB12D41215B3B500A22678 /* LCSTaskOperationBase.h */,
 				CAAB12D51215B3B500A22678 /* LCSTaskOperationBase.m */,
 				CAA635B7120C0E080036B643 /* LCSTaskOperationError.h */,
@@ -527,6 +530,8 @@
 				CA1A8EA41236D955009F9FFC /* LCSRotavaultCopyOperation.m */,
 				CA22A442123FF89A00AE6D45 /* LCSForwardOperationParameter.h */,
 				CA22A443123FF89A00AE6D45 /* LCSForwardOperationParameter.m */,
+				CA9B773E124094570006B5B9 /* LCSRotavaultError.h */,
+				CA9B773F124094570006B5B9 /* LCSRotavaultError.m */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -576,6 +581,8 @@
 				CABD944D12376FA0001F4934 /* LCSOperationTest.m */,
 				CA22A49F1240050D00AE6D45 /* LCSForwardOperationParameterTest.h */,
 				CA22A4A01240050D00AE6D45 /* LCSForwardOperationParameterTest.m */,
+				CA12461B1240B301004C1191 /* LCSRotavaultErrorTest.h */,
+				CA12461C1240B301004C1191 /* LCSRotavaultErrorTest.m */,
 			);
 			path = test;
 			sourceTree = "<group>";
@@ -589,6 +596,7 @@
 			files = (
 				CA1A8EA51236D955009F9FFC /* LCSRotavaultCopyOperation.h in Headers */,
 				CA22A444123FF89A00AE6D45 /* LCSForwardOperationParameter.h in Headers */,
+				CA9B7740124094570006B5B9 /* LCSRotavaultError.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -598,6 +606,7 @@
 			files = (
 				CABD944E12376FA0001F4934 /* LCSOperationTest.h in Headers */,
 				CA22A4A11240050D00AE6D45 /* LCSForwardOperationParameterTest.h in Headers */,
+				CA12461D1240B301004C1191 /* LCSRotavaultErrorTest.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -854,7 +863,6 @@
 				CABAC41912353AE300DBEA0F /* LCSOperationQueueOperation.m in Sources */,
 				CABAC41A12353AE400DBEA0F /* LCSPlistTaskOperationBase.m in Sources */,
 				CABAC41B12353AE500DBEA0F /* LCSPropertyListSHA1Hash.m in Sources */,
-				CABAC41D12353AEA00DBEA0F /* LCSRotavaultErrorDomain.m in Sources */,
 				CABAC41F12353AEC00DBEA0F /* LCSRotavaultScheduleInstallOperation.m in Sources */,
 				CABAC42012353AED00DBEA0F /* LCSSignalHandler.m in Sources */,
 				CABAC42112353AEE00DBEA0F /* LCSSimpleOperationParameter.m in Sources */,
@@ -864,6 +872,7 @@
 				CABAC42512353AF100DBEA0F /* LCSWritePlistOperation.m in Sources */,
 				CA1A8EA61236D955009F9FFC /* LCSRotavaultCopyOperation.m in Sources */,
 				CA22A445123FF89A00AE6D45 /* LCSForwardOperationParameter.m in Sources */,
+				CA9B7741124094570006B5B9 /* LCSRotavaultError.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -891,6 +900,7 @@
 				CABAC99C123586FB00DBEA0F /* GHUnitMain.m in Sources */,
 				CABD944F12376FA0001F4934 /* LCSOperationTest.m in Sources */,
 				CA22A4A21240050D00AE6D45 /* LCSForwardOperationParameterTest.m in Sources */,
+				CA12461E1240B301004C1191 /* LCSRotavaultErrorTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

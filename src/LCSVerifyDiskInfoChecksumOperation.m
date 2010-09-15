@@ -9,7 +9,7 @@
 #import "LCSVerifyDiskInfoChecksumOperation.h"
 #import "LCSInitMacros.h"
 #import "LCSOperationParameterMarker.h"
-#import "LCSRotavaultErrorDomain.h"
+#import "LCSRotavaultError.h"
 #import "LCSPropertyListSHA1Hash.h"
 #import "NSData+Hex.h"
 

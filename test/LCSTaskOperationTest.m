@@ -8,7 +8,7 @@
 
 #import "LCSTaskOperationTest.h"
 #import "NSOperationQueue+NonBlockingWaitUntilFinished.h"
-#import "LCSRotavaultErrorDomain.h"
+#import "LCSRotavaultError.h"
 #import "LCSTaskOperation.h"
 #import "LCSTestdir.h"
 #import "LCSSimpleOperationParameter.h"

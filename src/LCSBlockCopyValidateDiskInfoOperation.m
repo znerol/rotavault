@@ -9,7 +9,7 @@
 #import "LCSBlockCopyValidateDiskInfoOperation.h"
 #import "LCSInitMacros.h"
 #import "LCSOperationParameterMarker.h"
-#import "LCSRotavaultErrorDomain.h"
+#import "LCSRotavaultError.h"
 
 
 @implementation LCSBlockCopyValidateDiskInfoOperation

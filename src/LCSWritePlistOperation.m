@@ -9,7 +9,7 @@
 #import "LCSWritePlistOperation.h"
 #import "LCSInitMacros.h"
 #import "LCSOperationParameterMarker.h"
-#import "LCSRotavaultErrorDomain.h"
+#import "LCSRotavaultError.h"
 
 
 @implementation LCSWritePlistOperation

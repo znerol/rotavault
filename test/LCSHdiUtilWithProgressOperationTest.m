@@ -12,6 +12,7 @@
 #import "LCSTaskOperationBase+TestPassword.h"
 #import "LCSKeyValueOperationParameter.h"
 #import "LCSSimpleOperationParameter.h"
+#import "LCSRotavaultError.h"
 
 
 @implementation LCSHdiUtilWithProgressOperationTest

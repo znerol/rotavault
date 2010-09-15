@@ -9,6 +9,7 @@
 #import "LCSPlistTaskOperationTest.h"
 #import "LCSPlistTaskOperation.h"
 #import "LCSSimpleOperationParameter.h"
+#import "LCSRotavaultError.h"
 
 
 @implementation LCSPlistTaskOperationTest
