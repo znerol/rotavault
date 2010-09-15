@@ -32,6 +32,17 @@
     LCSForwardOperationOutputParameter *outfw = [LCSForwardOperationOutputParameter parameterWithParameterPointer:&mock];
     outfw.outValue = @"TEST";
     
+    @try {
+        id test = outfw.outValue;
+        GHFail(@"Read attempt from output parameter must throw an exception");
+        test = nil;
+    }
+    @catch (NSException * e) {
+        if (![[e name] isEqualToString:NSInternalInconsistencyException]) {
+            @throw;
+        }        
+    }    
+    
     [mock verify];
 }
 

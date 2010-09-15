@@ -76,4 +76,38 @@
     [fm removeItemAtPath:plistPath error:nil];
     [op release];
 }
+
+-(void)testWriteInvalidPlist
+{
+    plistPath = nil;
+    
+    LCSWritePlistOperation *op = [[LCSWritePlistOperation alloc] init];
+    op.delegate = self;
+    op.plistPath = [LCSKeyValueOperationInOutParameter parameterWithTarget:self keyPath:@"plistPath"];
+    op.plist = [LCSSimpleOperationInputParameter parameterWithValue:nil];
+    [op start];
+    
+    STAssertNotNil(error, @"Operation must return an error if plist parameter is invalid");
+    
+    [op release];
+}
+
+-(void)testWritePlistToNonExistingPath
+{
+    LCSTestdir *testdir = [[LCSTestdir alloc] init];
+    plistPath = [[[testdir path] stringByAppendingPathComponent:@"empty"] stringByAppendingPathComponent:@"no.plist"];
+    NSDictionary *plist = [NSDictionary dictionaryWithObject:@"42" forKey:@"Deep Thought"];
+    
+    LCSWritePlistOperation *op = [[LCSWritePlistOperation alloc] init];
+    op.delegate = self;
+    op.plistPath = [LCSKeyValueOperationInOutParameter parameterWithTarget:self keyPath:@"plistPath"];
+    op.plist = [LCSSimpleOperationInputParameter parameterWithValue:plist];
+    [op start];
+    
+    STAssertNotNil(error, @"Operation must return an error if given path does not exist");
+    
+    [op release];
+    [testdir remove];
+    [testdir release];    
+}
 @end

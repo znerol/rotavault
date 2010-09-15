@@ -30,5 +30,16 @@
     STAssertNotNil(returnValue, @"%@", @"Return value must not be nil after assignement");
     STAssertTrue([returnValue isEqualToString:@"Test"], @"%@", @"Return value must be equal to the test string");
     [returnValue release];
+    
+    @try {
+        id test = outparam.outValue;
+        STFail(@"Read attempt from output parameter must throw an exception");
+        test = nil;
+    }
+    @catch (NSException * e) {
+        if (![[e name] isEqualToString:NSInternalInconsistencyException]) {
+            @throw;
+        }        
+    }    
 }
 @end

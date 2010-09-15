@@ -53,6 +53,16 @@
     outParam2.outValue = @"changed";
     STAssertTrue([[paramValues valueForKeyPath:@"more.stuff"] isEqualToString:@"changed"], @"%@",
                  @"Output parameter must be set correctly also using a key path");
+    
+    @try {
+        id test = outParam1.outValue;
+        STFail(@"Read attempt from output parameter must throw an exception");
+        test = nil;
+    }
+    @catch (NSException * e) {
+        if (![[e name] isEqualToString:NSInternalInconsistencyException]) {
+            @throw;
+        }
+    }    
 }
-
 @end
