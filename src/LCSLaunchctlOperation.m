@@ -9,7 +9,7 @@
 #import "LCSLaunchctlOperation.h"
 #import "LCSInitMacros.h"
 #import "LCSOperationParameterMarker.h"
-#import "LCSTaskOperationError.h"
+#import "LCSRotavaultError.h"
 
 
 @implementation LCSLaunchctlLoadOperation
@@ -150,17 +150,17 @@
             pid = [NSNumber numberWithInteger:i];
         }
         else if(![scanner scanString:@"-" intoString:nil]) {
-            LCSTaskOperationError *err = [[LCSTaskOperationError alloc]
-                                          initReceivedUnexpectedOutputFromLaunchPath:[task launchPath] 
-                                          message:@"Failed to parse value in pid column"];
+            NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSUnexpectedOutputReceivedError,
+                                           LCSERROR_LOCALIZED_FAILURE_REASON(@"Failed to parse value in pid column"),
+                                           LCSERROR_EXECUTABLE_LAUNCH_PATH([task launchPath]));
             [self handleError:err];
             return;
         }
 
         if (![scanner scanString:@"\t" intoString:nil]) {
-            LCSTaskOperationError *err = [[LCSTaskOperationError alloc]
-                                          initReceivedUnexpectedOutputFromLaunchPath:[task launchPath] 
-                                          message:@"Failed to parse column separator"];
+            NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSUnexpectedOutputReceivedError,
+                                           LCSERROR_LOCALIZED_FAILURE_REASON(@"Failed to parse column separator"),
+                                           LCSERROR_EXECUTABLE_LAUNCH_PATH([task launchPath]));
             [self handleError:err];
             return;
         }
@@ -175,17 +175,17 @@
             status = [NSNumber numberWithInteger:i];
         }
         else {
-            LCSTaskOperationError *err = [[LCSTaskOperationError alloc]
-                                          initReceivedUnexpectedOutputFromLaunchPath:[task launchPath] 
-                                          message:@"Failed to parse value in signal column"];
+            NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSUnexpectedOutputReceivedError,
+                                           LCSERROR_LOCALIZED_FAILURE_REASON(@"Failed to parse value in signal column"),
+                                           LCSERROR_EXECUTABLE_LAUNCH_PATH([task launchPath]));
             [self handleError:err];
             return;
         }
 
         if (![scanner scanString:@"\t" intoString:nil]) {
-            LCSTaskOperationError *err = [[LCSTaskOperationError alloc]
-                                          initReceivedUnexpectedOutputFromLaunchPath:[task launchPath] 
-                                          message:@"Failed to parse column separator"];
+            NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSUnexpectedOutputReceivedError,
+                                           LCSERROR_LOCALIZED_FAILURE_REASON(@"Failed to parse column separator"),
+                                           LCSERROR_EXECUTABLE_LAUNCH_PATH([task launchPath]));
             [self handleError:err];
             return;
         }
@@ -193,17 +193,17 @@
         /* scan label */
         if (![scanner scanCharactersFromSet:[[NSCharacterSet newlineCharacterSet] invertedSet]
                                  intoString:&label]) {
-            LCSTaskOperationError *err = [[LCSTaskOperationError alloc]
-                                          initReceivedUnexpectedOutputFromLaunchPath:[task launchPath] 
-                                          message:@"Failed to parse value in label column"];
+            NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSUnexpectedOutputReceivedError,
+                                           LCSERROR_LOCALIZED_FAILURE_REASON(@"Failed to parse value in label column"),
+                                           LCSERROR_EXECUTABLE_LAUNCH_PATH([task launchPath]));
             [self handleError:err];
             return;
         }
 
         if (![scanner scanString:@"\n" intoString:nil]) {
-            LCSTaskOperationError *err = [[LCSTaskOperationError alloc]
-                                          initReceivedUnexpectedOutputFromLaunchPath:[task launchPath] 
-                                          message:@"Failed to parse newline"];
+            NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSUnexpectedOutputReceivedError,
+                                           LCSERROR_LOCALIZED_FAILURE_REASON(@"Failed to parse newline"),
+                                           LCSERROR_EXECUTABLE_LAUNCH_PATH([task launchPath]));
             [self handleError:err];
             return;
         }

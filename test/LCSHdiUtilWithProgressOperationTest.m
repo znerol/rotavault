@@ -93,9 +93,9 @@
     [wrongop start];
 
     STAssertNotNil(error, @"%@", @"LCSAttachImageOperation must report an error if password is wrong");
-    STAssertEquals([error class], [LCSTaskOperationError class], @"%@", @"reported error must be a "
+    STAssertEquals([error class], [NSError class], @"%@", @"reported error must be a "
                    @"LCSTaskOperationError");
-    STAssertEquals([error code], (NSInteger)LCSExecutableReturnedNonZeroStatus, @"%@", @"reported error code must be "
+    STAssertEquals([error code], (NSInteger)LCSExecutableReturnedNonZeroStatusError, @"%@", @"reported error code must be "
                    @"LCSExecutableReturnedNonZeroStatus");
     /*
     NSLog(@"localizedDescription: %@", [error localizedDescription]);

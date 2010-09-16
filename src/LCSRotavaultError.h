@@ -13,30 +13,50 @@ extern NSString* LCSRotavaultErrorDomain;
 /* user info dictionary keys */
 extern NSString* LCSSourceFileNameKey;
 extern NSString* LCSSourceFileLineNumberKey;
+extern NSString* LCSSourceFileFunctionKey;
+extern NSString* LCSSourceFileSelectorKey;
+extern NSString* LCSSourceFileObjectKey;
+
+/* user info dictionary keys for task operaiton errors */
+extern NSString* LCSExecutableLaunchPathKey;
+extern NSString* LCSExecutableTerminationStatusKey;
 
 /* error codes */
 enum {
-    LCSExecutableReturnedNonZeroStatus  = 1,
-    LCSLaunchOfExecutableFailed         = 2,
-    LCSUnexpectedOutputReceived         = 3,
-    LCSUnexpectedInputReceived          = 4
+    LCSExecutableReturnedNonZeroStatusError,
+    LCSLaunchOfExecutableFailedError,
+    LCSUnexpectedOutputReceivedError,
+    LCSUnexpectedInputReceivedError,
+    LCSParameterError,
+    LCSPropertyListParseError
 };
 
-#define LCSERROR_BEGIN(errdomain, errcode) \
+#define LCSERROR_FUNCTION(errdomain, errcode, ...) \
     [NSError errorWithDomain:errdomain code:errcode userInfo: \
         [NSDictionary dictionaryWithObjectsAndKeys: \
             [NSString stringWithCString:__FILE__ encoding:NSUTF8StringEncoding], LCSSourceFileNameKey, \
-            [NSNumber numberWithInt:__LINE__], LCSSourceFileLineNumberKey,
+            [NSNumber numberWithInt:__LINE__], LCSSourceFileLineNumberKey, \
+            [NSString stringWithCString:__func__], LCSSourceFileFunctionKey, ## __VA_ARGS__, nil]]
 
-#define LCSERROR_ADD_LOCALIZED_DESCRIPTION(fmt...) \
-    [NSString localizedStringWithFormat:fmt], NSLocalizedDescriptionKey,
+#define LCSERROR_METHOD(errdomain, errcode, ...) \
+    [NSError errorWithDomain:errdomain code:errcode userInfo: \
+        [NSDictionary dictionaryWithObjectsAndKeys: \
+            [NSString stringWithCString:__FILE__ encoding:NSUTF8StringEncoding], LCSSourceFileNameKey, \
+            [NSNumber numberWithInt:__LINE__], LCSSourceFileLineNumberKey, \
+            NSStringFromSelector(_cmd), LCSSourceFileSelectorKey, \
+            self, LCSSourceFileObjectKey, ## __VA_ARGS__, nil]]
 
-#define LCSERROR_ADD_LOCALIZED_FAILURE_REASON(fmt...) \
-    [NSString localizedStringWithFormat:fmt], NSLocalizedFailureReasonErrorKey,
+#define LCSERROR_LOCALIZED_DESCRIPTION(fmt...) \
+    [NSString localizedStringWithFormat:fmt], NSLocalizedDescriptionKey
 
-#define LCSERROR_ADD_UNDERLYING_ERROR(underlyingError) \
-    underlyingError, NSUnderlyingErrorKey,
+#define LCSERROR_LOCALIZED_FAILURE_REASON(fmt...) \
+    [NSString localizedStringWithFormat:fmt], NSLocalizedFailureReasonErrorKey
 
-#define LCSERROR_END \
-    nil]]
+#define LCSERROR_EXECUTABLE_LAUNCH_PATH(path) \
+    path, LCSExecutableLaunchPathKey
 
+#define LCSERROR_EXECUTABLE_TERMINATION_STATUS(status) \
+    [NSNumber numberWithInt:status], LCSExecutableTerminationStatusKey
+
+#define LCSERROR_UNDERLYING_ERROR(underlyingError) \
+    underlyingError, NSUnderlyingErrorKey

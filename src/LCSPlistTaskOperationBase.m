@@ -9,6 +9,7 @@
 #import "LCSPlistTaskOperationBase.h"
 #import "LCSInitMacros.h"
 #import "LCSOperationParameterMarker.h"
+#import "LCSRotavaultError.h"
 
 
 @implementation LCSPlistTaskOperationBase
@@ -64,9 +65,10 @@
         result.outValue = plist;
     }
     else {
-        NSError *error = [LCSTaskOperationError errorReceivedUnexpectedOutputFromLaunchPath:[task launchPath]
-                                                                                    message:[errorDescription autorelease]];
+        NSError *error = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSPropertyListParseError,
+            LCSERROR_LOCALIZED_DESCRIPTION(errorDescription));
         [self handleError:error];
+        [errorDescription release];
     }
     
     [super taskOutputComplete];

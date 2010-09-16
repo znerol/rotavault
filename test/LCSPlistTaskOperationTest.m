@@ -67,10 +67,10 @@
     [op start];
 
     STAssertNotNil(error, @"%@", @"error must be set if the output of the task is not a property list");
-    STAssertEquals([error class], [LCSTaskOperationError class], @"%@",
+    STAssertEquals([error class], [NSError class], @"%@",
                    @"LCSTaskOperation must return an LCSTaskOperationError if the output of the task is not a property"
                    @"list");
-    STAssertEquals([error code], (NSInteger)LCSUnexpectedOutputReceived, @"%@",
+    STAssertEquals([error code], (NSInteger)LCSPropertyListParseError, @"%@",
                    @"LCSTaskOperation must set the error code to LCSLaunchOfExecutableFailed if the output of the "
                    @"task is not a property list");
     [result release];

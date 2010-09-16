@@ -90,7 +90,7 @@
 
     /* expect non-zero status error */
     NSError *termError = [NSError errorWithDomain:LCSRotavaultErrorDomain
-                                             code:LCSExecutableReturnedNonZeroStatus
+                                             code:LCSExecutableReturnedNonZeroStatusError
                                          userInfo:[NSDictionary dictionary]];
     id equalToTermError = [OCMArg checkWithSelector:@selector(isEqualToError:) onObject:termError];
     [[mock expect] operation:op handleError:equalToTermError];
@@ -146,7 +146,7 @@
     op.launchPath = [LCSSimpleOperationInputParameter parameterWithValue:nowhere];
 
     NSError *error = [NSError errorWithDomain:LCSRotavaultErrorDomain
-                                         code:LCSLaunchOfExecutableFailed
+                                         code:LCSLaunchOfExecutableFailedError
                                      userInfo:[NSDictionary dictionary]];
     id equalToError = [OCMArg checkWithSelector:@selector(isEqualToError:) onObject:error];
     [[mock expect] operation:op handleError:equalToError];

@@ -10,6 +10,7 @@
 #import "LCSInitMacros.h"
 #import "LCSSimpleOperationParameter.h"
 #import "LCSOperationParameterMarker.h"
+#import "LCSRotavaultError.h"
 
 
 @implementation LCSTaskOperationBase
@@ -60,7 +61,9 @@
 -(void)taskTerminatedWithStatus:(int)status
 {
     if (status != 0 && [self isCancelled] == NO) {
-        NSError *error = [LCSTaskOperationError errorWithLaunchPath:[task launchPath] status:status];
+        NSError *error = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSExecutableReturnedNonZeroStatusError,
+                                         LCSERROR_EXECUTABLE_LAUNCH_PATH([task launchPath]),
+                                         LCSERROR_EXECUTABLE_TERMINATION_STATUS(status));
         [self handleError:error];
     }
     [self delegateSelector:@selector(operation:terminatedWithStatus:)
@@ -138,7 +141,9 @@
         [[NSNotificationCenter defaultCenter] removeObserver:self];
         
         /* Give the delegate a chance to notice */
-        NSError* error = [LCSTaskOperationError errorExecutionOfPathFailed:[task launchPath] message:[exc reason]];
+        NSError* error = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSLaunchOfExecutableFailedError,
+                                         LCSERROR_LOCALIZED_FAILURE_REASON([exc reason]),
+                                         LCSERROR_EXECUTABLE_LAUNCH_PATH([task launchPath]));
         [self handleError:error];
         return;
     }

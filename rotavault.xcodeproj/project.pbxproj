@@ -76,7 +76,6 @@
 		CABAC42012353AED00DBEA0F /* LCSSignalHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = CA2E64981212CF980031C4FA /* LCSSignalHandler.m */; };
 		CABAC42112353AEE00DBEA0F /* LCSSimpleOperationParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = CA45B9C21215824E00D3E40A /* LCSSimpleOperationParameter.m */; };
 		CABAC42212353AEF00DBEA0F /* LCSTaskOperationBase.m in Sources */ = {isa = PBXBuildFile; fileRef = CAAB12D51215B3B500A22678 /* LCSTaskOperationBase.m */; };
-		CABAC42312353AF000DBEA0F /* LCSTaskOperationError.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA635B8120C0E080036B643 /* LCSTaskOperationError.m */; };
 		CABAC42412353AF000DBEA0F /* LCSVerifyDiskInfoChecksumOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA28AF0812132AB900C9BE6F /* LCSVerifyDiskInfoChecksumOperation.m */; };
 		CABAC42512353AF100DBEA0F /* LCSWritePlistOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CA1409F2122E4349002B4650 /* LCSWritePlistOperation.m */; };
 		CABAC42912353B0500DBEA0F /* NSData+HexTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAE82DA2122C45CF00715BCF /* NSData+HexTest.m */; };
@@ -296,8 +295,6 @@
 		CAA58245122F8AE10091247B /* rvschedule */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = rvschedule; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAA5833A122FA5440091247B /* LCSBlockCopyValidateDiskInfoOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSBlockCopyValidateDiskInfoOperation.h; sourceTree = "<group>"; };
 		CAA5833B122FA5440091247B /* LCSBlockCopyValidateDiskInfoOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSBlockCopyValidateDiskInfoOperation.m; sourceTree = "<group>"; };
-		CAA635B7120C0E080036B643 /* LCSTaskOperationError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSTaskOperationError.h; sourceTree = "<group>"; };
-		CAA635B8120C0E080036B643 /* LCSTaskOperationError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSTaskOperationError.m; sourceTree = "<group>"; };
 		CAA74ADD120A12DB00D234F9 /* rotavault_test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rotavault_test.m; sourceTree = "<group>"; };
 		CAAB12D41215B3B500A22678 /* LCSTaskOperationBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSTaskOperationBase.h; sourceTree = "<group>"; };
 		CAAB12D51215B3B500A22678 /* LCSTaskOperationBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSTaskOperationBase.m; sourceTree = "<group>"; };
@@ -490,8 +487,6 @@
 				CA60E234122AE04700DE6A3B /* LCSPlistTaskOperationBase.m */,
 				CAAB12D41215B3B500A22678 /* LCSTaskOperationBase.h */,
 				CAAB12D51215B3B500A22678 /* LCSTaskOperationBase.m */,
-				CAA635B7120C0E080036B643 /* LCSTaskOperationError.h */,
-				CAA635B8120C0E080036B643 /* LCSTaskOperationError.m */,
 				CA0DF0DD11F71D8B0029B5F7 /* rotavault.m */,
 				CA0DF0DE11F71D8B0029B5F7 /* rotavault_Prefix.pch */,
 				CA9488811211895B00415257 /* rvcopyd.m */,
@@ -867,7 +862,6 @@
 				CABAC42012353AED00DBEA0F /* LCSSignalHandler.m in Sources */,
 				CABAC42112353AEE00DBEA0F /* LCSSimpleOperationParameter.m in Sources */,
 				CABAC42212353AEF00DBEA0F /* LCSTaskOperationBase.m in Sources */,
-				CABAC42312353AF000DBEA0F /* LCSTaskOperationError.m in Sources */,
 				CABAC42412353AF000DBEA0F /* LCSVerifyDiskInfoChecksumOperation.m in Sources */,
 				CABAC42512353AF100DBEA0F /* LCSWritePlistOperation.m in Sources */,
 				CA1A8EA61236D955009F9FFC /* LCSRotavaultCopyOperation.m in Sources */,

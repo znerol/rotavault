@@ -44,8 +44,8 @@
                                                               format:NSPropertyListXMLFormat_v1_0
                                                     errorDescription:&errstring];
     if (!data) {
-        NSDictionary *errdict = [NSDictionary dictionaryWithObject:errstring forKey:NSLocalizedDescriptionKey];
-        error = [NSError errorWithDomain:LCSRotavaultErrorDomain code:LCSUnexpectedOutputReceived userInfo:errdict];
+        error = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSUnexpectedOutputReceivedError,
+                                LCSERROR_LOCALIZED_FAILURE_REASON(errstring));
         [self handleError:error];
         return;
     }
@@ -68,9 +68,8 @@
             plistPath.inOutValue = path;
         }
         @catch (NSException * e) {
-            NSDictionary *errdict = [NSDictionary dictionaryWithObject:[e description]
-                                                                forKey:NSLocalizedDescriptionKey];
-            error = [NSError errorWithDomain:LCSRotavaultErrorDomain code:LCSUnexpectedOutputReceived userInfo:errdict];
+            error = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSUnexpectedOutputReceivedError,
+                                    LCSERROR_LOCALIZED_FAILURE_REASON([e description]));
             [self handleError:error];
             return;
         }

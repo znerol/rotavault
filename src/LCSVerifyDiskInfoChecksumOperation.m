@@ -41,8 +41,7 @@
     NSArray* components = [checksum.inValue componentsSeparatedByString:@":"];
 
     if ([components count] != 2) {
-        NSError *err = [NSError errorWithDomain:LCSRotavaultErrorDomain code:LCSUnexpectedInputReceived
-                                       userInfo:[NSDictionary dictionary]];
+        NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSUnexpectedInputReceivedError);
         [self handleError:err];
         return;
     }
@@ -58,15 +57,13 @@
         expected = [diskinfo.inValue objectForKey:@"VolumeUUID"];
     }
     else {
-        NSError *err = [NSError errorWithDomain:LCSRotavaultErrorDomain code:LCSUnexpectedInputReceived
-                                       userInfo:[NSDictionary dictionary]];
+        NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSUnexpectedInputReceivedError);
         [self handleError:err];
         return;
     }
     
     if (![actual isEqualToString:expected]) {
-        NSError *err = [NSError errorWithDomain:LCSRotavaultErrorDomain code:LCSUnexpectedInputReceived
-                                       userInfo:[NSDictionary dictionary]];
+        NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSUnexpectedInputReceivedError);
         [self handleError:err];
         return;
     }
