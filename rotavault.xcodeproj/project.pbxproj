@@ -45,6 +45,13 @@
 		CA22A445123FF89A00AE6D45 /* LCSForwardOperationParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = CA22A443123FF89A00AE6D45 /* LCSForwardOperationParameter.m */; };
 		CA22A4A11240050D00AE6D45 /* LCSForwardOperationParameterTest.h in Headers */ = {isa = PBXBuildFile; fileRef = CA22A49F1240050D00AE6D45 /* LCSForwardOperationParameterTest.h */; };
 		CA22A4A21240050D00AE6D45 /* LCSForwardOperationParameterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA22A4A01240050D00AE6D45 /* LCSForwardOperationParameterTest.m */; };
+		CA7460991244D47F00CDE8C3 /* LCSRotavaultMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA7460981244D47F00CDE8C3 /* LCSRotavaultMainWindowController.m */; };
+		CA7461EC1244E07100CDE8C3 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CABAC5551235464300DBEA0F /* AppKit.framework */; };
+		CA7461ED1244E07100CDE8C3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
+		CA7462091244E0D600CDE8C3 /* rotavault.m in Sources */ = {isa = PBXBuildFile; fileRef = CA7462081244E0D600CDE8C3 /* rotavault.m */; };
+		CA74621B1244E4AF00CDE8C3 /* NSData+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = CAE82D84122C361F00715BCF /* NSData+Hex.m */; };
+		CA74621C1244E4B000CDE8C3 /* NSOperationQueue+NonBlockingWaitUntilFinished.m in Sources */ = {isa = PBXBuildFile; fileRef = CA2E638F1212AB760031C4FA /* NSOperationQueue+NonBlockingWaitUntilFinished.m */; };
+		CA74622A1244E68E00CDE8C3 /* rvcopyd in Resources */ = {isa = PBXBuildFile; fileRef = CA94887A1211892500415257 /* rvcopyd */; };
 		CA9488821211895B00415257 /* rvcopyd.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9488811211895B00415257 /* rvcopyd.m */; };
 		CA9B7740124094570006B5B9 /* LCSRotavaultError.h in Headers */ = {isa = PBXBuildFile; fileRef = CA9B773E124094570006B5B9 /* LCSRotavaultError.h */; };
 		CA9B7741124094570006B5B9 /* LCSRotavaultError.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9B773F124094570006B5B9 /* LCSRotavaultError.m */; };
@@ -124,9 +131,18 @@
 		CABAC9BA1235892600DBEA0F /* LCSTaskOperationBase+TestPassword.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC65825120EE1F100069286 /* LCSTaskOperationBase+TestPassword.m */; };
 		CABD944E12376FA0001F4934 /* LCSOperationTest.h in Headers */ = {isa = PBXBuildFile; fileRef = CABD944C12376FA0001F4934 /* LCSOperationTest.h */; };
 		CABD944F12376FA0001F4934 /* LCSOperationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CABD944D12376FA0001F4934 /* LCSOperationTest.m */; };
+		CAD47F411244C288002DED2B /* librotavault.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CABAC3F812353A8100DBEA0F /* librotavault.a */; };
+		CAD47F431244C2ED002DED2B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAD47F421244C2ED002DED2B /* MainMenu.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		CA7462281244E67700CDE8C3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CA9488791211892500415257 /* rvcopyd */;
+			remoteInfo = rvcopyd;
+		};
 		CABAC43F12353B6B00DBEA0F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
@@ -198,6 +214,13 @@
 			remoteInfo = rotavault_test;
 		};
 		CABAC93F1235826200DBEA0F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CABAC3F712353A8100DBEA0F;
+			remoteInfo = rotavault;
+		};
+		CAD47F3F1244C284002DED2B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
 			proxyType = 1;
@@ -280,6 +303,9 @@
 		CA60E27A122AE45100DE6A3B /* LCSTaskOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSTaskOperation.m; sourceTree = "<group>"; };
 		CA60E27D122AE46100DE6A3B /* LCSPlistTaskOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSPlistTaskOperation.h; sourceTree = "<group>"; };
 		CA60E27E122AE46100DE6A3B /* LCSPlistTaskOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSPlistTaskOperation.m; sourceTree = "<group>"; };
+		CA7460971244D47F00CDE8C3 /* LCSRotavaultMainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSRotavaultMainWindowController.h; sourceTree = "<group>"; };
+		CA7460981244D47F00CDE8C3 /* LCSRotavaultMainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSRotavaultMainWindowController.m; sourceTree = "<group>"; };
+		CA7462081244E0D600CDE8C3 /* rotavault.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rotavault.m; sourceTree = "<group>"; };
 		CA94887A1211892500415257 /* rvcopyd */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = rvcopyd; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA9488811211895B00415257 /* rvcopyd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rvcopyd.m; sourceTree = "<group>"; };
 		CA9B773E124094570006B5B9 /* LCSRotavaultError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSRotavaultError.h; sourceTree = "<group>"; };
@@ -338,6 +364,9 @@
 		CAC65825120EE1F100069286 /* LCSTaskOperationBase+TestPassword.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LCSTaskOperationBase+TestPassword.m"; sourceTree = "<group>"; };
 		CAC65845120EE39000069286 /* LCSHdiUtilWithProgressOperationTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSHdiUtilWithProgressOperationTest.h; sourceTree = "<group>"; };
 		CAC65846120EE39000069286 /* LCSHdiUtilWithProgressOperationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSHdiUtilWithProgressOperationTest.m; sourceTree = "<group>"; };
+		CAD47F381244C271002DED2B /* Rotavault.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rotavault.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CAD47F3A1244C271002DED2B /* Rotavault-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Rotavault-Info.plist"; sourceTree = "<group>"; };
+		CAD47F421244C2ED002DED2B /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		CAE82D34122C311F00715BCF /* LCSPropertyListSHA1HashTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSPropertyListSHA1HashTest.h; sourceTree = "<group>"; };
 		CAE82D35122C311F00715BCF /* LCSPropertyListSHA1HashTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSPropertyListSHA1HashTest.m; sourceTree = "<group>"; };
 		CAE82D83122C361F00715BCF /* NSData+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Hex.h"; sourceTree = "<group>"; };
@@ -410,6 +439,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CAD47F361244C271002DED2B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CAD47F411244C288002DED2B /* librotavault.a in Frameworks */,
+				CA7461EC1244E07100CDE8C3 /* AppKit.framework in Frameworks */,
+				CA7461ED1244E07100CDE8C3 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -422,6 +461,7 @@
 				08FB779DFE84155DC02AAC07 /* External Frameworks and Libraries */,
 				1AB674ADFE9D54B511CA2CBB /* Products */,
 				CABAC20E123535A400DBEA0F /* Tests-Info.plist */,
+				CAD47F3A1244C271002DED2B /* Rotavault-Info.plist */,
 			);
 			name = rotavault;
 			sourceTree = "<group>";
@@ -449,6 +489,7 @@
 				CAA58245122F8AE10091247B /* rvschedule */,
 				CABAC3F812353A8100DBEA0F /* librotavault.a */,
 				CABAC40012353A9900DBEA0F /* librotavault_test.a */,
+				CAD47F381244C271002DED2B /* Rotavault.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -466,6 +507,7 @@
 		CA0DF0DC11F71D8B0029B5F7 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				CAD47F321244C218002DED2B /* gui */,
 				CA547447120B66120014E9E8 /* LCSBlockCopyOperation.h */,
 				CA547448120B66120014E9E8 /* LCSBlockCopyOperation.m */,
 				CAC655FA120EB3A700069286 /* LCSDiskUtilOperation.h */,
@@ -580,6 +622,17 @@
 				CA12461C1240B301004C1191 /* LCSRotavaultErrorTest.m */,
 			);
 			path = test;
+			sourceTree = "<group>";
+		};
+		CAD47F321244C218002DED2B /* gui */ = {
+			isa = PBXGroup;
+			children = (
+				CAD47F421244C2ED002DED2B /* MainMenu.xib */,
+				CA7460971244D47F00CDE8C3 /* LCSRotavaultMainWindowController.h */,
+				CA7460981244D47F00CDE8C3 /* LCSRotavaultMainWindowController.m */,
+				CA7462081244E0D600CDE8C3 /* rotavault.m */,
+			);
+			path = gui;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -715,6 +768,25 @@
 			productReference = CABAC40012353A9900DBEA0F /* librotavault_test.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		CAD47F371244C271002DED2B /* Rotavault */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CAD47F3E1244C272002DED2B /* Build configuration list for PBXNativeTarget "Rotavault" */;
+			buildPhases = (
+				CAD47F341244C271002DED2B /* Resources */,
+				CAD47F351244C271002DED2B /* Sources */,
+				CAD47F361244C271002DED2B /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CAD47F401244C284002DED2B /* PBXTargetDependency */,
+				CA7462291244E67700CDE8C3 /* PBXTargetDependency */,
+			);
+			name = Rotavault;
+			productName = Rotavault;
+			productReference = CAD47F381244C271002DED2B /* Rotavault.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -738,6 +810,7 @@
 				CAFF452212329DBC00B4AB77 /* Developer Documentation */,
 				CABAC3F712353A8100DBEA0F /* rotavault */,
 				CABAC3FF12353A9900DBEA0F /* rotavault_test */,
+				CAD47F371244C271002DED2B /* Rotavault */,
 			);
 		};
 /* End PBXProject section */
@@ -747,6 +820,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CAD47F341244C271002DED2B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CAD47F431244C2ED002DED2B /* MainMenu.xib in Resources */,
+				CA74622A1244E68E00CDE8C3 /* rvcopyd in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -898,9 +980,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CAD47F351244C271002DED2B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA7460991244D47F00CDE8C3 /* LCSRotavaultMainWindowController.m in Sources */,
+				CA7462091244E0D600CDE8C3 /* rotavault.m in Sources */,
+				CA74621B1244E4AF00CDE8C3 /* NSData+Hex.m in Sources */,
+				CA74621C1244E4B000CDE8C3 /* NSOperationQueue+NonBlockingWaitUntilFinished.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		CA7462291244E67700CDE8C3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CA9488791211892500415257 /* rvcopyd */;
+			targetProxy = CA7462281244E67700CDE8C3 /* PBXContainerItemProxy */;
+		};
 		CABAC44012353B6B00DBEA0F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = CABAC3FF12353A9900DBEA0F /* rotavault_test */;
@@ -955,6 +1053,11 @@
 			isa = PBXTargetDependency;
 			target = CABAC3F712353A8100DBEA0F /* rotavault */;
 			targetProxy = CABAC93F1235826200DBEA0F /* PBXContainerItemProxy */;
+		};
+		CAD47F401244C284002DED2B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CABAC3F712353A8100DBEA0F /* rotavault */;
+			targetProxy = CAD47F3F1244C284002DED2B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1346,6 +1449,37 @@
 			};
 			name = Release;
 		};
+		CAD47F3B1244C271002DED2B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				INFOPLIST_FILE = "Rotavault-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = Rotavault;
+			};
+			name = Debug;
+		};
+		CAD47F3C1244C271002DED2B /* Coverage */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				INFOPLIST_FILE = "Rotavault-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = Rotavault;
+			};
+			name = Coverage;
+		};
+		CAD47F3D1244C271002DED2B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				INFOPLIST_FILE = "Rotavault-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = Rotavault;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		CAFF452312329DBC00B4AB77 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1453,6 +1587,16 @@
 				CABAC866123575DF00DBEA0F /* Debug */,
 				CABAC867123575DF00DBEA0F /* Coverage */,
 				CABAC868123575DF00DBEA0F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CAD47F3E1244C272002DED2B /* Build configuration list for PBXNativeTarget "Rotavault" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CAD47F3B1244C271002DED2B /* Debug */,
+				CAD47F3C1244C271002DED2B /* Coverage */,
+				CAD47F3D1244C271002DED2B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
