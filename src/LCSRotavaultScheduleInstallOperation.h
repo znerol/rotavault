@@ -21,6 +21,7 @@
     id <LCSOperationInputParameter> sourceDevice;
     id <LCSOperationInputParameter> targetDevice;
     id <LCSOperationInputParameter> runAtDate;
+    id <LCSOperationInputParameter> rvcopydLaunchPath;
     
     NSDictionary    *sourceInfo;
     NSDictionary    *targetInfo;
@@ -40,4 +41,5 @@
 @property(retain) id <LCSOperationInputParameter> sourceDevice;
 @property(retain) id <LCSOperationInputParameter> targetDevice;
 @property(retain) id <LCSOperationInputParameter> runAtDate;
+@property(retain) id <LCSOperationInputParameter> rvcopydLaunchPath;
 @end

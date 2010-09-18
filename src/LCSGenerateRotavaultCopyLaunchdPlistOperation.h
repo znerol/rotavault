@@ -11,13 +11,15 @@
 
 
 @interface LCSGenerateRotavaultCopyLaunchdPlistOperation : LCSOperation {
-    id <LCSOperationInputParameter> runAtDate;  // NSDate*
-    id <LCSOperationInputParameter> sourceInfo; // NSDictionary*
-    id <LCSOperationInputParameter> targetInfo; // NSDictionary*
-    id <LCSOperationOutputParameter> result;    // NSDictionary*
+    id <LCSOperationInputParameter> runAtDate;          // NSDate*
+    id <LCSOperationInputParameter> sourceInfo;         // NSDictionary*
+    id <LCSOperationInputParameter> targetInfo;         // NSDictionary*
+    id <LCSOperationInputParameter> rvcopydLaunchPath;  // NSString*
+    id <LCSOperationOutputParameter> result;            // NSDictionary*
 }
 @property(retain) id <LCSOperationInputParameter> runAtDate;
 @property(retain) id <LCSOperationInputParameter> sourceInfo;
 @property(retain) id <LCSOperationInputParameter> targetInfo;
+@property(retain) id <LCSOperationInputParameter> rvcopydLaunchPath;
 @property(retain) id <LCSOperationOutputParameter> result;
 @end

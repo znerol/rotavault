@@ -20,7 +20,8 @@
     
     sourceDevice = [[LCSOperationRequiredInputParameterMarker alloc] init];
     targetDevice = [[LCSOperationRequiredInputParameterMarker alloc] init];
-    runAtDate = [[LCSOperationRequiredInputParameterMarker alloc] init];
+    runAtDate = [[LCSOperationOptionalInputParameterMarker alloc] initWithDefaultValue:nil];
+    rvcopydLaunchPath = [[LCSOperationRequiredInputParameterMarker alloc] init];
     LCSINIT_RELEASE_AND_RETURN_IF_NIL(sourceDevice && targetDevice && runAtDate);
     
     sourceInfoOperation = [[LCSInformationForDiskOperation alloc] init];
@@ -69,6 +70,8 @@
         [LCSKeyValueOperationInputParameter parameterWithTarget:self keyPath:@"sourceInfo"];
     plistGenOperation.targetInfo = 
         [LCSKeyValueOperationInputParameter parameterWithTarget:self keyPath:@"targetInfo"];
+    plistGenOperation.rvcopydLaunchPath =
+        [LCSForwardOperationInputParameter parameterWithParameterPointer:&rvcopydLaunchPath];
     plistGenOperation.result =
         [LCSKeyValueOperationOutputParameter parameterWithTarget:self keyPath:@"launchdPlist"];
     LCSINIT_RELEASE_AND_RETURN_IF_NIL(plistGenOperation.sourceInfo);
@@ -122,6 +125,11 @@
     [launchctlRemoveOperation release];
     [launchctlLoadOperation release];
     
+    [sourceDevice release];
+    [targetDevice release];
+    [runAtDate release];
+    [rvcopydLaunchPath release];
+    
     [super dealloc];
 }
 
@@ -135,4 +143,5 @@
 @synthesize sourceDevice;
 @synthesize targetDevice;
 @synthesize runAtDate;
+@synthesize rvcopydLaunchPath;
 @end
