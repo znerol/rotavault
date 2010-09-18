@@ -52,6 +52,7 @@
 		CA74621B1244E4AF00CDE8C3 /* NSData+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = CAE82D84122C361F00715BCF /* NSData+Hex.m */; };
 		CA74621C1244E4B000CDE8C3 /* NSOperationQueue+NonBlockingWaitUntilFinished.m in Sources */ = {isa = PBXBuildFile; fileRef = CA2E638F1212AB760031C4FA /* NSOperationQueue+NonBlockingWaitUntilFinished.m */; };
 		CA74622A1244E68E00CDE8C3 /* rvcopyd in Resources */ = {isa = PBXBuildFile; fileRef = CA94887A1211892500415257 /* rvcopyd */; };
+		CA88225E1244F23700DF97DE /* LCSRotavaultActivityController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA88225D1244F23700DF97DE /* LCSRotavaultActivityController.m */; };
 		CA9488821211895B00415257 /* rvcopyd.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9488811211895B00415257 /* rvcopyd.m */; };
 		CA9B7740124094570006B5B9 /* LCSRotavaultError.h in Headers */ = {isa = PBXBuildFile; fileRef = CA9B773E124094570006B5B9 /* LCSRotavaultError.h */; };
 		CA9B7741124094570006B5B9 /* LCSRotavaultError.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9B773F124094570006B5B9 /* LCSRotavaultError.m */; };
@@ -140,7 +141,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = CA9488791211892500415257 /* rvcopyd */;
+			remoteGlobalIDString = CA9488791211892500415257;
 			remoteInfo = rvcopyd;
 		};
 		CABAC43F12353B6B00DBEA0F /* PBXContainerItemProxy */ = {
@@ -306,6 +307,8 @@
 		CA7460971244D47F00CDE8C3 /* LCSRotavaultMainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSRotavaultMainWindowController.h; sourceTree = "<group>"; };
 		CA7460981244D47F00CDE8C3 /* LCSRotavaultMainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSRotavaultMainWindowController.m; sourceTree = "<group>"; };
 		CA7462081244E0D600CDE8C3 /* rotavault.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rotavault.m; sourceTree = "<group>"; };
+		CA88225C1244F23700DF97DE /* LCSRotavaultActivityController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSRotavaultActivityController.h; sourceTree = "<group>"; };
+		CA88225D1244F23700DF97DE /* LCSRotavaultActivityController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSRotavaultActivityController.m; sourceTree = "<group>"; };
 		CA94887A1211892500415257 /* rvcopyd */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = rvcopyd; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA9488811211895B00415257 /* rvcopyd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rvcopyd.m; sourceTree = "<group>"; };
 		CA9B773E124094570006B5B9 /* LCSRotavaultError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSRotavaultError.h; sourceTree = "<group>"; };
@@ -631,6 +634,8 @@
 				CA7460971244D47F00CDE8C3 /* LCSRotavaultMainWindowController.h */,
 				CA7460981244D47F00CDE8C3 /* LCSRotavaultMainWindowController.m */,
 				CA7462081244E0D600CDE8C3 /* rotavault.m */,
+				CA88225C1244F23700DF97DE /* LCSRotavaultActivityController.h */,
+				CA88225D1244F23700DF97DE /* LCSRotavaultActivityController.m */,
 			);
 			path = gui;
 			sourceTree = "<group>";
@@ -988,6 +993,7 @@
 				CA7462091244E0D600CDE8C3 /* rotavault.m in Sources */,
 				CA74621B1244E4AF00CDE8C3 /* NSData+Hex.m in Sources */,
 				CA74621C1244E4B000CDE8C3 /* NSOperationQueue+NonBlockingWaitUntilFinished.m in Sources */,
+				CA88225E1244F23700DF97DE /* LCSRotavaultActivityController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

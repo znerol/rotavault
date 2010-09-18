@@ -6,12 +6,14 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "LCSRotavaultActivityController.h"
 
 @interface LCSRotavaultMainWindowController : NSObject {
     IBOutlet NSDatePicker *runDateField;
     IBOutlet NSTextField *sourceDeviceField;
     IBOutlet NSTextField *statusField;
     IBOutlet NSTextField *targetDeviceField;
+    IBOutlet LCSRotavaultActivityController *activityController;
 }
 - (IBAction)createTargetImage:(id)sender;
 - (IBAction)scheduleTask:(id)sender;

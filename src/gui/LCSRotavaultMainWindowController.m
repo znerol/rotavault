@@ -24,9 +24,7 @@
     NSString* rvcopydPath = [[NSBundle mainBundle] pathForResource:@"rvcopyd" ofType:nil];
     op.rvcopydLaunchPath = [LCSSimpleOperationInputParameter parameterWithValue:rvcopydPath];
     
-    // FIXME: create an LCSGuiOperationRunner class
-    [op start];
-    
+    [activityController runOperation:op];    
     [op release];
 }
 
@@ -47,9 +45,7 @@
     NSString* rvcopydPath = [[NSBundle mainBundle] pathForResource:@"rvcopyd" ofType:nil];
     op.rvcopydLaunchPath = [LCSSimpleOperationInputParameter parameterWithValue:rvcopydPath];
     
-    // FIXME: create an LCSGuiOperationRunner class
-    [op start];
-    
+    [activityController runOperation:op];    
     [op release];
 }
 
