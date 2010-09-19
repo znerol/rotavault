@@ -9,8 +9,10 @@
 #import "LCSOperation.h"
 
 @interface LCSRotavaultActivityController : NSObject {
-    IBOutlet NSTableView *activityTable;
-    NSOperationQueue    *_queue;
+    IBOutlet NSOutlineView  *activityOutline;
+    NSOperationQueue        *_queue;
+    NSMutableArray          *activeOperations;
+    NSThread                *originalThread;
 }
 - (IBAction)togglePanelVisibility:(id)sender;
 

@@ -13,4 +13,5 @@
 @interface LCSOperationQueueOperation : LCSOperation {
     NSOperationQueue *queue;
 }
+@property(readonly) NSOperationQueue *queue;
 @end

@@ -22,6 +22,8 @@
     return self;
 }
 
+@synthesize queue;
+
 -(void)setDelegate:(id)newDelegate
 {
     [super setDelegate:newDelegate];
