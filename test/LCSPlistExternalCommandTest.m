@@ -51,7 +51,7 @@
     }
 }
 
--(void)testCommandWithStderrNonZeroExitStatus
+-(void)testCommandWithPlistStdout
 {
     LCSTestdir *testdir = [[LCSTestdir alloc] init];
     NSString *testscript = [[testdir path] stringByAppendingPathComponent:@"test.sh"];
@@ -99,6 +99,25 @@
     
     [testdir remove];
     [testdir release];
+}
+
+-(void)testCommandWithInvalidStdout
+{
+    [cmd.task setLaunchPath:@"/bin/echo"];
+    [cmd.task setArguments:[NSArray arrayWithObject:@"no plist here!"]];
+    [ctl start];
+    
+    [mgr waitUntilAllCommandsAreDone];
+    
+    NSArray *expectedStates = [NSArray arrayWithObjects:
+                               [NSNumber numberWithInt:LCSCommandStateInit],
+                               [NSNumber numberWithInt:LCSCommandStateStarting],
+                               [NSNumber numberWithInt:LCSCommandStateRunning],
+                               [NSNumber numberWithInt:LCSCommandStateFailed],
+                               [NSNumber numberWithInt:LCSCommandStateInvalidated],
+                               nil];
+    
+    GHAssertEqualObjects(states, expectedStates, @"Unexpected state sequence");
 }
 
 @end
