@@ -11,12 +11,6 @@
 #import "LCSCommandController.h"
 
 
-@interface LCSExternalCommand (overrides)
--(void)taskCompleted;
--(void)invalidate;
-@end
-
-
 @implementation LCSQuickExternalCommand
 
 -(id)init
@@ -51,58 +45,71 @@
     [super invalidate];
 }
 
--(void)taskCompleteIfDone
+-(void)collectResults
 {
-    if (!taskTerminated || !stdoutData || !stderrData) {
+    controller.result = [NSArray arrayWithObjects:stdoutData, stderrData, nil];
+}
+
+-(void)completeIfDone
+{
+    if (!taskTerminated || !stdoutCollected || !stderrCollected) {
         return;
     }
     
-    self.controller.result = [NSArray arrayWithObjects:stdoutData, stderrData, nil];
-    [super taskCompleted];
+    [self collectResults];
+    [super handleTaskTermination];
+}
+
+-(void)stderrDataAvailable:(NSData*)data
+{
+    stderrCollected = YES;
+    stderrData = [data retain];
+}
+
+-(void)stdoutDataAvailable:(NSData*)data
+{
+    stdoutCollected = YES;
+    stdoutData = [data retain];
 }
 
 -(void)handleReadToEndOfFileNotification:(NSNotification*)ntf
 {
-    NSData **targetData;
-    
     NSNumber *unixError = [[ntf userInfo] objectForKey:@"NSFileHandleError"];
 
     if ([unixError intValue] != 0) {
-        self.controller.state = LCSCommandStateFailed;
+        controller.state = LCSCommandStateFailed;
         [self invalidate];
     }
     
     if ([ntf object] == [stdoutPipe fileHandleForReading]) {
-        targetData = &stdoutData;
+        [self stdoutDataAvailable:[[ntf userInfo] objectForKey:NSFileHandleNotificationDataItem]];
     }
     else if ([ntf object] == [stderrPipe fileHandleForReading]) {
-        targetData = &stderrData;
+        [self stderrDataAvailable:[[ntf userInfo] objectForKey:NSFileHandleNotificationDataItem]];
     }
     else {
         return;
     }
     
-    *targetData = [[[ntf userInfo] objectForKey:NSFileHandleNotificationDataItem] retain];
-    
-    [self taskCompleteIfDone];
+    [self completeIfDone];
 }
 
--(void)taskCompleted
+-(void)handleTaskTermination
 {
     taskTerminated = YES;
-    [self taskCompleteIfDone];
+    [self completeIfDone];
 }
 
 -(void)start
 {
-    [self.task setStandardOutput:stdoutPipe];
+    [task setStandardOutput:stdoutPipe];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleReadToEndOfFileNotification:)
                                                  name:NSFileHandleReadToEndOfFileCompletionNotification
                                                object:[stdoutPipe fileHandleForReading]];
     [[stdoutPipe fileHandleForReading] readToEndOfFileInBackgroundAndNotify];
     
-    [self.task setStandardError:stderrPipe];
+    [task setStandardError:stderrPipe];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleReadToEndOfFileNotification:)
                                                  name:NSFileHandleReadToEndOfFileCompletionNotification

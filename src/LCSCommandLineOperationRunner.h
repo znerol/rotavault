@@ -13,6 +13,7 @@
 @interface LCSCommandLineOperationRunner : NSObject <LCSOperationDelegate> {
     LCSOperation*   _operation;
     NSError*        _firstError;
+    NSString*       _statusNotificationName;
 }
 
 +(NSError*)runOperation:(LCSOperation*)operation;

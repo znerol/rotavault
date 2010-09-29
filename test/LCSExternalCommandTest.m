@@ -12,6 +12,11 @@
 
 @implementation LCSExternalCommandTest
 
+-(void)stopRunloop:(id)sender
+{
+    CFRunLoopStop([[NSRunLoop currentRunLoop] getCFRunLoop]);
+}
+
 -(void)setUp
 {
     states = [[NSMutableArray alloc] init];
@@ -65,7 +70,7 @@
                                [NSNumber numberWithInt:LCSCommandStateInvalidated],
                                nil];
     
-    GHAssertEqualObjects(states, expectedStates, @"State progression don't match");
+    GHAssertEqualObjects(states, expectedStates, @"Unexpected state sequence");
     
 }
 
@@ -91,9 +96,9 @@
 {
     [cmd.task setLaunchPath:@"/bin/sleep"];
     [cmd.task setArguments:[NSArray arrayWithObject:@"10"]];
+    [ctl addObserver:self selector:@selector(stopRunloop:) forState:LCSCommandStateRunning];
     
     [ctl start];
-    usleep(100000);
     [ctl cancel];
     
     [mgr waitUntilAllCommandsAreDone];
@@ -128,6 +133,7 @@
     
     GHAssertEqualObjects(states, expectedStates, @"Unexpected state sequence");
     
+    [testdir remove];
     [testdir release];
 }
 
@@ -149,6 +155,7 @@
     
     GHAssertEqualObjects(states, expectedStates, @"Unexpected state sequence");
     
+    [testdir remove];
     [testdir release];
 }
 
@@ -174,6 +181,7 @@
     
     GHAssertEqualObjects(states, expectedStates, @"Unexpected state sequence");
     
+    [testdir remove];
     [testdir release];
 }
 @end

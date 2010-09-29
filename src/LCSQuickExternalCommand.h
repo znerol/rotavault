@@ -14,9 +14,19 @@
     NSData *stdoutData;
     NSPipe *stdoutPipe;
     
+    BOOL stdoutCollected;
+    BOOL stderrCollected;
+    
     NSData *stderrData;
     NSPipe *stderrPipe;
     
     BOOL taskTerminated;
 }
+@end
+
+
+@interface LCSQuickExternalCommand (SubclassOverrides)
+-(void)stderrDataAvailable:(NSData*)data;
+-(void)stdoutDataAvailable:(NSData*)data;
+-(void)collectResults;
 @end

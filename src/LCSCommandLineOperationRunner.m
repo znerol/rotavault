@@ -32,6 +32,9 @@
     [sh addSignal:SIGALRM];
     [sh addSignal:SIGTERM];
     
+    _statusNotificationName =
+        [[NSString alloc] initWithFormat:@"ch.znerol.%@.status", [[NSProcessInfo processInfo] processName]];
+    
     return self;
 }
 
@@ -47,8 +50,19 @@
 
 -(void)operation:(LCSOperation*)op handleException:(NSException*)exception
 {
-    NSLog(@"UNHANDLED EXCEPTION: %@:%@", [op description], [exception description]);
     [_operation cancel];
+
+    NSLog(@"UNHANDLED EXCEPTION: %@:%@", [op description], [exception description]);
+    
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                              [op description], @"Operation",
+                              exception, @"Exception",
+                              nil];
+    
+    [[NSDistributedNotificationCenter defaultCenter] postNotificationName:_statusNotificationName
+                                                                   object:nil
+                                                                 userInfo:userInfo
+                                                                  options:NSNotificationPostToAllSessions];
 }
 
 -(void)operation:(LCSOperation*)op handleError:(NSError*)error
@@ -66,6 +80,17 @@
         [_operation cancel];
     }
 
+    
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                              [op description], @"Operation",
+                              error, @"Error",
+                              nil];
+    
+    [[NSDistributedNotificationCenter defaultCenter] postNotificationName:_statusNotificationName
+                                                                   object:nil
+                                                                 userInfo:userInfo
+                                                                  options:NSNotificationPostToAllSessions];
+    
     if ([error domain] == NSCocoaErrorDomain && [error code] == NSUserCancelledError) {
         return;
     }
@@ -83,6 +108,16 @@
 -(void)operation:(LCSOperation*)op updateProgress:(NSNumber*)progress
 {
     NSLog(@"PROGR: %.2f", [progress floatValue]);
+    
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                              [op description], @"Operation",
+                              progress, @"Progress",
+                              nil];
+    
+    [[NSDistributedNotificationCenter defaultCenter] postNotificationName:_statusNotificationName
+                                                                   object:nil
+                                                                 userInfo:userInfo
+                                                                  options:NSNotificationPostToAllSessions];
 }
 
 -(NSError*)run

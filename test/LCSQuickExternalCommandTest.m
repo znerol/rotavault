@@ -65,7 +65,7 @@
                                [NSNumber numberWithInt:LCSCommandStateInvalidated],
                                nil];
     
-    GHAssertEqualObjects(states, expectedStates, @"State progression don't match");
+    GHAssertEqualObjects(states, expectedStates, @"Unexpected state sequence");
     
 }
 
@@ -95,7 +95,6 @@
     [cmd.task setArguments:[NSArray arrayWithObject:@"10"]];
     
     [ctl start];
-    usleep(100000);
     [ctl cancel];
     
     [mgr waitUntilAllCommandsAreDone];
@@ -130,6 +129,7 @@
     
     GHAssertEqualObjects(states, expectedStates, @"Unexpected state sequence");
     
+    [testdir remove];
     [testdir release];
 }
 
@@ -151,6 +151,7 @@
     
     GHAssertEqualObjects(states, expectedStates, @"Unexpected state sequence");
     
+    [testdir remove];
     [testdir release];
 }
 
@@ -176,6 +177,7 @@
     
     GHAssertEqualObjects(states, expectedStates, @"Unexpected state sequence");
     
+    [testdir remove];
     [testdir release];
 }
 
@@ -201,9 +203,55 @@
                                [NSNumber numberWithInt:LCSCommandStateInvalidated],
                                nil];
     
-    GHAssertEqualObjects(states, expectedStates, @"State progression don't match");
+    GHAssertEqualObjects(states, expectedStates, @"Unexpected state sequence");
     
-    NSData *expectedData = [NSArray arrayWithObjects:[@"TEST" dataUsingEncoding:NSUTF8StringEncoding], [NSData data], nil];
+    NSData *expectedData = [NSArray arrayWithObjects:
+                            [@"TEST" dataUsingEncoding:NSUTF8StringEncoding], [NSData data], nil];
     GHAssertEqualObjects(ctl.result, expectedData, @"Unexpected result");
+    
+    [testdir remove];
+    [testdir release];
+}
+
+-(void)testCommandWithStderrNonZeroExitStatus
+{
+    LCSTestdir *testdir = [[LCSTestdir alloc] init];
+    NSString *testscript = [[testdir path] stringByAppendingPathComponent:@"test.sh"];
+    
+    BOOL result = [@"#!/bin/sh\necho HELLO >&2\nexit 1" writeToFile:testscript
+                                                         atomically:NO
+                                                           encoding:NSUTF8StringEncoding
+                                                              error:nil];
+    
+    GHAssertEquals(result, YES, @"Failed to write helper script");
+    
+    NSFileManager *fm = [[NSFileManager alloc] init];
+    NSDictionary *executableAttribute = [NSDictionary dictionaryWithObject:[NSNumber numberWithUnsignedInt:0755]
+                                                                    forKey:NSFilePosixPermissions];
+    result = [fm setAttributes:executableAttribute ofItemAtPath:testscript error:nil];
+    GHAssertEquals(result, YES, @"Failed to chmod helper script");
+    
+    [cmd.task setLaunchPath:@"/bin/sh"];
+    [cmd.task setArguments:[NSArray arrayWithObject:testscript]];
+    [ctl start];
+    
+    [mgr waitUntilAllCommandsAreDone];
+    
+    NSArray *expectedStates = [NSArray arrayWithObjects:
+                               [NSNumber numberWithInt:LCSCommandStateInit],
+                               [NSNumber numberWithInt:LCSCommandStateStarting],
+                               [NSNumber numberWithInt:LCSCommandStateRunning],
+                               [NSNumber numberWithInt:LCSCommandStateFailed],
+                               [NSNumber numberWithInt:LCSCommandStateInvalidated],
+                               nil];
+    
+    GHAssertEqualObjects(states, expectedStates, @"Unexpected state sequence");
+    
+    NSData *expectedData = [NSArray arrayWithObjects:
+                            [NSData data], [@"HELLO\n" dataUsingEncoding:NSUTF8StringEncoding], nil];
+    GHAssertEqualObjects(ctl.result, expectedData, @"Unexpected result");
+    
+    [testdir remove];
+    [testdir release];
 }
 @end

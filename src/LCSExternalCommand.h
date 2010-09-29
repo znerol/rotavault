@@ -10,6 +10,16 @@
 #import "LCSCommand.h"
 
 
-@interface LCSExternalCommand : NSObject <LCSCommand>
+@interface LCSExternalCommand : NSObject <LCSCommand> {
+    LCSCommandController *controller;
+    NSTask *task;
+
+}
 @property(readonly,retain) NSTask *task;
+@end
+
+@interface LCSExternalCommand (SubclassOverrides)
+-(void)invalidate;
+-(void)handleTaskTermination;
+-(void)handleError:(NSError *)error;
 @end
