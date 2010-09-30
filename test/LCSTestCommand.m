@@ -34,16 +34,22 @@
     return [[[LCSTestCommand alloc] initWithDelay:inDelay finalState:inState] autorelease];
 }
 
+-(void)invalidate
+{
+    [[self class] cancelPreviousPerformRequestsWithTarget:self];
+    controller.state = LCSCommandStateInvalidated;
+}
+
 -(void)performComplete
 {
     controller.state = finalState;
-    controller.state = LCSCommandStateInvalidated;
+    [self invalidate];
 }
 
 -(void)performCancel
 {
     controller.state = LCSCommandStateCancelled;
-    controller.state = LCSCommandStateInvalidated;
+    [self invalidate];
 }
 
 -(void)start
