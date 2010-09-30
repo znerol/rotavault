@@ -11,6 +11,7 @@
 @implementation LCSCommandController
 @synthesize command;
 @synthesize state;
+@synthesize exitState;
 @synthesize title;
 @synthesize progress;
 @synthesize progressMessage;
@@ -117,6 +118,11 @@
 -(void)setState:(LCSCommandState)newState
 {
     NSParameterAssert([self validateNextState:newState]);
+    
+    if (newState == LCSCommandStateInvalidated) {
+        exitState = state;
+    }
+    
     state = newState;
     
     self.cancellable = [self validateNextState:LCSCommandStateCancelling];

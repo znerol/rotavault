@@ -35,6 +35,7 @@ typedef enum {
 }
 
 @property(assign) LCSCommandState  state;
+@property(assign) LCSCommandState  exitState;
 @property(retain) id <LCSCommand>  command;
 
 @property(retain) NSString *title;
@@ -52,6 +53,7 @@ typedef enum {
 +(LCSCommandController*)controllerWithCommand:(id <LCSCommand>)anCommand;
 -(void)addObserver:(id)observer selector:(SEL)selector forState:(LCSCommandState)state;
 -(void)removeObserver:(id)observer forState:(LCSCommandState)newState;
+-(BOOL)validateNextState:(LCSCommandState)newState;
 -(void)start;
 -(void)cancel;
 -(void)pause;

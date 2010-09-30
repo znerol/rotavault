@@ -41,14 +41,14 @@
 
 -(void)handleTaskTermination
 {
-    if ([task terminationStatus] != 0) {
+    if ([task terminationStatus] != 0 && [controller validateNextState:LCSCommandStateFailed]) {
         NSError *error = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSExecutableReturnedNonZeroStatusError,
                                          LCSERROR_LOCALIZED_DESCRIPTION(@"External helper tool terminated with exit status %d", [task terminationStatus]),
                                          LCSERROR_EXECUTABLE_TERMINATION_STATUS([task terminationStatus]),
                                          LCSERROR_EXECUTABLE_LAUNCH_PATH([task launchPath]));
         [self handleError:error];
     }
-    else {
+    else if ([controller validateNextState:LCSCommandStateFinished]){
         controller.state = LCSCommandStateFinished;
         [self invalidate];
     }

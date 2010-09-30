@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LCSExternalCommand.h"
+#import "LCSQuickExternalCommand.h"
 
 
-@interface LCSLaunchctlLoadCommand : LCSExternalCommand
+@interface LCSLaunchctlLoadCommand : LCSQuickExternalCommand
 -(id)initWithPath:(NSString*)plistPath;
 +(LCSLaunchctlLoadCommand*)commandWithPath:(NSString*)plistPath;
 @end
