@@ -15,13 +15,13 @@
 {
     LCSINIT_SUPER_OR_RETURN_NIL();
     
-    [task setLaunchPath:@"/usr/launchctl"];
+    [task setLaunchPath:@"/bin/launchctl"];
     [task setArguments:[NSArray arrayWithObjects:@"remove", label, nil]];
     
     return self;
 }
 
--(LCSLaunchctlRemoveCommand*)commandWithLabel:(NSString*)label
++(LCSLaunchctlRemoveCommand*)commandWithLabel:(NSString*)label
 {
     return [[[LCSLaunchctlRemoveCommand alloc] initWithLabel:label] autorelease];
 }

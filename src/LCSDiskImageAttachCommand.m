@@ -21,7 +21,7 @@
     return self;
 }
 
--(LCSDiskImageAttachCommand*)commandWithImagePath:(NSString *)imagePath
++(LCSDiskImageAttachCommand*)commandWithImagePath:(NSString *)imagePath
 {
     return [[[LCSDiskImageAttachCommand alloc] initWithImagePath:imagePath] autorelease];
 }

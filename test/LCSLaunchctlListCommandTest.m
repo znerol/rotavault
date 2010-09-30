@@ -6,35 +6,28 @@
 //  Copyright 2010 znerol.ch. All rights reserved.
 //
 
-#import "LCSLaunchctlListCommandTest.h"
+#import <GHUnit/GHUnit.h>
+#import "LCSCommandManager.h"
+#import "LCSLaunchctlListCommand.h"
+#import "LCSCommandController.h"
 
+
+@interface LCSLaunchctlListCommandTest : GHTestCase
+@end
 
 @implementation LCSLaunchctlListCommandTest
--(void)setUp
-{
-    mgr = [[LCSCommandManager alloc] init];
-    cmd = [[LCSLaunchctlListCommand alloc] init];
-    ctl = [[LCSCommandController controllerWithCommand:cmd] retain];
-    
-    [mgr addCommandController:ctl];
-}
-
--(void)tearDown
-{
-    [ctl release];
-    ctl = nil;
-    [cmd release];
-    cmd = nil;
-    [mgr release];
-    mgr = nil;
-}
-
 -(void)testLaunchctlListCommand
 {
-    [ctl start];
+    LCSCommandManager *mgr = [[LCSCommandManager alloc] init];
+    LCSLaunchctlListCommand *cmd = [LCSLaunchctlListCommand command];
+    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
     
+    [mgr addCommandController:ctl];
+    [ctl start];    
     [mgr waitUntilAllCommandsAreDone];
     
     GHAssertTrue([ctl.result isKindOfClass:[NSArray class]], @"Result must be an array");
+
+    [mgr release];
 }
 @end

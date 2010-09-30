@@ -11,4 +11,5 @@
 
 
 @interface LCSDiskImageInfoCommand : LCSPlistExternalCommand
++(LCSDiskImageInfoCommand*)command;
 @end

@@ -12,5 +12,5 @@
 
 @interface LCSDiskImageAttachCommand : LCSPlistExternalCommand
 -(id)initWithImagePath:(NSString*)imagePath;
--(LCSDiskImageAttachCommand*)commandWithImagePath:(NSString*)imagePath;
++(LCSDiskImageAttachCommand*)commandWithImagePath:(NSString*)imagePath;
 @end

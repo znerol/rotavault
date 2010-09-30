@@ -20,4 +20,9 @@
     
     return self;
 }
+
++(LCSDiskImageInfoCommand*)command
+{
+    return [[[LCSDiskImageInfoCommand alloc] init] autorelease];
+}
 @end

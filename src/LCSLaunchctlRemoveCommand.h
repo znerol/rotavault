@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LCSExternalCommand.h"
+#import "LCSQuickExternalCommand.h"
 
 
-@interface LCSLaunchctlRemoveCommand : LCSExternalCommand
+@interface LCSLaunchctlRemoveCommand : LCSQuickExternalCommand
 -(id)initWithLabel:(NSString*)label;
--(LCSLaunchctlRemoveCommand*)commandWithLabel:(NSString*)label;
++(LCSLaunchctlRemoveCommand*)commandWithLabel:(NSString*)label;
 @end
