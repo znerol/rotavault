@@ -6,12 +6,23 @@
 //  Copyright 2010 znerol.ch. All rights reserved.
 //
 
-#import "LCSQuickExternalCommandTest.h"
+
+#import <GHUnit/GHUnit.h>
+#import "LCSQuickExternalCommand.h"
+#import "LCSCommandController.h"
+#import "LCSCommandManager.h"
 #import "LCSTestdir.h"
+
+@interface LCSQuickExternalCommandTest : GHTestCase {
+    NSMutableArray *states;
+    LCSCommandManager *mgr;
+    LCSQuickExternalCommand *cmd;
+    LCSCommandController *ctl;
+}
+@end
 
 
 @implementation LCSQuickExternalCommandTest
-
 -(void)setUp
 {
     states = [[NSMutableArray alloc] init];

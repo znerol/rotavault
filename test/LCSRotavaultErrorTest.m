@@ -6,9 +6,12 @@
 //  Copyright 2010 znerol.ch. All rights reserved.
 //
 
-#import "LCSRotavaultErrorTest.h"
+#import <SenTestingKit/SenTestingKit.h>
 #import "LCSRotavaultError.h"
 
+
+@interface LCSRotavaultErrorTest : SenTestCase    
+@end
 
 @implementation LCSRotavaultErrorTest
 -(void)testMinimalError

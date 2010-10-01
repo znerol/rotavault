@@ -6,10 +6,13 @@
 //  Copyright 2010 znerol.ch. All rights reserved.
 //
 
-#import "LCSPropertyListSHA1HashTest.h"
+#import <SenTestingKit/SenTestingKit.h>
 #import "LCSPropertyListSHA1Hash.h"
 
 
+@interface LCSPropertyListSHA1HashTest : SenTestCase
+@end
+    
 @implementation LCSPropertyListSHA1HashTest
 
 -(void)testSha1HashFromPropertyListContainingString

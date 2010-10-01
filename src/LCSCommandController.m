@@ -7,6 +7,7 @@
 //
 
 #import "LCSCommandController.h"
+#import "LCSInitMacros.h"
 
 @implementation LCSCommandController
 @synthesize command;
@@ -33,9 +34,7 @@
 
 -(id)init
 {
-    if (!(self = [super init])) {
-        return nil;
-    }
+    LCSINIT_SUPER_OR_RETURN_NIL();
     
     /* 
      * setup an array of map tables allowing us to use observer objects as keys (without copying) and selectors (SEL) as 
@@ -43,8 +42,10 @@
      */
     NSPointerFunctions *keyfunc = [NSPointerFunctions pointerFunctionsWithOptions:
                                    NSPointerFunctionsZeroingWeakMemory|NSPointerFunctionsObjectPointerPersonality];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(keyfunc);
     NSPointerFunctions *valfunc = [NSPointerFunctions pointerFunctionsWithOptions:
                                    NSPointerFunctionsZeroingWeakMemory|NSPointerFunctionsOpaquePersonality];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(valfunc);
     
     /* set a description function for the SEL pointers */
     typedef NSString *(*descriptionFunction_t)(const void *item);
@@ -54,6 +55,7 @@
         observers[i] = [[NSMapTable alloc] initWithKeyPointerFunctions:keyfunc
                                                  valuePointerFunctions:valfunc
                                                               capacity:0];
+        LCSINIT_RELEASE_AND_RETURN_IF_NIL(observers);
     }
     
     return self;

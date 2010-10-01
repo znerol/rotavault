@@ -6,9 +6,21 @@
 //  Copyright 2010 znerol.ch. All rights reserved.
 //
 
-#import "LCSPlistExternalCommandTest.h"
+#import <GHUnit/GHUnit.h>
+#import "LCSQuickExternalCommand.h"
+#import "LCSCommandController.h"
+#import "LCSCommandManager.h"
 #import "LCSPlistExternalCommand.h"
 #import "LCSTestdir.h"
+
+
+@interface LCSPlistExternalCommandTest : GHTestCase {
+    NSMutableArray *states;
+    LCSCommandManager *mgr;
+    LCSQuickExternalCommand *cmd;
+    LCSCommandController *ctl;
+}
+@end
 
 
 @implementation LCSPlistExternalCommandTest

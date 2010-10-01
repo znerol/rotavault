@@ -6,8 +6,20 @@
 //  Copyright 2010 znerol.ch. All rights reserved.
 //
 
-#import "LCSMultiCommandTest.h"
+#import <GHUnit/GHUnit.h>
 #import "LCSTestCommand.h"
+#import "LCSCommandManager.h"
+#import "LCSMultiCommand.h"
+#import "LCSCommandController.h"
+
+
+@interface LCSMultiCommandTest : GHTestCase {
+    NSMutableArray *states;
+    LCSCommandManager *mgr;
+    LCSMultiCommand *cmd;
+    LCSCommandController *ctl;    
+}
+@end
 
 
 // FIXME: should not be necessary to access controllers via category...

@@ -6,9 +6,12 @@
 //  Copyright 2010 znerol.ch. All rights reserved.
 //
 
-#import "NSData+HexTest.h"
+
+#import <SenTestingKit/SenTestingKit.h>
 #import "NSData+Hex.h"
 
+@interface NSData_HexTest : SenTestCase
+@end
 
 @implementation NSData_HexTest
 -(void)testStringWithHexBytesZero

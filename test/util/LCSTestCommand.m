@@ -14,11 +14,6 @@
 @synthesize controller;
 
 
--(id)init
-{
-    return [self initWithDelay:0 finalState:LCSCommandStateFinished];
-}
-
 -(id)initWithDelay:(NSTimeInterval)inDelay finalState:(LCSCommandState)inState
 {
     LCSINIT_SUPER_OR_RETURN_NIL();
