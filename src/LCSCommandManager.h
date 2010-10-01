@@ -11,7 +11,9 @@
 #import "LCSCommandController.h"
 
 
-@interface LCSCommandManager : NSObject <LCSCommandRunner>
+@interface LCSCommandManager : NSObject <LCSCommandRunner> {
+    NSArray *commands;    
+}
 
 -(void)addCommandController:(LCSCommandController*)controller;
 -(void)removeCommandController:(LCSCommandController*)controller;

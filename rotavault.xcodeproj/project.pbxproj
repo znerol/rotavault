@@ -48,7 +48,6 @@
 		CA12697112567DF1000F7582 /* LCSTestdir.m in Sources */ = {isa = PBXBuildFile; fileRef = CA12696B12567DF1000F7582 /* LCSTestdir.m */; };
 		CA12697212567DF1000F7582 /* NSData+HexTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA12696D12567DF1000F7582 /* NSData+HexTest.m */; };
 		CA12697312567DF1000F7582 /* OCMockObject+NSTask.m in Sources */ = {isa = PBXBuildFile; fileRef = CA12696F12567DF1000F7582 /* OCMockObject+NSTask.m */; };
-		CA12698612567F1A000F7582 /* LCSNanosecondTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = CA12697F12567F1A000F7582 /* LCSNanosecondTimer.m */; };
 		CA12698712567F1A000F7582 /* LCSPropertyListSHA1Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = CA12698112567F1A000F7582 /* LCSPropertyListSHA1Hash.m */; };
 		CA12698812567F1A000F7582 /* LCSSignalHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = CA12698312567F1A000F7582 /* LCSSignalHandler.m */; };
 		CA12698912567F1A000F7582 /* NSData+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = CA12698512567F1A000F7582 /* NSData+Hex.m */; };
@@ -728,7 +727,6 @@
 				CA12697112567DF1000F7582 /* LCSTestdir.m in Sources */,
 				CA12697212567DF1000F7582 /* NSData+HexTest.m in Sources */,
 				CA12697312567DF1000F7582 /* OCMockObject+NSTask.m in Sources */,
-				CA12698612567F1A000F7582 /* LCSNanosecondTimer.m in Sources */,
 				CA12698712567F1A000F7582 /* LCSPropertyListSHA1Hash.m in Sources */,
 				CA12698812567F1A000F7582 /* LCSSignalHandler.m in Sources */,
 				CA12698912567F1A000F7582 /* NSData+Hex.m in Sources */,

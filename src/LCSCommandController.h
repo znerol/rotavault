@@ -32,6 +32,22 @@ typedef enum {
 
 @interface LCSCommandController : NSObject {
     NSMapTable* observers[LCSCommandStateCount];
+    
+    LCSCommandState  state;
+    LCSCommandState  exitState;
+    id <LCSCommand>  command;
+    
+    NSString *title;
+    float progress;
+    NSString *progressMessage;
+    BOOL cancellable;
+    BOOL pausable;
+    BOOL resumable;
+    BOOL progressAnimate;
+    BOOL progressIndeterminate;
+    
+    id result;
+    NSError* error;
 }
 
 @property(assign) LCSCommandState  state;
