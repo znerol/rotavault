@@ -31,6 +31,7 @@
     GHAssertTrue([[ctl.result valueForKey:@"images"] isKindOfClass:[NSArray class]],
                  @"Result should contain an array for the key 'images'");
     
+    [mgr removeCommandController:ctl];
     [mgr release];
 }
 @end

@@ -36,7 +36,7 @@
 
 -(void)collectResults
 {
-    controller.result = [joblist copy];
+    controller.result = [[joblist copy] autorelease];
 }
 
 -(void)stdoutDataAvailable:(NSData *)data

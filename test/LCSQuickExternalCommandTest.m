@@ -27,6 +27,7 @@
 -(void)tearDown
 {
     [ctl removeObserver:self forKeyPath:@"state"];
+    [mgr removeCommandController:ctl];
     
     [ctl release];
     ctl = nil;
@@ -251,6 +252,7 @@
                             [NSData data], [@"HELLO\n" dataUsingEncoding:NSUTF8StringEncoding], nil];
     GHAssertEqualObjects(ctl.result, expectedData, @"Unexpected result");
     
+    [fm release];
     [testdir remove];
     [testdir release];
 }

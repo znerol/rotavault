@@ -68,6 +68,8 @@
     [command release];
     [title release];
     [progressMessage release];
+    [result release];
+    [error release];
     [super dealloc];
 }
 

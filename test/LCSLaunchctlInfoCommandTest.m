@@ -43,6 +43,7 @@
                                                   arguments:[NSArray arrayWithObjects:@"remove", label, nil]];
     [removeTask waitUntilExit];
     
+    [mgr removeCommandController:ctl];
     [mgr release];
 }
 
@@ -60,6 +61,7 @@
     
     GHAssertEquals(ctl.exitState, LCSCommandStateFailed, @"Expecting LCSCommandStateFailed");
     
+    [mgr removeCommandController:ctl];
     [mgr release];
 }
 @end

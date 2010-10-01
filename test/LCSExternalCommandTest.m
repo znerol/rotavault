@@ -32,6 +32,7 @@
 -(void)tearDown
 {
     [ctl removeObserver:self forKeyPath:@"state"];
+    [mgr removeCommandController:ctl];
     
     [ctl release];
     ctl = nil;

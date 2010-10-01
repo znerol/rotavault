@@ -52,6 +52,7 @@
     
     [mgr release];
     
+    [dmgcreate release];
     [testdir remove];
     [testdir release];
 }

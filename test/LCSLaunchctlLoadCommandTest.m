@@ -50,6 +50,7 @@
                                                   arguments:[NSArray arrayWithObjects:@"remove", label, nil]];
     [removeTask waitUntilExit];
     
+    [mgr removeCommandController:ctl];
     [mgr release];
     
     [testdir remove];
@@ -96,6 +97,7 @@
                                                   arguments:[NSArray arrayWithObjects:@"remove", label, nil]];
     [removeTask waitUntilExit];
     
+    [mgr removeCommandController:ctl];
     [mgr release];
     
     [testdir remove];

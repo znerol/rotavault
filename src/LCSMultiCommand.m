@@ -13,6 +13,13 @@
 @synthesize controller;
 @synthesize commands;
 
+-(void)dealloc
+{
+    [controllers release];
+    [commands release];
+    [super dealloc];
+}
+
 -(void)setCommands:(NSArray *)newCommands
 {
     NSAssert(controller.state == LCSCommandStateInit, @"Unable to assign new commands if state is not init");

@@ -50,6 +50,7 @@
     
     GHAssertEquals(ctl.exitState, LCSCommandStateFinished, @"Expecting LCSCommandStateFinished");
     
+    [mgr removeCommandController:ctl];
     [mgr release];
     
     [testdir remove];
@@ -83,6 +84,7 @@
     
     GHAssertEquals(ctl.exitState, LCSCommandStateFinished, @"Expecting LCSCommandStateFinished");
         
+    [mgr removeCommandController:ctl];
     [mgr release];
     
     [testdir remove];

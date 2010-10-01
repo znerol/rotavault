@@ -58,6 +58,7 @@
 {
     [sourcedev release];
     [targetdev release];
+    [stdoutPipe release];
     [super dealloc];
 }
 
