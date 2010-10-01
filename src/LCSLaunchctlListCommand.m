@@ -48,6 +48,10 @@
     /* scan header */
     if (![scanner isAtEnd]) {
         if (![scanner scanString:@"PID\tStatus\tLabel\n" intoString:nil]) {
+            NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSUnexpectedOutputReceivedError,
+                                           LCSERROR_LOCALIZED_FAILURE_REASON(@"Failed to launchctl list header row"),
+                                           LCSERROR_EXECUTABLE_LAUNCH_PATH([task launchPath]));
+            [self handleError:err];
             return;
         }
     }
