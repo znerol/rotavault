@@ -22,5 +22,8 @@
     NSUInteger finishedCount;
 }
 
++(LCSMultiCommand*)command;
+
 @property(retain) NSArray *commands;
+@property(retain) NSArray *controllers;
 @end

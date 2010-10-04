@@ -12,6 +12,12 @@
 @implementation LCSMultiCommand
 @synthesize controller;
 @synthesize commands;
+@synthesize controllers;
+
++(LCSMultiCommand*)command
+{
+    return [[[LCSMultiCommand alloc] init] autorelease];
+}
 
 -(void)dealloc
 {
