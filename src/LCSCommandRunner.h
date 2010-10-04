@@ -12,6 +12,6 @@
 @class LCSCommandController;
 
 
-@protocol LCSCommandRunner
+@protocol LCSCommandRunner <NSObject>
 -(LCSCommandController*)run:(id <LCSCommand>)command;
 @end
