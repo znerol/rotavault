@@ -23,6 +23,7 @@
 @synthesize resumable;
 @synthesize result;
 @synthesize error;
+@synthesize userInfo;
 
 +(LCSCommandController*)controllerWithCommand:(id <LCSCommand>)anCommand
 {

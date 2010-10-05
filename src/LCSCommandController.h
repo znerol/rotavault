@@ -48,6 +48,8 @@ typedef enum {
     
     id result;
     NSError* error;
+    
+    id userInfo;
 }
 
 @property(assign) LCSCommandState  state;
@@ -66,6 +68,8 @@ typedef enum {
 @property(retain) id result;
 @property(retain) NSError* error;
 
+@property(assign) id userInfo;
+
 +(LCSCommandController*)controllerWithCommand:(id <LCSCommand>)anCommand;
 -(void)addObserver:(id)observer selector:(SEL)selector forState:(LCSCommandState)state;
 -(void)removeObserver:(id)observer forState:(LCSCommandState)newState;
@@ -76,4 +80,3 @@ typedef enum {
 -(void)resume;
 
 @end
-
