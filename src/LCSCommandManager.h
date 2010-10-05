@@ -9,10 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "LCSCommandRunner.h"
 #import "LCSCommandController.h"
+#import "LCSCommandControllerErrorHandler.h"
 
 
 @interface LCSCommandManager : NSObject <LCSCommandRunner> {
-    NSArray *commands;    
+    NSArray *commands;
+    id <LCSCommandControllerErrorHandler> errorHandler;
 }
 
 -(void)addCommandController:(LCSCommandController*)controller;
@@ -23,4 +25,5 @@
  * List of running LCSCommandController
  */
 @property(retain) NSArray *commands;
+@property(assign) id <LCSCommandControllerErrorHandler> errorHandler;
 @end
