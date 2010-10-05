@@ -28,7 +28,9 @@ enum {
     LCSUnexpectedOutputReceivedError,
     LCSUnexpectedInputReceivedError,
     LCSParameterError,
-    LCSPropertyListParseError
+    LCSPropertyListParseError,
+    LCSPropertyListSerializationError,
+    LCSSubcommandWasCancelledError
 };
 
 #define LCSERROR_FUNCTION(errdomain, errcode, ...) \
@@ -60,3 +62,5 @@ enum {
 
 #define LCSERROR_UNDERLYING_ERROR(underlyingError) \
     underlyingError, NSUnderlyingErrorKey
+
+NSString* LCSErrorLocalizedFailureReasonFromErrno(int errnoValue);
