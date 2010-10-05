@@ -67,7 +67,7 @@
     LCSCommandController* controller = [LCSCommandController controllerWithCommand:command];
     [self addCommandController:controller];
     
-    [controller start];
+    [controller performSelector:@selector(start) withObject:nil afterDelay:0];
     return controller;
 }
 
