@@ -6,26 +6,28 @@
 //
 
 #import "LCSRotavaultMainWindowController.h"
-#import "LCSRotavaultScheduleInstallOperation.h"
-#import "LCSKeyValueOperationParameter.h"
-#import "LCSSimpleOperationParameter.h"
+#import "LCSRotavaultScheduleInstallCommand.h"
 
 @implementation LCSRotavaultMainWindowController
+
+- (void)awakeFromNib
+{
+    commandManager.errorHandler = self;
+}
+
 - (IBAction)createTargetImage:(id)sender {
     
 }
 
 - (IBAction)scheduleTask:(id)sender {
-    LCSRotavaultScheduleInstallOperation *op = [[LCSRotavaultScheduleInstallOperation alloc] init];
-    op.sourceDevice = [LCSKeyValueOperationInputParameter parameterWithTarget:sourceDeviceField keyPath:@"stringValue"];
-    op.targetDevice = [LCSKeyValueOperationInputParameter parameterWithTarget:targetDeviceField keyPath:@"stringValue"];
-    op.runAtDate = [LCSKeyValueOperationInputParameter parameterWithTarget:runDateField keyPath:@"dateValue"];
+    LCSRotavaultScheduleInstallCommand *cmd = [LCSRotavaultScheduleInstallCommand
+                                               commandWithSourceDevice:sourceDeviceField.stringValue
+                                               targetDevice:targetDeviceField.stringValue
+                                               runDate:runDateField.dateValue];
+    cmd.rvcopydLaunchPath = [[NSBundle mainBundle] pathForResource:@"rvcopyd" ofType:nil];
     
-    NSString* rvcopydPath = [[NSBundle mainBundle] pathForResource:@"rvcopyd" ofType:nil];
-    op.rvcopydLaunchPath = [LCSSimpleOperationInputParameter parameterWithValue:rvcopydPath];
-    
-    [activityController runOperation:op];    
-    [op release];
+    currentController = [commandManager run:cmd];
+    currentController.title = [NSString localizedStringWithFormat:@"Schedule rotavault job"];
 }
 
 - (IBAction)selectSourceDevice:(id)sender {
@@ -37,20 +39,26 @@
 }
 
 - (IBAction)startTask:(id)sender {
-    LCSRotavaultScheduleInstallOperation *op = [[LCSRotavaultScheduleInstallOperation alloc] init];
-    op.sourceDevice = [LCSKeyValueOperationInputParameter parameterWithTarget:sourceDeviceField keyPath:@"stringValue"];
-    op.targetDevice = [LCSKeyValueOperationInputParameter parameterWithTarget:targetDeviceField keyPath:@"stringValue"];
-    op.runAtDate = [LCSSimpleOperationInputParameter parameterWithValue:nil];
+    LCSRotavaultScheduleInstallCommand *cmd = [LCSRotavaultScheduleInstallCommand
+                                               commandWithSourceDevice:sourceDeviceField.stringValue
+                                               targetDevice:targetDeviceField.stringValue
+                                               runDate:nil];
+    cmd.rvcopydLaunchPath = [[NSBundle mainBundle] pathForResource:@"rvcopyd" ofType:nil];
     
-    NSString* rvcopydPath = [[NSBundle mainBundle] pathForResource:@"rvcopyd" ofType:nil];
-    op.rvcopydLaunchPath = [LCSSimpleOperationInputParameter parameterWithValue:rvcopydPath];
-    
-    [activityController runOperation:op];    
-    [op release];
+    currentController = [commandManager run:cmd];
+    currentController.title = [NSString localizedStringWithFormat:@"Run rotavault job"];
 }
 
 - (IBAction)stopTask:(id)sender {
     
+}
+
+- (void)handleError:(NSError*)error fromController:(LCSCommandController*)controller
+{
+    if (controller != currentController) {
+        return;
+    }
+    [window presentError:error];
 }
 
 - (void)windowWillClose:(NSNotification*)notification
