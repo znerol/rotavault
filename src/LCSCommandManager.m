@@ -55,13 +55,6 @@
     self.commands = [commands filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF != %@", controller]];
 }
 
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    if([keyPath isEqualToString:@"commands"] && object == self && [commands count] == 0) {
-        CFRunLoopStop([[NSRunLoop currentRunLoop] getCFRunLoop]);
-    }
-}
-
 -(LCSCommandController*)run:(id <LCSCommand>)command
 {
     LCSCommandController* controller = [LCSCommandController controllerWithCommand:command];
@@ -69,6 +62,13 @@
     
     [controller performSelector:@selector(start) withObject:nil afterDelay:0];
     return controller;
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if([keyPath isEqualToString:@"commands"] && object == self && [commands count] == 0) {
+        CFRunLoopStop([[NSRunLoop currentRunLoop] getCFRunLoop]);
+    }
 }
 
 -(void)waitUntilAllCommandsAreDone
