@@ -33,41 +33,8 @@
     return [controller autorelease];
 }
 
--(id)init
-{
-    LCSINIT_SUPER_OR_RETURN_NIL();
-    
-    /* 
-     * setup an array of map tables allowing us to use observer objects as keys (without copying) and selectors (SEL) as 
-     * values for each LCSCommandState.
-     */
-    NSPointerFunctions *keyfunc = [NSPointerFunctions pointerFunctionsWithOptions:
-                                   NSPointerFunctionsZeroingWeakMemory|NSPointerFunctionsObjectPointerPersonality];
-    LCSINIT_RELEASE_AND_RETURN_IF_NIL(keyfunc);
-    NSPointerFunctions *valfunc = [NSPointerFunctions pointerFunctionsWithOptions:
-                                   NSPointerFunctionsZeroingWeakMemory|NSPointerFunctionsOpaquePersonality];
-    LCSINIT_RELEASE_AND_RETURN_IF_NIL(valfunc);
-    
-    /* set a description function for the SEL pointers */
-    typedef NSString *(*descriptionFunction_t)(const void *item);
-    [valfunc setDescriptionFunction:(descriptionFunction_t)NSStringFromSelector];
-    
-    for (int i = 0; i < LCSCommandStateCount; i++) {
-        observers[i] = [[NSMapTable alloc] initWithKeyPointerFunctions:keyfunc
-                                                 valuePointerFunctions:valfunc
-                                                              capacity:0];
-        LCSINIT_RELEASE_AND_RETURN_IF_NIL(observers);
-    }
-    
-    return self;
-}
-
 -(void)dealloc
 {
-    for (int i = 0; i < LCSCommandStateCount; i++) {
-        [observers[i] release];
-    }
-
     [command release];
     [title release];
     [progressMessage release];
@@ -124,6 +91,7 @@
 {
     NSParameterAssert([self validateNextState:newState]);
     
+    LCSCommandState oldState = state;
     if (newState == LCSCommandStateInvalidated) {
         exitState = state;
     }
@@ -148,30 +116,14 @@
             break;
     }
     
-    /* notify observers */
-    NSMapTable* observersForState = [observers[newState] copy];
-    for (id observer in observersForState) {
-        [observer performSelector:(SEL)[observersForState objectForKey:observer] withObject:self];
-    }
-    [observersForState release];
-}
-
--(void)addObserver:(id)observer selector:(SEL)selector forState:(LCSCommandState)newState
-{
-    NSParameterAssert(newState >= 0);
-    NSParameterAssert(newState < LCSCommandStateCount);
-    
-    NSMapTable* observersForState = observers[newState];
-    [observersForState setObject:(id)selector forKey:observer];
-}
-
--(void)removeObserver:(id)observer forState:(LCSCommandState)newState
-{
-    NSParameterAssert(newState >= 0);
-    NSParameterAssert(newState < LCSCommandStateCount);
-    
-    NSMapTable* observersForState = observers[newState];
-    [observersForState removeObjectForKey:observer];
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:[[self class] notificationNameStateLeft:oldState] object:self];
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:[[self class] notificationNameStateTransfered:oldState toState:newState] object:self];
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:[[self class] notificationNameStateEntered:newState] object:self];
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:[[self class] notificationNameStateChanged] object:self];
 }
 
 -(void)start
@@ -209,4 +161,25 @@
         [command resume];
     }
 }
+
++(NSString*)notificationNameStateLeft:(LCSCommandState)oldState
+{
+    return [NSString stringWithFormat:@"LCSCommandControllerLeftState-%d", oldState];
+}
+
++(NSString*)notificationNameStateTransfered:(LCSCommandState)oldState toState:(LCSCommandState)newState
+{
+    return [NSString stringWithFormat:@"LCSCommandControllerTransfered-%d-%d", oldState, newState];
+}
+
++(NSString*)notificationNameStateEntered:(LCSCommandState)newState
+{
+    return [NSString stringWithFormat:@"LCSCommandControllerEnteredState-%d", newState];
+}
+
++(NSString*)notificationNameStateChanged
+{
+    return @"LCSCommandControllerStateChanged";
+}
+
 @end

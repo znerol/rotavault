@@ -27,8 +27,9 @@
     [super dealloc];
 }
 
--(void)controllerEnteredInvalidatedState:(LCSCommandController*)controller
+-(void)controllerEnteredInvalidatedState:(NSNotification*)ntf
 {
+    LCSCommandController* controller = [ntf object];
 //    [self performSelector:@selector(removeCommandController:) withObject:controller afterDelay:0];
     if (errorHandler && controller.exitState == LCSCommandStateFailed && controller.error != nil) {
         [errorHandler handleError:controller.error fromController:controller];
@@ -43,15 +44,20 @@
         controller.command.runner = self;
     }
     
-    [controller addObserver:self
-                   selector:@selector(controllerEnteredInvalidatedState:)
-                   forState:LCSCommandStateInvalidated];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(controllerEnteredInvalidatedState:)
+                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateInvalidated]
+                                               object:controller];
+    
     self.commands = [commands arrayByAddingObject:controller];    
 }
 
 -(void)removeCommandController:(LCSCommandController*)controller
 {
-    [controller removeObserver:self forState:LCSCommandStateInvalidated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:[LCSCommandController notificationNameStateEntered:LCSCommandStateInvalidated]
+                                                  object:controller];
+    
     self.commands = [commands filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF != %@", controller]];
 }
 

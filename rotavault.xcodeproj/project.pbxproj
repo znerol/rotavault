@@ -39,7 +39,6 @@
 		CA0F95651254DA200008F47C /* LCSExternalCommandTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA963A83124E3A990098D281 /* LCSExternalCommandTest.m */; };
 		CA0F95661254DA200008F47C /* LCSQuickExternalCommandTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA963E42124E59FB0098D281 /* LCSQuickExternalCommandTest.m */; };
 		CA0F95671254DA200008F47C /* LCSPlistExternalCommandTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAAB8A54125074C4009AD28E /* LCSPlistExternalCommandTest.m */; };
-		CA0F95691254DA200008F47C /* LCSMultiCommandTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA5732B2125378A000F31199 /* LCSMultiCommandTest.m */; };
 		CA0F956B1254DA200008F47C /* LCSDiskImageInfoCommandTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA016CCD1253977E0047D82A /* LCSDiskImageInfoCommandTest.m */; };
 		CA0F956C1254DA200008F47C /* LCSLaunchctlListCommandTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA016DB11253A8A70047D82A /* LCSLaunchctlListCommandTest.m */; };
 		CA0F956D1254DA200008F47C /* LCSLaunchctlLoadCommandTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAD58CA912546D32000F8850 /* LCSLaunchctlLoadCommandTest.m */; };
@@ -94,7 +93,6 @@
 		CAD89E241256683600804E00 /* LCSLaunchctlLoadCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA016D0412539AAF0047D82A /* LCSLaunchctlLoadCommand.m */; };
 		CAD89E261256683600804E00 /* LCSLaunchctlRemoveCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA016D901253A7C30047D82A /* LCSLaunchctlRemoveCommand.m */; };
 		CAD89E281256683600804E00 /* LCSLaunchctlUnloadCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA016D1F12539BA20047D82A /* LCSLaunchctlUnloadCommand.m */; };
-		CAD89E2A1256683600804E00 /* LCSMultiCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA5732A21253709600F31199 /* LCSMultiCommand.m */; };
 		CAD89E2E1256683600804E00 /* LCSPlistExternalCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9BB97D125064D500033D6E /* LCSPlistExternalCommand.m */; };
 		CAD89E311256683600804E00 /* LCSQuickExternalCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA963BDE124E504D0098D281 /* LCSQuickExternalCommand.m */; };
 		CAD89E351256683600804E00 /* LCSRotavaultError.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9B773F124094570006B5B9 /* LCSRotavaultError.m */; };
@@ -726,7 +724,6 @@
 				CAD89E241256683600804E00 /* LCSLaunchctlLoadCommand.m in Sources */,
 				CAD89E261256683600804E00 /* LCSLaunchctlRemoveCommand.m in Sources */,
 				CAD89E281256683600804E00 /* LCSLaunchctlUnloadCommand.m in Sources */,
-				CAD89E2A1256683600804E00 /* LCSMultiCommand.m in Sources */,
 				CAD89E2E1256683600804E00 /* LCSPlistExternalCommand.m in Sources */,
 				CAD89E311256683600804E00 /* LCSQuickExternalCommand.m in Sources */,
 				CAD89E351256683600804E00 /* LCSRotavaultError.m in Sources */,
@@ -735,7 +732,6 @@
 				CA0F956C1254DA200008F47C /* LCSLaunchctlListCommandTest.m in Sources */,
 				CA0F956D1254DA200008F47C /* LCSLaunchctlLoadCommandTest.m in Sources */,
 				CA0F956E1254DA200008F47C /* LCSLaunchctlUnloadCommandTest.m in Sources */,
-				CA0F95691254DA200008F47C /* LCSMultiCommandTest.m in Sources */,
 				CA0F95671254DA200008F47C /* LCSPlistExternalCommandTest.m in Sources */,
 				CA0F95661254DA200008F47C /* LCSQuickExternalCommandTest.m in Sources */,
 				CAB3C8571254F002002E4AF5 /* LCSLaunchctlRemoveCommandTest.m in Sources */,

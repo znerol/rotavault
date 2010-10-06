@@ -35,9 +35,12 @@
     [tmp release];
 }
 
--(void)handleStateInvalidated:(LCSCommandController*)sender
+-(void)handleStateInvalidated:(NSNotification*)ntf
 {
-    [sender removeObserver:self forState:LCSCommandStateInvalidated];
+    LCSCommandController *sender = [ntf object];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:[LCSCommandController notificationNameStateEntered:LCSCommandStateInvalidated]
+                                                  object:sender];
     
     invalidatedCound++;
     if (invalidatedCound == [controllers count]) {
@@ -50,25 +53,37 @@
         else {
             controller.state = LCSCommandStateFailed;
         }
+        
+        /* be sure to remove any stale observers from notification center before invalidating */
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
         controller.state = LCSCommandStateInvalidated;
     }
 }
 
--(void)handleStateFailed:(LCSCommandController*)sender
+-(void)handleStateFailed:(NSNotification*)ntf
 {
-    [sender removeObserver:self forState:LCSCommandStateFailed];
+    LCSCommandController *sender = [ntf object];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFailed]
+                                                  object:sender];
     failedCount++;
 }
 
--(void)handleStateFinished:(LCSCommandController*)sender
+-(void)handleStateFinished:(NSNotification*)ntf
 {
-    [sender removeObserver:self forState:LCSCommandStateFinished];
+    LCSCommandController *sender = [ntf object];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFinished]
+                                                  object:sender];
     finishedCount++;
 }
 
--(void)handleStateCancelled:(LCSCommandController*)sender
+-(void)handleStateCancelled:(NSNotification*)ntf
 {
-    [sender removeObserver:self forState:LCSCommandStateCancelled];
+    LCSCommandController *sender = [ntf object];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:[LCSCommandController notificationNameStateEntered:LCSCommandStateCancelled]
+                                                  object:sender];
     cancelledCount++;
 }
 
@@ -80,10 +95,22 @@
     
     for (id <LCSCommand> command in commands) {
         LCSCommandController *ctl = [LCSCommandController controllerWithCommand:command];
-        [ctl addObserver:self selector:@selector(handleStateInvalidated:) forState:LCSCommandStateInvalidated];
-        [ctl addObserver:self selector:@selector(handleStateFailed:) forState:LCSCommandStateFailed];
-        [ctl addObserver:self selector:@selector(handleStateFinished:) forState:LCSCommandStateFinished];
-        [ctl addObserver:self selector:@selector(handleStateCancelled:) forState:LCSCommandStateCancelled];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(handleStateInvalidated:)
+                                                     name:[LCSCommandController notificationNameStateEntered:LCSCommandStateInvalidated]
+                                                   object:controller];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(handleStateFailed:)
+                                                     name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFailed]
+                                                   object:controller];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(handleStateFinished:)
+                                                     name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFinished]
+                                                   object:controller];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(handleStateCancelled:)
+                                                     name:[LCSCommandController notificationNameStateEntered:LCSCommandStateCancelled]
+                                                   object:controller];
         [tmpcontrollers addObject:ctl];
     }
     

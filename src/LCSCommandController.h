@@ -31,8 +31,6 @@ typedef enum {
 } LCSCommandState;
 
 @interface LCSCommandController : NSObject {
-    NSMapTable* observers[LCSCommandStateCount];
-    
     LCSCommandState  state;
     LCSCommandState  exitState;
     id <LCSCommand>  command;
@@ -71,12 +69,18 @@ typedef enum {
 @property(assign) id userInfo;
 
 +(LCSCommandController*)controllerWithCommand:(id <LCSCommand>)anCommand;
--(void)addObserver:(id)observer selector:(SEL)selector forState:(LCSCommandState)state;
--(void)removeObserver:(id)observer forState:(LCSCommandState)newState;
+
 -(BOOL)validateNextState:(LCSCommandState)newState;
 -(void)start;
 -(void)cancel;
 -(void)pause;
 -(void)resume;
 
+@end
+
+@interface LCSCommandController (NotificationHelpers)
++(NSString*)notificationNameStateLeft:(LCSCommandState)oldState;
++(NSString*)notificationNameStateTransfered:(LCSCommandState)oldState toState:(LCSCommandState)newState;
++(NSString*)notificationNameStateEntered:(LCSCommandState)newState;
++(NSString*)notificationNameStateChanged;
 @end
