@@ -24,11 +24,6 @@
 
 @implementation LCSExternalCommandTest
 
--(void)stopRunloop:(id)sender
-{
-    CFRunLoopStop([[NSRunLoop currentRunLoop] getCFRunLoop]);
-}
-
 -(void)setUp
 {
     states = [[NSMutableArray alloc] init];
@@ -109,7 +104,6 @@
 {
     [cmd.task setLaunchPath:@"/bin/sleep"];
     [cmd.task setArguments:[NSArray arrayWithObject:@"10"]];
-    [ctl addObserver:self selector:@selector(stopRunloop:) forState:LCSCommandStateRunning];
     
     [ctl start];
     [ctl cancel];
