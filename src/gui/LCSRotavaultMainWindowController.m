@@ -10,11 +10,6 @@
 
 @implementation LCSRotavaultMainWindowController
 
-- (void)awakeFromNib
-{
-    commandManager.errorHandler = self;
-}
-
 - (IBAction)createTargetImage:(id)sender {
     
 }
@@ -28,6 +23,10 @@
     
     currentController = [commandManager run:cmd];
     currentController.title = [NSString localizedStringWithFormat:@"Schedule rotavault job"];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleControllerFailedNotification:)
+                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFailed]
+                                               object:currentController];
 }
 
 - (IBAction)selectSourceDevice:(id)sender {
@@ -47,18 +46,26 @@
     
     currentController = [commandManager run:cmd];
     currentController.title = [NSString localizedStringWithFormat:@"Run rotavault job"];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleControllerFailedNotification:)
+                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFailed]
+                                               object:currentController];
 }
 
 - (IBAction)stopTask:(id)sender {
     
 }
 
-- (void)handleError:(NSError*)error fromController:(LCSCommandController*)controller
+- (void)handleControllerFailedNotification:(NSNotification*)ntf
 {
-    if (controller != currentController) {
-        return;
+    LCSCommandController *sender = [ntf object];
+    if (sender.error != nil) {
+        /* 
+         * presentError runs the current runloop, so we better defer that until after all notification handlers got the
+         * chance to act.
+         */
+        [window performSelector:@selector(presentError:) withObject:sender.error afterDelay:0];
     }
-    [window presentError:error];
 }
 
 - (void)windowWillClose:(NSNotification*)notification

@@ -7,9 +7,8 @@
 
 #import <Cocoa/Cocoa.h>
 #import "LCSCommandManager.h"
-#import "LCSCommandControllerErrorHandler.h"
 
-@interface LCSRotavaultMainWindowController : NSObject <LCSCommandControllerErrorHandler> {
+@interface LCSRotavaultMainWindowController : NSObject {
     IBOutlet NSDatePicker *runDateField;
     IBOutlet NSTextField *sourceDeviceField;
     IBOutlet NSTextField *statusField;

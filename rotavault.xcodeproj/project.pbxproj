@@ -110,7 +110,6 @@
 		CADBBA63125B80ED00DD1147 /* LCSLaunchctlLoadCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA016D0412539AAF0047D82A /* LCSLaunchctlLoadCommand.m */; };
 		CADBBA64125B80EE00DD1147 /* LCSLaunchctlRemoveCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA016D901253A7C30047D82A /* LCSLaunchctlRemoveCommand.m */; };
 		CADBBA65125B80EF00DD1147 /* LCSLaunchctlUnloadCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA016D1F12539BA20047D82A /* LCSLaunchctlUnloadCommand.m */; };
-		CADBBA66125B80F000DD1147 /* LCSMultiCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA5732A21253709600F31199 /* LCSMultiCommand.m */; };
 		CADBBA67125B80F000DD1147 /* LCSNanosecondTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = CA12697F12567F1A000F7582 /* LCSNanosecondTimer.m */; };
 		CADBBA68125B80F100DD1147 /* LCSPlistExternalCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9BB97D125064D500033D6E /* LCSPlistExternalCommand.m */; };
 		CADBBA6B125B80F400DD1147 /* LCSPropertyListSHA1Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = CA12698112567F1A000F7582 /* LCSPropertyListSHA1Hash.m */; };
@@ -270,7 +269,6 @@
 		CAD47F3A1244C271002DED2B /* Rotavault-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Rotavault-Info.plist"; sourceTree = "<group>"; };
 		CAD47F421244C2ED002DED2B /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		CAD58CA912546D32000F8850 /* LCSLaunchctlLoadCommandTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSLaunchctlLoadCommandTest.m; sourceTree = "<group>"; };
-		CAE811BB125B8EA6001969AD /* LCSCommandControllerErrorHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSCommandControllerErrorHandler.h; sourceTree = "<group>"; };
 		CAE82D35122C311F00715BCF /* LCSPropertyListSHA1HashTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSPropertyListSHA1HashTest.m; sourceTree = "<group>"; };
 		CAE9A1A61255227C00CD9C33 /* LCSAsrRestoreCommandTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSAsrRestoreCommandTest.m; sourceTree = "<group>"; };
 		CAEDB360125685530027110D /* LCSRotavaultScheduleInstallCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSRotavaultScheduleInstallCommand.h; sourceTree = "<group>"; };
@@ -432,7 +430,6 @@
 				CAEDB361125685530027110D /* LCSRotavaultScheduleInstallCommand.m */,
 				CAEDB366125686E80027110D /* LCSDiskInfoCommand.h */,
 				CAEDB367125686E80027110D /* LCSDiskInfoCommand.m */,
-				CAE811BB125B8EA6001969AD /* LCSCommandControllerErrorHandler.h */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -773,7 +770,6 @@
 				CADBBA63125B80ED00DD1147 /* LCSLaunchctlLoadCommand.m in Sources */,
 				CADBBA64125B80EE00DD1147 /* LCSLaunchctlRemoveCommand.m in Sources */,
 				CADBBA65125B80EF00DD1147 /* LCSLaunchctlUnloadCommand.m in Sources */,
-				CADBBA66125B80F000DD1147 /* LCSMultiCommand.m in Sources */,
 				CADBBA67125B80F000DD1147 /* LCSNanosecondTimer.m in Sources */,
 				CADBBA68125B80F100DD1147 /* LCSPlistExternalCommand.m in Sources */,
 				CADBBA6B125B80F400DD1147 /* LCSPropertyListSHA1Hash.m in Sources */,

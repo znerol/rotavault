@@ -12,7 +12,6 @@
 
 @implementation LCSCommandManager
 @synthesize commands;
-@synthesize errorHandler;
 
 -(id)init
 {
@@ -30,11 +29,6 @@
 -(void)controllerEnteredInvalidatedState:(NSNotification*)ntf
 {
     LCSCommandController* controller = [ntf object];
-//    [self performSelector:@selector(removeCommandController:) withObject:controller afterDelay:0];
-    if (errorHandler && controller.exitState == LCSCommandStateFailed && controller.error != nil) {
-        [errorHandler handleError:controller.error fromController:controller];
-    }
-    
     [self removeCommandController:controller];
 }
 
