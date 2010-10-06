@@ -1,8 +1,7 @@
 #include <asl.h>
 #import <Foundation/Foundation.h>
-#import "LCSRotavaultCopyOperation.h"
-#import "LCSCommandLineOperationRunner.h"
-#import "LCSSimpleOperationParameter.h"
+#import "LCSCmdlineCommandRunner.h"
+#import "LCSRotavaultBlockCopyCommand.h"
 
 int main (int argc, const char * argv[]) {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
@@ -26,19 +25,21 @@ int main (int argc, const char * argv[]) {
     // NSString *pidfile = [args stringForKey:@"pidfile"];
 
     /* alloc and run operation queue */
-    LCSRotavaultCopyOperation *op = [[[LCSRotavaultCopyOperation alloc] init] autorelease];
-    op.sourceDevice = [[LCSSimpleOperationInputParameter alloc] initWithValue:[args stringForKey:@"sourcedev"]];
-    op.targetDevice = [[LCSSimpleOperationInputParameter alloc] initWithValue:[args stringForKey:@"targetdev"]];
-    op.sourceChecksum = [[LCSSimpleOperationInputParameter alloc] initWithValue:[args stringForKey:@"sourcecheck"]];
-    op.targetChecksum = [[LCSSimpleOperationInputParameter alloc] initWithValue:[args stringForKey:@"targetcheck"]];
+    LCSCmdlineCommandRunner *runner = [[LCSCmdlineCommandRunner alloc] initWithCommand:
+        [LCSRotavaultBlockCopyCommand commandWithSourceDevice:[args stringForKey:@"sourcedev"]
+                                               sourceChecksum:[args stringForKey:@"sourcecheck"]
+                                                 targetDevice:[args stringForKey:@"targetdev"]
+                                               targetChecksum:[args stringForKey:@"targetcheck"]]];
     
-    NSError *error = [LCSCommandLineOperationRunner runOperation:op];
-
+    NSError *error = [runner run];
+    
     int status = 0;
     if (error) {
         status = 1;
     }
-
+    
+    [runner release];
+    
     [pool drain];
     return status;
 }

@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
-#import "LCSDiskUtilOperation.h"
-#import "LCSSimpleOperationParameter.h"
+#import "LCSCommandManager.h"
+#import "LCSDiskInfoCommand.h"
 #import "LCSPropertyListSHA1Hash.h"
 #import "NSData+Hex.h"
 
@@ -29,13 +29,11 @@ int main (int argc, const char * argv[]) {
         return 1;
     }
 
-    NSDictionary* result = nil;
-    LCSInformationForDiskOperation *infoop = [[[LCSInformationForDiskOperation alloc] init] autorelease];
-    infoop.device = [LCSSimpleOperationInputParameter parameterWithValue:device];
-    infoop.result = [LCSSimpleOperationOutputParameter parameterWithReturnValue:&result];
-    [infoop start];
-
-    if (result == nil) {
+    LCSCommandManager *mgr = [[LCSCommandManager alloc] init];
+    LCSCommandController *ctl = [mgr run:[LCSDiskInfoCommand commandWithDevicePath:device]];
+    [mgr waitUntilAllCommandsAreDone];
+    
+    if (ctl.result == nil) {
         fprintf(stderr, "Unable to gather information for specified device path\n");
         return 1;
     }
@@ -43,7 +41,7 @@ int main (int argc, const char * argv[]) {
     NSString *cksum;
     switch (algo) {
         case kLCSSHA1:
-            cksum = [[LCSPropertyListSHA1Hash sha1HashFromPropertyList:result] stringWithHexBytes];
+            cksum = [[LCSPropertyListSHA1Hash sha1HashFromPropertyList:ctl.result] stringWithHexBytes];
             if(!cksum) {
                 fprintf(stderr, "Failed to calculate SHA1 checksum for disk info of the specified device path\n");
                 return 1;
@@ -52,7 +50,7 @@ int main (int argc, const char * argv[]) {
             break;
 
         case kLCSUUID:
-            cksum = [result objectForKey:@"VolumeUUID"];
+            cksum = [ctl.result objectForKey:@"VolumeUUID"];
             if(!cksum) {
                 fprintf(stderr, "Failed to retreive volume UUID for the specified device path\n");
                 return 1;
@@ -65,7 +63,7 @@ int main (int argc, const char * argv[]) {
             return 1;
     }
 
-    [result release];
+    [mgr release];
     [pool drain];
     return 0;
 }
