@@ -11,6 +11,7 @@
 #import "LCSCommandController.h"
 #import "LCSDiskInfoCommand.h"
 #import "LCSAsrRestoreCommand.h"
+#import "LCSDiskMountCommand.h"
 #import "LCSRotavaultError.h"
 #import "LCSPropertyListSHA1Hash.h"
 #import "NSData+Hex.h"
@@ -26,6 +27,8 @@
 -(void)completeGatherInformation;
 -(void)startBlockCopy;
 -(void)completeBlockCopy:(NSNotification*)ntf;
+-(void)startSourceRemountAndInvalidate;
+-(void)completeSourceRemountAndInvalidate:(NSNotification*)ntf;
 @end
 
 
@@ -89,7 +92,16 @@
     controller.error = error;
     controller.state = LCSCommandStateFailed;
     
-    [self invalidate];
+    for (LCSCommandController *ctl in activeControllers) {
+        [ctl cancel];
+    }
+
+    if (needsSourceRemount) {
+        [self startSourceRemountAndInvalidate];
+    }
+    else {
+        [self invalidate];
+    }
 }
 
 -(void)commandFailed:(NSNotification*)ntf
@@ -99,10 +111,6 @@
                                                     name:[LCSCommandController notificationNameStateEntered:sender.state]
                                                   object:sender];
     [activeControllers removeObject:sender];
-    
-    for (LCSCommandController *ctl in activeControllers) {
-        [ctl cancel];
-    }
     
     [self handleError:sender.error];
 }
@@ -114,10 +122,6 @@
                                                     name:[LCSCommandController notificationNameStateEntered:sender.state]
                                                   object:sender];
     [activeControllers removeObject:sender];
-    
-    for (LCSCommandController *ctl in activeControllers) {
-        [ctl cancel];
-    }
     
     [self handleError:LCSERROR_METHOD(NSCocoaErrorDomain, NSUserCancelledError)];
 }
@@ -229,6 +233,7 @@
 {
     controller.progressMessage = [NSString localizedStringWithFormat:@"Performing block copy"];
     
+    needsSourceRemount = YES;
     LCSCommandController *ctl = [runner run:[LCSAsrRestoreCommand commandWithSource:sourceDevice target:targetDevice]];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(commandFailed:)
@@ -253,6 +258,8 @@
                                                     name:[LCSCommandController notificationNameStateEntered:sender.state]
                                                   object:sender];
     
+    needsSourceRemount = NO;
+    
     controller.progressMessage = [NSString localizedStringWithFormat:@"Complete"];
     
     [activeControllers removeObject:sender];
@@ -261,9 +268,37 @@
     [self invalidate];
 }
 
+-(void)startSourceRemountAndInvalidate
+{
+    controller.progressMessage = [NSString localizedStringWithFormat:@"Remounting source device"];
+    
+    LCSCommandController *ctl = [runner run:[LCSDiskMountCommand commandWithDevicePath:sourceDevice]];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(completeSourceRemountAndInvalidate:)
+                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateInvalidated]
+                                               object:ctl];
+    ctl.title = [NSString localizedStringWithFormat:@"Remount source device"];
+    [activeControllers addObject:ctl];
+}
+
+-(void)completeSourceRemountAndInvalidate:(NSNotification*)ntf
+{
+    LCSCommandController* sender = [ntf object];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:[LCSCommandController notificationNameStateEntered:sender.state]
+                                                  object:sender];
+    [activeControllers removeObject:sender];
+    [self invalidate];
+}
+
 -(void)start
 {
     controller.state = LCSCommandStateRunning;
     [self startGatherInformation];
+}
+
+-(void)cancel
+{
+    [self handleError:LCSERROR_METHOD(NSCocoaErrorDomain, NSUserCancelledError)];    
 }
 @end

@@ -22,6 +22,7 @@
     NSString* targetChecksum;
     
     NSMutableArray* activeControllers;
+    BOOL needsSourceRemount;
     
     NSDictionary *sourceDiskInformation;
     NSDictionary *targetDiskInformation;
