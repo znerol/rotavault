@@ -69,10 +69,8 @@ LCSSignalHandler* _LCSSignalHandlerSharedInstance = nil;
     if (!delegate) {
         return;
     }
-
-    [delegate performSelectorOnMainThread:@selector(handleSignal:)
-                               withObject:[NSNumber numberWithInt:sig]
-                            waitUntilDone:YES];
+    
+    [delegate handleSignal:[NSNumber numberWithInt:sig]];
 }
 
 -(void)addSignal:(int)sig

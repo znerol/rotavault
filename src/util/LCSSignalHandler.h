@@ -8,9 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol LCSSignalHandlerDelegate
+-(void)handleSignal:(NSNumber*)signal;
+@end
 
 @interface LCSSignalHandler : NSObject {
-    id delegate;
+    id <LCSSignalHandlerDelegate> delegate;
     NSPipe *sigpipe;
 }
 @property(assign) id delegate;
