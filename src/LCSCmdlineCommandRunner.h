@@ -9,10 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "LCSCommandManager.h"
 #import "LCSCommand.h"
+#import "LCSSignalHandler.h"
 
 
-@interface LCSCmdlineCommandRunner : NSObject {
+@interface LCSCmdlineCommandRunner : NSObject <LCSSignalHandlerDelegate> {
     id <LCSCommand> cmd;
+    LCSCommandController *ctl;
     LCSCommandManager *mgr;
     NSError* error;
 }
