@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "LCSCommand.h"
 #import "LCSCommandController.h"
+#import "LCSCommandControllerCollection.h"
 
 
 @interface LCSRotavaultScheduleInstallCommand : NSObject <LCSCommand> {
@@ -17,15 +18,15 @@
     
     NSString *sourceDevice;
     NSString *targetDevice;
-    NSMutableArray *activeControllers;
-    
-    NSDictionary *startupDiskInformation;
-    NSDictionary *sourceDiskInformation;
-    NSDictionary *targetDiskInformation;
-    
+    LCSCommandControllerCollection *activeControllers;
+
+    LCSCommandController *launchdInfoCtl;
+    LCSCommandController *sourceInfoCtl;
+    LCSCommandController *targetInfoCtl;
+    LCSCommandController *startupInfoCtl;
+
     NSString *rvcopydLaunchPath;
     
-    NSDictionary *launchctlInfo;
     NSString *launchdPlistPath;
     NSDictionary *launchdPlist;
     NSDate *runAtDate;

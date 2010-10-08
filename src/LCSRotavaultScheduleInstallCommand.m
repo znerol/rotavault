@@ -21,11 +21,11 @@
 @interface LCSRotavaultScheduleInstallCommand (Internal)
 -(void)invalidate;
 -(void)handleError:(NSError*)error;
--(void)commandFailed:(NSNotification*)ntf;
--(void)commandCancelled:(NSNotification*)ntf;
+-(void)commandCollectionFailed:(NSNotification*)ntf;
+-(void)commandCollectionCancelled:(NSNotification*)ntf;
+-(void)commandCollectionInvalidated:(NSNotification*)ntf;
 -(void)startGatherInformation;
--(void)partialGatherInformation:(NSNotification*)ntf;
--(void)completeGatherInformation;
+-(void)completeGatherInformation:(NSNotification*)ntf;
 -(void)startLaunchctRemove;
 -(void)completeLaunchctlRemove:(NSNotification*)ntf;
 -(void)startLaunchctInstall;
@@ -50,7 +50,7 @@
 {
     LCSINIT_SUPER_OR_RETURN_NIL();
     
-    activeControllers = [[NSMutableArray alloc] initWithCapacity:4];
+    activeControllers = [[LCSCommandControllerCollection alloc] init];
     LCSINIT_RELEASE_AND_RETURN_IF_NIL(activeControllers);
     sourceDevice = [sourcedev copy];
     LCSINIT_RELEASE_AND_RETURN_IF_NIL(sourceDevice);
@@ -60,6 +60,25 @@
     // runAtDate is optional
     
     rvcopydLaunchPath = @"/usr/local/sbin/rvcopyd";
+    
+    [activeControllers watchState:LCSCommandStateFailed];
+    [activeControllers watchState:LCSCommandStateCancelled];
+    [activeControllers watchState:LCSCommandStateFinished];
+    [activeControllers watchState:LCSCommandStateInvalidated];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(commandCollectionFailed:)
+                                                 name:[LCSCommandControllerCollection notificationNameAnyControllerEnteredState:LCSCommandStateFailed]
+                                               object:activeControllers];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(commandCollectionCancelled:)
+                                                 name:[LCSCommandControllerCollection notificationNameAnyControllerEnteredState:LCSCommandStateCancelled]
+                                               object:activeControllers];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(commandCollectionInvalidated:)
+                                                 name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateInvalidated]
+                                               object:activeControllers];
+
     return self;
 }
 
@@ -68,10 +87,6 @@
     [sourceDevice release];
     [targetDevice release];
     [activeControllers release];
-    
-    [startupDiskInformation release];
-    [sourceDiskInformation release];
-    [targetDiskInformation release];
     
     [launchdPlistPath release];
     [launchdPlist release];
@@ -82,50 +97,62 @@
 
 -(void)invalidate
 {
+    [activeControllers watchState:LCSCommandStateInvalidated];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     controller.state = LCSCommandStateInvalidated;
 }
 
 -(void)handleError:(NSError*)error
 {
+    [activeControllers unwatchState:LCSCommandStateFailed];
+    [activeControllers unwatchState:LCSCommandStateCancelled];
+    [activeControllers unwatchState:LCSCommandStateFinished];    
+    
     controller.error = error;
     controller.state = LCSCommandStateFailed;
-    
-    [self invalidate];
 }
 
--(void)commandFailed:(NSNotification*)ntf
+-(void)commandCollectionFailed:(NSNotification*)ntf
 {
-    LCSCommandController* sender = [ntf object];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandController notificationNameStateEntered:sender.state]
-                                                  object:sender];
-    [activeControllers removeObject:sender];
+    LCSCommandControllerCollection* sender = [ntf object];
+    LCSCommandController* originalSender = [[ntf userInfo] objectForKey:LCSCommandControllerCollectionOriginalSenderKey];
     
-    for (LCSCommandController *ctl in activeControllers) {
-        [ctl cancel];
+    /*
+     * No need to bail out if there is no launchd job installed. However we need to remove launchdInfoCtl from the
+     * controller collection in order still allow firing of selectors subscribed to all LCSCommandStateFinished.
+     */
+    if (originalSender == launchdInfoCtl) {
+        [activeControllers removeController:launchdInfoCtl];
+        return;
     }
     
-    [self handleError:sender.error];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:[LCSCommandControllerCollection notificationNameAnyControllerEnteredState:LCSCommandStateFailed]
+                                                  object:sender];
+    [self handleError:originalSender.error];
 }
 
--(void)commandCancelled:(NSNotification*)ntf
+-(void)commandCollectionCancelled:(NSNotification*)ntf
 {
-    LCSCommandController* sender = [ntf object];
+    LCSCommandControllerCollection* sender = [ntf object];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandController notificationNameStateEntered:sender.state]
+                                                    name:[LCSCommandControllerCollection notificationNameAnyControllerEnteredState:LCSCommandStateCancelled]
                                                   object:sender];
-    [activeControllers removeObject:sender];
-    
-    for (LCSCommandController *ctl in activeControllers) {
-        [ctl cancel];
-    }
-    
     [self handleError:LCSERROR_METHOD(NSCocoaErrorDomain, NSUserCancelledError)];
+}
+
+-(void)commandCollectionInvalidated:(NSNotification*)ntf
+{
+    [self invalidate];    
 }
 
 -(BOOL)validateDiskInformation
 {
+    NSDictionary *sourceDiskInformation = sourceInfoCtl.result;
+    NSDictionary *targetDiskInformation = targetInfoCtl.result;
+    NSDictionary *startupDiskInformation = startupInfoCtl.result;
+    
     /* error if source device is the startup disk */
     if ([[sourceDiskInformation objectForKey:@"DeviceNode"] isEqual:[startupDiskInformation objectForKey:@"DeviceNode"]]) {
         
@@ -165,6 +192,8 @@
 
 -(BOOL)constructLaunchdPlist
 {
+    NSDictionary *sourceDiskInformation = sourceInfoCtl.result;
+    NSDictionary *targetDiskInformation = targetInfoCtl.result;
     NSString *sourceUUID = [sourceDiskInformation objectForKey:@"VolumeUUID"];
     NSString *targetSHA1 = [[LCSPropertyListSHA1Hash sha1HashFromPropertyList:targetDiskInformation] stringWithHexBytes];
     
@@ -258,97 +287,38 @@ writeLaunchdPlist_freeAndReturn:
 
 -(void)startGatherInformation
 {
-    NSParameterAssert([activeControllers count] == 0);
+    NSParameterAssert([activeControllers.controllers count] == 0);
     
     controller.progressMessage = [NSString localizedStringWithFormat:@"Gathering information"];
     
-    LCSCommandController *launchdInfoCtl = [runner run:[LCSLaunchctlInfoCommand commandWithLabel:@"ch.znerol.rvcopyd"]];
-    /* We want to continue even if the command failed (because no job is known to launchd with this label) */
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(partialGatherInformation:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFailed]
-                                               object:launchdInfoCtl];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(commandCancelled:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateCancelled]
-                                               object:launchdInfoCtl];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(partialGatherInformation:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFinished]
-                                               object:launchdInfoCtl];
+                                             selector:@selector(completeGatherInformation:)
+                                                 name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
+                                               object:activeControllers];
+    
+    launchdInfoCtl = [runner run:[LCSLaunchctlInfoCommand commandWithLabel:@"ch.znerol.rvcopyd"]];
     launchdInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on launchd job"];
-    launchdInfoCtl.userInfo = @"launchctlInfo";
-    [activeControllers addObject:launchdInfoCtl];
+    [activeControllers addController:launchdInfoCtl];
     
-    LCSCommandController *sysdiskInfoCtl = [runner run:[LCSDiskInfoCommand commandWithDevicePath:@"/"]];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(commandFailed:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFailed]
-                                               object:sysdiskInfoCtl];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(commandCancelled:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateCancelled]
-                                               object:sysdiskInfoCtl];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(partialGatherInformation:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFinished]
-                                               object:sysdiskInfoCtl];
-    sysdiskInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on startup disk"];
-    sysdiskInfoCtl.userInfo = @"startupDiskInformation";
-    [activeControllers addObject:sysdiskInfoCtl];
+    startupInfoCtl = [runner run:[LCSDiskInfoCommand commandWithDevicePath:@"/"]];
+    startupInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on startup disk"];
+    [activeControllers addController:startupInfoCtl];
     
-    LCSCommandController *sourceInfoCtl = [runner run:[LCSDiskInfoCommand commandWithDevicePath:sourceDevice]];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(commandFailed:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFailed]
-                                               object:sourceInfoCtl];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(commandCancelled:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateCancelled]
-                                               object:sourceInfoCtl];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(partialGatherInformation:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFinished]
-                                               object:sourceInfoCtl];
+    sourceInfoCtl = [runner run:[LCSDiskInfoCommand commandWithDevicePath:sourceDevice]];
     sourceInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on source device"];
-    sourceInfoCtl.userInfo = @"sourceDiskInformation";
-    [activeControllers addObject:sourceInfoCtl];
+    [activeControllers addController:sourceInfoCtl];
     
-    LCSCommandController *targetInfoCtl = [runner run:[LCSDiskInfoCommand commandWithDevicePath:targetDevice]];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(commandFailed:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFailed]
-                                               object:targetInfoCtl];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(commandCancelled:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateCancelled]
-                                               object:targetInfoCtl];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(partialGatherInformation:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFinished]
-                                               object:targetInfoCtl];
+    targetInfoCtl = [runner run:[LCSDiskInfoCommand commandWithDevicePath:targetDevice]];
     targetInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on target device"];
-    targetInfoCtl.userInfo = @"targetDiskInformation";
-    [activeControllers addObject:targetInfoCtl];
+    [activeControllers addController:targetInfoCtl];
 }
 
--(void)partialGatherInformation:(NSNotification*)ntf
+-(void)completeGatherInformation:(NSNotification*)ntf
 {
-    LCSCommandController* sender = [ntf object];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandController notificationNameStateEntered:sender.state]
-                                                  object:sender];
+                                                    name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
+                                                  object:activeControllers];
     
-    [self setValue:sender.result forKey:sender.userInfo];
-    
-    [activeControllers removeObject:sender];
-    if ([activeControllers count] == 0) {
-        [self completeGatherInformation];
-    }
-}
-
--(void)completeGatherInformation
-{
     if (![self validateDiskInformation]) {
         return;
     }
@@ -359,7 +329,7 @@ writeLaunchdPlist_freeAndReturn:
         return;
     }
     
-    if (launchctlInfo != nil) {
+    if (launchdInfoCtl.result != nil) {
         [self startLaunchctRemove];
     }
     else {
@@ -371,68 +341,48 @@ writeLaunchdPlist_freeAndReturn:
 {
     controller.progressMessage = [NSString localizedStringWithFormat:@"Removing old launchd job"];
     
-    LCSCommandController *ctl = [runner run:[LCSLaunchctlRemoveCommand commandWithLabel:@"ch.znerol.rvcopyd"]];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(commandFailed:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFailed]
-                                               object:ctl];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(commandCancelled:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateCancelled]
-                                               object:ctl];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(completeLaunchctlRemove:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFinished]
-                                               object:ctl];
+                                                 name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
+                                               object:activeControllers];
+    
+    LCSCommandController *ctl = [runner run:[LCSLaunchctlRemoveCommand commandWithLabel:@"ch.znerol.rvcopyd"]];
     ctl.title = [NSString localizedStringWithFormat:@"Remove old launchd job"];
-    [activeControllers addObject:ctl];
+    [activeControllers addController:ctl];
 }
 
 -(void)completeLaunchctlRemove:(NSNotification*)ntf
 {
-    LCSCommandController* sender = [ntf object];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandController notificationNameStateEntered:sender.state]
-                                                  object:sender];
+                                                    name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
+                                                  object:activeControllers];
     
-    [activeControllers removeObject:sender];
     [self startLaunchctInstall];
 }
 
 -(void)startLaunchctInstall
 {
     controller.progressMessage = [NSString localizedStringWithFormat:@"Installing new launchd job"];
-    
-    LCSCommandController *ctl = [runner run:[LCSLaunchctlLoadCommand commandWithPath:launchdPlistPath]];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(commandFailed:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFailed]
-                                               object:ctl];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(commandCancelled:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateCancelled]
-                                               object:ctl];
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(completeLaunchctlInstall:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFinished]
-                                               object:ctl];
+                                                 name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
+                                               object:activeControllers];
+    
+    LCSCommandController *ctl = [runner run:[LCSLaunchctlLoadCommand commandWithPath:launchdPlistPath]];
     ctl.title = [NSString localizedStringWithFormat:@"Install new launchd job"];
-    [activeControllers addObject:ctl];
+    [activeControllers addController:ctl];
 }
 
 -(void)completeLaunchctlInstall:(NSNotification*)ntf
 {
-    LCSCommandController* sender = [ntf object];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandController notificationNameStateEntered:sender.state]
-                                                  object:sender];
+                                                    name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
+                                                  object:activeControllers];
     
     controller.progressMessage = [NSString localizedStringWithFormat:@"Complete"];
     
-    [activeControllers removeObject:sender];
-    
     controller.state = LCSCommandStateFinished;
-    [self invalidate];
 }
 
 -(void)start
