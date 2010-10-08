@@ -45,7 +45,7 @@ NSString* LCSCommandControllerCollectionOriginalSenderKey = @"LCSCommandControll
 {
     LCSCommandController* sender = [ntf object];
     
-    NSMutableSet *controllersPerState = [watchers objectForKey:[NSNumber numberWithInt:sender.state]];
+    NSMutableSet *controllersPerState = [[watchers objectForKey:[NSNumber numberWithInt:sender.state]] retain];
     
     [controllersPerState addObject:sender];
     
@@ -60,6 +60,7 @@ NSString* LCSCommandControllerCollectionOriginalSenderKey = @"LCSCommandControll
         [[NSNotificationCenter defaultCenter] postNotificationName:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:sender.state]
                                                             object:self];
     }
+    [controllersPerState release];
 }
 
 -(void)addController:(LCSCommandController*)ctl
