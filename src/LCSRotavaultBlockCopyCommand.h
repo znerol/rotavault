@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "LCSCommand.h"
 #import "LCSCommandRunner.h"
+#import "LCSCommandControllerCollection.h"
 
 
 @interface LCSRotavaultBlockCopyCommand : NSObject <LCSCommand>
@@ -21,11 +22,14 @@
     NSString* targetDevice;
     NSString* targetChecksum;
     
-    NSMutableArray* activeControllers;
+    LCSCommandControllerCollection* activeControllers;
     BOOL needsSourceRemount;
     
     NSDictionary *sourceDiskInformation;
     NSDictionary *targetDiskInformation;
+    
+    LCSCommandController *sourceInfoCtl;
+    LCSCommandController *targetInfoCtl;
 }
 
 +(LCSRotavaultBlockCopyCommand*)commandWithSourceDevice:(NSString*)sourcedev

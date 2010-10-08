@@ -19,16 +19,16 @@
 @interface LCSRotavaultBlockCopyCommand (PrivateMethods)
 -(void)invalidate;
 -(void)handleError:(NSError*)error;
--(void)commandFailed:(NSNotification*)ntf;
--(void)commandCancelled:(NSNotification*)ntf;
+-(void)commandCollectionFailed:(NSNotification*)ntf;
+-(void)commandCollectionCancelled:(NSNotification*)ntf;
+-(void)commandCollectionInvalidated:(NSNotification*)ntf;
 -(BOOL)verifyDiskInformation:(NSDictionary*)diskinfo withChecksum:(NSString*)checksum;
 -(void)startGatherInformation;
--(void)partialGatherInformation:(NSNotification*)ntf;
--(void)completeGatherInformation;
+-(void)completeGatherInformation:(NSNotification*)ntf;
 -(void)startBlockCopy;
 -(void)completeBlockCopy:(NSNotification*)ntf;
--(void)startSourceRemountAndInvalidate;
--(void)completeSourceRemountAndInvalidate:(NSNotification*)ntf;
+-(void)startSourceRemount;
+-(void)completeSourceRemount:(NSNotification*)ntf;
 @end
 
 
@@ -54,7 +54,7 @@
 {
     LCSINIT_SUPER_OR_RETURN_NIL();
     
-    activeControllers = [[NSMutableArray alloc] initWithCapacity:4];
+    activeControllers = [[LCSCommandControllerCollection alloc] init];
     LCSINIT_RELEASE_AND_RETURN_IF_NIL(activeControllers);
     sourceDevice = [sourcedev copy];
     LCSINIT_RELEASE_AND_RETURN_IF_NIL(sourceDevice);
@@ -64,6 +64,24 @@
     LCSINIT_RELEASE_AND_RETURN_IF_NIL(targetDevice);
     targetChecksum = [targetcheck copy];
     LCSINIT_RELEASE_AND_RETURN_IF_NIL(targetChecksum);
+
+    [activeControllers watchState:LCSCommandStateFailed];
+    [activeControllers watchState:LCSCommandStateCancelled];
+    [activeControllers watchState:LCSCommandStateFinished];
+    [activeControllers watchState:LCSCommandStateInvalidated];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(commandCollectionFailed:)
+                                                 name:[LCSCommandControllerCollection notificationNameAnyControllerEnteredState:LCSCommandStateFailed]
+                                               object:activeControllers];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(commandCollectionCancelled:)
+                                                 name:[LCSCommandControllerCollection notificationNameAnyControllerEnteredState:LCSCommandStateCancelled]
+                                               object:activeControllers];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(commandCollectionInvalidated:)
+                                                 name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateInvalidated]
+                                               object:activeControllers];
     
     return self;
 }
@@ -83,47 +101,52 @@
 
 -(void)invalidate
 {
+    [activeControllers watchState:LCSCommandStateInvalidated];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     controller.state = LCSCommandStateInvalidated;
 }
 
 -(void)handleError:(NSError*)error
 {
+    [activeControllers unwatchState:LCSCommandStateFailed];
+    [activeControllers unwatchState:LCSCommandStateCancelled];
+    [activeControllers unwatchState:LCSCommandStateFinished];
+    
     controller.error = error;
     controller.state = LCSCommandStateFailed;
     
-    for (LCSCommandController *ctl in activeControllers) {
+    for (LCSCommandController *ctl in activeControllers.controllers) {
         [ctl cancel];
     }
 
     if (needsSourceRemount) {
-        [self startSourceRemountAndInvalidate];
-    }
-    else {
-        [self invalidate];
+        [self startSourceRemount];
     }
 }
 
--(void)commandFailed:(NSNotification*)ntf
+-(void)commandCollectionFailed:(NSNotification*)ntf
 {
-    LCSCommandController* sender = [ntf object];
+    LCSCommandControllerCollection* sender = [ntf object];
+    LCSCommandController* originalSender = [[ntf userInfo] objectForKey:LCSCommandControllerCollectionOriginalSenderKey];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandController notificationNameStateEntered:sender.state]
+                                                    name:[LCSCommandControllerCollection notificationNameAnyControllerEnteredState:LCSCommandStateFailed]
                                                   object:sender];
-    [activeControllers removeObject:sender];
-    
-    [self handleError:sender.error];
+    [self handleError:originalSender.error];
 }
 
--(void)commandCancelled:(NSNotification*)ntf
+-(void)commandCollectionCancelled:(NSNotification*)ntf
 {
-    LCSCommandController* sender = [ntf object];
+    LCSCommandControllerCollection* sender = [ntf object];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandController notificationNameStateEntered:sender.state]
+                                                    name:[LCSCommandControllerCollection notificationNameAnyControllerEnteredState:LCSCommandStateCancelled]
                                                   object:sender];
-    [activeControllers removeObject:sender];
-    
     [self handleError:LCSERROR_METHOD(NSCocoaErrorDomain, NSUserCancelledError)];
+}
+
+-(void)commandCollectionInvalidated:(NSNotification*)ntf
+{
+    [self invalidate];    
 }
 
 -(BOOL)verifyDiskInformation:(NSDictionary*)diskinfo withChecksum:(NSString*)checksum
@@ -131,6 +154,7 @@
     NSArray* components = [checksum componentsSeparatedByString:@":"];
     
     if ([components count] != 2) {
+        /* FIXME: Error Description */
         NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSUnexpectedInputReceivedError);
         [self handleError:err];
         return NO;
@@ -147,12 +171,14 @@
         expected = [diskinfo objectForKey:@"VolumeUUID"];
     }
     else {
+        /* FIXME: Error Description */
         NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSUnexpectedInputReceivedError);
         [self handleError:err];
         return NO;
     }
     
     if (![actual isEqualToString:expected]) {
+        /* FIXME: Error Description */
         NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSUnexpectedInputReceivedError);
         [self handleError:err];
         return NO;
@@ -163,62 +189,33 @@
 
 -(void)startGatherInformation
 {
-    NSParameterAssert([activeControllers count] == 0);
+    NSParameterAssert([activeControllers.controllers count] == 0);
     
     controller.progressMessage = [NSString localizedStringWithFormat:@"Gathering information"];
     
-    LCSCommandController *sourceInfoCtl = [runner run:[LCSDiskInfoCommand commandWithDevicePath:sourceDevice]];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(commandFailed:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFailed]
-                                               object:sourceInfoCtl];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(commandCancelled:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateCancelled]
-                                               object:sourceInfoCtl];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(partialGatherInformation:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFinished]
-                                               object:sourceInfoCtl];
+                                             selector:@selector(completeGatherInformation:)
+                                                 name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
+                                               object:activeControllers];
+    
+    sourceInfoCtl = [runner run:[LCSDiskInfoCommand commandWithDevicePath:sourceDevice]];
     sourceInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on source device"];
-    sourceInfoCtl.userInfo = @"sourceDiskInformation";
-    [activeControllers addObject:sourceInfoCtl];
+    [activeControllers addController:sourceInfoCtl];
     
-    LCSCommandController *targetInfoCtl = [runner run:[LCSDiskInfoCommand commandWithDevicePath:targetDevice]];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(commandFailed:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFailed]
-                                               object:targetInfoCtl];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(commandCancelled:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateCancelled]
-                                               object:targetInfoCtl];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(partialGatherInformation:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFinished]
-                                               object:targetInfoCtl];
+    targetInfoCtl = [runner run:[LCSDiskInfoCommand commandWithDevicePath:targetDevice]];
     targetInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on target device"];
-    targetInfoCtl.userInfo = @"targetDiskInformation";
-    [activeControllers addObject:targetInfoCtl];
+    [activeControllers addController:targetInfoCtl];
 }
 
--(void)partialGatherInformation:(NSNotification*)ntf
+-(void)completeGatherInformation:(NSNotification*)ntf
 {
-    LCSCommandController* sender = [ntf object];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandController notificationNameStateEntered:sender.state]
-                                                  object:sender];
+                                                    name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
+                                                  object:activeControllers];
     
-    [self setValue:sender.result forKey:sender.userInfo];
+    sourceDiskInformation = [sourceInfoCtl.result retain];
+    targetDiskInformation = [targetInfoCtl.result retain];
     
-    [activeControllers removeObject:sender];
-    if ([activeControllers count] == 0) {
-        [self completeGatherInformation];
-    }
-}
-
--(void)completeGatherInformation
-{
     if (![self verifyDiskInformation:sourceDiskInformation withChecksum:sourceChecksum]) {
         return;
     }
@@ -236,19 +233,11 @@
     needsSourceRemount = YES;
     LCSCommandController *ctl = [runner run:[LCSAsrRestoreCommand commandWithSource:sourceDevice target:targetDevice]];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(commandFailed:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFailed]
-                                               object:ctl];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(commandCancelled:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateCancelled]
-                                               object:ctl];
-    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(completeBlockCopy:)
                                                  name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFinished]
                                                object:ctl];
     ctl.title = [NSString localizedStringWithFormat:@"Block copy"];
-    [activeControllers addObject:ctl];
+    [activeControllers addController:ctl];
 }
 
 -(void)completeBlockCopy:(NSNotification*)ntf
@@ -262,33 +251,28 @@
     
     controller.progressMessage = [NSString localizedStringWithFormat:@"Complete"];
     
-    [activeControllers removeObject:sender];
-    
     controller.state = LCSCommandStateFinished;
-    [self invalidate];
 }
 
--(void)startSourceRemountAndInvalidate
+-(void)startSourceRemount
 {
     controller.progressMessage = [NSString localizedStringWithFormat:@"Remounting source device"];
     
     LCSCommandController *ctl = [runner run:[LCSDiskMountCommand commandWithDevicePath:sourceDevice]];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(completeSourceRemountAndInvalidate:)
+                                             selector:@selector(completeSourceRemount:)
                                                  name:[LCSCommandController notificationNameStateEntered:LCSCommandStateInvalidated]
                                                object:ctl];
     ctl.title = [NSString localizedStringWithFormat:@"Remount source device"];
-    [activeControllers addObject:ctl];
+    [activeControllers addController:ctl];
 }
 
--(void)completeSourceRemountAndInvalidate:(NSNotification*)ntf
+-(void)completeSourceRemount:(NSNotification*)ntf
 {
     LCSCommandController* sender = [ntf object];
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:[LCSCommandController notificationNameStateEntered:sender.state]
                                                   object:sender];
-    [activeControllers removeObject:sender];
-    [self invalidate];
 }
 
 -(void)start
