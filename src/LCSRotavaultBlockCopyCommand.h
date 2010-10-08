@@ -25,9 +25,6 @@
     LCSCommandControllerCollection* activeControllers;
     BOOL needsSourceRemount;
     
-    NSDictionary *sourceDiskInformation;
-    NSDictionary *targetDiskInformation;
-    
     LCSCommandController *sourceInfoCtl;
     LCSCommandController *targetInfoCtl;
 }

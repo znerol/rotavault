@@ -89,9 +89,6 @@
 -(void)dealloc
 {
     [activeControllers release];
-    [sourceDiskInformation release];
-    [targetDiskInformation release];
-    
     [sourceDevice release];
     [sourceChecksum release];
     [targetDevice release];
@@ -213,13 +210,10 @@
                                                     name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
                                                   object:activeControllers];
     
-    sourceDiskInformation = [sourceInfoCtl.result retain];
-    targetDiskInformation = [targetInfoCtl.result retain];
-    
-    if (![self verifyDiskInformation:sourceDiskInformation withChecksum:sourceChecksum]) {
+    if (![self verifyDiskInformation:sourceInfoCtl.result withChecksum:sourceChecksum]) {
         return;
     }
-    if (![self verifyDiskInformation:targetDiskInformation withChecksum:targetChecksum]) {
+    if (![self verifyDiskInformation:targetInfoCtl.result withChecksum:targetChecksum]) {
         return;
     }
     
