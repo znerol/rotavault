@@ -68,7 +68,7 @@
     NSArray *entries = [[activeControllers valueForKeyPath:@"controllers.result"] allObjects];
     NSArray *devnodes = [entries valueForKey:@"DeviceNode"];
     
-    controller.result = [[NSDictionary alloc] initWithObjects:entries forKeys:devnodes];
+    controller.result = [NSDictionary dictionaryWithObjects:entries forKeys:devnodes];
     controller.state = LCSCommandStateFinished;
 }
 

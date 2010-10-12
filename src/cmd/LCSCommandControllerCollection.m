@@ -35,8 +35,8 @@ NSString* LCSCommandControllerCollectionOriginalSenderKey = @"LCSCommandControll
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
-    [controllers dealloc];
-    [watchers dealloc];
+    [controllers release];
+    [watchers release];
     
     [super dealloc];
 }
