@@ -6,6 +6,7 @@
 //  Copyright 2010 znerol.ch. All rights reserved.
 //
 
+#import <asl.h>
 #import "LCSCmdlineCommandRunner.h"
 #import "LCSInitMacros.h"
 
@@ -41,7 +42,7 @@
 {
     LCSCommandController *sender = [ntf object];
     if (sender.error != nil) {
-        NSLog(@"ERROR: %@", [sender.error localizedDescription]);
+        asl_log(NULL, NULL, ASL_LEVEL_ERR, "%s", [[sender.error localizedDescription] cStringUsingEncoding:NSUTF8StringEncoding]);
     }
 }
 
@@ -51,7 +52,7 @@
         return;
     }
     
-    NSLog(@"%@", ctl.progressMessage);
+    asl_log(NULL, NULL, ASL_LEVEL_INFO, "%s", [ctl.progressMessage cStringUsingEncoding:NSUTF8StringEncoding]);
 }
 
 -(NSError*)run
@@ -72,7 +73,7 @@
 
 -(void)handleSignal:(NSNumber*)num
 {
-    NSLog(@"Got Signal %d, cancelling", [num intValue]);
+    asl_log(NULL, NULL, ASL_LEVEL_INFO, "Terminating on signal %d", [num intValue]);
     [cmd cancel];
 }
 @end

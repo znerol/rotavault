@@ -9,14 +9,16 @@ int main (int argc, const char * argv[]) {
     /* process command line arguments */
     NSUserDefaults *args = [[[NSUserDefaults alloc] init] autorelease];
     [args addSuiteNamed:NSArgumentDomain];
+    [args registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
+                            [NSNumber numberWithBool:NO], @"debug",
+                            @"ch.znerol.rvcopyd", @"label",
+                            nil]];
 
     BOOL debug = [args boolForKey:@"debug"];
 
     /* setup asl */
-    aslmsg tmpl = asl_new(ASL_TYPE_MSG);
-    asl_set(tmpl, ASL_KEY_FACILITY, "ch.znerol.rotavault.copy");
     asl_add_log_file(NULL, 2);
-
+    
     if (debug == YES) {
         asl_set_filter(NULL, ASL_FILTER_MASK_UPTO(ASL_LEVEL_DEBUG));
     }
