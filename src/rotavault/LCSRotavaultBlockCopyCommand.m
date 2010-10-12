@@ -125,13 +125,15 @@
                                                  name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
                                                object:activeControllers];
     
-    sourceInfoCtl = [runner run:[LCSDiskInfoCommand commandWithDevicePath:sourceDevice]];
+    sourceInfoCtl = [LCSCommandController controllerWithCommand:[LCSDiskInfoCommand commandWithDevicePath:sourceDevice]];
     sourceInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on source device"];
     [activeControllers addController:sourceInfoCtl];
+    [sourceInfoCtl start];
     
-    targetInfoCtl = [runner run:[LCSDiskInfoCommand commandWithDevicePath:targetDevice]];
+    targetInfoCtl = [LCSCommandController controllerWithCommand:[LCSDiskInfoCommand commandWithDevicePath:targetDevice]];
     targetInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on target device"];
     [activeControllers addController:targetInfoCtl];
+    [targetInfoCtl start];
 }
 
 -(void)completeGatherInformation:(NSNotification*)ntf
@@ -155,13 +157,14 @@
     controller.progressMessage = [NSString localizedStringWithFormat:@"Performing block copy"];
     
     needsSourceRemount = YES;
-    LCSCommandController *ctl = [runner run:[LCSAsrRestoreCommand commandWithSource:sourceDevice target:targetDevice]];
+    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:[LCSAsrRestoreCommand commandWithSource:sourceDevice target:targetDevice]];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(completeBlockCopy:)
                                                  name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFinished]
                                                object:ctl];
     ctl.title = [NSString localizedStringWithFormat:@"Block copy"];
     [activeControllers addController:ctl];
+    [ctl start];
 }
 
 -(void)completeBlockCopy:(NSNotification*)ntf
@@ -182,13 +185,14 @@
 {
     controller.progressMessage = [NSString localizedStringWithFormat:@"Remounting source device"];
     
-    LCSCommandController *ctl = [runner run:[LCSDiskMountCommand commandWithDevicePath:sourceDevice]];
+    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:[LCSDiskMountCommand commandWithDevicePath:sourceDevice]];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(completeSourceRemount:)
                                                  name:[LCSCommandController notificationNameStateEntered:LCSCommandStateInvalidated]
                                                object:ctl];
     ctl.title = [NSString localizedStringWithFormat:@"Remount source device"];
     [activeControllers addController:ctl];
+    [ctl start];
 }
 
 -(void)completeSourceRemount:(NSNotification*)ntf

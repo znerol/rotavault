@@ -15,7 +15,6 @@
 @interface LCSBatchCommand : NSObject <LCSCommand>
 {
     LCSCommandController* controller;
-    id <LCSCommandRunner> runner;
     
     LCSCommandControllerCollection* activeControllers;
 }

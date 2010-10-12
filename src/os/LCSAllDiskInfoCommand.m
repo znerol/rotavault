@@ -50,10 +50,12 @@
                                                object:activeControllers];
     
     for (char **devpath = g.gl_pathv; *devpath != NULL; devpath++) {
-        LCSCommandController *ctl = [runner run:[LCSDiskInfoCommand commandWithDevicePath:
-                                                 [NSString stringWithCString:*devpath encoding:NSUTF8StringEncoding]]];
+        LCSCommandController *ctl = [LCSCommandController controllerWithCommand:
+                                     [LCSDiskInfoCommand commandWithDevicePath:
+                                      [NSString stringWithCString:*devpath encoding:NSUTF8StringEncoding]]];
         ctl.title = [NSString localizedStringWithFormat:@"Get information on device %s", *devpath];
         [activeControllers addController:ctl];
+        [ctl start];
     }
     
     globfree(&g);

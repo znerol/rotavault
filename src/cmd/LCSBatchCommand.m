@@ -13,7 +13,6 @@
 
 @implementation LCSBatchCommand
 @synthesize controller;
-@synthesize runner;
 
 -(id)init
 {

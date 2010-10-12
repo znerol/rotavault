@@ -353,7 +353,6 @@
 		CA48205C1264D62700C2879B /* NSData+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Hex.h"; sourceTree = "<group>"; };
 		CA48205D1264D62700C2879B /* NSData+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Hex.m"; sourceTree = "<group>"; };
 		CA48230E1264D74400C2879B /* rvcksum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rvcksum.m; sourceTree = "<group>"; };
-		CA5732B2125378A000F31199 /* LCSMultiCommandTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSMultiCommandTest.m; sourceTree = "<group>"; };
 		CA9344E912560D35004CAB5B /* OCMockObject+NSTaskTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OCMockObject+NSTaskTest.m"; sourceTree = "<group>"; };
 		CA94887A1211892500415257 /* rvcopyd */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = rvcopyd; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA963A83124E3A990098D281 /* LCSExternalCommandTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSExternalCommandTest.m; sourceTree = "<group>"; };
@@ -523,7 +522,6 @@
 				CAD58CA912546D32000F8850 /* LCSLaunchctlLoadCommandTest.m */,
 				CAB3C8561254F002002E4AF5 /* LCSLaunchctlRemoveCommandTest.m */,
 				CA0F95431254D82D0008F47C /* LCSLaunchctlUnloadCommandTest.m */,
-				CA5732B2125378A000F31199 /* LCSMultiCommandTest.m */,
 				CAAB8A54125074C4009AD28E /* LCSPlistExternalCommandTest.m */,
 				CAE82D35122C311F00715BCF /* LCSPropertyListSHA1HashTest.m */,
 				CA963E42124E59FB0098D281 /* LCSQuickExternalCommandTest.m */,

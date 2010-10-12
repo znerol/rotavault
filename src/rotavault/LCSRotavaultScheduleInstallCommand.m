@@ -235,21 +235,25 @@ writeLaunchdPlist_freeAndReturn:
                                                  name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
                                                object:activeControllers];
     
-    launchdInfoCtl = [runner run:[LCSLaunchctlInfoCommand commandWithLabel:rvcopydLabel]];
+    launchdInfoCtl = [LCSCommandController controllerWithCommand:[LCSLaunchctlInfoCommand commandWithLabel:rvcopydLabel]];
     launchdInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on launchd job"];
     [activeControllers addController:launchdInfoCtl];
+    [launchdInfoCtl start];
     
-    startupInfoCtl = [runner run:[LCSDiskInfoCommand commandWithDevicePath:@"/"]];
+    startupInfoCtl = [LCSCommandController controllerWithCommand:[LCSDiskInfoCommand commandWithDevicePath:@"/"]];
     startupInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on startup disk"];
     [activeControllers addController:startupInfoCtl];
+    [startupInfoCtl start];
     
-    sourceInfoCtl = [runner run:[LCSDiskInfoCommand commandWithDevicePath:sourceDevice]];
+    sourceInfoCtl = [LCSCommandController controllerWithCommand:[LCSDiskInfoCommand commandWithDevicePath:sourceDevice]];
     sourceInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on source device"];
     [activeControllers addController:sourceInfoCtl];
+    [sourceInfoCtl start];
     
-    targetInfoCtl = [runner run:[LCSDiskInfoCommand commandWithDevicePath:targetDevice]];
+    targetInfoCtl = [LCSCommandController controllerWithCommand:[LCSDiskInfoCommand commandWithDevicePath:targetDevice]];
     targetInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on target device"];
     [activeControllers addController:targetInfoCtl];
+    [targetInfoCtl start];
 }
 
 -(void)completeGatherInformation:(NSNotification*)ntf
@@ -285,9 +289,10 @@ writeLaunchdPlist_freeAndReturn:
                                                  name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
                                                object:activeControllers];
     
-    LCSCommandController *ctl = [runner run:[LCSLaunchctlRemoveCommand commandWithLabel:rvcopydLabel]];
+    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:[LCSLaunchctlRemoveCommand commandWithLabel:rvcopydLabel]];
     ctl.title = [NSString localizedStringWithFormat:@"Remove old launchd job"];
     [activeControllers addController:ctl];
+    [ctl start];
 }
 
 -(void)completeLaunchctlRemove:(NSNotification*)ntf
@@ -308,9 +313,10 @@ writeLaunchdPlist_freeAndReturn:
                                                  name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
                                                object:activeControllers];
     
-    LCSCommandController *ctl = [runner run:[LCSLaunchctlLoadCommand commandWithPath:launchdPlistPath]];
+    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:[LCSLaunchctlLoadCommand commandWithPath:launchdPlistPath]];
     ctl.title = [NSString localizedStringWithFormat:@"Install new launchd job"];
     [activeControllers addController:ctl];
+    [ctl start];
 }
 
 -(void)completeLaunchctlInstall:(NSNotification*)ntf

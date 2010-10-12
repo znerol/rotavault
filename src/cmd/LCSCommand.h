@@ -20,13 +20,6 @@
 @property(assign) LCSCommandController* controller;
 
 /**
- * A reference to a command runner. This value is set automatically via dependency injection. A command runner is
- * required if the command implemementation needs to generate and submit new commands.
- */
-@optional
-@property(assign) id <LCSCommandRunner> runner;
-
-/**
  * Start a background command. This method should not perform any substantial work but prepare the command for
  * asynchronous processing. Typically you start an NSTask or submit an NSOperation to a queue and let the magic happen
  * in the background.

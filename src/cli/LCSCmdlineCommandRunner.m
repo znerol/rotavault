@@ -18,8 +18,6 @@
     
     cmd = [command retain];
     LCSINIT_RELEASE_AND_RETURN_IF_NIL(cmd);
-    mgr = [[LCSCommandManager alloc] init];
-    LCSINIT_RELEASE_AND_RETURN_IF_NIL(mgr);
     
     LCSSignalHandler *sighandler = [LCSSignalHandler defaultSignalHandler];
     [sighandler addSignal:SIGHUP];
@@ -34,7 +32,6 @@
 {
     [cmd release];
     [ctl release];
-    [mgr release];
     [super dealloc];
 }
 
@@ -44,6 +41,11 @@
     if (sender.error != nil) {
         asl_log(NULL, NULL, ASL_LEVEL_ERR, "%s", [[sender.error localizedDescription] cStringUsingEncoding:NSUTF8StringEncoding]);
     }
+}
+
+-(void)handleControllerInvalidatedNotification:(NSNotification*)ntf
+{
+    CFRunLoopStop([[NSRunLoop currentRunLoop] getCFRunLoop]);
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -57,14 +59,18 @@
 
 -(NSError*)run
 {
-    ctl = [[mgr run:cmd] retain];
+    ctl = [LCSCommandController controllerWithCommand:cmd];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleControllerFailedNotification:)
                                                  name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFailed]
                                                object:ctl];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleControllerInvalidatedNotification:)
+                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateInvalidated]
+                                               object:ctl];
     [ctl addObserver:self forKeyPath:@"progressMessage" options:0 context:nil];
     
-    [mgr waitUntilAllCommandsAreDone];
+    [[NSRunLoop currentRunLoop] run];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [ctl removeObserver:self forKeyPath:@"progressMessage"];

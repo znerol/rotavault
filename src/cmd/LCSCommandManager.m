@@ -34,10 +34,6 @@
 
 -(void)addCommandController:(LCSCommandController*)controller
 {
-    if ([controller.command respondsToSelector:@selector(setRunner:)]) {
-        controller.command.runner = self;
-    }
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(controllerEnteredInvalidatedState:)
                                                  name:[LCSCommandController notificationNameStateEntered:LCSCommandStateInvalidated]
