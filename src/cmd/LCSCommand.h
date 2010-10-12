@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 
 
-@protocol LCSCommandRunner;
 @class LCSCommandController;
 
 @protocol LCSCommand <NSObject>

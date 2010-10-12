@@ -183,3 +183,12 @@
 }
 
 @end
+
+@implementation LCSCommandController (RunLoopHelpers)
+-(void)waitUntilDone
+{
+    while (state != LCSCommandStateInvalidated) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:1]];
+    }
+}
+@end

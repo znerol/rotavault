@@ -84,3 +84,7 @@ typedef enum {
 +(NSString*)notificationNameStateEntered:(LCSCommandState)newState;
 +(NSString*)notificationNameStateChanged;
 @end
+
+@interface LCSCommandController (RunLoopHelpers)
+-(void)waitUntilDone;
+@end

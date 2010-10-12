@@ -9,7 +9,6 @@
 #import <GHUnit/GHUnit.h>
 #import "LCSLaunchctlUnloadCommand.h"
 #import "LCSCommandController.h"
-#import "LCSCommandManager.h"
 #import "LCSTestdir.h"
 
 
@@ -39,19 +38,13 @@
     
     [job writeToFile:plistPath atomically:NO];
     
-    LCSCommandManager *mgr = [[LCSCommandManager alloc] init];
     LCSLaunchctlUnloadCommand *cmd = [LCSLaunchctlUnloadCommand commandWithPath:plistPath];
     LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
     
-
-    [mgr addCommandController:ctl];
     [ctl start];
-    [mgr waitUntilAllCommandsAreDone];
+    [ctl waitUntilDone];
     
     GHAssertEquals(ctl.exitState, LCSCommandStateFinished, @"Expecting LCSCommandStateFinished");
-    
-    [mgr removeCommandController:ctl];
-    [mgr release];
     
     [testdir remove];
     [testdir release];
@@ -74,18 +67,13 @@
     
     [job writeToFile:plistPath atomically:NO];
     
-    LCSCommandManager *mgr = [[LCSCommandManager alloc] init];
     LCSLaunchctlUnloadCommand *cmd = [LCSLaunchctlUnloadCommand commandWithPath:plistPath];
     LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
     
-    [mgr addCommandController:ctl];
     [ctl start];
-    [mgr waitUntilAllCommandsAreDone];
+    [ctl waitUntilDone];
     
     GHAssertEquals(ctl.exitState, LCSCommandStateFinished, @"Expecting LCSCommandStateFinished");
-        
-    [mgr removeCommandController:ctl];
-    [mgr release];
     
     [testdir remove];
     [testdir release];

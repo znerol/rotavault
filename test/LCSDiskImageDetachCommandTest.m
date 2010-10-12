@@ -9,7 +9,6 @@
 #import <GHUnit/GHUnit.h>
 #import "LCSDiskImageDetachCommand.h"
 #import "LCSCommandController.h"
-#import "LCSCommandManager.h"
 #import "LCSTestdir.h"
 
 
@@ -22,9 +21,6 @@
 {
     LCSTestdir *testdir = [[LCSTestdir alloc] init];
     NSString *dmgpath = [[testdir path] stringByAppendingPathComponent:@"test.dmg"];
-    
-    LCSCommandManager *mgr = [[LCSCommandManager alloc] init];
-    LCSCommandController *ctl = nil;
     
     /** create test image file and figure out device path **/
     NSTask *dmgcreate = [[NSTask alloc] init];
@@ -45,12 +41,12 @@
     /** end creation of image file **/
     
     LCSDiskImageDetachCommand *cmd = [LCSDiskImageDetachCommand commandWithDevicePath:devpath];
-    ctl = [mgr run:cmd];
-    [mgr waitUntilAllCommandsAreDone];
+    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
+    
+    [ctl start];
+    [ctl waitUntilDone];
     
     GHAssertEquals(ctl.exitState, LCSCommandStateFinished, @"Expecting LCSCommandStateFinished");
-    
-    [mgr release];
     
     [dmgcreate release];
     [testdir remove];
@@ -62,16 +58,13 @@
     LCSTestdir *testdir = [[LCSTestdir alloc] init];
     NSString *devpath = [[testdir path] stringByAppendingPathComponent:@"diskXsY"];
     
-    LCSCommandManager *mgr = [[LCSCommandManager alloc] init];
-    LCSCommandController *ctl = nil;
     LCSDiskImageDetachCommand *cmd = [LCSDiskImageDetachCommand commandWithDevicePath:devpath];
+    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
     
-    ctl = [mgr run:cmd];
-    [mgr waitUntilAllCommandsAreDone];
+    [ctl start];
+    [ctl waitUntilDone];
     
     GHAssertEquals(ctl.exitState, LCSCommandStateFailed, @"Expecting LCSCommandStateFailed");
-    
-    [mgr release];
     
     [testdir remove];
     [testdir release];

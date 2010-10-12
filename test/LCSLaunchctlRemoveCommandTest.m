@@ -9,7 +9,6 @@
 #import <GHUnit/GHUnit.h>
 #import "LCSLaunchctlRemoveCommand.h"
 #import "LCSCommandController.h"
-#import "LCSCommandManager.h"
 #import "LCSTestdir.h"
 
 
@@ -27,36 +26,25 @@
                                                              @"/bin/sleep", @"10", nil]];
     [submitTask waitUntilExit];
     
-    LCSCommandManager *mgr = [[LCSCommandManager alloc] init];
     LCSLaunchctlRemoveCommand *cmd = [LCSLaunchctlRemoveCommand commandWithLabel:label];
     LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
     
-    
-    [mgr addCommandController:ctl];
     [ctl start];
-    [mgr waitUntilAllCommandsAreDone];
+    [ctl waitUntilDone];
     
     GHAssertEquals(ctl.exitState, LCSCommandStateFinished, @"Expecting LCSCommandStateFinished");
-    
-    [mgr removeCommandController:ctl];
-    [mgr release];
 }
 
 -(void)testLaunchctlRemoveNonExistingLabel
 {
     NSString *label = [NSString stringWithFormat:@"ch.znerol.testjob-not-existing.%0X", random()];
     
-    LCSCommandManager *mgr = [[LCSCommandManager alloc] init];
     LCSLaunchctlRemoveCommand *cmd = [LCSLaunchctlRemoveCommand commandWithLabel:label];
     LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
     
-    [mgr addCommandController:ctl];
     [ctl start];
-    [mgr waitUntilAllCommandsAreDone];
+    [ctl waitUntilDone];
     
     GHAssertEquals(ctl.exitState, LCSCommandStateFailed, @"Expecting LCSCommandStateFailed");
-    
-    [mgr removeCommandController:ctl];
-    [mgr release];
 }
 @end

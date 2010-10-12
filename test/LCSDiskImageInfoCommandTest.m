@@ -9,7 +9,6 @@
 #import <GHUnit/GHUnit.h>
 #import "LCSDiskImageInfoCommand.h"
 #import "LCSCommandController.h"
-#import "LCSCommandManager.h"
 
 
 @interface LCSDiskImageInfoCommandTest : GHTestCase
@@ -19,19 +18,14 @@
 @implementation LCSDiskImageInfoCommandTest
 -(void)testDiskImageInfoCommand
 {
-    LCSCommandManager *mgr = [[LCSCommandManager alloc] init];
     LCSDiskImageInfoCommand *cmd = [LCSDiskImageInfoCommand command];
     LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
     
-    [mgr addCommandController:ctl];
     [ctl start];
-    [mgr waitUntilAllCommandsAreDone];
+    [ctl waitUntilDone];
     
     GHAssertTrue([ctl.result isKindOfClass:[NSDictionary class]], @"Result should be a dictionary");
     GHAssertTrue([[ctl.result valueForKey:@"images"] isKindOfClass:[NSArray class]],
                  @"Result should contain an array for the key 'images'");
-    
-    [mgr removeCommandController:ctl];
-    [mgr release];
 }
 @end

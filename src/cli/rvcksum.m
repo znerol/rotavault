@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-#import "LCSCommandManager.h"
+#import "LCSCommandController.h"
 #import "LCSDiskInfoCommand.h"
 #import "LCSPropertyListSHA1Hash.h"
 #import "NSData+Hex.h"
@@ -29,9 +29,9 @@ int main (int argc, const char * argv[]) {
         return 1;
     }
 
-    LCSCommandManager *mgr = [[LCSCommandManager alloc] init];
-    LCSCommandController *ctl = [mgr run:[LCSDiskInfoCommand commandWithDevicePath:device]];
-    [mgr waitUntilAllCommandsAreDone];
+    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:
+                                 [LCSDiskInfoCommand commandWithDevicePath:device]];
+    [ctl waitUntilDone];
     
     if (ctl.result == nil) {
         fprintf(stderr, "Unable to gather information for specified device path\n");
@@ -63,7 +63,6 @@ int main (int argc, const char * argv[]) {
             return 1;
     }
 
-    [mgr release];
     [pool drain];
     return 0;
 }

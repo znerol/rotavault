@@ -9,6 +9,7 @@
 #import <asl.h>
 #import "LCSCmdlineCommandRunner.h"
 #import "LCSInitMacros.h"
+#import "LCSCommandController.h"
 
 
 @implementation LCSCmdlineCommandRunner
@@ -70,6 +71,7 @@
                                                object:ctl];
     [ctl addObserver:self forKeyPath:@"progressMessage" options:0 context:nil];
     
+    [ctl start];
     [[NSRunLoop currentRunLoop] run];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];

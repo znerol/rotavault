@@ -9,14 +9,12 @@
 #import <GHUnit/GHUnit.h>
 #import "LCSQuickExternalCommand.h"
 #import "LCSCommandController.h"
-#import "LCSCommandManager.h"
 #import "LCSPlistExternalCommand.h"
 #import "LCSTestdir.h"
 
 
 @interface LCSPlistExternalCommandTest : GHTestCase {
     NSMutableArray *states;
-    LCSCommandManager *mgr;
     LCSQuickExternalCommand *cmd;
     LCSCommandController *ctl;
 }
@@ -29,25 +27,20 @@
 {
     states = [[NSMutableArray alloc] init];
     
-    mgr = [[LCSCommandManager alloc] init];
     cmd = [[LCSPlistExternalCommand alloc] init];
     ctl = [[LCSCommandController controllerWithCommand:cmd] retain];
     
-    [mgr addCommandController:ctl];
     [ctl addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionInitial context:nil];
 }
 
 -(void)tearDown
 {
     [ctl removeObserver:self forKeyPath:@"state"];
-    [mgr removeCommandController:ctl];
     
     [ctl release];
     ctl = nil;
     [cmd release];
     cmd = nil;
-    [mgr release];
-    mgr = nil;
     
     [states release];
     states = nil;
@@ -94,9 +87,9 @@
     
     [cmd.task setLaunchPath:@"/bin/sh"];
     [cmd.task setArguments:[NSArray arrayWithObject:testscript]];
-    [ctl start];
     
-    [mgr waitUntilAllCommandsAreDone];
+    [ctl start];
+    [ctl waitUntilDone];
     
     NSArray *expectedStates = [NSArray arrayWithObjects:
                                [NSNumber numberWithInt:LCSCommandStateInit],
@@ -119,9 +112,9 @@
 {
     [cmd.task setLaunchPath:@"/bin/echo"];
     [cmd.task setArguments:[NSArray arrayWithObject:@"no plist here!"]];
-    [ctl start];
     
-    [mgr waitUntilAllCommandsAreDone];
+    [ctl start];
+    [ctl waitUntilDone];
     
     NSArray *expectedStates = [NSArray arrayWithObjects:
                                [NSNumber numberWithInt:LCSCommandStateInit],

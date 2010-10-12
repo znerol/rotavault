@@ -9,7 +9,6 @@
 #import <GHUnit/GHUnit.h>
 #import <OCMock/OCMock.h>
 #import "LCSCommandControllerCollection.h"
-#import "LCSCommandManager.h"
 #import "LCSTestCommand.h"
 
 @interface LCSCommandControllerCollectionTest : GHTestCase
@@ -25,8 +24,8 @@
 
 -(void)testOneControllerWatchOneState
 {
-    LCSCommandManager *mgr = [[LCSCommandManager alloc] init];
-    LCSCommandController *ctl = [mgr run:[LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFinished]];
+    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:
+                                 [LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFinished]];
     
     LCSCommandControllerCollection *col = [LCSCommandControllerCollection collection];
     [col addController:ctl];
@@ -45,12 +44,11 @@
                                              selector:@selector(consumeNotification:)
                                                  name:[LCSCommandControllerCollection notificationNameAnyControllerEnteredState:LCSCommandStateFinished]
                                                object:col];
-    
-    [mgr waitUntilAllCommandsAreDone];
+    [ctl start];
+    [ctl waitUntilDone];
     
     [[NSNotificationCenter defaultCenter] removeObserver:mockall];
     [[NSNotificationCenter defaultCenter] removeObserver:mockany];
-    [mgr release];
     
     [mockall verify];
     [mockany verify];
@@ -58,10 +56,12 @@
 
 -(void)testManyControllersWatchOneState
 {
-    LCSCommandManager *mgr = [[LCSCommandManager alloc] init];
-    LCSCommandController *ctl1 = [mgr run:[LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFinished]];
-    LCSCommandController *ctl2 = [mgr run:[LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFinished]];
-    LCSCommandController *ctl3 = [mgr run:[LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFinished]];
+    LCSCommandController *ctl1 = [LCSCommandController controllerWithCommand:
+                                  [LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFinished]];
+    LCSCommandController *ctl2 = [LCSCommandController controllerWithCommand:
+                                  [LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFinished]];
+    LCSCommandController *ctl3 = [LCSCommandController controllerWithCommand:
+                                  [LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFinished]];
     
     LCSCommandControllerCollection *col = [LCSCommandControllerCollection collection];
     [col addController:ctl1];
@@ -96,7 +96,12 @@
                                                  name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
                                                object:col];
     
-    [mgr waitUntilAllCommandsAreDone];
+    [ctl1 start];
+    [ctl2 start];
+    [ctl3 start];
+    [ctl1 waitUntilDone];
+    [ctl2 waitUntilDone];
+    [ctl3 waitUntilDone];
     
     [[NSNotificationCenter defaultCenter] removeObserver:mockany];
     [[NSNotificationCenter defaultCenter] removeObserver:mockall];
@@ -105,7 +110,6 @@
     [col removeController:ctl1];
     [col removeController:ctl2];
     [col removeController:ctl3];
-    [mgr release];
     
     [mockany verify];
     [mockall verify];
@@ -113,10 +117,12 @@
 
 -(void)testManyControllersOneFailingWatchOneState
 {
-    LCSCommandManager *mgr = [[LCSCommandManager alloc] init];
-    LCSCommandController *ctl1 = [mgr run:[LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFinished]];
-    LCSCommandController *ctl2 = [mgr run:[LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFinished]];
-    LCSCommandController *ctl3 = [mgr run:[LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFailed]];
+    LCSCommandController *ctl1 = [LCSCommandController controllerWithCommand:
+                                  [LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFinished]];
+    LCSCommandController *ctl2 = [LCSCommandController controllerWithCommand:
+                                  [LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFinished]];
+    LCSCommandController *ctl3 = [LCSCommandController controllerWithCommand:
+                                  [LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFailed]];
     
     LCSCommandControllerCollection *col = [LCSCommandControllerCollection collection];
     [col watchState:LCSCommandStateFinished];
@@ -149,7 +155,12 @@
                                                  name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
                                                object:col];
     
-    [mgr waitUntilAllCommandsAreDone];
+    [ctl1 start];
+    [ctl2 start];
+    [ctl3 start];
+    [ctl1 waitUntilDone];
+    [ctl2 waitUntilDone];
+    [ctl3 waitUntilDone];
     
     [[NSNotificationCenter defaultCenter] removeObserver:mockany];
     [[NSNotificationCenter defaultCenter] removeObserver:mockall];
@@ -162,8 +173,7 @@
     /* unwatch one more (test) */
     [col unwatchState:LCSCommandStateFinished];
     
-    [mgr release];
-    
+
     [mockany verify];
     [mockall verify];
 }

@@ -9,7 +9,6 @@
 #import <GHUnit/GHUnit.h>
 #import <OCMock/OCMock.h>
 #import "OCMockObject+NSTask.h"
-#import "LCSCommandManager.h"
 #import "LCSLaunchctlListCommand.h"
 #import "LCSCommandController.h"
 
@@ -41,23 +40,17 @@
 @implementation LCSLaunchctlListCommandTest
 -(void)testLaunchctlListCommand
 {
-    LCSCommandManager *mgr = [[LCSCommandManager alloc] init];
     LCSLaunchctlListCommand *cmd = [LCSLaunchctlListCommand command];
     LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
     
-    [mgr addCommandController:ctl];
     [ctl start];
-    [mgr waitUntilAllCommandsAreDone];
+    [ctl waitUntilDone];
     
     GHAssertTrue([ctl.result isKindOfClass:[NSArray class]], @"Result must be an array");
-
-    [mgr removeCommandController:ctl];
-    [mgr release];
 }
 
 -(void)testLaunchctlListCommandHeaderOnly
 {
-    LCSCommandManager *mgr = [[LCSCommandManager alloc] init];
     LCSLaunchctlListCommand *cmd = [LCSLaunchctlListCommand command];
     LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
     
@@ -68,20 +61,15 @@
     id mockTask = [OCMockObject mockTask:cmd.task withTerminationStatus:0 stdoutData:stdoutData stderrData:stderrData];
     cmd.task = mockTask;
     
-    [mgr addCommandController:ctl];
     [ctl start];
-    [mgr waitUntilAllCommandsAreDone];
+    [ctl waitUntilDone];
     
     GHAssertEquals(ctl.exitState, LCSCommandStateFinished, @"Expecting LCSCommandStateFinished exit state");
     GHAssertEqualObjects(ctl.result, [NSArray array], @"Expecting an empty array");
-    
-    [mgr removeCommandController:ctl];
-    [mgr release];
 }
 
 -(void)testLaunchctlListCommandOneRunningJob
 {
-    LCSCommandManager *mgr = [[LCSCommandManager alloc] init];
     LCSLaunchctlListCommand *cmd = [LCSLaunchctlListCommand command];
     LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
     
@@ -92,9 +80,8 @@
     id mockTask = [OCMockObject mockTask:cmd.task withTerminationStatus:0 stdoutData:stdoutData stderrData:stderrData];
     cmd.task = mockTask;
     
-    [mgr addCommandController:ctl];
     [ctl start];
-    [mgr waitUntilAllCommandsAreDone];
+    [ctl waitUntilDone];
     
     GHAssertEquals(ctl.exitState, LCSCommandStateFinished, @"Expecting LCSCommandStateFinished exit state");
     
@@ -104,14 +91,10 @@
                                                 nil]];
                                                 
     GHAssertEqualObjects(ctl.result, expect, @"Expecting an empty array");
-    
-    [mgr removeCommandController:ctl];
-    [mgr release];
 }
 
 -(void)testLaunchctlListCommandOneJobWithNonZeroExitStatus
 {
-    LCSCommandManager *mgr = [[LCSCommandManager alloc] init];
     LCSLaunchctlListCommand *cmd = [LCSLaunchctlListCommand command];
     LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
     
@@ -122,9 +105,8 @@
     id mockTask = [OCMockObject mockTask:cmd.task withTerminationStatus:0 stdoutData:stdoutData stderrData:stderrData];
     cmd.task = mockTask;
     
-    [mgr addCommandController:ctl];
     [ctl start];
-    [mgr waitUntilAllCommandsAreDone];
+    [ctl waitUntilDone];
     
     GHAssertEquals(ctl.exitState, LCSCommandStateFinished, @"Expecting LCSCommandStateFinished exit state");
     
@@ -134,14 +116,10 @@
                                                 nil]];
     
     GHAssertEqualObjects(ctl.result, expect, @"Expecting an empty array");
-    
-    [mgr removeCommandController:ctl];
-    [mgr release];
 }
 
 -(void)testLaunchctlListCommandOneJobTerminatedBySignal
 {
-    LCSCommandManager *mgr = [[LCSCommandManager alloc] init];
     LCSLaunchctlListCommand *cmd = [LCSLaunchctlListCommand command];
     LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
     
@@ -152,9 +130,8 @@
     id mockTask = [OCMockObject mockTask:cmd.task withTerminationStatus:0 stdoutData:stdoutData stderrData:stderrData];
     cmd.task = mockTask;
     
-    [mgr addCommandController:ctl];
     [ctl start];
-    [mgr waitUntilAllCommandsAreDone];
+    [ctl waitUntilDone];
     
     GHAssertEquals(ctl.exitState, LCSCommandStateFinished, @"Expecting LCSCommandStateFinished exit state");
     
@@ -164,14 +141,10 @@
                                                 nil]];
     
     GHAssertEqualObjects(ctl.result, expect, @"Expecting an empty array");
-    
-    [mgr removeCommandController:ctl];
-    [mgr release];
 }
 
 -(void)testLaunchctlListCommandUnexpectedHeader
 {
-    LCSCommandManager *mgr = [[LCSCommandManager alloc] init];
     LCSLaunchctlListCommand *cmd = [LCSLaunchctlListCommand command];
     LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
     
@@ -182,14 +155,10 @@
     id mockTask = [OCMockObject mockTask:cmd.task withTerminationStatus:0 stdoutData:stdoutData stderrData:stderrData];
     cmd.task = mockTask;
     
-    [mgr addCommandController:ctl];
     [ctl start];
-    [mgr waitUntilAllCommandsAreDone];
+    [ctl waitUntilDone];
     
     GHAssertEquals(ctl.exitState, LCSCommandStateFailed, @"Expecting failed command state");
     GHAssertTrue([ctl.error isKindOfClass:[NSError class]], @"Expecting an error");
-    
-    [mgr removeCommandController:ctl];
-    [mgr release];
 }
 @end

@@ -9,13 +9,11 @@
 #import <GHUnit/GHUnit.h>
 #import "LCSExternalCommand.h"
 #import "LCSCommandController.h"
-#import "LCSCommandManager.h"
 #import "LCSTestdir.h"
 
 
 @interface LCSExternalCommandTest : GHTestCase {
     NSMutableArray *states;
-    LCSCommandManager *mgr;
     LCSExternalCommand *cmd;
     LCSCommandController *ctl;
 }
@@ -28,25 +26,20 @@
 {
     states = [[NSMutableArray alloc] init];
 
-    mgr = [[LCSCommandManager alloc] init];
     cmd = [[LCSExternalCommand alloc] init];
     ctl = [[LCSCommandController controllerWithCommand:cmd] retain];
     
-    [mgr addCommandController:ctl];
     [ctl addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionInitial context:nil];
 }
 
 -(void)tearDown
 {
     [ctl removeObserver:self forKeyPath:@"state"];
-    [mgr removeCommandController:ctl];
     
     [ctl release];
     ctl = nil;
     [cmd release];
     cmd = nil;
-    [mgr release];
-    mgr = nil;
     
     [states release];
     states = nil;
@@ -66,9 +59,9 @@
 -(void)testCommandWithZeroStatus
 {
     [cmd.task setLaunchPath:@"/usr/bin/true"];
-    [ctl start];
     
-    [mgr waitUntilAllCommandsAreDone];
+    [ctl start];
+    [ctl waitUntilDone];
     
     NSArray *expectedStates = [NSArray arrayWithObjects:
                                [NSNumber numberWithInt:LCSCommandStateInit],
@@ -85,9 +78,9 @@
 -(void)testCommandWithNonZeroStatus
 {
     [cmd.task setLaunchPath:@"/usr/bin/false"];
-    [ctl start];
     
-    [mgr waitUntilAllCommandsAreDone];
+    [ctl start];
+    [ctl waitUntilDone];
     
     NSArray *expectedStates = [NSArray arrayWithObjects:
                                [NSNumber numberWithInt:LCSCommandStateInit],
@@ -107,8 +100,7 @@
     
     [ctl start];
     [ctl cancel];
-    
-    [mgr waitUntilAllCommandsAreDone];
+    [ctl waitUntilDone];
     
     NSArray *expectedStates = [NSArray arrayWithObjects:
                                [NSNumber numberWithInt:LCSCommandStateInit],
@@ -127,9 +119,9 @@
     LCSTestdir *testdir = [[LCSTestdir alloc] init];
     
     [cmd.task setLaunchPath:[testdir path]];
-    [ctl start];
     
-    [mgr waitUntilAllCommandsAreDone];
+    [ctl start];
+    [ctl waitUntilDone];
     
     NSArray *expectedStates = [NSArray arrayWithObjects:
                                [NSNumber numberWithInt:LCSCommandStateInit],
@@ -149,9 +141,9 @@
     LCSTestdir *testdir = [[LCSTestdir alloc] init];
     
     [cmd.task setLaunchPath:[[testdir path] stringByAppendingPathComponent:@"nothing"]];
-    [ctl start];
     
-    [mgr waitUntilAllCommandsAreDone];
+    [ctl start];
+    [ctl waitUntilDone];
     
     NSArray *expectedStates = [NSArray arrayWithObjects:
                                [NSNumber numberWithInt:LCSCommandStateInit],
@@ -176,8 +168,7 @@
     GHAssertEquals(result, YES, @"Failed to write helper file");
     
     [ctl start];
-    
-    [mgr waitUntilAllCommandsAreDone];
+    [ctl waitUntilDone];
     
     NSArray *expectedStates = [NSArray arrayWithObjects:
                                [NSNumber numberWithInt:LCSCommandStateInit],

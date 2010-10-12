@@ -9,7 +9,6 @@
 #import <GHUnit/GHUnit.h>
 #import "LCSLaunchctlLoadCommand.h"
 #import "LCSCommandController.h"
-#import "LCSCommandManager.h"
 #import "LCSTestdir.h"
 
 
@@ -34,14 +33,11 @@
     
     [job writeToFile:plistPath atomically:NO];
     
-    LCSCommandManager *mgr = [[LCSCommandManager alloc] init];
     LCSLaunchctlLoadCommand *cmd = [LCSLaunchctlLoadCommand commandWithPath:plistPath];
     LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
     
     [ctl start];
-    
-    [mgr addCommandController:ctl];
-    [mgr waitUntilAllCommandsAreDone];
+    [ctl waitUntilDone];
     
     
     GHAssertEquals(ctl.exitState, LCSCommandStateFinished, @"Expecting LCSCommandStateFinished");
@@ -49,9 +45,6 @@
     NSTask *removeTask = [NSTask launchedTaskWithLaunchPath:@"/bin/launchctl"
                                                   arguments:[NSArray arrayWithObjects:@"remove", label, nil]];
     [removeTask waitUntilExit];
-    
-    [mgr removeCommandController:ctl];
-    [mgr release];
     
     [testdir remove];
     [testdir release];
@@ -74,31 +67,25 @@
     
     [job writeToFile:plistPath atomically:NO];
     
-    LCSCommandManager *mgr = [[LCSCommandManager alloc] init];
     LCSLaunchctlLoadCommand *cmd = [LCSLaunchctlLoadCommand commandWithPath:plistPath];
     LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
     
-    [mgr addCommandController:ctl];
     [ctl start];
-    [mgr waitUntilAllCommandsAreDone];
+    [ctl waitUntilDone];
     
     GHAssertEquals(ctl.exitState, LCSCommandStateFinished, @"Expecting LCSCommandStateFinished");
     
     LCSLaunchctlLoadCommand *cmd2 = [LCSLaunchctlLoadCommand commandWithPath:plistPath];
     LCSCommandController *ctl2 = [LCSCommandController controllerWithCommand:cmd2];
     
-    [mgr addCommandController:ctl2];
     [ctl2 start];
-    [mgr waitUntilAllCommandsAreDone];
+    [ctl2 waitUntilDone];
 
     GHAssertEquals(ctl2.exitState, LCSCommandStateFailed, @"Expecting LCSCommandStateFailed");
 
     NSTask *removeTask = [NSTask launchedTaskWithLaunchPath:@"/bin/launchctl"
                                                   arguments:[NSArray arrayWithObjects:@"remove", label, nil]];
     [removeTask waitUntilExit];
-    
-    [mgr removeCommandController:ctl];
-    [mgr release];
     
     [testdir remove];
     [testdir release];

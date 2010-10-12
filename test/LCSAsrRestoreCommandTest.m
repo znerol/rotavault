@@ -9,7 +9,6 @@
 #import <GHUnit/GHUnit.h>
 #import "LCSAsrRestoreCommand.h"
 #import "LCSCommandController.h"
-#import "LCSCommandManager.h"
 #import "LCSTestdir.h"
 #import "LCSPlistExternalCommand.h"
 
@@ -25,21 +24,23 @@
     NSString *dmgsourcepath = [[testdir path] stringByAppendingPathComponent:@"source.dmg"];
     NSString *dmgtargetpath = [[testdir path] stringByAppendingPathComponent:@"target.dmg"];
     
-    LCSCommandManager *mgr = [[LCSCommandManager alloc] init];
-
     /** create source and target images **/
     LCSPlistExternalCommand *createsource = [[[LCSPlistExternalCommand alloc] init] autorelease];
     [createsource.task setLaunchPath:@"/usr/bin/hdiutil"];
     [createsource.task setArguments:[NSArray arrayWithObjects:@"create", @"-sectors", @"2000", @"-layout", @"NONE",
                                      @"-fs", @"JHFS+", @"-plist", @"-attach", dmgsourcepath, nil]];
-    LCSCommandController *sourcectl = [mgr run:createsource];
+    LCSCommandController *sourcectl = [LCSCommandController controllerWithCommand:createsource];
+    [sourcectl start];
+    
     LCSPlistExternalCommand *createtarget = [[[LCSPlistExternalCommand alloc] init] autorelease];
     [createtarget.task setLaunchPath:@"/usr/bin/hdiutil"];
     [createtarget.task setArguments:[NSArray arrayWithObjects:@"create", @"-sectors", @"2000", @"-layout", @"NONE",
                                      @"-fs", @"JHFS+", @"-plist", @"-attach", dmgtargetpath, nil]];
-    LCSCommandController *targetctl = [mgr run:createtarget];
+    LCSCommandController *targetctl = [LCSCommandController controllerWithCommand:createtarget];
+    [targetctl start];
     
-    [mgr waitUntilAllCommandsAreDone];
+    [sourcectl waitUntilDone];
+    [targetctl waitUntilDone];
     
     GHAssertEquals(sourcectl.exitState, LCSCommandStateFinished, @"Expected LCSCommandStateFinished as a result of creating the source image");
     GHAssertTrue([sourcectl.result isKindOfClass:[NSDictionary class]], @"Expecting an NSDictionary as a result of creating the source image");
@@ -52,8 +53,10 @@
     
     /** test the asr command **/
     LCSAsrRestoreCommand *cmd = [LCSAsrRestoreCommand commandWithSource:sourcedev target:targetdev];
-    LCSCommandController *ctl = [mgr run:cmd];
-    [mgr waitUntilAllCommandsAreDone];
+    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
+    
+    [ctl start];
+    [ctl waitUntilDone];
     
     GHAssertEquals(ctl.exitState, LCSCommandStateFinished, @"Expecting LCSCommandStateFinished");
     
@@ -64,10 +67,7 @@
     [ejectSourceTask waitUntilExit];
     [ejectTargetTask waitUntilExit];
     
-    [mgr release];
-    
     [testdir remove];
     [testdir release];
-    
 }
 @end
