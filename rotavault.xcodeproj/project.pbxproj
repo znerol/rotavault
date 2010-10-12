@@ -179,6 +179,20 @@
 		CAE137A9125F837400E60B0F /* rvcopyd.m in Sources */ = {isa = PBXBuildFile; fileRef = CAE137A8125F837400E60B0F /* rvcopyd.m */; };
 		CAE26A611260A67700B19EC1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAE26A601260A67700B19EC1 /* Security.framework */; };
 		CAE26A631260A67700B19EC1 /* SecurityInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAE26A621260A67700B19EC1 /* SecurityInterface.framework */; };
+		CAE4CA75126466E600498A37 /* disk3.plist in Resources */ = {isa = PBXBuildFile; fileRef = CAE4CA67126466E600498A37 /* disk3.plist */; };
+		CAE4CA76126466E600498A37 /* disk3s1.plist in Resources */ = {isa = PBXBuildFile; fileRef = CAE4CA68126466E600498A37 /* disk3s1.plist */; };
+		CAE4CA77126466E600498A37 /* disk3s2.plist in Resources */ = {isa = PBXBuildFile; fileRef = CAE4CA69126466E600498A37 /* disk3s2.plist */; };
+		CAE4CA78126466E600498A37 /* disk4.plist in Resources */ = {isa = PBXBuildFile; fileRef = CAE4CA6A126466E600498A37 /* disk4.plist */; };
+		CAE4CA79126466E600498A37 /* disk5.plist in Resources */ = {isa = PBXBuildFile; fileRef = CAE4CA6B126466E600498A37 /* disk5.plist */; };
+		CAE4CA7A126466E600498A37 /* disk5s1.plist in Resources */ = {isa = PBXBuildFile; fileRef = CAE4CA6C126466E600498A37 /* disk5s1.plist */; };
+		CAE4CA7B126466E600498A37 /* disk5s2.plist in Resources */ = {isa = PBXBuildFile; fileRef = CAE4CA6D126466E600498A37 /* disk5s2.plist */; };
+		CAE4CA7C126466E600498A37 /* diskutil-appleraid-controller-failed.txt in Resources */ = {isa = PBXBuildFile; fileRef = CAE4CA6E126466E600498A37 /* diskutil-appleraid-controller-failed.txt */; };
+		CAE4CA7D126466E600498A37 /* diskutil-appleraid-list-degraded-failed.txt in Resources */ = {isa = PBXBuildFile; fileRef = CAE4CA6F126466E600498A37 /* diskutil-appleraid-list-degraded-failed.txt */; };
+		CAE4CA7E126466E600498A37 /* diskutil-appleraid-list-degraded-missing.txt in Resources */ = {isa = PBXBuildFile; fileRef = CAE4CA70126466E600498A37 /* diskutil-appleraid-list-degraded-missing.txt */; };
+		CAE4CA7F126466E600498A37 /* diskutil-appleraid-list-degraded-rebuilding-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = CAE4CA71126466E600498A37 /* diskutil-appleraid-list-degraded-rebuilding-1.txt */; };
+		CAE4CA80126466E600498A37 /* diskutil-appleraid-list-degraded-rebuilding-2.txt in Resources */ = {isa = PBXBuildFile; fileRef = CAE4CA72126466E600498A37 /* diskutil-appleraid-list-degraded-rebuilding-2.txt */; };
+		CAE4CA81126466E600498A37 /* diskutil-appleraid-list-degraded-rebuilding-3.txt in Resources */ = {isa = PBXBuildFile; fileRef = CAE4CA73126466E600498A37 /* diskutil-appleraid-list-degraded-rebuilding-3.txt */; };
+		CAE4CA82126466E600498A37 /* diskutil-appleraid-list-ok.txt in Resources */ = {isa = PBXBuildFile; fileRef = CAE4CA74126466E600498A37 /* diskutil-appleraid-list-ok.txt */; };
 		CAE9A1A71255227C00CD9C33 /* LCSAsrRestoreCommandTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAE9A1A61255227C00CD9C33 /* LCSAsrRestoreCommandTest.m */; };
 		CAEC4B97125EEE5A00CDBEA1 /* LCSCommandControllerCollectionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAEC4B96125EEE5A00CDBEA1 /* LCSCommandControllerCollectionTest.m */; };
 		CAEDB362125685530027110D /* LCSRotavaultScheduleInstallCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CAEDB361125685530027110D /* LCSRotavaultScheduleInstallCommand.m */; };
@@ -352,9 +366,22 @@
 		CAE137A8125F837400E60B0F /* rvcopyd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rvcopyd.m; sourceTree = "<group>"; };
 		CAE26A601260A67700B19EC1 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		CAE26A621260A67700B19EC1 /* SecurityInterface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SecurityInterface.framework; path = System/Library/Frameworks/SecurityInterface.framework; sourceTree = SDKROOT; };
+		CAE4CA67126466E600498A37 /* disk3.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = disk3.plist; sourceTree = "<group>"; };
+		CAE4CA68126466E600498A37 /* disk3s1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = disk3s1.plist; sourceTree = "<group>"; };
+		CAE4CA69126466E600498A37 /* disk3s2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = disk3s2.plist; sourceTree = "<group>"; };
+		CAE4CA6A126466E600498A37 /* disk4.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = disk4.plist; sourceTree = "<group>"; };
+		CAE4CA6B126466E600498A37 /* disk5.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = disk5.plist; sourceTree = "<group>"; };
+		CAE4CA6C126466E600498A37 /* disk5s1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = disk5s1.plist; sourceTree = "<group>"; };
+		CAE4CA6D126466E600498A37 /* disk5s2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = disk5s2.plist; sourceTree = "<group>"; };
+		CAE4CA6E126466E600498A37 /* diskutil-appleraid-controller-failed.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "diskutil-appleraid-controller-failed.txt"; sourceTree = "<group>"; };
+		CAE4CA6F126466E600498A37 /* diskutil-appleraid-list-degraded-failed.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "diskutil-appleraid-list-degraded-failed.txt"; sourceTree = "<group>"; };
+		CAE4CA70126466E600498A37 /* diskutil-appleraid-list-degraded-missing.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "diskutil-appleraid-list-degraded-missing.txt"; sourceTree = "<group>"; };
+		CAE4CA71126466E600498A37 /* diskutil-appleraid-list-degraded-rebuilding-1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "diskutil-appleraid-list-degraded-rebuilding-1.txt"; sourceTree = "<group>"; };
+		CAE4CA72126466E600498A37 /* diskutil-appleraid-list-degraded-rebuilding-2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "diskutil-appleraid-list-degraded-rebuilding-2.txt"; sourceTree = "<group>"; };
+		CAE4CA73126466E600498A37 /* diskutil-appleraid-list-degraded-rebuilding-3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "diskutil-appleraid-list-degraded-rebuilding-3.txt"; sourceTree = "<group>"; };
+		CAE4CA74126466E600498A37 /* diskutil-appleraid-list-ok.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "diskutil-appleraid-list-ok.txt"; sourceTree = "<group>"; };
 		CAE82D35122C311F00715BCF /* LCSPropertyListSHA1HashTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSPropertyListSHA1HashTest.m; sourceTree = "<group>"; };
 		CAE9A1A61255227C00CD9C33 /* LCSAsrRestoreCommandTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSAsrRestoreCommandTest.m; sourceTree = "<group>"; };
-		CAEC4B95125EEE5A00CDBEA1 /* LCSCommandControllerCollectionTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSCommandControllerCollectionTest.h; sourceTree = "<group>"; };
 		CAEC4B96125EEE5A00CDBEA1 /* LCSCommandControllerCollectionTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSCommandControllerCollectionTest.m; sourceTree = "<group>"; };
 		CAEDB360125685530027110D /* LCSRotavaultScheduleInstallCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSRotavaultScheduleInstallCommand.h; sourceTree = "<group>"; };
 		CAEDB361125685530027110D /* LCSRotavaultScheduleInstallCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSRotavaultScheduleInstallCommand.m; sourceTree = "<group>"; };
@@ -536,8 +563,11 @@
 		CA0DF0DF11F71D8B0029B5F7 /* test */ = {
 			isa = PBXGroup;
 			children = (
+				CAE4CA65126466E600498A37 /* fixtures */,
 				CABAC3DB1235385F00DBEA0F /* GHUnitMain.m */,
+				CAC5EE6F12634613001EB12B /* LCSAllDiskInfoCommandTest.m */,
 				CAE9A1A61255227C00CD9C33 /* LCSAsrRestoreCommandTest.m */,
+				CAEC4B96125EEE5A00CDBEA1 /* LCSCommandControllerCollectionTest.m */,
 				CAB3C8B81254F3F1002E4AF5 /* LCSDiskImageAttachCommandTest.m */,
 				CAB3C8DF1254F7C5002E4AF5 /* LCSDiskImageDetachCommandTest.m */,
 				CA016CCD1253977E0047D82A /* LCSDiskImageInfoCommandTest.m */,
@@ -555,9 +585,6 @@
 				CA9344E912560D35004CAB5B /* OCMockObject+NSTaskTest.m */,
 				CAA74ADD120A12DB00D234F9 /* rotavault_test.m */,
 				CA12694712567D67000F7582 /* util */,
-				CAEC4B95125EEE5A00CDBEA1 /* LCSCommandControllerCollectionTest.h */,
-				CAEC4B96125EEE5A00CDBEA1 /* LCSCommandControllerCollectionTest.m */,
-				CAC5EE6F12634613001EB12B /* LCSAllDiskInfoCommandTest.m */,
 			);
 			path = test;
 			sourceTree = "<group>";
@@ -602,6 +629,35 @@
 				CA7462081244E0D600CDE8C3 /* rotavault.m */,
 			);
 			path = gui;
+			sourceTree = "<group>";
+		};
+		CAE4CA65126466E600498A37 /* fixtures */ = {
+			isa = PBXGroup;
+			children = (
+				CAE4CA66126466E600498A37 /* appleraid */,
+			);
+			path = fixtures;
+			sourceTree = "<group>";
+		};
+		CAE4CA66126466E600498A37 /* appleraid */ = {
+			isa = PBXGroup;
+			children = (
+				CAE4CA67126466E600498A37 /* disk3.plist */,
+				CAE4CA68126466E600498A37 /* disk3s1.plist */,
+				CAE4CA69126466E600498A37 /* disk3s2.plist */,
+				CAE4CA6A126466E600498A37 /* disk4.plist */,
+				CAE4CA6B126466E600498A37 /* disk5.plist */,
+				CAE4CA6C126466E600498A37 /* disk5s1.plist */,
+				CAE4CA6D126466E600498A37 /* disk5s2.plist */,
+				CAE4CA6E126466E600498A37 /* diskutil-appleraid-controller-failed.txt */,
+				CAE4CA6F126466E600498A37 /* diskutil-appleraid-list-degraded-failed.txt */,
+				CAE4CA70126466E600498A37 /* diskutil-appleraid-list-degraded-missing.txt */,
+				CAE4CA71126466E600498A37 /* diskutil-appleraid-list-degraded-rebuilding-1.txt */,
+				CAE4CA72126466E600498A37 /* diskutil-appleraid-list-degraded-rebuilding-2.txt */,
+				CAE4CA73126466E600498A37 /* diskutil-appleraid-list-degraded-rebuilding-3.txt */,
+				CAE4CA74126466E600498A37 /* diskutil-appleraid-list-ok.txt */,
+			);
+			path = appleraid;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -724,6 +780,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAE4CA75126466E600498A37 /* disk3.plist in Resources */,
+				CAE4CA76126466E600498A37 /* disk3s1.plist in Resources */,
+				CAE4CA77126466E600498A37 /* disk3s2.plist in Resources */,
+				CAE4CA78126466E600498A37 /* disk4.plist in Resources */,
+				CAE4CA79126466E600498A37 /* disk5.plist in Resources */,
+				CAE4CA7A126466E600498A37 /* disk5s1.plist in Resources */,
+				CAE4CA7B126466E600498A37 /* disk5s2.plist in Resources */,
+				CAE4CA7C126466E600498A37 /* diskutil-appleraid-controller-failed.txt in Resources */,
+				CAE4CA7D126466E600498A37 /* diskutil-appleraid-list-degraded-failed.txt in Resources */,
+				CAE4CA7E126466E600498A37 /* diskutil-appleraid-list-degraded-missing.txt in Resources */,
+				CAE4CA7F126466E600498A37 /* diskutil-appleraid-list-degraded-rebuilding-1.txt in Resources */,
+				CAE4CA80126466E600498A37 /* diskutil-appleraid-list-degraded-rebuilding-2.txt in Resources */,
+				CAE4CA81126466E600498A37 /* diskutil-appleraid-list-degraded-rebuilding-3.txt in Resources */,
+				CAE4CA82126466E600498A37 /* diskutil-appleraid-list-ok.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

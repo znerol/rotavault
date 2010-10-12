@@ -6,11 +6,16 @@
 //  Copyright 2010 znerol.ch. All rights reserved.
 //
 
+#import <GHUnit/GHUnit.h>
 #import <OCMock/OCMock.h>
 #import "LCSCommandControllerCollectionTest.h"
 #import "LCSCommandControllerCollection.h"
 #import "LCSCommandManager.h"
 #import "LCSTestCommand.h"
+
+@interface LCSCommandControllerCollectionTest : GHTestCase
+@end
+
 
 @protocol LCSCommandControllerCollectionTestNotificationConsumer
 -(void)consumeNotification:(NSNotification*)ntf;
