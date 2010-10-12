@@ -35,6 +35,10 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		CA050EFC1264D9D60076D8BF /* LCSAllRAIDInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA050EFB1264D9D60076D8BF /* LCSAllRAIDInfoCommand.m */; };
+		CA050EFD1264D9D60076D8BF /* LCSAllRAIDInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA050EFB1264D9D60076D8BF /* LCSAllRAIDInfoCommand.m */; };
+		CA050EFE1264D9D60076D8BF /* LCSAllRAIDInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA050EFB1264D9D60076D8BF /* LCSAllRAIDInfoCommand.m */; };
+		CA050EFF1264D9D60076D8BF /* LCSAllRAIDInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA050EFB1264D9D60076D8BF /* LCSAllRAIDInfoCommand.m */; };
 		CA0F95651254DA200008F47C /* LCSExternalCommandTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA963A83124E3A990098D281 /* LCSExternalCommandTest.m */; };
 		CA0F95661254DA200008F47C /* LCSQuickExternalCommandTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA963E42124E59FB0098D281 /* LCSQuickExternalCommandTest.m */; };
 		CA0F95671254DA200008F47C /* LCSPlistExternalCommandTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAAB8A54125074C4009AD28E /* LCSPlistExternalCommandTest.m */; };
@@ -264,6 +268,9 @@
 		CA016DB11253A8A70047D82A /* LCSLaunchctlListCommandTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSLaunchctlListCommandTest.m; sourceTree = "<group>"; };
 		CA050CD81264D8500076D8BF /* Rotavault-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Rotavault-Info.plist"; sourceTree = "<group>"; };
 		CA050CD91264D8500076D8BF /* Rotavault-Test-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Rotavault-Test-Info.plist"; sourceTree = "<group>"; };
+		CA050EFA1264D9D60076D8BF /* LCSAllRAIDInfoCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSAllRAIDInfoCommand.h; sourceTree = "<group>"; };
+		CA050EFB1264D9D60076D8BF /* LCSAllRAIDInfoCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSAllRAIDInfoCommand.m; sourceTree = "<group>"; };
+		CA050F131264E0090076D8BF /* LCSOSMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSOSMacros.h; sourceTree = "<group>"; };
 		CA0DF0DA11F71D8B0029B5F7 /* internals.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = internals.txt; sourceTree = "<group>"; };
 		CA0DF0DB11F71D8B0029B5F7 /* rotavault.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = rotavault.1; sourceTree = "<group>"; };
 		CA0DF11811F7216D0029B5F7 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -599,6 +606,8 @@
 			children = (
 				CA4820321264D62700C2879B /* LCSAllDiskInfoCommand.h */,
 				CA4820331264D62700C2879B /* LCSAllDiskInfoCommand.m */,
+				CA050EFA1264D9D60076D8BF /* LCSAllRAIDInfoCommand.h */,
+				CA050EFB1264D9D60076D8BF /* LCSAllRAIDInfoCommand.m */,
 				CA4820341264D62700C2879B /* LCSAsrRestoreCommand.h */,
 				CA4820351264D62700C2879B /* LCSAsrRestoreCommand.m */,
 				CA4820361264D62700C2879B /* LCSDiskImageAttachCommand.h */,
@@ -647,6 +656,7 @@
 				CA4820551264D62700C2879B /* LCSInitMacros.h */,
 				CA4820561264D62700C2879B /* LCSNanosecondTimer.h */,
 				CA4820571264D62700C2879B /* LCSNanosecondTimer.m */,
+				CA050F131264E0090076D8BF /* LCSOSMacros.h */,
 				CA4820581264D62700C2879B /* LCSPropertyListSHA1Hash.h */,
 				CA4820591264D62700C2879B /* LCSPropertyListSHA1Hash.m */,
 				CA48205A1264D62700C2879B /* LCSSignalHandler.h */,
@@ -897,6 +907,7 @@
 				CA4822F11264D6C700C2879B /* NSScanner+AppleRAID.m in Sources */,
 				CA4822F21264D6C700C2879B /* LCSDiskImageAttachCommand.m in Sources */,
 				CA4822F31264D6C700C2879B /* rvcopyd.m in Sources */,
+				CA050EFE1264D9D60076D8BF /* LCSAllRAIDInfoCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -932,6 +943,7 @@
 				CA48230F1264D74400C2879B /* rvcksum.m in Sources */,
 				CA4823291264D76D00C2879B /* NSScanner+AppleRAID.m in Sources */,
 				CA48232A1264D76D00C2879B /* LCSDiskImageAttachCommand.m in Sources */,
+				CA050EFF1264D9D60076D8BF /* LCSAllRAIDInfoCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -988,6 +1000,7 @@
 				CAEC4B97125EEE5A00CDBEA1 /* LCSCommandControllerCollectionTest.m in Sources */,
 				CAC5EE7012634613001EB12B /* LCSAllDiskInfoCommandTest.m in Sources */,
 				CADF06BB1264ACDC00A1EB39 /* NSScanner+AppleRAIDTest.m in Sources */,
+				CA050EFC1264D9D60076D8BF /* LCSAllRAIDInfoCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1022,6 +1035,7 @@
 				CA4822D41264D69000C2879B /* NSScanner+AppleRAID.m in Sources */,
 				CA4822D51264D69000C2879B /* rotavault.m in Sources */,
 				CA4822D61264D69000C2879B /* LCSDiskImageAttachCommand.m in Sources */,
+				CA050EFD1264D9D60076D8BF /* LCSAllRAIDInfoCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
