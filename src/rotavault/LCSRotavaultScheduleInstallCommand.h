@@ -7,18 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LCSCommand.h"
-#import "LCSCommandController.h"
-#import "LCSCommandControllerCollection.h"
+#import "LCSBatchCommand.h"
 
 
-@interface LCSRotavaultScheduleInstallCommand : NSObject <LCSCommand> {
-    LCSCommandController *controller;
-    id <LCSCommandRunner> runner;
-    
+@interface LCSRotavaultScheduleInstallCommand : LCSBatchCommand {
     NSString *sourceDevice;
     NSString *targetDevice;
-    LCSCommandControllerCollection *activeControllers;
 
     LCSCommandController *launchdInfoCtl;
     LCSCommandController *sourceInfoCtl;

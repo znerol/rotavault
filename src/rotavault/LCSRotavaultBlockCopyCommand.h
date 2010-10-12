@@ -7,22 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LCSCommand.h"
-#import "LCSCommandRunner.h"
-#import "LCSCommandControllerCollection.h"
+#import "LCSBatchCommand.h"
 
 
-@interface LCSRotavaultBlockCopyCommand : NSObject <LCSCommand>
+@interface LCSRotavaultBlockCopyCommand : LCSBatchCommand
 {
-    LCSCommandController* controller;
-    id <LCSCommandRunner> runner;
-    
     NSString* sourceDevice;
     NSString* sourceChecksum;
     NSString* targetDevice;
     NSString* targetChecksum;
     
-    LCSCommandControllerCollection* activeControllers;
     BOOL needsSourceRemount;
     
     LCSCommandController *sourceInfoCtl;

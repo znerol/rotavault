@@ -18,11 +18,6 @@
 #import "LCSPropertyListSHA1Hash.h"
 
 @interface LCSRotavaultScheduleInstallCommand (Internal)
--(void)invalidate;
--(void)handleError:(NSError*)error;
--(void)commandCollectionFailed:(NSNotification*)ntf;
--(void)commandCollectionCancelled:(NSNotification*)ntf;
--(void)commandCollectionInvalidated:(NSNotification*)ntf;
 -(void)startGatherInformation;
 -(void)completeGatherInformation:(NSNotification*)ntf;
 -(void)startLaunchctRemove;
@@ -32,8 +27,6 @@
 @end
 
 @implementation LCSRotavaultScheduleInstallCommand
-@synthesize controller;
-@synthesize runner;
 @synthesize rvcopydLaunchPath;
 @synthesize rvcopydLabel;
 
@@ -50,8 +43,6 @@
 {
     LCSINIT_SUPER_OR_RETURN_NIL();
     
-    activeControllers = [[LCSCommandControllerCollection alloc] init];
-    LCSINIT_RELEASE_AND_RETURN_IF_NIL(activeControllers);
     sourceDevice = [sourcedev copy];
     LCSINIT_RELEASE_AND_RETURN_IF_NIL(sourceDevice);
     targetDevice = [targetdev copy];
@@ -62,24 +53,6 @@
     rvcopydLaunchPath = @"/usr/local/sbin/rvcopyd";
     rvcopydLabel = @"ch.znerol.rvcopyd";
     
-    [activeControllers watchState:LCSCommandStateFailed];
-    [activeControllers watchState:LCSCommandStateCancelled];
-    [activeControllers watchState:LCSCommandStateFinished];
-    [activeControllers watchState:LCSCommandStateInvalidated];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(commandCollectionFailed:)
-                                                 name:[LCSCommandControllerCollection notificationNameAnyControllerEnteredState:LCSCommandStateFailed]
-                                               object:activeControllers];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(commandCollectionCancelled:)
-                                                 name:[LCSCommandControllerCollection notificationNameAnyControllerEnteredState:LCSCommandStateCancelled]
-                                               object:activeControllers];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(commandCollectionInvalidated:)
-                                                 name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateInvalidated]
-                                               object:activeControllers];
-
     return self;
 }
 
@@ -87,7 +60,6 @@
 {
     [sourceDevice release];
     [targetDevice release];
-    [activeControllers release];
     
     [launchdPlistPath release];
     [launchdPlist release];
@@ -98,27 +70,8 @@
     [super dealloc];
 }
 
--(void)invalidate
-{
-    [activeControllers watchState:LCSCommandStateInvalidated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-    controller.state = LCSCommandStateInvalidated;
-}
-
--(void)handleError:(NSError*)error
-{
-    [activeControllers unwatchState:LCSCommandStateFailed];
-    [activeControllers unwatchState:LCSCommandStateCancelled];
-    [activeControllers unwatchState:LCSCommandStateFinished];    
-    
-    controller.error = error;
-    controller.state = LCSCommandStateFailed;
-}
-
 -(void)commandCollectionFailed:(NSNotification*)ntf
 {
-    LCSCommandControllerCollection* sender = [ntf object];
     LCSCommandController* originalSender = [[ntf userInfo] objectForKey:LCSCommandControllerCollectionOriginalSenderKey];
     
     /*
@@ -130,24 +83,7 @@
         return;
     }
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandControllerCollection notificationNameAnyControllerEnteredState:LCSCommandStateFailed]
-                                                  object:sender];
-    [self handleError:originalSender.error];
-}
-
--(void)commandCollectionCancelled:(NSNotification*)ntf
-{
-    LCSCommandControllerCollection* sender = [ntf object];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandControllerCollection notificationNameAnyControllerEnteredState:LCSCommandStateCancelled]
-                                                  object:sender];
-    [self handleError:LCSERROR_METHOD(NSCocoaErrorDomain, NSUserCancelledError)];
-}
-
--(void)commandCollectionInvalidated:(NSNotification*)ntf
-{
-    [self invalidate];    
+    [super commandCollectionFailed:ntf];
 }
 
 -(BOOL)validateDiskInformation

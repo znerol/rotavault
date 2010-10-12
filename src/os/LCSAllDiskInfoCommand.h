@@ -7,12 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LCSCommand.h"
-#import "LCSCommandControllerCollection.h"
+#import "LCSBatchCommand.h"
 
 
-@interface LCSAllDiskInfoCommand : NSObject <LCSCommand> {
-    LCSCommandControllerCollection* activeControllers;
-}
+@interface LCSAllDiskInfoCommand : LCSBatchCommand
 + (LCSAllDiskInfoCommand*)command;
 @end
