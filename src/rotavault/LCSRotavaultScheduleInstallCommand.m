@@ -10,7 +10,6 @@
 #import "LCSInitMacros.h"
 #import "LCSRotavaultError.h"
 #import "LCSDiskInfoCommand.h"
-#import "LCSMultiCommand.h"
 #import "LCSLaunchctlRemoveCommand.h"
 #import "LCSLaunchctlInfoCommand.h"
 #import "LCSLaunchctlLoadCommand.h"

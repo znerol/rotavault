@@ -8,7 +8,6 @@
 
 #import <GHUnit/GHUnit.h>
 #import <OCMock/OCMock.h>
-#import "LCSCommandControllerCollectionTest.h"
 #import "LCSCommandControllerCollection.h"
 #import "LCSCommandManager.h"
 #import "LCSTestCommand.h"
