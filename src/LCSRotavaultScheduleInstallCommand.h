@@ -26,13 +26,15 @@
     LCSCommandController *startupInfoCtl;
 
     NSString *rvcopydLaunchPath;
+    NSString *rvcopydLabel;
     
     NSString *launchdPlistPath;
     NSDictionary *launchdPlist;
     NSDate *runAtDate;
 }
 
-@property(retain) NSString *rvcopydLaunchPath;
+@property(copy) NSString *rvcopydLaunchPath;
+@property(copy) NSString *rvcopydLabel;
 
 +(LCSRotavaultScheduleInstallCommand*)commandWithSourceDevice:(NSString*)sourcedev
                                                  targetDevice:(NSString*)targetdev

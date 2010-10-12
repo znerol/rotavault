@@ -36,6 +36,7 @@
 @synthesize controller;
 @synthesize runner;
 @synthesize rvcopydLaunchPath;
+@synthesize rvcopydLabel;
 
 +(LCSRotavaultScheduleInstallCommand*)commandWithSourceDevice:(NSString*)sourcedev
                                                  targetDevice:(NSString*)targetdev
@@ -60,6 +61,7 @@
     // runAtDate is optional
     
     rvcopydLaunchPath = @"/usr/local/sbin/rvcopyd";
+    rvcopydLabel = @"ch.znerol.rvcopyd";
     
     [activeControllers watchState:LCSCommandStateFailed];
     [activeControllers watchState:LCSCommandStateCancelled];
@@ -92,6 +94,8 @@
     [launchdPlist release];
     [runAtDate release];
     
+    [rvcopydLabel release];
+    [rvcopydLaunchPath release];
     [super dealloc];
 }
 
@@ -200,7 +204,7 @@
     // FIXME: handle nil/empty values
     NSArray *args = [NSArray arrayWithObjects:rvcopydLaunchPath, @"-sourcedev", sourceDevice, @"-targetdev",
                      targetDevice, @"-sourcecheck", [NSString stringWithFormat:@"uuid:%@", sourceUUID], @"-targetcheck", 
-                     [NSString stringWithFormat:@"sha1:%@", targetSHA1], nil];
+                     [NSString stringWithFormat:@"sha1:%@", targetSHA1], rvcopydLabel, @"label", nil];
     
     NSString *runKey;
     id runValue;
@@ -231,7 +235,7 @@
     }
     
     launchdPlist = [[NSDictionary alloc] initWithObjectsAndKeys:
-                    @"ch.znerol.rvcopyd", @"Label",
+                    rvcopydLabel, @"Label",
                     args, @"ProgramArguments",
                     [NSNumber numberWithBool:YES], @"LaunchOnlyOnce",
                     runValue, runKey,
@@ -296,7 +300,7 @@ writeLaunchdPlist_freeAndReturn:
                                                  name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
                                                object:activeControllers];
     
-    launchdInfoCtl = [runner run:[LCSLaunchctlInfoCommand commandWithLabel:@"ch.znerol.rvcopyd"]];
+    launchdInfoCtl = [runner run:[LCSLaunchctlInfoCommand commandWithLabel:rvcopydLabel]];
     launchdInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on launchd job"];
     [activeControllers addController:launchdInfoCtl];
     
@@ -346,7 +350,7 @@ writeLaunchdPlist_freeAndReturn:
                                                  name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
                                                object:activeControllers];
     
-    LCSCommandController *ctl = [runner run:[LCSLaunchctlRemoveCommand commandWithLabel:@"ch.znerol.rvcopyd"]];
+    LCSCommandController *ctl = [runner run:[LCSLaunchctlRemoveCommand commandWithLabel:rvcopydLabel]];
     ctl.title = [NSString localizedStringWithFormat:@"Remove old launchd job"];
     [activeControllers addController:ctl];
 }
