@@ -15,6 +15,11 @@
 
 
 @implementation LCSAppleRAIDListCommand
++ (LCSAppleRAIDListCommand*)command
+{
+    return [[[LCSAppleRAIDListCommand alloc] init] autorelease];
+}
+
 - (id)init
 {
     LCSINIT_SUPER_OR_RETURN_NIL();

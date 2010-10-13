@@ -37,6 +37,30 @@
     GHAssertTrue([scanner isAtEnd], @"Scanner must have reached the end");
     GHAssertTrue([result isKindOfClass:[NSArray class]], @"Result must be an array");
     GHAssertEquals([result count], (NSUInteger)2, @"Result must contain exactly one entry");
+    
+    /* test exctract member status */
+    float progress = 0;
+    NSString *status = nil;
+    status = [result extractAppleRAIDMemberStatus:@"1AFBD025-63DD-484A-961F-803C7DCA5657"
+                                 memberDeviceNode:@"/dev/disk3s1"
+                                         progress:&progress];
+    GHAssertEqualObjects(status, @"Rebuilding", @"Correct status should be extracted");
+    GHAssertEqualsWithAccuracy(progress, (float)0.15, 0.01, @"Correct progress should be reported");
+
+    status = [result extractAppleRAIDMemberStatus:@"664C5B49-ACF4-4B49-8FEF-16FFDE597ABD"
+                                 memberDeviceNode:@"/dev/disk1s1"
+                                         progress:&progress];
+    GHAssertEqualObjects(status, @"Online", @"Correct status should be extracted");
+    
+    status = [result extractAppleRAIDMemberStatus:@"664C5B49-ACF4-4B49-8FEF-16FFDE597ABD"
+                                 memberDeviceNode:@"/dev/disk99s99"
+                                         progress:&progress];
+    GHAssertNil(status, @"Nil should be returned for non-existing device nodes");
+    
+    status = [result extractAppleRAIDMemberStatus:@"12345678-1234-ABCD-EFGH-0987654387654321"
+                                 memberDeviceNode:@"/dev/disk1s1"
+                                         progress:&progress];
+    GHAssertNil(status, @"Nil should be returned for wrong uuid");
 }
 
 - (void)testFailOnEmptyString

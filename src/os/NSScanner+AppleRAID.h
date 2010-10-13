@@ -17,3 +17,7 @@
 - (BOOL)scanAppleRAIDProperties:(NSDictionary**)intoDictionary;
 - (BOOL)scanAppleRAIDMemberRow:(NSDictionary**)intoDictionary;
 @end
+
+@interface NSArray (AppleRAID)
+- (NSString*)extractAppleRAIDMemberStatus:(NSString*)ruid memberDeviceNode:(NSString*)mpath progress:(float*)progress;
+@end

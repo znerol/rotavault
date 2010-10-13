@@ -17,13 +17,13 @@ Device Node:          disk5
 Name:                 disk6
 Unique ID:            1AFBD025-63DD-484A-961F-803C7DCA5657
 Type:                 Mirror
-Status:               Online
+Status:               Degraded
 Size:                 67.0 MB (67043328 Bytes)
 Rebuild:              manual
 Device Node:          disk6
 -------------------------------------------------------------------------------
 #   Device Node       UUID                                   Status
 -------------------------------------------------------------------------------
-0   disk3s1           9EA4B118-A4C7-4585-A3DB-CB8EF6B7AF50   Online
+0   disk3s1           9EA4B118-A4C7-4585-A3DB-CB8EF6B7AF50   15% (Rebuilding)
 1   disk4s1           DC1EEE98-6DF4-43A3-9C29-5831549D685C   Online
 ===============================================================================

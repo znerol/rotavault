@@ -184,6 +184,10 @@
 		CAB3C8901254F184002E4AF5 /* LCSLaunchctlInfoCommandTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB3C88F1254F184002E4AF5 /* LCSLaunchctlInfoCommandTest.m */; };
 		CAB3C8B91254F3F1002E4AF5 /* LCSDiskImageAttachCommandTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB3C8B81254F3F1002E4AF5 /* LCSDiskImageAttachCommandTest.m */; };
 		CAB3C8E01254F7C5002E4AF5 /* LCSDiskImageDetachCommandTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB3C8DF1254F7C5002E4AF5 /* LCSDiskImageDetachCommandTest.m */; };
+		CAB8276812660B4C00F158DB /* LCSAppleRAIDMonitorRebuildCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB8276712660B4C00F158DB /* LCSAppleRAIDMonitorRebuildCommand.m */; };
+		CAB8276912660B4C00F158DB /* LCSAppleRAIDMonitorRebuildCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB8276712660B4C00F158DB /* LCSAppleRAIDMonitorRebuildCommand.m */; };
+		CAB8276A12660B4C00F158DB /* LCSAppleRAIDMonitorRebuildCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB8276712660B4C00F158DB /* LCSAppleRAIDMonitorRebuildCommand.m */; };
+		CAB8276B12660B4C00F158DB /* LCSAppleRAIDMonitorRebuildCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB8276712660B4C00F158DB /* LCSAppleRAIDMonitorRebuildCommand.m */; };
 		CABAC214123535CC00DBEA0F /* GHUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CABAC213123535CC00DBEA0F /* GHUnit.framework */; };
 		CABAC217123535CF00DBEA0F /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA9E2D58120F398D006C4DE7 /* OCMock.framework */; };
 		CABAC23D1235364A00DBEA0F /* OCMock.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = CA9E2D58120F398D006C4DE7 /* OCMock.framework */; };
@@ -384,6 +388,8 @@
 		CAB3C88F1254F184002E4AF5 /* LCSLaunchctlInfoCommandTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSLaunchctlInfoCommandTest.m; sourceTree = "<group>"; };
 		CAB3C8B81254F3F1002E4AF5 /* LCSDiskImageAttachCommandTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSDiskImageAttachCommandTest.m; sourceTree = "<group>"; };
 		CAB3C8DF1254F7C5002E4AF5 /* LCSDiskImageDetachCommandTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSDiskImageDetachCommandTest.m; sourceTree = "<group>"; };
+		CAB8276612660B4C00F158DB /* LCSAppleRAIDMonitorRebuildCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSAppleRAIDMonitorRebuildCommand.h; sourceTree = "<group>"; };
+		CAB8276712660B4C00F158DB /* LCSAppleRAIDMonitorRebuildCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSAppleRAIDMonitorRebuildCommand.m; sourceTree = "<group>"; };
 		CABAC20C123535A300DBEA0F /* Rotavault Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rotavault Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CABAC213123535CC00DBEA0F /* GHUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GHUnit.framework; path = Frameworks/GHUnit.framework; sourceTree = "<group>"; };
 		CABAC3DB1235385F00DBEA0F /* GHUnitMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUnitMain.m; sourceTree = "<group>"; };
@@ -662,6 +668,8 @@
 				CA4820491264D62700C2879B /* LCSLaunchctlUnloadCommand.m */,
 				CA48204A1264D62700C2879B /* NSScanner+AppleRAID.h */,
 				CA48204B1264D62700C2879B /* NSScanner+AppleRAID.m */,
+				CAB8276612660B4C00F158DB /* LCSAppleRAIDMonitorRebuildCommand.h */,
+				CAB8276712660B4C00F158DB /* LCSAppleRAIDMonitorRebuildCommand.m */,
 			);
 			path = os;
 			sourceTree = "<group>";
@@ -942,6 +950,7 @@
 				CAA7A5381264E6AE000EAED2 /* LCSBatchCommand.m in Sources */,
 				CA1924481265F7DA00E05A63 /* LCSAppleRAIDAddMemberCommand.m in Sources */,
 				CA1924991266036200E05A63 /* LCSAppleRAIDRemoveMemberCommand.m in Sources */,
+				CAB8276812660B4C00F158DB /* LCSAppleRAIDMonitorRebuildCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -981,6 +990,7 @@
 				CAA7A5391264E6AE000EAED2 /* LCSBatchCommand.m in Sources */,
 				CA1924471265F7DA00E05A63 /* LCSAppleRAIDAddMemberCommand.m in Sources */,
 				CA19249A1266036200E05A63 /* LCSAppleRAIDRemoveMemberCommand.m in Sources */,
+				CAB8276912660B4C00F158DB /* LCSAppleRAIDMonitorRebuildCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1042,6 +1052,7 @@
 				CA9E8A551265CFBE00BCF0E0 /* LCSTestRamdisk.m in Sources */,
 				CA1924461265F7DA00E05A63 /* LCSAppleRAIDAddMemberCommand.m in Sources */,
 				CA19249C1266036200E05A63 /* LCSAppleRAIDRemoveMemberCommand.m in Sources */,
+				CAB8276B12660B4C00F158DB /* LCSAppleRAIDMonitorRebuildCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1080,6 +1091,7 @@
 				CAA7A5371264E6AE000EAED2 /* LCSBatchCommand.m in Sources */,
 				CA1924451265F7DA00E05A63 /* LCSAppleRAIDAddMemberCommand.m in Sources */,
 				CA19249B1266036200E05A63 /* LCSAppleRAIDRemoveMemberCommand.m in Sources */,
+				CAB8276A12660B4C00F158DB /* LCSAppleRAIDMonitorRebuildCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -220,12 +220,40 @@ finalizeAndReturn:
                            devnode, @"DeviceIdentifier",
                            devnode, @"DeviceNode",
                            uuid, @"RAIDMemberUUID",
-                           status, @"RAIDSetStatus",
+                           status, @"RAIDMemberStatus",
                            nil];
     }
     
 finalizeAndReturn:
     [self setCharactersToBeSkipped:saveSet];    
     return ok;
+}
+@end
+
+@implementation NSArray (AppleRAID)
+- (NSString*)extractAppleRAIDMemberStatus:(NSString*)ruid memberDeviceNode:(NSString*)mpath progress:(float*)progress
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:
+                              @"RAIDSetUUID = %@ AND RAIDSetMembers.DeviceNode CONTAINS %@", ruid, mpath];
+    
+    NSArray *found = [self filteredArrayUsingPredicate:predicate];
+    if ([found count] != 1) {
+        return nil;
+    }
+    
+    found = [[[found objectAtIndex:0] objectForKey:@"RAIDSetMembers"] filteredArrayUsingPredicate:
+             [NSPredicate predicateWithFormat:@"DeviceNode = %@", mpath]];
+    
+    NSDictionary* member = [found objectAtIndex:0];
+    NSString *status = [member objectForKey:@"RAIDMemberStatus"];
+    
+    if ([status hasSuffix:@"(Rebuilding)"]) {
+        if (progress != nil) {
+            *progress = [status floatValue] / 100.0;
+        }
+        return @"Rebuilding";
+    }
+    
+    return status;
 }
 @end
