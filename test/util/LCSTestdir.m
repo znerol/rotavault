@@ -9,17 +9,35 @@
 #import "LCSTestdir.h"
 #import "LCSInitMacros.h"
 
+NSString* LCSTestdirTemplate = @"/tmp/testdir_XXXXXXXX";
 
 @implementation LCSTestdir
+
++(void)setTemplate:(NSString*)newTemplate
+{
+    @synchronized(self) {
+        if ([LCSTestdirTemplate isEqualToString:newTemplate]) {
+            return;
+        }
+        
+        [LCSTestdirTemplate release];
+        LCSTestdirTemplate = [newTemplate retain];
+    }
+}
 
 -(id)init
 {
     LCSINIT_SUPER_OR_RETURN_NIL();
-
-    static const char template[] = "/tmp/testdir_XXXXXXXX";
-    char *pathBuffer = malloc(sizeof(template));
-    memcpy(pathBuffer, template, sizeof(template));
-    pathBuffer[sizeof(template)-1]=0;
+    
+    BOOL ok = NO;
+    char *pathBuffer = nil;
+    
+    @synchronized(self) {
+        size_t bufLen = [LCSTestdirTemplate length] + 1;
+        pathBuffer = malloc(bufLen);
+        ok = [LCSTestdirTemplate getCString:pathBuffer maxLength:bufLen encoding:NSUTF8StringEncoding];
+    }
+    assert(ok);
     
     if (mkdtemp(pathBuffer)) {
         tmpdir = [[NSString alloc] initWithCString:pathBuffer encoding:NSASCIIStringEncoding];

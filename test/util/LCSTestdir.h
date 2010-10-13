@@ -12,6 +12,7 @@
 @interface LCSTestdir : NSObject {
     NSString *tmpdir;
 }
++(void)setTemplate:(NSString*)newTemplate;
 - (NSString*) path;
 - (void) remove;
 @end
