@@ -31,6 +31,7 @@
 
 #import <GHUnit/GHUnit.h>
 #import <GHUnit/GHTestApp.h>
+#import "LCSTestdir.h"
 
 // Default exception handler
 void exceptionHandler(NSException *exception) { 
@@ -66,7 +67,45 @@ int main(int argc, char *argv[]) {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
     // Register any special test case classes
-    //[[GHTesting sharedInstance] registerClassName:@"GHSpecialTestCase"];  
+    //[[GHTesting sharedInstance] registerClassName:@"GHSpecialTestCase"];
+    
+    /*
+     * Create a ramdisk for our temporary files. Give size in 512-byte sectors (524288 := 256Mib)
+     */
+    NSPipe *mkrdout = [NSPipe pipe];
+    NSTask *mkrd = [[NSTask alloc] init];
+    [mkrd setLaunchPath:@"/usr/bin/hdiutil"];
+    [mkrd setArguments:[NSArray arrayWithObjects:@"attach", @"-nomount", @"ram://524288", nil]];
+    [mkrd setStandardOutput:mkrdout];
+    
+    [mkrd launch];
+    [mkrd waitUntilExit];
+    
+    assert([mkrd terminationStatus] == 0);
+    NSString *devpath = [[[NSString alloc] initWithData:[[mkrdout fileHandleForReading] readDataToEndOfFile]
+                                               encoding:NSUTF8StringEncoding] autorelease];
+    devpath = [devpath stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    assert([devpath commonPrefixWithString:@"/dev/disk" options:NSLiteralSearch]);
+    [mkrd release];
+    
+    /* create filesystem */
+    NSString *name = [NSString stringWithFormat:@"test-ramdisk-%0X", random()];
+    NSTask *mkfs = [NSTask launchedTaskWithLaunchPath:@"/usr/sbin/diskutil"
+                                            arguments:[NSArray arrayWithObjects:@"erasevolume", @"HFS+", name, devpath, nil]];
+    [mkfs waitUntilExit];
+    assert([mkfs terminationStatus] == 0);
+    NSString *mountpoint = [NSString stringWithFormat:@"/Volumes/%@", name];
+    
+    /* Check mountpoint */
+    NSFileManager *fm = [[NSFileManager alloc] init];
+    BOOL isDirectory = NO;
+    assert([fm fileExistsAtPath:mountpoint isDirectory:&isDirectory]);
+    assert(isDirectory);
+    assert([fm isWritableFileAtPath:mountpoint]);
+    
+    /* Point LCSTestdir to ramdisk */
+    [LCSTestdir setTemplate:[NSString stringWithFormat:@"%@/testdir-XXXXXXXX", mountpoint]];
+    
     
     int retVal = 0;
     // If GHUNIT_CLI is set we are using the command line interface and run the tests
@@ -84,6 +123,12 @@ int main(int argc, char *argv[]) {
         [NSApp run];
         [app release];    
     }
+    
+    /* remove ramdisk */
+    NSTask *rmrd = [NSTask launchedTaskWithLaunchPath:@"/usr/sbin/diskutil" arguments:[NSArray arrayWithObjects:@"eject", devpath, nil]];
+    [rmrd waitUntilExit];
+    assert([rmrd terminationStatus] == 0);
+    
     [pool release];
     return retVal;
 }
