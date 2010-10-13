@@ -1,0 +1,5 @@
+Started RAID operation on disk4 raid
+Unmounting disk
+Repartitioning disk3 for RAID
+Adding disk3s1 to RAID Set
+Finished RAID operation on disk4 raid

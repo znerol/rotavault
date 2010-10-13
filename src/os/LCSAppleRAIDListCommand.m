@@ -6,7 +6,7 @@
 //  Copyright 2010 znerol.ch. All rights reserved.
 //
 
-#import "LCSAllRAIDInfoCommand.h"
+#import "LCSAppleRAIDListCommand.h"
 #import "LCSCommandController.h"
 #import "LCSInitMacros.h"
 #import "LCSOSMacros.h"
@@ -14,7 +14,7 @@
 #import "NSScanner+AppleRAID.h"
 
 
-@implementation LCSAllRAIDInfoCommand
+@implementation LCSAppleRAIDListCommand
 - (id)init
 {
     LCSINIT_SUPER_OR_RETURN_NIL();

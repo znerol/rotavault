@@ -10,5 +10,5 @@
 #import "LCSQuickExternalCommand.h"
 
 
-@interface LCSAllRAIDInfoCommand : LCSQuickExternalCommand
+@interface LCSAppleRAIDListCommand : LCSQuickExternalCommand
 @end
