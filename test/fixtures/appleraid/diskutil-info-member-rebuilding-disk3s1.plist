@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Bootable</key>
+	<false/>
+	<key>BusProtocol</key>
+	<string>Disk Image</string>
+	<key>CanBeMadeBootable</key>
+	<false/>
+	<key>CanBeMadeBootableRequiresDestroy</key>
+	<false/>
+	<key>Content</key>
+	<string>Apple_RAID</string>
+	<key>DeviceIdentifier</key>
+	<string>disk3s1</string>
+	<key>DeviceNode</key>
+	<string>/dev/disk3s1</string>
+	<key>DeviceTreePath</key>
+	<string>IODeviceTree:/</string>
+	<key>Ejectable</key>
+	<true/>
+	<key>FreeSpace</key>
+	<integer>0</integer>
+	<key>GlobalPermissionsEnabled</key>
+	<false/>
+	<key>IOKitSize</key>
+	<integer>536829952</integer>
+	<key>Internal</key>
+	<false/>
+	<key>MediaName</key>
+	<string>Raid Partition 1</string>
+	<key>MediaType</key>
+	<string>Generic</string>
+	<key>MountPoint</key>
+	<string></string>
+	<key>ParentWholeDisk</key>
+	<string>disk3</string>
+	<key>RAIDMaster</key>
+	<false/>
+	<key>RAIDMemberAppleRAIDChunkCount</key>
+	<integer>16382</integer>
+	<key>RAIDMemberStatus</key>
+	<string>Rebuilding</string>
+	<key>RAIDMemberUUID</key>
+	<string>50BF6860-6A3F-4292-B413-633BF6C547F9</string>
+	<key>RAIDSequenceNumber</key>
+	<integer>0</integer>
+	<key>RAIDSetLevelType</key>
+	<string>Mirror</string>
+	<key>RAIDSetName</key>
+	<string>raid1</string>
+	<key>RAIDSetSliceCount</key>
+	<integer>2</integer>
+	<key>RAIDSetStatus</key>
+	<string>Degraded</string>
+	<key>RAIDSetUUID</key>
+	<string>5EF16D90-906E-4422-B109-31E9D00B686F</string>
+	<key>RAIDSlice</key>
+	<true/>
+	<key>RAIDSliceNumber</key>
+	<integer>2</integer>
+	<key>SMARTStatus</key>
+	<string>Not Supported</string>
+	<key>SupportsGlobalPermissionsDisable</key>
+	<false/>
+	<key>SystemImage</key>
+	<false/>
+	<key>TotalSize</key>
+	<integer>536829952</integer>
+	<key>VolumeName</key>
+	<string></string>
+	<key>WholeDisk</key>
+	<false/>
+	<key>Writable</key>
+	<true/>
+	<key>WritableMedia</key>
+	<true/>
+	<key>WritableVolume</key>
+	<false/>
+</dict>
+</plist>

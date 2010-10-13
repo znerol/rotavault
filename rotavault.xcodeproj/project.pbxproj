@@ -166,6 +166,7 @@
 		CA7461EC1244E07100CDE8C3 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CABAC5551235464300DBEA0F /* AppKit.framework */; };
 		CA7461ED1244E07100CDE8C3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
 		CA9344EA12560D35004CAB5B /* OCMockObject+NSTaskTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9344E912560D35004CAB5B /* OCMockObject+NSTaskTest.m */; };
+		CA9E8A551265CFBE00BCF0E0 /* LCSTestRamdisk.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9E8A541265CFBE00BCF0E0 /* LCSTestRamdisk.m */; };
 		CAA7A5371264E6AE000EAED2 /* LCSBatchCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA7A5361264E6AE000EAED2 /* LCSBatchCommand.m */; };
 		CAA7A5381264E6AE000EAED2 /* LCSBatchCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA7A5361264E6AE000EAED2 /* LCSBatchCommand.m */; };
 		CAA7A5391264E6AE000EAED2 /* LCSBatchCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CAA7A5361264E6AE000EAED2 /* LCSBatchCommand.m */; };
@@ -358,6 +359,8 @@
 		CA963A83124E3A990098D281 /* LCSExternalCommandTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSExternalCommandTest.m; sourceTree = "<group>"; };
 		CA963E42124E59FB0098D281 /* LCSQuickExternalCommandTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSQuickExternalCommandTest.m; sourceTree = "<group>"; };
 		CA9E2D58120F398D006C4DE7 /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMock.framework; path = Frameworks/OCMock.framework; sourceTree = "<group>"; };
+		CA9E8A531265CFBE00BCF0E0 /* LCSTestRamdisk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSTestRamdisk.h; sourceTree = "<group>"; };
+		CA9E8A541265CFBE00BCF0E0 /* LCSTestRamdisk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSTestRamdisk.m; sourceTree = "<group>"; };
 		CA9ED616122CD0BE005CBA5B /* rvcksum */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = rvcksum; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAA74ADD120A12DB00D234F9 /* rotavault_test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rotavault_test.m; sourceTree = "<group>"; };
 		CAA7A5351264E6AE000EAED2 /* LCSBatchCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSBatchCommand.h; sourceTree = "<group>"; };
@@ -545,6 +548,8 @@
 				CA12696D12567DF1000F7582 /* NSData+HexTest.m */,
 				CA12696E12567DF1000F7582 /* OCMockObject+NSTask.h */,
 				CA12696F12567DF1000F7582 /* OCMockObject+NSTask.m */,
+				CA9E8A531265CFBE00BCF0E0 /* LCSTestRamdisk.h */,
+				CA9E8A541265CFBE00BCF0E0 /* LCSTestRamdisk.m */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -1010,6 +1015,7 @@
 				CADF06BB1264ACDC00A1EB39 /* NSScanner+AppleRAIDTest.m in Sources */,
 				CA050EFC1264D9D60076D8BF /* LCSAllRAIDInfoCommand.m in Sources */,
 				CAA7A53A1264E6AE000EAED2 /* LCSBatchCommand.m in Sources */,
+				CA9E8A551265CFBE00BCF0E0 /* LCSTestRamdisk.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
