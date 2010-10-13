@@ -21,12 +21,13 @@
                                                runDate:runDateField.dateValue];
     cmd.rvcopydLaunchPath = [[NSBundle mainBundle] pathForResource:@"rvcopyd" ofType:nil];
     
-    currentController = [commandManager run:cmd];
-    currentController.title = [NSString localizedStringWithFormat:@"Schedule rotavault job"];
+    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
+    ctl.title = [NSString localizedStringWithFormat:@"Schedule rotavault job"];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleControllerFailedNotification:)
                                                  name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFailed]
-                                               object:currentController];
+                                               object:ctl];
+    [ctl start];
 }
 
 - (IBAction)selectSourceDevice:(id)sender {
@@ -44,12 +45,13 @@
                                                runDate:nil];
     cmd.rvcopydLaunchPath = [[NSBundle mainBundle] pathForResource:@"rvcopyd" ofType:nil];
     
-    currentController = [commandManager run:cmd];
-    currentController.title = [NSString localizedStringWithFormat:@"Run rotavault job"];
+    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
+    ctl.title = [NSString localizedStringWithFormat:@"Run rotavault job"];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleControllerFailedNotification:)
                                                  name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFailed]
-                                               object:currentController];
+                                               object:ctl];
+    [ctl start];
 }
 
 - (IBAction)stopTask:(id)sender {

@@ -6,7 +6,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "LCSCommandManager.h"
 
 @interface LCSRotavaultMainWindowController : NSObject {
     IBOutlet NSDatePicker *runDateField;
@@ -14,9 +13,6 @@
     IBOutlet NSTextField *statusField;
     IBOutlet NSTextField *targetDeviceField;
     IBOutlet NSWindow *window;
-    IBOutlet LCSCommandManager *commandManager;    
-    
-    LCSCommandController *currentController;
 }
 - (IBAction)createTargetImage:(id)sender;
 - (IBAction)scheduleTask:(id)sender;

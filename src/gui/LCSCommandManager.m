@@ -9,6 +9,11 @@
 #import "LCSCommandManager.h"
 #import "LCSCommand.h"
 
+@interface LCSCommandManager (Private)
+-(void)controllerLeftInitState:(NSNotification*)ntf;
+-(void)controllerEnteredInvalidatedState:(NSNotification*)ntf;
+@end
+
 
 @implementation LCSCommandManager
 @synthesize commands;
@@ -17,6 +22,10 @@
 {
     self = [super init];
     self.commands = [NSArray array];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(controllerLeftInitState:)
+                                                 name:[LCSCommandController notificationNameStateLeft:LCSCommandStateInit]
+                                               object:nil];
     return self;
 }
 
@@ -24,6 +33,12 @@
 {
     [commands release];
     [super dealloc];
+}
+
+-(void)controllerLeftInitState:(NSNotification*)ntf
+{
+    LCSCommandController* controller = [ntf object];
+    [self addCommandController:controller];
 }
 
 -(void)controllerEnteredInvalidatedState:(NSNotification*)ntf
@@ -49,30 +64,5 @@
                                                   object:controller];
     
     self.commands = [commands filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF != %@", controller]];
-}
-
--(LCSCommandController*)run:(id <LCSCommand>)command
-{
-    LCSCommandController* controller = [LCSCommandController controllerWithCommand:command];
-    [self addCommandController:controller];
-    
-    [controller performSelector:@selector(start) withObject:nil afterDelay:0];
-    return controller;
-}
-
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    if([keyPath isEqualToString:@"commands"] && object == self && [commands count] == 0) {
-        CFRunLoopStop([[NSRunLoop currentRunLoop] getCFRunLoop]);
-    }
-}
-
--(void)waitUntilAllCommandsAreDone
-{
-    [self addObserver:self forKeyPath:@"commands" options:0 context:nil];
-    while([commands count] > 0) {
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:1]];
-    }
-    [self removeObserver:self forKeyPath:@"commands"];
 }
 @end

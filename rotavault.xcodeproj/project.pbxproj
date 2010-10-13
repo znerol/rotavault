@@ -583,8 +583,6 @@
 				CA4820201264D62700C2879B /* LCSCommandController.m */,
 				CA4820211264D62700C2879B /* LCSCommandControllerCollection.h */,
 				CA4820221264D62700C2879B /* LCSCommandControllerCollection.m */,
-				CA4820231264D62700C2879B /* LCSCommandManager.h */,
-				CA4820241264D62700C2879B /* LCSCommandManager.m */,
 				CA4820251264D62700C2879B /* LCSCommandRunner.h */,
 				CA4820261264D62700C2879B /* LCSExternalCommand.h */,
 				CA4820271264D62700C2879B /* LCSExternalCommand.m */,
@@ -599,6 +597,8 @@
 		CA48202C1264D62700C2879B /* gui */ = {
 			isa = PBXGroup;
 			children = (
+				CA4820231264D62700C2879B /* LCSCommandManager.h */,
+				CA4820241264D62700C2879B /* LCSCommandManager.m */,
 				CA48202D1264D62700C2879B /* LCSRotavaultMainWindowController.h */,
 				CA48202E1264D62700C2879B /* LCSRotavaultMainWindowController.m */,
 				CA48202F1264D62700C2879B /* MainMenu.xib */,
