@@ -16,5 +16,6 @@
     
     LCSCommandController *listraidctl;
 }
++ (LCSAppleRAIDMonitorRebuildCommand*)commandWithRaidUUID:(NSString*)raidUUID devicePath:(NSString*)devicePath;
 - (id)initWithRaidUUID:(NSString*)raidUUID devicePath:(NSString*)devicePath;
 @end

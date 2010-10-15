@@ -22,6 +22,11 @@
 @implementation LCSAppleRAIDMonitorRebuildCommand
 @synthesize controller;
 
++ (LCSAppleRAIDMonitorRebuildCommand*)commandWithRaidUUID:(NSString*)raidUUID devicePath:(NSString*)devicePath
+{
+    return [[[LCSAppleRAIDMonitorRebuildCommand alloc] initWithRaidUUID:raidUUID devicePath:devicePath] autorelease];
+}
+
 - (id)initWithRaidUUID:(NSString*)raidUUID devicePath:(NSString*)devicePath
 {
     LCSINIT_SUPER_OR_RETURN_NIL();
