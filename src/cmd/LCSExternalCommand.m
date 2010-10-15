@@ -18,6 +18,7 @@
 
 -(id)init
 {
+    /* keep the implementation in sync with the implementation in LCSExternalCommand+MockableTask.m */
     LCSINIT_SUPER_OR_RETURN_NIL();
     
     task = [[NSTask alloc] init];
