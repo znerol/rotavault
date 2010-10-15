@@ -86,6 +86,7 @@
     LCSAppleRAIDMonitorRebuildCommand *cmd = [LCSAppleRAIDMonitorRebuildCommand
                                               commandWithRaidUUID:@"76898140-1ED1-41AB-931F-2E30D015829F"
                                               devicePath:@"/dev/disk3s1"];
+    cmd.updateInterval = 0;
     LCSCommandController *ctl = [[LCSCommandController controllerWithCommand:cmd] retain];
     
     id ctlMock = [OCMockObject mockForProtocol:@protocol(LCSTestNotificationConsumer)];
