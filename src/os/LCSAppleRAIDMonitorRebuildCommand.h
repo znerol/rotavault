@@ -15,7 +15,9 @@
     NSString *memberDevpath;
     
     LCSCommandController *listraidctl;
+    NSTimeInterval updateInterval;
 }
 + (LCSAppleRAIDMonitorRebuildCommand*)commandWithRaidUUID:(NSString*)raidUUID devicePath:(NSString*)devicePath;
 - (id)initWithRaidUUID:(NSString*)raidUUID devicePath:(NSString*)devicePath;
+@property(assign) NSTimeInterval updateInterval;
 @end

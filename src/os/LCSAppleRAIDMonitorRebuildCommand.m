@@ -21,6 +21,7 @@
 
 @implementation LCSAppleRAIDMonitorRebuildCommand
 @synthesize controller;
+@synthesize updateInterval;
 
 + (LCSAppleRAIDMonitorRebuildCommand*)commandWithRaidUUID:(NSString*)raidUUID devicePath:(NSString*)devicePath
 {
@@ -36,6 +37,7 @@
     memberDevpath = [devicePath copy];
     LCSINIT_RELEASE_AND_RETURN_IF_NIL(memberDevpath);
     
+    updateInterval = 5.0;
     return self;
 }
 
@@ -55,9 +57,10 @@
 
 - (void)startCheckraid
 {
-    if (listraidctl) {
+    if (listraidctl && listraidctl.state != LCSCommandStateInvalidated) {
         return;
     }
+    [listraidctl release];
     
     listraidctl = [[LCSCommandController controllerWithCommand:[LCSAppleRAIDListCommand command]] retain];
     
@@ -85,7 +88,7 @@
     if ([status isEqualToString:@"Rebuilding"]) {
         /* still in the rebuilding progress */
         controller.progress = progress;
-        [self performSelector:@selector(startCheckraid) withObject:nil afterDelay:5.0];
+        [self performSelector:@selector(startCheckraid) withObject:nil afterDelay:updateInterval];
     }
     else if ([status isEqualToString:@"Online"]) {
         /* we're done! */
@@ -96,10 +99,7 @@
         /* Unexpected state. Report error */
         controller.state = LCSCommandStateFailed;
         [self invalidate];
-    }
-    
-    [listraidctl release];
-    listraidctl = nil;
+    }    
 }
 
 - (void)start
