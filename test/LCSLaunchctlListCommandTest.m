@@ -9,30 +9,9 @@
 #import <GHUnit/GHUnit.h>
 #import <OCMock/OCMock.h>
 #import "OCMockObject+NSTask.h"
+#import "LCSExternalCommand+MockableTask.h"
 #import "LCSLaunchctlListCommand.h"
 #import "LCSCommandController.h"
-
-@interface LCSExternalCommand (MutableTask)
-@property(retain) NSTask* task;
-@end
-
-@implementation LCSExternalCommand (MutableTask)
--(void)setTask:(NSTask*)newTask
-{
-    if (task == newTask) {
-        return;
-    }
-    
-    [task release];
-    task = [newTask retain];
-}
-
--(NSTask*)task
-{
-    return task;
-}
-@end
-
 
 @interface LCSLaunchctlListCommandTest : GHTestCase
 @end
