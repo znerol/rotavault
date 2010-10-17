@@ -50,6 +50,7 @@
                                          LCSERROR_EXECUTABLE_LAUNCH_PATH([task launchPath]),
                                          nil);
         [self handleError:error];
+        return;
     }
     
     controller.result = arraylist;
