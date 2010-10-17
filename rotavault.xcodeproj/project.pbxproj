@@ -165,6 +165,13 @@
 		CA877D32126B3D9D0067649A /* LCSAppleRAIDListCommandTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA877D31126B3D9D0067649A /* LCSAppleRAIDListCommandTest.m */; };
 		CA877DB4126B43A00067649A /* LCSRotavaultScheduleInstallCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820521264D62700C2879B /* LCSRotavaultScheduleInstallCommand.m */; };
 		CA877DDF126B467B0067649A /* LCSExternalCommand+MockableTask.m in Sources */ = {isa = PBXBuildFile; fileRef = CA877DDE126B467B0067649A /* LCSExternalCommand+MockableTask.m */; };
+		CA877DEE126B58430067649A /* BetterAuthorizationSampleLib.c in Sources */ = {isa = PBXBuildFile; fileRef = CA877DEC126B58430067649A /* BetterAuthorizationSampleLib.c */; };
+		CA877E15126B5A160067649A /* BetterAuthorizationSampleLib.c in Sources */ = {isa = PBXBuildFile; fileRef = CA877DEC126B58430067649A /* BetterAuthorizationSampleLib.c */; };
+		CA877E16126B5A160067649A /* SampleCommon.c in Sources */ = {isa = PBXBuildFile; fileRef = CA877E0A126B59C20067649A /* SampleCommon.c */; };
+		CA877E17126B5A160067649A /* SampleTool.c in Sources */ = {isa = PBXBuildFile; fileRef = CA877E0C126B59C20067649A /* SampleTool.c */; };
+		CA877E53126B5A360067649A /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA877E52126B5A360067649A /* CoreFoundation.framework */; };
+		CA8780A8126B5A510067649A /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA877E52126B5A360067649A /* CoreFoundation.framework */; };
+		CA8780A9126B5A510067649A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAE26A601260A67700B19EC1 /* Security.framework */; };
 		CA9344EA12560D35004CAB5B /* OCMockObject+NSTaskTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9344E912560D35004CAB5B /* OCMockObject+NSTaskTest.m */; };
 		CA9E8A551265CFBE00BCF0E0 /* LCSTestRamdisk.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9E8A541265CFBE00BCF0E0 /* LCSTestRamdisk.m */; };
 		CA9E8AED1265E5A900BCF0E0 /* SetupAssistant.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA9E8AEC1265E5A900BCF0E0 /* SetupAssistant.xib */; };
@@ -368,6 +375,13 @@
 		CA877C4E126B27520067649A /* NSNotificationCenter+DefaultCenterThreadLocal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNotificationCenter+DefaultCenterThreadLocal.m"; sourceTree = "<group>"; };
 		CA877D31126B3D9D0067649A /* LCSAppleRAIDListCommandTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSAppleRAIDListCommandTest.m; sourceTree = "<group>"; };
 		CA877DDE126B467B0067649A /* LCSExternalCommand+MockableTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LCSExternalCommand+MockableTask.m"; sourceTree = "<group>"; };
+		CA877DEC126B58430067649A /* BetterAuthorizationSampleLib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = BetterAuthorizationSampleLib.c; sourceTree = "<group>"; };
+		CA877DED126B58430067649A /* BetterAuthorizationSampleLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BetterAuthorizationSampleLib.h; sourceTree = "<group>"; };
+		CA877E0A126B59C20067649A /* SampleCommon.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = SampleCommon.c; sourceTree = "<group>"; };
+		CA877E0B126B59C20067649A /* SampleCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleCommon.h; sourceTree = "<group>"; };
+		CA877E0C126B59C20067649A /* SampleTool.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = SampleTool.c; sourceTree = "<group>"; };
+		CA877E10126B5A030067649A /* BASHelperTool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BASHelperTool; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA877E52126B5A360067649A /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		CA9344E912560D35004CAB5B /* OCMockObject+NSTaskTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OCMockObject+NSTaskTest.m"; sourceTree = "<group>"; };
 		CA94887A1211892500415257 /* rvcopyd */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = rvcopyd; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA963A83124E3A990098D281 /* LCSExternalCommandTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSExternalCommandTest.m; sourceTree = "<group>"; };
@@ -422,6 +436,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		CA877E0E126B5A030067649A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA8780A8126B5A510067649A /* CoreFoundation.framework in Frameworks */,
+				CA8780A9126B5A510067649A /* Security.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CA9488781211892500415257 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -451,6 +474,7 @@
 				CABAC60B1235467700DBEA0F /* AppKit.framework in Frameworks */,
 				CABAC60C1235467800DBEA0F /* Foundation.framework in Frameworks */,
 				CABAC60D1235467800DBEA0F /* CoreServices.framework in Frameworks */,
+				CA877E53126B5A360067649A /* CoreFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -485,6 +509,7 @@
 			isa = PBXGroup;
 			children = (
 				CABAC5551235464300DBEA0F /* AppKit.framework */,
+				CA877E52126B5A360067649A /* CoreFoundation.framework */,
 				CA28AF1F12132C7600C9BE6F /* CoreServices.framework */,
 				08FB779EFE84155DC02AAC07 /* Foundation.framework */,
 				CABAC213123535CC00DBEA0F /* GHUnit.framework */,
@@ -504,6 +529,7 @@
 				CA94887A1211892500415257 /* rvcopyd */,
 				CA9ED616122CD0BE005CBA5B /* rvcksum */,
 				CAD47F381244C271002DED2B /* Rotavault.app */,
+				CA877E10126B5A030067649A /* BASHelperTool */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -582,6 +608,7 @@
 		CA4820181264D62700C2879B /* src */ = {
 			isa = PBXGroup;
 			children = (
+				CA877DEB126B58430067649A /* bas */,
 				CA4820191264D62700C2879B /* cli */,
 				CA48201D1264D62700C2879B /* cmd */,
 				CA48202C1264D62700C2879B /* gui */,
@@ -710,6 +737,18 @@
 			path = util;
 			sourceTree = "<group>";
 		};
+		CA877DEB126B58430067649A /* bas */ = {
+			isa = PBXGroup;
+			children = (
+				CA877DEC126B58430067649A /* BetterAuthorizationSampleLib.c */,
+				CA877DED126B58430067649A /* BetterAuthorizationSampleLib.h */,
+				CA877E0A126B59C20067649A /* SampleCommon.c */,
+				CA877E0B126B59C20067649A /* SampleCommon.h */,
+				CA877E0C126B59C20067649A /* SampleTool.c */,
+			);
+			path = bas;
+			sourceTree = "<group>";
+		};
 		CAE4CA65126466E600498A37 /* fixtures */ = {
 			isa = PBXGroup;
 			children = (
@@ -743,6 +782,22 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		CA877E0F126B5A030067649A /* BASHelperTool */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CA877E51126B5A340067649A /* Build configuration list for PBXNativeTarget "BASHelperTool" */;
+			buildPhases = (
+				CA877E0D126B5A030067649A /* Sources */,
+				CA877E0E126B5A030067649A /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BASHelperTool;
+			productName = BASHelperTool;
+			productReference = CA877E10126B5A030067649A /* BASHelperTool */;
+			productType = "com.apple.product-type.tool";
+		};
 		CA9488791211892500415257 /* rvcopyd */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CA9488831211895B00415257 /* Build configuration list for PBXNativeTarget "rvcopyd" */;
@@ -834,6 +889,7 @@
 				CABAC20B123535A300DBEA0F /* Rotavault Test */,
 				CA9ED615122CD0BE005CBA5B /* rvcksum */,
 				CA9488791211892500415257 /* rvcopyd */,
+				CA877E0F126B5A030067649A /* BASHelperTool */,
 			);
 		};
 /* End PBXProject section */
@@ -919,6 +975,16 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		CA877E0D126B5A030067649A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA877E15126B5A160067649A /* BetterAuthorizationSampleLib.c in Sources */,
+				CA877E16126B5A160067649A /* SampleCommon.c in Sources */,
+				CA877E17126B5A160067649A /* SampleTool.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CA9488771211892500415257 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1090,6 +1156,7 @@
 				CA19249B1266036200E05A63 /* LCSAppleRAIDRemoveMemberCommand.m in Sources */,
 				CAB8276A12660B4C00F158DB /* LCSAppleRAIDMonitorRebuildCommand.m in Sources */,
 				CA877DB4126B43A00067649A /* LCSRotavaultScheduleInstallCommand.m in Sources */,
+				CA877DEE126B58430067649A /* BetterAuthorizationSampleLib.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1204,6 +1271,36 @@
 				PRODUCT_NAME = rvcksum;
 			};
 			name = Coverage;
+		};
+		CA877E12126B5A040067649A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				INSTALL_PATH = /usr/local/bin;
+				PRODUCT_NAME = BASHelperTool;
+			};
+			name = Debug;
+		};
+		CA877E13126B5A040067649A /* Coverage */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				INSTALL_PATH = /usr/local/bin;
+				PRODUCT_NAME = BASHelperTool;
+			};
+			name = Coverage;
+		};
+		CA877E14126B5A040067649A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				INSTALL_PATH = /usr/local/bin;
+				PRODUCT_NAME = BASHelperTool;
+			};
+			name = Release;
 		};
 		CA94887C1211892500415257 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1431,6 +1528,16 @@
 				1DEB927908733DD40010E9CD /* Debug */,
 				CA28AE5F122EA20A00C432A9 /* Coverage */,
 				1DEB927A08733DD40010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CA877E51126B5A340067649A /* Build configuration list for PBXNativeTarget "BASHelperTool" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CA877E12126B5A040067649A /* Debug */,
+				CA877E13126B5A040067649A /* Coverage */,
+				CA877E14126B5A040067649A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
