@@ -58,7 +58,6 @@
 		CA19249A1266036200E05A63 /* LCSAppleRAIDRemoveMemberCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA1924981266036200E05A63 /* LCSAppleRAIDRemoveMemberCommand.m */; };
 		CA19249B1266036200E05A63 /* LCSAppleRAIDRemoveMemberCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA1924981266036200E05A63 /* LCSAppleRAIDRemoveMemberCommand.m */; };
 		CA19249C1266036200E05A63 /* LCSAppleRAIDRemoveMemberCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA1924981266036200E05A63 /* LCSAppleRAIDRemoveMemberCommand.m */; };
-		CA4822BC1264D69000C2879B /* LCSRotavaultBlockCopyCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48204E1264D62700C2879B /* LCSRotavaultBlockCopyCommand.m */; };
 		CA4822BD1264D69000C2879B /* LCSSignalHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48205B1264D62700C2879B /* LCSSignalHandler.m */; };
 		CA4822BE1264D69000C2879B /* LCSCommandController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820201264D62700C2879B /* LCSCommandController.m */; };
 		CA4822BF1264D69000C2879B /* LCSDiskImageInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48203B1264D62700C2879B /* LCSDiskImageInfoCommand.m */; };
@@ -78,7 +77,6 @@
 		CA4822CD1264D69000C2879B /* LCSRotavaultError.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820501264D62700C2879B /* LCSRotavaultError.m */; };
 		CA4822CE1264D69000C2879B /* LCSLaunchctlRemoveCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820471264D62700C2879B /* LCSLaunchctlRemoveCommand.m */; };
 		CA4822CF1264D69000C2879B /* LCSLaunchctlInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820411264D62700C2879B /* LCSLaunchctlInfoCommand.m */; };
-		CA4822D01264D69000C2879B /* LCSRotavaultScheduleInstallCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820521264D62700C2879B /* LCSRotavaultScheduleInstallCommand.m */; };
 		CA4822D11264D69000C2879B /* LCSExternalCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820271264D62700C2879B /* LCSExternalCommand.m */; };
 		CA4822D21264D69000C2879B /* LCSLaunchctlListCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820431264D62700C2879B /* LCSLaunchctlListCommand.m */; };
 		CA4822D31264D69000C2879B /* LCSAsrRestoreCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820351264D62700C2879B /* LCSAsrRestoreCommand.m */; };
@@ -100,13 +98,11 @@
 		CA4822E31264D6C700C2879B /* LCSCommandManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820241264D62700C2879B /* LCSCommandManager.m */; };
 		CA4822E41264D6C700C2879B /* LCSCommandControllerCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820221264D62700C2879B /* LCSCommandControllerCollection.m */; };
 		CA4822E51264D6C700C2879B /* LCSQuickExternalCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48202B1264D62700C2879B /* LCSQuickExternalCommand.m */; };
-		CA4822E61264D6C700C2879B /* LCSNanosecondTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820571264D62700C2879B /* LCSNanosecondTimer.m */; };
 		CA4822E71264D6C700C2879B /* LCSLaunchctlUnloadCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820491264D62700C2879B /* LCSLaunchctlUnloadCommand.m */; };
 		CA4822E81264D6C700C2879B /* LCSPlistExternalCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820291264D62700C2879B /* LCSPlistExternalCommand.m */; };
 		CA4822E91264D6C700C2879B /* LCSRotavaultError.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820501264D62700C2879B /* LCSRotavaultError.m */; };
 		CA4822EA1264D6C700C2879B /* LCSLaunchctlRemoveCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820471264D62700C2879B /* LCSLaunchctlRemoveCommand.m */; };
 		CA4822EB1264D6C700C2879B /* LCSLaunchctlInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820411264D62700C2879B /* LCSLaunchctlInfoCommand.m */; };
-		CA4822EC1264D6C700C2879B /* LCSRotavaultScheduleInstallCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820521264D62700C2879B /* LCSRotavaultScheduleInstallCommand.m */; };
 		CA4822ED1264D6C700C2879B /* LCSExternalCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820271264D62700C2879B /* LCSExternalCommand.m */; };
 		CA4822EE1264D6C700C2879B /* LCSLaunchctlListCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820431264D62700C2879B /* LCSLaunchctlListCommand.m */; };
 		CA4822EF1264D6C700C2879B /* LCSAsrRestoreCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820351264D62700C2879B /* LCSAsrRestoreCommand.m */; };
@@ -114,8 +110,6 @@
 		CA4822F11264D6C700C2879B /* NSScanner+AppleRAID.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48204B1264D62700C2879B /* NSScanner+AppleRAID.m */; };
 		CA4822F21264D6C700C2879B /* LCSDiskImageAttachCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820371264D62700C2879B /* LCSDiskImageAttachCommand.m */; };
 		CA4822F31264D6C700C2879B /* rvcopyd.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48201C1264D62700C2879B /* rvcopyd.m */; };
-		CA4822F41264D70100C2879B /* LCSRotavaultBlockCopyCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48204E1264D62700C2879B /* LCSRotavaultBlockCopyCommand.m */; };
-		CA4822F51264D70100C2879B /* LCSSignalHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48205B1264D62700C2879B /* LCSSignalHandler.m */; };
 		CA4822F61264D70100C2879B /* LCSCommandController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820201264D62700C2879B /* LCSCommandController.m */; };
 		CA4822F71264D70100C2879B /* LCSDiskImageInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48203B1264D62700C2879B /* LCSDiskImageInfoCommand.m */; };
 		CA4822F81264D70100C2879B /* LCSLaunchctlLoadCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820451264D62700C2879B /* LCSLaunchctlLoadCommand.m */; };
@@ -125,23 +119,19 @@
 		CA4822FC1264D70100C2879B /* LCSAllDiskInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820331264D62700C2879B /* LCSAllDiskInfoCommand.m */; };
 		CA4822FD1264D70100C2879B /* LCSPropertyListSHA1Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820591264D62700C2879B /* LCSPropertyListSHA1Hash.m */; };
 		CA4822FE1264D70100C2879B /* LCSDiskInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48203D1264D62700C2879B /* LCSDiskInfoCommand.m */; };
-		CA4822FF1264D70100C2879B /* LCSCommandManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820241264D62700C2879B /* LCSCommandManager.m */; };
 		CA4823001264D70100C2879B /* LCSCommandControllerCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820221264D62700C2879B /* LCSCommandControllerCollection.m */; };
 		CA4823011264D70100C2879B /* LCSQuickExternalCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48202B1264D62700C2879B /* LCSQuickExternalCommand.m */; };
-		CA4823021264D70100C2879B /* LCSNanosecondTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820571264D62700C2879B /* LCSNanosecondTimer.m */; };
 		CA4823031264D70100C2879B /* LCSLaunchctlUnloadCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820491264D62700C2879B /* LCSLaunchctlUnloadCommand.m */; };
 		CA4823041264D70100C2879B /* LCSPlistExternalCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820291264D62700C2879B /* LCSPlistExternalCommand.m */; };
 		CA4823051264D70100C2879B /* LCSRotavaultError.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820501264D62700C2879B /* LCSRotavaultError.m */; };
 		CA4823061264D70100C2879B /* LCSLaunchctlRemoveCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820471264D62700C2879B /* LCSLaunchctlRemoveCommand.m */; };
 		CA4823071264D70100C2879B /* LCSLaunchctlInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820411264D62700C2879B /* LCSLaunchctlInfoCommand.m */; };
-		CA4823081264D70100C2879B /* LCSRotavaultScheduleInstallCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820521264D62700C2879B /* LCSRotavaultScheduleInstallCommand.m */; };
 		CA4823091264D70100C2879B /* LCSExternalCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820271264D62700C2879B /* LCSExternalCommand.m */; };
 		CA48230A1264D70100C2879B /* LCSLaunchctlListCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820431264D62700C2879B /* LCSLaunchctlListCommand.m */; };
 		CA48230B1264D70100C2879B /* LCSAsrRestoreCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820351264D62700C2879B /* LCSAsrRestoreCommand.m */; };
 		CA48230C1264D70100C2879B /* NSScanner+AppleRAID.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48204B1264D62700C2879B /* NSScanner+AppleRAID.m */; };
 		CA48230D1264D70100C2879B /* LCSDiskImageAttachCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820371264D62700C2879B /* LCSDiskImageAttachCommand.m */; };
 		CA48230F1264D74400C2879B /* rvcksum.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48230E1264D74400C2879B /* rvcksum.m */; };
-		CA4823101264D76D00C2879B /* LCSRotavaultBlockCopyCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48204E1264D62700C2879B /* LCSRotavaultBlockCopyCommand.m */; };
 		CA4823111264D76D00C2879B /* LCSSignalHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48205B1264D62700C2879B /* LCSSignalHandler.m */; };
 		CA4823121264D76D00C2879B /* LCSCommandController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820201264D62700C2879B /* LCSCommandController.m */; };
 		CA4823131264D76D00C2879B /* LCSDiskImageInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48203B1264D62700C2879B /* LCSDiskImageInfoCommand.m */; };
@@ -155,13 +145,11 @@
 		CA48231B1264D76D00C2879B /* LCSCommandManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820241264D62700C2879B /* LCSCommandManager.m */; };
 		CA48231C1264D76D00C2879B /* LCSCommandControllerCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820221264D62700C2879B /* LCSCommandControllerCollection.m */; };
 		CA48231D1264D76D00C2879B /* LCSQuickExternalCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48202B1264D62700C2879B /* LCSQuickExternalCommand.m */; };
-		CA48231E1264D76D00C2879B /* LCSNanosecondTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820571264D62700C2879B /* LCSNanosecondTimer.m */; };
 		CA48231F1264D76D00C2879B /* LCSLaunchctlUnloadCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820491264D62700C2879B /* LCSLaunchctlUnloadCommand.m */; };
 		CA4823201264D76D00C2879B /* LCSPlistExternalCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820291264D62700C2879B /* LCSPlistExternalCommand.m */; };
 		CA4823211264D76D00C2879B /* LCSRotavaultError.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820501264D62700C2879B /* LCSRotavaultError.m */; };
 		CA4823221264D76D00C2879B /* LCSLaunchctlRemoveCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820471264D62700C2879B /* LCSLaunchctlRemoveCommand.m */; };
 		CA4823231264D76D00C2879B /* LCSLaunchctlInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820411264D62700C2879B /* LCSLaunchctlInfoCommand.m */; };
-		CA4823241264D76D00C2879B /* LCSRotavaultScheduleInstallCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820521264D62700C2879B /* LCSRotavaultScheduleInstallCommand.m */; };
 		CA4823251264D76D00C2879B /* LCSExternalCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820271264D62700C2879B /* LCSExternalCommand.m */; };
 		CA4823261264D76D00C2879B /* LCSLaunchctlListCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820431264D62700C2879B /* LCSLaunchctlListCommand.m */; };
 		CA4823271264D76D00C2879B /* LCSAsrRestoreCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820351264D62700C2879B /* LCSAsrRestoreCommand.m */; };
@@ -175,6 +163,7 @@
 		CA7461ED1244E07100CDE8C3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
 		CA877C4F126B27520067649A /* NSNotificationCenter+DefaultCenterThreadLocal.m in Sources */ = {isa = PBXBuildFile; fileRef = CA877C4E126B27520067649A /* NSNotificationCenter+DefaultCenterThreadLocal.m */; };
 		CA877D32126B3D9D0067649A /* LCSAppleRAIDListCommandTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA877D31126B3D9D0067649A /* LCSAppleRAIDListCommandTest.m */; };
+		CA877DB4126B43A00067649A /* LCSRotavaultScheduleInstallCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820521264D62700C2879B /* LCSRotavaultScheduleInstallCommand.m */; };
 		CA9344EA12560D35004CAB5B /* OCMockObject+NSTaskTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9344E912560D35004CAB5B /* OCMockObject+NSTaskTest.m */; };
 		CA9E8A551265CFBE00BCF0E0 /* LCSTestRamdisk.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9E8A541265CFBE00BCF0E0 /* LCSTestRamdisk.m */; };
 		CA9E8AED1265E5A900BCF0E0 /* SetupAssistant.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA9E8AEC1265E5A900BCF0E0 /* SetupAssistant.xib */; };
@@ -608,6 +597,8 @@
 			children = (
 				CA48201A1264D62700C2879B /* LCSCmdlineCommandRunner.h */,
 				CA48201B1264D62700C2879B /* LCSCmdlineCommandRunner.m */,
+				CA48205A1264D62700C2879B /* LCSSignalHandler.h */,
+				CA48205B1264D62700C2879B /* LCSSignalHandler.m */,
 				CA48230E1264D74400C2879B /* rvcksum.m */,
 				CA48201C1264D62700C2879B /* rvcopyd.m */,
 			);
@@ -713,8 +704,6 @@
 				CA050F131264E0090076D8BF /* LCSOSMacros.h */,
 				CA4820581264D62700C2879B /* LCSPropertyListSHA1Hash.h */,
 				CA4820591264D62700C2879B /* LCSPropertyListSHA1Hash.m */,
-				CA48205A1264D62700C2879B /* LCSSignalHandler.h */,
-				CA48205B1264D62700C2879B /* LCSSignalHandler.m */,
 				CA48205C1264D62700C2879B /* NSData+Hex.h */,
 				CA48205D1264D62700C2879B /* NSData+Hex.m */,
 			);
@@ -948,13 +937,11 @@
 				CA4822E31264D6C700C2879B /* LCSCommandManager.m in Sources */,
 				CA4822E41264D6C700C2879B /* LCSCommandControllerCollection.m in Sources */,
 				CA4822E51264D6C700C2879B /* LCSQuickExternalCommand.m in Sources */,
-				CA4822E61264D6C700C2879B /* LCSNanosecondTimer.m in Sources */,
 				CA4822E71264D6C700C2879B /* LCSLaunchctlUnloadCommand.m in Sources */,
 				CA4822E81264D6C700C2879B /* LCSPlistExternalCommand.m in Sources */,
 				CA4822E91264D6C700C2879B /* LCSRotavaultError.m in Sources */,
 				CA4822EA1264D6C700C2879B /* LCSLaunchctlRemoveCommand.m in Sources */,
 				CA4822EB1264D6C700C2879B /* LCSLaunchctlInfoCommand.m in Sources */,
-				CA4822EC1264D6C700C2879B /* LCSRotavaultScheduleInstallCommand.m in Sources */,
 				CA4822ED1264D6C700C2879B /* LCSExternalCommand.m in Sources */,
 				CA4822EE1264D6C700C2879B /* LCSLaunchctlListCommand.m in Sources */,
 				CA4822EF1264D6C700C2879B /* LCSAsrRestoreCommand.m in Sources */,
@@ -974,7 +961,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CA4823101264D76D00C2879B /* LCSRotavaultBlockCopyCommand.m in Sources */,
 				CA4823111264D76D00C2879B /* LCSSignalHandler.m in Sources */,
 				CA4823121264D76D00C2879B /* LCSCommandController.m in Sources */,
 				CA4823131264D76D00C2879B /* LCSDiskImageInfoCommand.m in Sources */,
@@ -988,13 +974,11 @@
 				CA48231B1264D76D00C2879B /* LCSCommandManager.m in Sources */,
 				CA48231C1264D76D00C2879B /* LCSCommandControllerCollection.m in Sources */,
 				CA48231D1264D76D00C2879B /* LCSQuickExternalCommand.m in Sources */,
-				CA48231E1264D76D00C2879B /* LCSNanosecondTimer.m in Sources */,
 				CA48231F1264D76D00C2879B /* LCSLaunchctlUnloadCommand.m in Sources */,
 				CA4823201264D76D00C2879B /* LCSPlistExternalCommand.m in Sources */,
 				CA4823211264D76D00C2879B /* LCSRotavaultError.m in Sources */,
 				CA4823221264D76D00C2879B /* LCSLaunchctlRemoveCommand.m in Sources */,
 				CA4823231264D76D00C2879B /* LCSLaunchctlInfoCommand.m in Sources */,
-				CA4823241264D76D00C2879B /* LCSRotavaultScheduleInstallCommand.m in Sources */,
 				CA4823251264D76D00C2879B /* LCSExternalCommand.m in Sources */,
 				CA4823261264D76D00C2879B /* LCSLaunchctlListCommand.m in Sources */,
 				CA4823271264D76D00C2879B /* LCSAsrRestoreCommand.m in Sources */,
@@ -1014,8 +998,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CA4822F41264D70100C2879B /* LCSRotavaultBlockCopyCommand.m in Sources */,
-				CA4822F51264D70100C2879B /* LCSSignalHandler.m in Sources */,
 				CA4822F61264D70100C2879B /* LCSCommandController.m in Sources */,
 				CA4822F71264D70100C2879B /* LCSDiskImageInfoCommand.m in Sources */,
 				CA4822F81264D70100C2879B /* LCSLaunchctlLoadCommand.m in Sources */,
@@ -1025,16 +1007,13 @@
 				CA4822FC1264D70100C2879B /* LCSAllDiskInfoCommand.m in Sources */,
 				CA4822FD1264D70100C2879B /* LCSPropertyListSHA1Hash.m in Sources */,
 				CA4822FE1264D70100C2879B /* LCSDiskInfoCommand.m in Sources */,
-				CA4822FF1264D70100C2879B /* LCSCommandManager.m in Sources */,
 				CA4823001264D70100C2879B /* LCSCommandControllerCollection.m in Sources */,
 				CA4823011264D70100C2879B /* LCSQuickExternalCommand.m in Sources */,
-				CA4823021264D70100C2879B /* LCSNanosecondTimer.m in Sources */,
 				CA4823031264D70100C2879B /* LCSLaunchctlUnloadCommand.m in Sources */,
 				CA4823041264D70100C2879B /* LCSPlistExternalCommand.m in Sources */,
 				CA4823051264D70100C2879B /* LCSRotavaultError.m in Sources */,
 				CA4823061264D70100C2879B /* LCSLaunchctlRemoveCommand.m in Sources */,
 				CA4823071264D70100C2879B /* LCSLaunchctlInfoCommand.m in Sources */,
-				CA4823081264D70100C2879B /* LCSRotavaultScheduleInstallCommand.m in Sources */,
 				CA4823091264D70100C2879B /* LCSExternalCommand.m in Sources */,
 				CA48230A1264D70100C2879B /* LCSLaunchctlListCommand.m in Sources */,
 				CA48230B1264D70100C2879B /* LCSAsrRestoreCommand.m in Sources */,
@@ -1080,7 +1059,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CA4822BC1264D69000C2879B /* LCSRotavaultBlockCopyCommand.m in Sources */,
 				CA4822BD1264D69000C2879B /* LCSSignalHandler.m in Sources */,
 				CA4822BE1264D69000C2879B /* LCSCommandController.m in Sources */,
 				CA4822BF1264D69000C2879B /* LCSDiskImageInfoCommand.m in Sources */,
@@ -1100,7 +1078,6 @@
 				CA4822CD1264D69000C2879B /* LCSRotavaultError.m in Sources */,
 				CA4822CE1264D69000C2879B /* LCSLaunchctlRemoveCommand.m in Sources */,
 				CA4822CF1264D69000C2879B /* LCSLaunchctlInfoCommand.m in Sources */,
-				CA4822D01264D69000C2879B /* LCSRotavaultScheduleInstallCommand.m in Sources */,
 				CA4822D11264D69000C2879B /* LCSExternalCommand.m in Sources */,
 				CA4822D21264D69000C2879B /* LCSLaunchctlListCommand.m in Sources */,
 				CA4822D31264D69000C2879B /* LCSAsrRestoreCommand.m in Sources */,
@@ -1112,6 +1089,7 @@
 				CA1924451265F7DA00E05A63 /* LCSAppleRAIDAddMemberCommand.m in Sources */,
 				CA19249B1266036200E05A63 /* LCSAppleRAIDRemoveMemberCommand.m in Sources */,
 				CAB8276A12660B4C00F158DB /* LCSAppleRAIDMonitorRebuildCommand.m in Sources */,
+				CA877DB4126B43A00067649A /* LCSRotavaultScheduleInstallCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

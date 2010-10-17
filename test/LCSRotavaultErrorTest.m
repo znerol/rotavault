@@ -37,5 +37,12 @@
     
     STAssertEquals([[error userInfo] count], (NSUInteger)7,
                    @"The user info must contain two objects (source file/line/class/selector, description, underlying error");
-}    
+}
+
+- (void)testLocalizedFailureReasonFromErrno
+{
+    NSString *expect = @"Operation not permitted";
+    NSString *actual = LCSErrorLocalizedFailureReasonFromErrno(EPERM);
+    STAssertEqualObjects(expect, actual, @"Unexpected error reason reported");
+}
 @end

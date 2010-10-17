@@ -82,6 +82,7 @@ int main(int argc, char *argv[]) {
     if (getenv("GHUNIT_CLI")) {
         retVal = [GHTestRunner run];
         [rd remove];
+        [rd release];
     } else {
         [[NSNotificationCenter defaultCenter] addObserver:rd
                                                  selector:@selector(remove)
