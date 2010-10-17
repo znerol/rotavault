@@ -98,4 +98,65 @@
     [taskFixtureEnumerator release];
 }
 
+-(void) testMonitorRebuildNoRebuildNeeded
+{
+    /* Build up the array of fixture-arrays to use. */
+    NSArray *taskFixtures = [[NSArray alloc]
+                             initWithObjects:
+                             [NSData dataWithContentsOfFile:
+                              [[NSBundle mainBundle] pathForResource:@"diskutil-appleraid-list-ok" ofType:@"txt"]],
+                             nil];
+    
+    taskFixtureEnumerator = [[taskFixtures objectEnumerator] retain];
+    
+    LCSAppleRAIDMonitorRebuildCommand *cmd = [LCSAppleRAIDMonitorRebuildCommand
+                                              commandWithRaidUUID:@"76898140-1ED1-41AB-931F-2E30D015829F"
+                                              devicePath:@"/dev/disk3s1"];
+    cmd.updateInterval = 0;
+    LCSCommandController *ctl = [[LCSCommandController controllerWithCommand:cmd] retain];
+    
+    [ctl start];
+    [ctl waitUntilDone];
+    
+    for (id taskMock in taskMocks) {
+        [taskMock verify];
+    }
+    
+    GHAssertEquals(ctl.exitState, LCSCommandStateFinished, @"Expected LCSCommandStateFinished");
+    
+    [ctl release];
+    [taskFixtures release];
+    [taskFixtureEnumerator release];
+}
+
+-(void) testMonitorRebuildFailed
+{
+    /* Build up the array of fixture-arrays to use. */
+    NSArray *taskFixtures = [[NSArray alloc]
+                             initWithObjects:
+                             [NSData dataWithContentsOfFile:
+                              [[NSBundle mainBundle] pathForResource:@"diskutil-appleraid-list-degraded-failed" ofType:@"txt"]],
+                             nil];
+    
+    taskFixtureEnumerator = [[taskFixtures objectEnumerator] retain];
+    
+    LCSAppleRAIDMonitorRebuildCommand *cmd = [LCSAppleRAIDMonitorRebuildCommand
+                                              commandWithRaidUUID:@"76898140-1ED1-41AB-931F-2E30D015829F"
+                                              devicePath:@"/dev/disk3s1"];
+    cmd.updateInterval = 0;
+    LCSCommandController *ctl = [[LCSCommandController controllerWithCommand:cmd] retain];
+    
+    [ctl start];
+    [ctl waitUntilDone];
+    
+    for (id taskMock in taskMocks) {
+        [taskMock verify];
+    }
+    
+    GHAssertEquals(ctl.exitState, LCSCommandStateFailed, @"Expected LCSCommandStateFailed");
+    
+    [ctl release];
+    [taskFixtures release];
+    [taskFixtureEnumerator release];
+}
 @end
