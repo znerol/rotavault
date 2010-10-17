@@ -113,6 +113,7 @@
     
     [ctl release];
     [taskMocks release];
+    [taskFixtures release];
     [taskFixtureEnumerator release];
 }
 
