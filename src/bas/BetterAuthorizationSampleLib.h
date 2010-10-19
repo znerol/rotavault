@@ -84,9 +84,6 @@ extern "C" {
                     
                      1. send requests to a helper tool (BASExecuteRequestInHelperTool) 
                       
-                     2. install the helper tool if it's not installed, or fix an installation if 
-                        it's broken (BASDiagnoseFailure and BASFixFailure)
-                      
                     BetterAuthorizationSampleLib also helps you implement the helper tool.  
 					Specifically, you call the routine BASHelperToolMain in the main entry 
 					point for your helper tool, passing it an array of command callbacks (of 
@@ -123,9 +120,6 @@ extern "C" {
 						uses this to ensure that the user is authorized to use the command before 
                         it calls your command callback in the privileged helper tool.
                         
-                     3. Information to create the command's authorization right specification in the 
-                        policy database.  The is used by the BASSetDefaultRules function.
-                    
                     Finally, BetterAuthorizationSampleLib includes a number of utilities routines to help 
                     wrangle error codes (BASErrnoToOSStatus, BASOSStatusToErrno, and BASGetErrorFromResponse) 
                     and file descriptors (BASCloseDescriptorArray).
@@ -162,25 +156,6 @@ extern "C" {
                     command.  If it's not NULL, BetterAuthorizationSampleLib will acquire that right 
                     before allowing the command to execute.
     
-    @field rightDefaultRule
-                    This is the name of an authorization rule that should be used in 
-                    the default right specification for the right.  To see a full list of these rules, 
-                    look at the "rules" dictionary within the policy database (currently 
-					"/etc/authorization").  Common values include "default" (which requires that the user 
-					hold credentials that authenticate them as an admin user) and "allow" (which will let 
-					anyone acquire the right).
-                    
-                    This must be NULL if (and only if) rightName is NULL.
-
-    @field rightDescriptionKey
-                    This is a key used to form a custom prompt for the right.  The value of this 
-                    string should be a key into a .strings file whose name you supply to 
-                    BASSetDefaultRules.  When BetterAuthorizationSampleLib creates the right specification, 
-                    it uses this key to get all of the localised prompt strings for the right.
-
-                    This must be NULL if rightName is NULL.  Otherwise, this may be NULL if you 
-                    don't want a custom prompt for your right.
-
     @field userData
                     This field is is for the benefit of the client; BetterAuthorizationSampleLib 
                     does not use it in any way.
@@ -189,8 +164,6 @@ extern "C" {
 struct BASCommandSpec {
 	const char *	commandName;
 	const char *	rightName;
-	const char *	rightDefaultRule;
-	const char *	rightDescriptionKey;
     const void *    userData;
 };
 typedef struct BASCommandSpec BASCommandSpec;
@@ -379,63 +352,6 @@ extern int BASHelperToolMain(
 #pragma mark ***** Application Routines
 
 /*!
-    @functiongroup  Application Routines
-*/
-
-/*!
-    @function       BASSetDefaultRules
-    
-    @abstract       Creates default right specifications in the policy database.
-    
-    @discussion     This routine ensures that the policy database (currently 
-                    "/etc/authorization") contains right specifications for all of the rights 
-                    that you use (as specified by the commands array).  This has two important 
-                    consequences:
-
-                     1. It makes the rights that you use visible to the system administrator.  
-                        All they have to do is run your program once and they can see your default 
-                        right specifications in the policy database. 
-
-                     2. It means that, when the privileged helper tool tries to acquire the right, 
-                        it will use your specification of the right (as modified by the system 
-                        administrator) rather than the default right specification. 
-
-                    You must call this function before calling BASExecuteRequestInHelperTool.  
-                    Typically you would call it at application startup time, or lazily, immediately 
-                    before calling BASExecuteRequestInHelperTool.
-
-    @param auth     A reference to your program's authorization instance; you typically get this 
-                    by calling AuthorizationCreate.
-    
-                    This must not be NULL.
-
-    @param commands An array that describes the commands that you implement, and their associated 
-                    rights.  There must be at least one valid command.
-
-    @param bundleID The bundle identifier for your program.
-
-                    This must not be NULL.
-
-    @param descriptionStringTableName
-                    The name of the .strings file from which to fetch the localised custom 
-                    prompts for the rights in the commands array (if any).  A NULL value is 
-                    equivalent to passing "Localizable" (that is, it gets the prompts from 
-                    "Localizable.strings").
-                    
-                    For example, imagine you have a command for which you require a custom prompt.  
-                    You should put the custom prompt in a .strings file, let's call it 
-                    "AuthPrompts.strings".  You should then pass "AuthPrompts" to this parameter 
-                    and put the key that gets the prompt into the rightDescriptionKey of the command.
-*/
-
-extern void BASSetDefaultRules(
-	AuthorizationRef			auth,
-	const BASCommandSpec		commands[],
-	CFStringRef					bundleID,
-	CFStringRef					descriptionStringTableName
-);
-
-/*!
     @function       BASExecuteRequestInHelperTool
     
     @abstract       Executes a request in the privileged helper tool, returning the response.
@@ -495,149 +411,6 @@ extern OSStatus BASExecuteRequestInHelperTool(
 	CFStringRef					bundleID,
 	CFDictionaryRef				request,
 	CFDictionaryRef *			response
-);
-
-/*!
-    @enum           BASFailCode
-    
-    @abstract       Indicates why a request failed.
-    
-    @discussion     If BASExecuteRequestInHelperTool fails with an error (indicating 
-					an IPC failure), you can call BASDiagnoseFailure to determine what 
-					went wrong.  BASDiagnoseFailure will return the value of this 
-					type that best describes the failure.
-
-    @constant kBASFailUnknown
-                    Indicates that BASDiagnoseFailure could not accurately determine the cause of the 
-                    failure.
-
-    @constant kBASFailDisabled
-                    The request failed because the helper tool is installed but disabled.
-
-    @constant kBASFailPartiallyInstalled
-                    The request failed because the helper tool is only partially installed.
-
-    @constant kBASFailNotInstalled 
-                    The request failed because the helper tool is not installed at all.
-
-    @constant kBASFailNeedsUpdate
-                    The request failed because the helper tool is installed but out of date. 
-                    BASDiagnoseFailure will never return this value.  However, if you detect that 
-                    the helper tool is out of date (typically by sending it a "get version" request) 
-                    you can pass this value to BASFixFailure to force it to update the tool.
-*/
-
-enum {
-	kBASFailUnknown,
-	kBASFailDisabled,
-	kBASFailPartiallyInstalled,
-	kBASFailNotInstalled,
-	kBASFailNeedsUpdate
-};
-typedef uint32_t BASFailCode;
-
-/*!
-    @function       BASDiagnoseFailure
-
-    @abstract       Determines the cause of a failed request.
-    
-    @discussion     If BASExecuteRequestInHelperTool fails with an error (indicating an 
-					IPC failure), you can call this routine to determine what went wrong.  
-					It returns a BASFailCode value indicating the cause of the failure.  
-					You should use this value to tell the user what's going on and what 
-					you intend to do about it.  Once you get the user's consent, you can 
-                    call BASFixFailure to fix the problem.
-                    
-                    For example, if this function result is kBASFailDisabled, you could put up the 
-                    dialog saying:
-                    
-                        My privileged helper tool is disabled.  Would you like to enable it?
-                        This operation may require you to authorize as an admin user.
-                        [Cancel] [[Enable]]
-
-                    On the other hand, if this function result is kBASFailNotInstalled, the dialog might be:
-                    
-                        My privileged helper tool is not installed.  Would you like to install it?
-                        This operation may require you to authorize as an admin user.
-                        [Cancel] [[Install]]
-                    
-                    BASDiagnoseFailure will never return kBASFailNeedsUpdate.  It's your responsibility 
-                    to detect version conflicts (a good way to do this is by sending a "get version" request 
-                    to the helper tool).  However, once you've detected a version conflict, you can pass 
-                    kBASFailNeedsUpdate to BASFixFailure to get it to install the latest version of your 
-                    helper tool.
-
-                    If you call this routine when everything is working properly, you're likely to get 
-                    a result of kBASFailUnknown.
-
-    @param auth     A reference to your program's authorization instance; you typically get this 
-                    by calling AuthorizationCreate.
-    
-                    This must not be NULL.
-
-    @param bundleID The bundle identifier for your program.
-
-                    This must not be NULL.
-    
-    @result         A BASFailCode value indicating the cause of the failure.  This will never be 
-                    kBASFailNeedsUpdate.
-*/
-
-extern BASFailCode BASDiagnoseFailure(
-	AuthorizationRef			auth,
-	CFStringRef					bundleID
-);
-
-/*!
-    @function       BASFixFailure
-
-    @abstract       Installs, or reinstalls, the privileged helper tool.
-    
-    @discussion     This routine installs or reinstalls the privileged helper tool.  Typically 
-                    you call this in response to an IPC failure talking to the tool.  You first 
-                    diagnose the failure using BASDiagnoseFailure and then call this routine to 
-					fix the failure by installing (or reinstalling) the tool.
-                    
-                    Because the helper tool is privileged, installing it is a privileged 
-                    operation.  This routine will do its work by calling 
-                    AuthorizationExecuteWithPrivileges, which is likely to prompt the user 
-                    for an admin name and password.
-
-    @param auth     A reference to your program's authorization instance; you typically get this 
-                    by calling AuthorizationCreate.
-    
-                    This must not be NULL.
-
-    @param bundleID The bundle identifier for your program.
-
-                    This must not be NULL.
-
-    @param installToolName
-                    The name of the install tool within your bundle.  You should place the tool 
-                    in the executable directory within the bundle.  Specifically, the tool must be 
-                    available by passing this name to CFBundleCopyAuxiliaryExecutableURL.
-
-                    This must not be NULL.
-
-    @param helperToolName
-                    The name of the helper tool within your bundle.  You should place the tool 
-                    in the executable directory within the bundle.  Specifically, the tool must be 
-                    available by passing this name to CFBundleCopyAuxiliaryExecutableURL.
-
-                    This must not be NULL.
-
-    @param failCode A value indicating the type of failure that's occurred.  In most cases you get this 
-                    value by calling BASDiagnoseFailure.
-	
-	@result			An OSStatus code (see BASErrnoToOSStatus and BASOSStatusToErrno).			
-*/
-
-extern OSStatus BASFixFailure(
-	AuthorizationRef			auth,
-	CFStringRef					bundleID,
-	CFStringRef					installToolName,
-	CFStringRef					helperToolName,
-	BASFailCode					failCode
 );
 
 /////////////////////////////////////////////////////////////////
@@ -749,31 +522,7 @@ extern void BASCloseDescriptorArray(
     #define BAS_PRIVATE 0
 #endif
 #if BAS_PRIVATE
-
-	// Hard-wired file system paths for the launchd property list file and 
-	// the privileged helper tool.  In all cases, %s is a placeholder 
-	// for the bundle ID (in file system representation).
-	
-    #define kBASPlistPathFormat             "/Library/LaunchDaemons/%s.plist"
-
-    #define kBASToolDirPath                 "/Library/PrivilegedHelperTools"			// KEEP IN SYNC!
-    #define kBASToolPathFormat              "/Library/PrivilegedHelperTools/%s"			// KEEP IN SYNC!
-	
-	// Commands strings for the install tool.
-
-    #define kBASInstallToolInstallCommand "install"
-    #define kBASInstallToolEnableCommand  "enable"
-
-	// Magic values used to bracket the process ID returned by the install tool.
-	
-    #define kBASAntiZombiePIDToken1 "cricket<"
-    #define kBASAntiZombiePIDToken2 ">bat"
-    
-    // Magic value used to indicate success or failure from the install tool.
-    
-    #define kBASInstallToolSuccess "oK"
-    #define kBASInstallToolFailure "FailUrE %d"
-
+// lo: removed unnecessary stuff
 #endif
 
 #ifdef __cplusplus
