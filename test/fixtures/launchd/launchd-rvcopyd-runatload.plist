@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>test</string>
+	<key>LaunchOnlyOnce</key>
+	<true/>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/opt/local/rotavault/bin/rvcopyd</string>
+		<string>-label</string>
+		<string>test</string>
+		<string>-method</string>
+		<string>asr</string>
+		<string>-sourcedev</string>
+		<string>/dev/disk0s1</string>
+		<string>-sourcecheck</string>
+		<string>uuid:F0117216-C262-41AC-BF4E-8D189E77FB93</string>
+		<string>-targetdev</string>
+		<string>/dev/disk1s1</string>
+		<string>-targetcheck</string>
+		<string>sha1:e5fa44f2b31c1fb553b6021e7360d07d5d91ff5e</string>
+	</array>
+</dict>
+</plist>
