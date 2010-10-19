@@ -51,58 +51,29 @@
 
 /////////////////////////////////////////////////////////////////
 
-// Commands supported by this sample
+// Commands supported by rotavault helper tool
 
+#define kLCSHelperManageRotavaultLaunchdJobRightName "ch.znerol.rotavault.monitor"
+#define kLCSHelperMonitorRotavaultLaunchdJobRightName "ch.znerol.rotavault.manage"
 
-// "GetVersion" gets the version of the helper tool.  This never requires authorization.
+// Schedule rvcopyd job (requires manage privilege)
+#define kLCSHelperInstallRotavaultJobCommand "JobInstallCommand" /* CFString */
+#define kLCSHelperInstallRotavaultJobLabelParameter "Label" /* CFString */
+#define kLCSHelperInstallRotavaultJobMethod "Method" /* CFString */
+#define kLCSHelperInstallRotavaultJobRunDateParameter "RunDate" /* CFDate */
+#define kLCSHelperInstallRotavaultJobSourceParameter "Source" /* CFString */
+#define kLCSHelperInstallRotavaultJobTargetParameter "Target" /* CFString */
+#define kLCSHelperInstallRotavaultJobSourceChecksumParameter "SourceChecksum" /* CFString */
+#define kLCSHelperInstallRotavaultJobTargetChecksumParameter "TargetChecksum" /* CFString */
 
-#define kSampleGetVersionCommand        "GetVersion"
+// Remove/kill rvocpyd job (requires manage privilege)
+#define kLCSHelperRemoveRotavaultJobCommand "JobRemoveCommand" /* CFString */
+#define kLCSHelperRemoveRotavaultJobLabelParameter "Label" /* CFString */
 
-    // authorization right name (none)
-    
-    // request keys (none)
-    
-    // response keys
-    
-	#define kSampleGetVersionResponse			"Version"                   // CFNumber
+// Get launchd information on rvcopyd job (requires monitor privilege)
+#define kLCSHelperInfoForRotavaultJobCommand "JobInfoCommand" /* CFString */
+#define kLCSHelperInfoForRotavaultJobLabelParameter "Label" /* CFString */
 
-
-// "GetUIDs" gets the important process UIDs (RUID and EUID) of the helper tool.
-
-#define kSampleGetUIDsCommand           "GetUIDs"
-
-    // authorization right name
-    
-    #define	kSampleUIDRightName					"com.example.BetterAuthorizationSample.GetUIDs"
-
-    // request keys (none)
-    
-    // response keys
-    
-	#define kSampleGetUIDsResponseRUID			"RUID"                      // CFNumber
-	#define kSampleGetUIDsResponseEUID			"EUID"                      // CFNumber
-
-
-// "LowNumberedPorts" asks the helper tool to open some low-numbered ports on our behalf.
-
-#define kSampleLowNumberedPortsCommand		"LowNumberedPorts"
-
-    // authorization right name
-
-    #define	kSampleLowNumberedPortsRightName	"com.example.BetterAuthorizationSample.LowNumberedPorts"
-	
-    // request keys
-    
-    #define kSampleLowNumberedPortsForceFailure	"ForceFailure"              // CFBoolean (optional, presence implies true)
-    
-    // response keys (none, descriptors for the ports are in kBASDescriptorArrayKey, 
-	// the number of descriptors should be kNumberOfLowNumberedPorts)
-
-	#define kNumberOfLowNumberedPorts			3
-
-// The kSampleCommandSet is used by both the app and the tool to communicate the set of 
-// supported commands to the BetterAuthorizationSampleLib module.
-
-extern const BASCommandSpec kSampleCommandSet[];
+extern const BASCommandSpec kLCSHelperCommandSet[];
 
 #endif
