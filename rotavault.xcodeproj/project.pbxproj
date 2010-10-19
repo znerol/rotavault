@@ -21,6 +21,24 @@
 			name = All;
 			productName = All;
 		};
+		CAEE8B12126CE53A00B0BE92 /* System Tools Installer */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = CAEE8B1A126CE55300B0BE92 /* Build configuration list for PBXAggregateTarget "System Tools Installer" */;
+			buildPhases = (
+				CAEE8B19126CE55300B0BE92 /* CopyFiles */,
+				CAEE8B26126CE5E000B0BE92 /* CopyFiles */,
+				CAEE8B87126CEF3200B0BE92 /* CopyFiles */,
+				CAEE8BA3126CF43400B0BE92 /* CopyFiles */,
+				CAEE8B5C126CED4600B0BE92 /* CopyFiles */,
+				CAEE8B11126CE53A00B0BE92 /* ShellScript */,
+			);
+			dependencies = (
+				CAEE8B21126CE5D200B0BE92 /* PBXTargetDependency */,
+				CAEE8B1F126CE5D200B0BE92 /* PBXTargetDependency */,
+			);
+			name = "System Tools Installer";
+			productName = "System Tools Installer";
+		};
 		CAFF452212329DBC00B4AB77 /* Developer Documentation */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = CAFF452712329DD900B4AB77 /* Build configuration list for PBXAggregateTarget "Developer Documentation" */;
@@ -35,6 +53,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		CA00CBA0126C83AE00231F63 /* LCSHelperInstallRotavaultJobCommand.c in Sources */ = {isa = PBXBuildFile; fileRef = CA00CB9F126C83AE00231F63 /* LCSHelperInstallRotavaultJobCommand.c */; };
+		CA00CBA1126C83AE00231F63 /* LCSHelperInstallRotavaultJobCommand.c in Sources */ = {isa = PBXBuildFile; fileRef = CA00CB9F126C83AE00231F63 /* LCSHelperInstallRotavaultJobCommand.c */; };
 		CA050EFC1264D9D60076D8BF /* LCSAppleRAIDListCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA050EFB1264D9D60076D8BF /* LCSAppleRAIDListCommand.m */; };
 		CA050EFD1264D9D60076D8BF /* LCSAppleRAIDListCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA050EFB1264D9D60076D8BF /* LCSAppleRAIDListCommand.m */; };
 		CA050EFE1264D9D60076D8BF /* LCSAppleRAIDListCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA050EFB1264D9D60076D8BF /* LCSAppleRAIDListCommand.m */; };
@@ -224,6 +244,18 @@
 		CAE4CA9912646C4800498A37 /* diskutil-appleraid-list.txt in Resources */ = {isa = PBXBuildFile; fileRef = CAE4CA9812646C4800498A37 /* diskutil-appleraid-list.txt */; };
 		CAE9A1A71255227C00CD9C33 /* LCSAsrRestoreCommandTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAE9A1A61255227C00CD9C33 /* LCSAsrRestoreCommandTest.m */; };
 		CAEC4B97125EEE5A00CDBEA1 /* LCSCommandControllerCollectionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAEC4B96125EEE5A00CDBEA1 /* LCSCommandControllerCollectionTest.m */; };
+		CAEE8A85126CDA0C00B0BE92 /* launchd-rvcopyd-runatload.plist in Resources */ = {isa = PBXBuildFile; fileRef = CAEE8A83126CDA0C00B0BE92 /* launchd-rvcopyd-runatload.plist */; };
+		CAEE8A86126CDA0C00B0BE92 /* launchd-rvcopyd-withrundate.plist in Resources */ = {isa = PBXBuildFile; fileRef = CAEE8A84126CDA0C00B0BE92 /* launchd-rvcopyd-withrundate.plist */; };
+		CAEE8B1B126CE57A00B0BE92 /* rvcopyd in CopyFiles */ = {isa = PBXBuildFile; fileRef = CA94887A1211892500415257 /* rvcopyd */; };
+		CAEE8B1D126CE5CB00B0BE92 /* ch.znerol.rotavault in CopyFiles */ = {isa = PBXBuildFile; fileRef = CA877E10126B5A030067649A /* ch.znerol.rotavault */; };
+		CAEE8B54126CED1100B0BE92 /* 01systools-contents.xml in CopyFiles */ = {isa = PBXBuildFile; fileRef = CAEE8B2C126CE72500B0BE92 /* 01systools-contents.xml */; };
+		CAEE8B55126CED1100B0BE92 /* 01systools.xml in CopyFiles */ = {isa = PBXBuildFile; fileRef = CAEE8B2D126CE72500B0BE92 /* 01systools.xml */; };
+		CAEE8B56126CED1100B0BE92 /* index.xml in CopyFiles */ = {isa = PBXBuildFile; fileRef = CAEE8B2E126CE72500B0BE92 /* index.xml */; };
+		CAEE8B88126CEF4D00B0BE92 /* ch.znerol.rotavault.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = CAEE8B84126CEF1900B0BE92 /* ch.znerol.rotavault.plist */; };
+		CAEE8BA0126CF43100B0BE92 /* preinstall in CopyFiles */ = {isa = PBXBuildFile; fileRef = CAEE8B97126CF38C00B0BE92 /* preinstall */; };
+		CAEE8BA1126CF43100B0BE92 /* postinstall in CopyFiles */ = {isa = PBXBuildFile; fileRef = CAEE8B98126CF38C00B0BE92 /* postinstall */; };
+		CAEE8BCA126D00C200B0BE92 /* Rotavault System Tools.pkg in Resources */ = {isa = PBXBuildFile; fileRef = CAEE8BC7126D00A400B0BE92 /* Rotavault System Tools.pkg */; };
+		CAF42A84126CBC5B006D3C31 /* LCSHelperInstallRotavaultJobCommandTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF42A83126CBC5B006D3C31 /* LCSHelperInstallRotavaultJobCommandTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -262,6 +294,27 @@
 			remoteGlobalIDString = CA9ED615122CD0BE005CBA5B;
 			remoteInfo = rvcksum;
 		};
+		CAEE8B1E126CE5D200B0BE92 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CA877E0F126B5A030067649A;
+			remoteInfo = PrivilegedHelperTool;
+		};
+		CAEE8B20126CE5D200B0BE92 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CA9488791211892500415257;
+			remoteInfo = rvcopyd;
+		};
+		CAEE8B49126CEBBA00B0BE92 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CAEE8B12126CE53A00B0BE92;
+			remoteInfo = "System Tools Installer";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -278,10 +331,65 @@
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CAEE8B19126CE55300B0BE92 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "systools-pkgroot/usr/local/bin";
+			dstSubfolderSpec = 16;
+			files = (
+				CAEE8B1B126CE57A00B0BE92 /* rvcopyd in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CAEE8B26126CE5E000B0BE92 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "systools-pkgroot/Library/PrivilegedHelperTools";
+			dstSubfolderSpec = 16;
+			files = (
+				CAEE8B1D126CE5CB00B0BE92 /* ch.znerol.rotavault in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CAEE8B5C126CED4600B0BE92 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = systools.pmdoc;
+			dstSubfolderSpec = 16;
+			files = (
+				CAEE8B54126CED1100B0BE92 /* 01systools-contents.xml in CopyFiles */,
+				CAEE8B55126CED1100B0BE92 /* 01systools.xml in CopyFiles */,
+				CAEE8B56126CED1100B0BE92 /* index.xml in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CAEE8B87126CEF3200B0BE92 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "systools-pkgroot/Library/LaunchDaemons";
+			dstSubfolderSpec = 7;
+			files = (
+				CAEE8B88126CEF4D00B0BE92 /* ch.znerol.rotavault.plist in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CAEE8BA3126CF43400B0BE92 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "systools-scripts";
+			dstSubfolderSpec = 16;
+			files = (
+				CAEE8BA0126CF43100B0BE92 /* preinstall in CopyFiles */,
+				CAEE8BA1126CF43100B0BE92 /* postinstall in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		08FB779EFE84155DC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		CA00CB9E126C83AE00231F63 /* LCSHelperInstallRotavaultJobCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSHelperInstallRotavaultJobCommand.h; sourceTree = "<group>"; };
+		CA00CB9F126C83AE00231F63 /* LCSHelperInstallRotavaultJobCommand.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LCSHelperInstallRotavaultJobCommand.c; sourceTree = "<group>"; };
 		CA016CCD1253977E0047D82A /* LCSDiskImageInfoCommandTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSDiskImageInfoCommandTest.m; sourceTree = "<group>"; };
 		CA016DB11253A8A70047D82A /* LCSLaunchctlListCommandTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSLaunchctlListCommandTest.m; sourceTree = "<group>"; };
 		CA050CD81264D8500076D8BF /* Rotavault-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Rotavault-Info.plist"; sourceTree = "<group>"; };
@@ -380,7 +488,7 @@
 		CA877E0A126B59C20067649A /* SampleCommon.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = SampleCommon.c; sourceTree = "<group>"; };
 		CA877E0B126B59C20067649A /* SampleCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleCommon.h; sourceTree = "<group>"; };
 		CA877E0C126B59C20067649A /* SampleTool.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = SampleTool.c; sourceTree = "<group>"; };
-		CA877E10126B5A030067649A /* BASHelperTool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BASHelperTool; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA877E10126B5A030067649A /* ch.znerol.rotavault */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ch.znerol.rotavault; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA877E52126B5A360067649A /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		CA9344E912560D35004CAB5B /* OCMockObject+NSTaskTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OCMockObject+NSTaskTest.m"; sourceTree = "<group>"; };
 		CA94887A1211892500415257 /* rvcopyd */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = rvcopyd; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -408,6 +516,7 @@
 		CABAC5551235464300DBEA0F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		CABAC6EA1235738400DBEA0F /* libgcov.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgcov.a; path = lib/libgcov.a; sourceTree = "<group>"; };
 		CAC5EE6F12634613001EB12B /* LCSAllDiskInfoCommandTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSAllDiskInfoCommandTest.m; sourceTree = "<group>"; };
+		CAD2996D126D6BD00039D672 /* uninstall.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = uninstall.sh; sourceTree = "<group>"; };
 		CAD47F381244C271002DED2B /* Rotavault.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rotavault.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAD58CA912546D32000F8850 /* LCSLaunchctlLoadCommandTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSLaunchctlLoadCommandTest.m; sourceTree = "<group>"; };
 		CADF06BA1264ACDC00A1EB39 /* NSScanner+AppleRAIDTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSScanner+AppleRAIDTest.m"; sourceTree = "<group>"; };
@@ -432,6 +541,16 @@
 		CAE82D35122C311F00715BCF /* LCSPropertyListSHA1HashTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSPropertyListSHA1HashTest.m; sourceTree = "<group>"; };
 		CAE9A1A61255227C00CD9C33 /* LCSAsrRestoreCommandTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSAsrRestoreCommandTest.m; sourceTree = "<group>"; };
 		CAEC4B96125EEE5A00CDBEA1 /* LCSCommandControllerCollectionTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSCommandControllerCollectionTest.m; sourceTree = "<group>"; };
+		CAEE8A83126CDA0C00B0BE92 /* launchd-rvcopyd-runatload.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "launchd-rvcopyd-runatload.plist"; sourceTree = "<group>"; };
+		CAEE8A84126CDA0C00B0BE92 /* launchd-rvcopyd-withrundate.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "launchd-rvcopyd-withrundate.plist"; sourceTree = "<group>"; };
+		CAEE8B2C126CE72500B0BE92 /* 01systools-contents.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "01systools-contents.xml"; sourceTree = "<group>"; };
+		CAEE8B2D126CE72500B0BE92 /* 01systools.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = 01systools.xml; sourceTree = "<group>"; };
+		CAEE8B2E126CE72500B0BE92 /* index.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = index.xml; sourceTree = "<group>"; };
+		CAEE8B84126CEF1900B0BE92 /* ch.znerol.rotavault.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = ch.znerol.rotavault.plist; path = ../../../Desktop/ch.znerol.rotavault.plist; sourceTree = SOURCE_ROOT; };
+		CAEE8B97126CF38C00B0BE92 /* preinstall */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = preinstall; sourceTree = "<group>"; };
+		CAEE8B98126CF38C00B0BE92 /* postinstall */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = postinstall; sourceTree = "<group>"; };
+		CAEE8BC7126D00A400B0BE92 /* Rotavault System Tools.pkg */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.installer-pkg"; path = "Rotavault System Tools.pkg"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CAF42A83126CBC5B006D3C31 /* LCSHelperInstallRotavaultJobCommandTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSHelperInstallRotavaultJobCommandTest.m; sourceTree = "<group>"; };
 		CAFF453312329FDD00B4AB77 /* doxygen.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = doxygen.conf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -525,11 +644,12 @@
 		1AB674ADFE9D54B511CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				CA877E10126B5A030067649A /* ch.znerol.rotavault */,
+				CAEE8BC7126D00A400B0BE92 /* Rotavault System Tools.pkg */,
 				CABAC20C123535A300DBEA0F /* Rotavault Test.app */,
-				CA94887A1211892500415257 /* rvcopyd */,
-				CA9ED616122CD0BE005CBA5B /* rvcksum */,
 				CAD47F381244C271002DED2B /* Rotavault.app */,
-				CA877E10126B5A030067649A /* BASHelperTool */,
+				CA9ED616122CD0BE005CBA5B /* rvcksum */,
+				CA94887A1211892500415257 /* rvcopyd */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -539,6 +659,9 @@
 			children = (
 				CA050CD81264D8500076D8BF /* Rotavault-Info.plist */,
 				CA050CD91264D8500076D8BF /* Rotavault-Test-Info.plist */,
+				CAEE8B84126CEF1900B0BE92 /* ch.znerol.rotavault.plist */,
+				CAEE8B96126CF38C00B0BE92 /* systools-scripts */,
+				CAEE8B2B126CE72500B0BE92 /* systools.pmdoc */,
 			);
 			path = rsrc;
 			sourceTree = "<group>";
@@ -568,6 +691,7 @@
 				CAB3C8DF1254F7C5002E4AF5 /* LCSDiskImageDetachCommandTest.m */,
 				CA016CCD1253977E0047D82A /* LCSDiskImageInfoCommandTest.m */,
 				CA963A83124E3A990098D281 /* LCSExternalCommandTest.m */,
+				CAF42A83126CBC5B006D3C31 /* LCSHelperInstallRotavaultJobCommandTest.m */,
 				CAB3C88F1254F184002E4AF5 /* LCSLaunchctlInfoCommandTest.m */,
 				CA016DB11253A8A70047D82A /* LCSLaunchctlListCommandTest.m */,
 				CAD58CA912546D32000F8850 /* LCSLaunchctlLoadCommandTest.m */,
@@ -742,6 +866,8 @@
 			children = (
 				CA877DEC126B58430067649A /* BetterAuthorizationSampleLib.c */,
 				CA877DED126B58430067649A /* BetterAuthorizationSampleLib.h */,
+				CA00CB9F126C83AE00231F63 /* LCSHelperInstallRotavaultJobCommand.c */,
+				CA00CB9E126C83AE00231F63 /* LCSHelperInstallRotavaultJobCommand.h */,
 				CA877E0A126B59C20067649A /* SampleCommon.c */,
 				CA877E0B126B59C20067649A /* SampleCommon.h */,
 				CA877E0C126B59C20067649A /* SampleTool.c */,
@@ -753,6 +879,7 @@
 			isa = PBXGroup;
 			children = (
 				CAE4CA66126466E600498A37 /* appleraid */,
+				CAEE8A82126CDA0C00B0BE92 /* launchd */,
 			);
 			path = fixtures;
 			sourceTree = "<group>";
@@ -779,12 +906,41 @@
 			path = appleraid;
 			sourceTree = "<group>";
 		};
+		CAEE8A82126CDA0C00B0BE92 /* launchd */ = {
+			isa = PBXGroup;
+			children = (
+				CAEE8A83126CDA0C00B0BE92 /* launchd-rvcopyd-runatload.plist */,
+				CAEE8A84126CDA0C00B0BE92 /* launchd-rvcopyd-withrundate.plist */,
+			);
+			path = launchd;
+			sourceTree = "<group>";
+		};
+		CAEE8B2B126CE72500B0BE92 /* systools.pmdoc */ = {
+			isa = PBXGroup;
+			children = (
+				CAEE8B2C126CE72500B0BE92 /* 01systools-contents.xml */,
+				CAEE8B2D126CE72500B0BE92 /* 01systools.xml */,
+				CAEE8B2E126CE72500B0BE92 /* index.xml */,
+			);
+			path = systools.pmdoc;
+			sourceTree = "<group>";
+		};
+		CAEE8B96126CF38C00B0BE92 /* systools-scripts */ = {
+			isa = PBXGroup;
+			children = (
+				CAEE8B97126CF38C00B0BE92 /* preinstall */,
+				CAEE8B98126CF38C00B0BE92 /* postinstall */,
+				CAD2996D126D6BD00039D672 /* uninstall.sh */,
+			);
+			path = "systools-scripts";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		CA877E0F126B5A030067649A /* BASHelperTool */ = {
+		CA877E0F126B5A030067649A /* PrivilegedHelperTool */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CA877E51126B5A340067649A /* Build configuration list for PBXNativeTarget "BASHelperTool" */;
+			buildConfigurationList = CA877E51126B5A340067649A /* Build configuration list for PBXNativeTarget "PrivilegedHelperTool" */;
 			buildPhases = (
 				CA877E0D126B5A030067649A /* Sources */,
 				CA877E0E126B5A030067649A /* Frameworks */,
@@ -793,9 +949,9 @@
 			);
 			dependencies = (
 			);
-			name = BASHelperTool;
+			name = PrivilegedHelperTool;
 			productName = BASHelperTool;
-			productReference = CA877E10126B5A030067649A /* BASHelperTool */;
+			productReference = CA877E10126B5A030067649A /* ch.znerol.rotavault */;
 			productType = "com.apple.product-type.tool";
 		};
 		CA9488791211892500415257 /* rvcopyd */ = {
@@ -862,6 +1018,7 @@
 			);
 			dependencies = (
 				CA69E8A4125CB585000A0E09 /* PBXTargetDependency */,
+				CAEE8B4A126CEBBA00B0BE92 /* PBXTargetDependency */,
 			);
 			name = Rotavault;
 			productName = Rotavault;
@@ -889,7 +1046,8 @@
 				CABAC20B123535A300DBEA0F /* Rotavault Test */,
 				CA9ED615122CD0BE005CBA5B /* rvcksum */,
 				CA9488791211892500415257 /* rvcopyd */,
-				CA877E0F126B5A030067649A /* BASHelperTool */,
+				CA877E0F126B5A030067649A /* PrivilegedHelperTool */,
+				CAEE8B12126CE53A00B0BE92 /* System Tools Installer */,
 			);
 		};
 /* End PBXProject section */
@@ -914,6 +1072,8 @@
 				CAE4CA81126466E600498A37 /* diskutil-appleraid-list-degraded-rebuilding-3.txt in Resources */,
 				CAE4CA82126466E600498A37 /* diskutil-appleraid-list-ok.txt in Resources */,
 				CAE4CA9912646C4800498A37 /* diskutil-appleraid-list.txt in Resources */,
+				CAEE8A85126CDA0C00B0BE92 /* launchd-rvcopyd-runatload.plist in Resources */,
+				CAEE8A86126CDA0C00B0BE92 /* launchd-rvcopyd-withrundate.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -921,8 +1081,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CA69E8A5125CB590000A0E09 /* rvcopyd in Resources */,
 				CA4822D71264D69000C2879B /* MainMenu.xib in Resources */,
+				CAEE8BCA126D00C200B0BE92 /* Rotavault System Tools.pkg in Resources */,
+				CA69E8A5125CB590000A0E09 /* rvcopyd in Resources */,
 				CA9E8AED1265E5A900BCF0E0 /* SetupAssistant.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -958,6 +1119,19 @@
 			shellPath = /bin/sh;
 			shellScript = "if [ \"$CONFIGURATION\" != \"Coverage\" ]; then\n\texit 0\nfi\n\nGCOV_TARGET=\"Rotavault Test\"\nopen -a CoverStory \"${CONFIGURATION_TEMP_DIR}/${GCOV_TARGET}.build/Objects-normal/${CURRENT_ARCH}\"\n";
 		};
+		CAEE8B11126CE53A00B0BE92 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here\n/Developer/Applications/Utilities/PackageMaker.app/Contents/MacOS/PackageMaker \\\n\t--doc \"${CONFIGURATION_BUILD_DIR}/systools.pmdoc\" \\\n\t--out \"${CONFIGURATION_BUILD_DIR}/${PRODUCT_NAME}\" \\\n\t--version \"${CURRENT_PROJECT_VERSION}\" \\\n\t--no-recommend \\\n\t--root-volume-only \\\n\t--verbose\n";
+		};
 		CAFF452112329DBC00B4AB77 /* Run Doxygen */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -982,6 +1156,7 @@
 				CA877E15126B5A160067649A /* BetterAuthorizationSampleLib.c in Sources */,
 				CA877E16126B5A160067649A /* SampleCommon.c in Sources */,
 				CA877E17126B5A160067649A /* SampleTool.c in Sources */,
+				CA00CBA0126C83AE00231F63 /* LCSHelperInstallRotavaultJobCommand.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1118,6 +1293,8 @@
 				CA877C4F126B27520067649A /* NSNotificationCenter+DefaultCenterThreadLocal.m in Sources */,
 				CA877D32126B3D9D0067649A /* LCSAppleRAIDListCommandTest.m in Sources */,
 				CA877DDF126B467B0067649A /* LCSExternalCommand+MockableTask.m in Sources */,
+				CA00CBA1126C83AE00231F63 /* LCSHelperInstallRotavaultJobCommand.c in Sources */,
+				CAF42A84126CBC5B006D3C31 /* LCSHelperInstallRotavaultJobCommandTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1188,6 +1365,21 @@
 			target = CA9ED615122CD0BE005CBA5B /* rvcksum */;
 			targetProxy = CABAC86D123575F800DBEA0F /* PBXContainerItemProxy */;
 		};
+		CAEE8B1F126CE5D200B0BE92 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CA877E0F126B5A030067649A /* PrivilegedHelperTool */;
+			targetProxy = CAEE8B1E126CE5D200B0BE92 /* PBXContainerItemProxy */;
+		};
+		CAEE8B21126CE5D200B0BE92 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CA9488791211892500415257 /* rvcopyd */;
+			targetProxy = CAEE8B20126CE5D200B0BE92 /* PBXContainerItemProxy */;
+		};
+		CAEE8B4A126CEBBA00B0BE92 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CAEE8B12126CE53A00B0BE92 /* System Tools Installer */;
+			targetProxy = CAEE8B49126CEBBA00B0BE92 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -1196,6 +1388,7 @@
 			buildSettings = {
 				ARCHS = "$(ONLY_ACTIVE_ARCH_PRE_XCODE_3_1)";
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 80.0;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1205,6 +1398,7 @@
 				PREBINDING = NO;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
 				STRIP_INSTALLED_PRODUCT = NO;
+				VERSIONING_SYSTEM = "apple-generic";
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = Debug;
@@ -1214,12 +1408,14 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1)";
 				ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1 = "x86_64 i386 ppc";
+				CURRENT_PROJECT_VERSION = 80.0;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = src/rotavault/rotavault_Prefix.pch;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				PREBINDING = NO;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+				VERSIONING_SYSTEM = "apple-generic";
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = Release;
@@ -1229,6 +1425,7 @@
 			buildSettings = {
 				ARCHS = "$(ONLY_ACTIVE_ARCH_PRE_XCODE_3_1)";
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 80.0;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
@@ -1240,6 +1437,7 @@
 				PREBINDING = NO;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
 				STRIP_INSTALLED_PRODUCT = NO;
+				VERSIONING_SYSTEM = "apple-generic";
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = Coverage;
@@ -1277,8 +1475,8 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
-				INSTALL_PATH = /usr/local/bin;
-				PRODUCT_NAME = BASHelperTool;
+				INSTALL_PATH = /opt/local/rotavault/bin;
+				PRODUCT_NAME = ch.znerol.rotavault;
 			};
 			name = Debug;
 		};
@@ -1287,8 +1485,8 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
-				INSTALL_PATH = /usr/local/bin;
-				PRODUCT_NAME = BASHelperTool;
+				INSTALL_PATH = /opt/local/rotavault/bin;
+				PRODUCT_NAME = ch.znerol.rotavault;
 			};
 			name = Coverage;
 		};
@@ -1297,8 +1495,8 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
-				INSTALL_PATH = /usr/local/bin;
-				PRODUCT_NAME = BASHelperTool;
+				INSTALL_PATH = /opt/local/rotavault/bin;
+				PRODUCT_NAME = ch.znerol.rotavault;
 			};
 			name = Release;
 		};
@@ -1491,6 +1689,34 @@
 			};
 			name = Release;
 		};
+		CAEE8B13126CE53A00B0BE92 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "Rotavault System Tools.pkg";
+			};
+			name = Debug;
+		};
+		CAEE8B14126CE53A00B0BE92 /* Coverage */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "Rotavault System Tools.pkg";
+			};
+			name = Coverage;
+		};
+		CAEE8B15126CE53A00B0BE92 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = "Rotavault System Tools.pkg";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		CAFF452312329DBC00B4AB77 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1532,7 +1758,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CA877E51126B5A340067649A /* Build configuration list for PBXNativeTarget "BASHelperTool" */ = {
+		CA877E51126B5A340067649A /* Build configuration list for PBXNativeTarget "PrivilegedHelperTool" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CA877E12126B5A040067649A /* Debug */,
@@ -1588,6 +1814,16 @@
 				CAD47F3B1244C271002DED2B /* Debug */,
 				CAD47F3C1244C271002DED2B /* Coverage */,
 				CAD47F3D1244C271002DED2B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CAEE8B1A126CE55300B0BE92 /* Build configuration list for PBXAggregateTarget "System Tools Installer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CAEE8B13126CE53A00B0BE92 /* Debug */,
+				CAEE8B14126CE53A00B0BE92 /* Coverage */,
+				CAEE8B15126CE53A00B0BE92 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

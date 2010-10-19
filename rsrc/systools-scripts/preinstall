@@ -1,0 +1,4 @@
+#!/bin/sh
+test -e /Library/LaunchDaemons/ch.znerol.rotavault.plist && \
+    /bin/launchctl unload /Library/LaunchDaemons/ch.znerol.rotavault.plist
+exit 0
