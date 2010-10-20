@@ -9,6 +9,16 @@
 
 #include <unistd.h>
 #include "LCSHelperInstallRotavaultJobCommand.h"
+#include "BetterAuthorizationSampleLib.h"
+#include "SampleCommon.h"
+
+#if 1
+#include <CoreServices/CoreServices.h>
+#else
+#warning Do not ship this way!
+#include <CoreFoundation/CoreFoundation.h>
+#include "/System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Headers/MacErrors.h"
+#endif
 
 CFDictionaryRef LCSHelperCreateRotavaultJobDictionary(CFStringRef label, CFStringRef method, CFDateRef rundate,
                                                       CFStringRef source, CFStringRef target,
@@ -73,49 +83,97 @@ CFDictionaryRef LCSHelperCreateRotavaultJobDictionary(CFStringRef label, CFStrin
 
 OSStatus LCSPropertyListWriteToFD(int fd, CFPropertyListRef plist)
 {
+    OSStatus retval = noErr;
+    
     CFDataRef xmlData = CFPropertyListCreateXMLData(kCFAllocatorDefault, plist);
+    if (xmlData == NULL) {
+        retval = memFullErr;
+        goto returnErr;
+    }
+    
     CFIndex blength = CFDataGetLength(xmlData);
     UInt8 *data = malloc(blength);
+    if (data == NULL) {
+        retval = memFullErr;
+        goto releaseXMLAndReturnErr;
+    }
+    
     CFDataGetBytes(xmlData, CFRangeMake(0, blength), data);
-    write(fd, data, blength);
+    ssize_t bwritten = write(fd, data, blength);
+    if (bwritten == -1) {
+        retval = BASErrnoToOSStatus(errno);
+    }
+    else if (bwritten != blength) {
+        retval = writErr;
+    }
+    
     free(data);
+releaseXMLAndReturnErr:
     CFRelease(xmlData);
+returnErr:    
     return noErr;
 }
 
 OSStatus LCSHelperInstallRotavaultLaunchdJob(CFDictionaryRef job)
 {
+    OSStatus retval = noErr;
     const char template[] = "/tmp/launchctl-XXXXXXXX";
+    
     char *path = malloc(sizeof(template));
-    memcpy(path, template, sizeof(template));
+    if (path == NULL) {
+        retval = memFullErr;
+        goto returnErr;
+    }
+    
+    strlcpy(path, template, sizeof(template));
     int fd = mkstemp(path);
+    if (fd == -1) {
+        retval = BASErrnoToOSStatus(errno);
+        goto releasePathAndReturnErr;
+    }
     
-    LCSPropertyListWriteToFD(fd, job);
+    retval = LCSPropertyListWriteToFD(fd, job);
+    if (retval != noErr) {
+        goto closeTempfileAndReturnErr;
+    }
     
-    char *args[] = {args[0], "load", path, NULL};
+    char *args[] = {"/bin/launchctl", "load", path, NULL};
     
     pid_t pid = fork();
     
     if (pid == 0) {
-        // child
-        // close file descriptors other than stdio
+        /* close file descriptors other than stdio in child process */
         for (int i = 3; i < getdtablesize(); i++) {
             close(i);
         }
         
-        int status = execv("/bin/launchctl", args);
+        /* execute launchctl */
+        execv(args[0], args);
+        asl_log(NULL, NULL, ASL_LEVEL_ERR, "Failed to execute launchctl: %m");
         
-        // only reached when execve fails
-        assert(status == 0);
+        /* only reached when execve fails */
+        _exit(1);
     }
     
     assert(pid > 0);
     int status;
     waitpid(pid, &status, 0);
+    if (WIFEXITED(status) && WEXITSTATUS(status) == 0) {
+        retval = noErr;
+    }
+    else {
+        asl_log(NULL, NULL, ASL_LEVEL_INFO, "Launchctl returned non-zero exit status");
+        retval = kLCSHelperChildProcessRetunedNonZeroStatus;
+    }
     
+closeTempfileAndReturnErr:
     close(fd);
     unlink(path);
-    return noErr;
+    
+releasePathAndReturnErr:
+    free(path);
+returnErr:    
+    return retval;
 }
 
 OSStatus LCSHelperInstallRotavaultJobCommand(CFStringRef label, CFStringRef method, CFDateRef rundate, 

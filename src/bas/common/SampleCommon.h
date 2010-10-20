@@ -75,6 +75,9 @@
 #define kLCSHelperInfoForRotavaultJobLabelParameter "Label" /* CFString */
 #define kLCSHelperInfoForRotavaultJobResultPlistKey "ResultPlist" /* CFDictionary */
 
+// Application specific OSStatus codes
+#define kLCSHelperChildProcessRetunedNonZeroStatus 1000
+
 extern const BASCommandSpec kLCSHelperCommandSet[];
 
 #endif
