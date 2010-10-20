@@ -267,6 +267,9 @@
 		CAF1CF5F126E276700E40D5D /* LCSHelperInfoForRotavaultJobCommand.c in Sources */ = {isa = PBXBuildFile; fileRef = CAF1CF5E126E276700E40D5D /* LCSHelperInfoForRotavaultJobCommand.c */; };
 		CAF42A84126CBC5B006D3C31 /* LCSHelperInstallRotavaultJobCommandTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF42A83126CBC5B006D3C31 /* LCSHelperInstallRotavaultJobCommandTest.m */; };
 		CAF76891126ED1E7005A9C84 /* LCSHelperRemoveRotavaultJobCommand.c in Sources */ = {isa = PBXBuildFile; fileRef = CAF76890126ED1E7005A9C84 /* LCSHelperRemoveRotavaultJobCommand.c */; };
+		CAFF3ED1126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CAFF3ED0126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.m */; };
+		CAFF3ED2126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CAFF3ED0126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.m */; };
+		CAFF3ED3126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CAFF3ED0126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -576,6 +579,8 @@
 		CAF42A83126CBC5B006D3C31 /* LCSHelperInstallRotavaultJobCommandTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSHelperInstallRotavaultJobCommandTest.m; sourceTree = "<group>"; };
 		CAF7688F126ED1E7005A9C84 /* LCSHelperRemoveRotavaultJobCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSHelperRemoveRotavaultJobCommand.h; sourceTree = "<group>"; };
 		CAF76890126ED1E7005A9C84 /* LCSHelperRemoveRotavaultJobCommand.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LCSHelperRemoveRotavaultJobCommand.c; sourceTree = "<group>"; };
+		CAFF3ECF126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSRotavaultAppleRAIDCopyCommand.h; sourceTree = "<group>"; };
+		CAFF3ED0126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSRotavaultAppleRAIDCopyCommand.m; sourceTree = "<group>"; };
 		CAFF453312329FDD00B4AB77 /* doxygen.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = doxygen.conf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -860,6 +865,8 @@
 		CA48204C1264D62700C2879B /* rotavault */ = {
 			isa = PBXGroup;
 			children = (
+				CAFF3ECF126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.h */,
+				CAFF3ED0126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.m */,
 				CA48204D1264D62700C2879B /* LCSRotavaultBlockCopyCommand.h */,
 				CA48204E1264D62700C2879B /* LCSRotavaultBlockCopyCommand.m */,
 				CA48204F1264D62700C2879B /* LCSRotavaultError.h */,
@@ -1265,6 +1272,7 @@
 				CA1924481265F7DA00E05A63 /* LCSAppleRAIDAddMemberCommand.m in Sources */,
 				CA1924991266036200E05A63 /* LCSAppleRAIDRemoveMemberCommand.m in Sources */,
 				CAB8276812660B4C00F158DB /* LCSAppleRAIDMonitorRebuildCommand.m in Sources */,
+				CAFF3ED3126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1368,6 +1376,7 @@
 				CAF1CE9E126E1CF800E40D5D /* LCSRotavaultPrivilegedJobInstallCommand.m in Sources */,
 				CAF1CEA2126E1DB400E40D5D /* LCSRotavaultPrivilegedJobRemoveCommand.m in Sources */,
 				CA0B5272126F3A2000973D2D /* LCSRotavaultCreateJobDictionary.c in Sources */,
+				CAFF3ED2126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1412,6 +1421,7 @@
 				CAF1CF52126E26BD00E40D5D /* BetterAuthorizationSampleLib.c in Sources */,
 				CAF1CF53126E26BD00E40D5D /* SampleCommon.c in Sources */,
 				CA0B5271126F3A2000973D2D /* LCSRotavaultCreateJobDictionary.c in Sources */,
+				CAFF3ED1126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

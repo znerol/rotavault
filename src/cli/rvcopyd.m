@@ -2,6 +2,7 @@
 #import <Foundation/Foundation.h>
 #import "LCSCmdlineCommandRunner.h"
 #import "LCSRotavaultBlockCopyCommand.h"
+#import "LCSRotavaultAppleRAIDCopyCommand.h"
 
 int main (int argc, const char * argv[]) {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
@@ -25,22 +26,38 @@ int main (int argc, const char * argv[]) {
 
     /* FIXME: check / create pid file */
     // NSString *pidfile = [args stringForKey:@"pidfile"];
-
-    /* alloc and run operation queue */
-    LCSCmdlineCommandRunner *runner = [[LCSCmdlineCommandRunner alloc] initWithCommand:
-        [LCSRotavaultBlockCopyCommand commandWithSourceDevice:[args stringForKey:@"sourcedev"]
-                                               sourceChecksum:[args stringForKey:@"sourcecheck"]
-                                                 targetDevice:[args stringForKey:@"targetdev"]
-                                               targetChecksum:[args stringForKey:@"targetcheck"]]];
     
-    NSError *error = [runner run];
-    
-    int status = 0;
-    if (error) {
-        status = 1;
+    NSString* method = [args objectForKey:@"method"];
+    id <LCSCommand> copyCommand = nil;
+    if ([@"asr" isEqualToString:method]) {
+        copyCommand = [LCSRotavaultBlockCopyCommand commandWithSourceDevice:[args stringForKey:@"sourcedev"]
+                                                             sourceChecksum:[args stringForKey:@"sourcecheck"]
+                                                               targetDevice:[args stringForKey:@"targetdev"]
+                                                             targetChecksum:[args stringForKey:@"targetcheck"]];
+    }
+    else if ([@"appleraid" isEqualToString:method]) {
+        copyCommand = [LCSRotavaultAppleRAIDCopyCommand commandWithSourceDevice:[args stringForKey:@"sourcedev"]
+                                                                 sourceChecksum:[args stringForKey:@"sourcecheck"]
+                                                                   targetDevice:[args stringForKey:@"targetdev"]
+                                                                 targetChecksum:[args stringForKey:@"targetcheck"]];
     }
     
-    [runner release];
+    int status = 0;
+    if (copyCommand) {
+        /* alloc and run operation queue */
+        LCSCmdlineCommandRunner *runner = [[LCSCmdlineCommandRunner alloc] initWithCommand:copyCommand];
+        
+        NSError *error = [runner run];
+        
+        if (error) {
+            status = 1;
+        }
+        
+        [runner release];
+    }
+    else {
+        status = 2;
+    }
     
     [pool drain];
     return status;
