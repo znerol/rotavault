@@ -20,40 +20,6 @@
 
 
 @implementation OCMockObjectNSTaskTest
--(void)testMockWithTerminationStatus
-{
-    id mockTask = [OCMockObject mockTaskWithTerminationStatus:42];
-    [mockTask launch];
-    
-    GHAssertEquals([mockTask terminationStatus], 42, @"Unexpected termination status");
-    [mockTask verify];
-}
-
--(void)testMockWithTerminationStatusWithOutputData
-{
-    NSData *stdoutData = [@"Standard Output Test" dataUsingEncoding:NSUTF8StringEncoding];
-    NSData *stderrData = [NSData data];
-    NSPipe *stdoutPipe = [NSPipe pipe];
-    NSPipe *stderrPipe = [NSPipe pipe];
-    
-    id mockTask = [OCMockObject mockTaskWithTerminationStatus:0 
-                                                   stdoutData:stdoutData
-                                                   stdoutPipe:stdoutPipe
-                                                   stderrData:stderrData
-                                                   stderrPipe:stderrPipe];
-    
-    [mockTask launch];
-    
-    GHAssertEqualObjects([[stdoutPipe fileHandleForReading] readDataToEndOfFile],
-                         [@"Standard Output Test" dataUsingEncoding:NSUTF8StringEncoding],
-                         @"Unexpected Output received");
-    GHAssertEqualObjects([[stderrPipe fileHandleForReading] readDataToEndOfFile], [NSData data],
-                         @"Unexpected Output received");
-    
-    GHAssertEquals([mockTask terminationStatus], 0, @"Unexpected termination status");
-    [mockTask verify];
-}
-
 -(void)testMockedTaskObjectWithTerminationStatusWithOutputData
 {
     NSData *stdoutData = [@"Standard Output Test" dataUsingEncoding:NSUTF8StringEncoding];

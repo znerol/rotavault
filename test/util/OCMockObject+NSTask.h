@@ -11,12 +11,6 @@
 
 
 @interface OCMockObject (NSTask)
-+(id)mockTaskWithTerminationStatus:(int)terminationStatus;
-+(id)mockTaskWithTerminationStatus:(int)terminationStatus
-                        stdoutData:(NSData*)stdoutData
-                        stdoutPipe:(NSPipe*)stdoutPipe
-                        stderrData:(NSData*)stderrData
-                        stderrPipe:(NSPipe*)stderrPipe;
 +(id)mockTask:(NSTask*)task withTerminationStatus:(int)terminationStatus stdoutData:(NSData*)stdoutData
    stderrData:(NSData*)stderrData;
 @end

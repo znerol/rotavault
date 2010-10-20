@@ -9,58 +9,6 @@
 #import "OCMockObject+NSTask.h"
 #import "LCSInitMacros.h"
 
-@interface LCSTaskMockPipeHelper : NSObject {
-    NSData* data;
-    NSPipe* pipe;
-}
-
-+(LCSTaskMockPipeHelper*)helperWithData:(NSData*)pipeData pipe:(NSPipe*)pipeObject;
--(id)initWithData:(NSData*)pipeData pipe:(NSPipe*)pipeObject;
--(void)writeDataAndClose;
-
-@property(retain) NSData* data;
-@property(retain) NSPipe* pipe;
-@end
-
-@implementation LCSTaskMockPipeHelper
-+(LCSTaskMockPipeHelper*)helperWithData:(NSData*)pipeData pipe:(NSPipe*)pipeObject
-{
-    return [[[LCSTaskMockPipeHelper alloc] initWithData:pipeData pipe:pipeObject] autorelease];
-}
-
--(id)initWithData:(NSData*)pipeData pipe:(NSPipe*)pipeObject
-{
-    LCSINIT_SUPER_OR_RETURN_NIL();
-    
-    data = [pipeData retain];
-    LCSINIT_RELEASE_AND_RETURN_IF_NIL(data);
-    
-    pipe = [pipeObject retain];
-    LCSINIT_RELEASE_AND_RETURN_IF_NIL(pipe);
-    
-    return self;    
-}
-
--(void)dealloc
-{
-    [data release];
-    [pipe release];
-    [super dealloc];
-}
-
--(void)writeDataAndClose
-{
-    NSAssert(pipe != nil, @"Pipe must be set before writeData is called");
-    
-    [[pipe fileHandleForWriting] writeData:data];
-    [[pipe fileHandleForWriting] closeFile];
-}
-
-@synthesize data;
-@synthesize pipe;
-@end
-
-
 @interface LCSTaskMockStdioHelper : NSObject {
     NSTask *task;
     NSData *stdoutData;
@@ -118,37 +66,6 @@
 
 
 @implementation OCMockObject (NSTask)
-+(id)mockTaskWithTerminationStatus:(int)terminationStatus
-{
-    id mock = [OCMockObject mockForClass:[NSTask class]];
-    [[[mock expect] andPost:[NSNotification notificationWithName:NSTaskDidTerminateNotification object:mock]] launch];
-    
-    [[[mock stub] andReturnValue:[NSValue valueWithBytes:&terminationStatus objCType:@encode(int)]] terminationStatus];
-     
-    return mock;
-}
-
-+(id)mockTaskWithTerminationStatus:(int)terminationStatus
-                        stdoutData:(NSData*)stdoutData
-                        stdoutPipe:(NSPipe*)stdoutPipe
-                        stderrData:(NSData*)stderrData
-                        stderrPipe:(NSPipe*)stderrPipe
-{
-    id mock = [OCMockObject mockForClass:[NSTask class]];
-    LCSTaskMockPipeHelper *stdoutHelper = [LCSTaskMockPipeHelper helperWithData:stdoutData pipe:stdoutPipe];
-    LCSTaskMockPipeHelper *stderrHelper = [LCSTaskMockPipeHelper helperWithData:stderrData pipe:stderrPipe];
-    
-    id record = [mock expect];
-    record = [record andPost:[NSNotification notificationWithName:NSTaskDidTerminateNotification object:mock]];
-    record = [record andCall:@selector(writeDataAndClose) onObject:stdoutHelper];
-    record = [record andCall:@selector(writeDataAndClose) onObject:stderrHelper];
-    [record launch];
-    
-    [[[mock stub] andReturnValue:[NSValue valueWithBytes:&terminationStatus objCType:@encode(int)]] terminationStatus];
-     
-    return mock;
-}
-
 +(id)mockTask:(NSTask*)task withTerminationStatus:(int)terminationStatus stdoutData:(NSData*)stdoutData
    stderrData:(NSData*)stderrData
 {
