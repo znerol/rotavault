@@ -14,13 +14,13 @@ CFDictionaryRef LCSHelperCreateRotavaultJobDictionary(CFStringRef label, CFStrin
                                                       CFStringRef source, CFStringRef target,
                                                       CFStringRef sourceChecksum, CFStringRef targetChecksum)
 {
-    CFMutableDictionaryRef plist = CFDictionaryCreateMutable(CFAllocatorGetDefault(), 4,
+    CFMutableDictionaryRef plist = CFDictionaryCreateMutable(kCFAllocatorDefault, 4,
                                                              &kCFTypeDictionaryKeyCallBacks,
                                                              &kCFTypeDictionaryValueCallBacks);
     CFDictionaryAddValue(plist, CFSTR("Label"), label);
     CFDictionaryAddValue(plist, CFSTR("LaunchOnlyOnce"), kCFBooleanTrue);
 
-    CFMutableArrayRef args = CFArrayCreateMutable(CFAllocatorGetDefault(), 13, &kCFTypeArrayCallBacks);
+    CFMutableArrayRef args = CFArrayCreateMutable(kCFAllocatorDefault, 13, &kCFTypeArrayCallBacks);
     CFArrayAppendValue(args, CFSTR("/usr/local/bin/rvcopyd"));
     CFArrayAppendValue(args, CFSTR("-label"));
     CFArrayAppendValue(args, label);
@@ -41,21 +41,21 @@ CFDictionaryRef LCSHelperCreateRotavaultJobDictionary(CFStringRef label, CFStrin
     if (rundate) {
         CFTimeZoneRef systz = CFTimeZoneCopySystem();
         CFGregorianDate gdate = CFAbsoluteTimeGetGregorianDate(CFDateGetAbsoluteTime(rundate), systz);
-        CFMutableDictionaryRef caldate = CFDictionaryCreateMutable(CFAllocatorGetDefault(), 4,
+        CFMutableDictionaryRef caldate = CFDictionaryCreateMutable(kCFAllocatorDefault, 4,
                                                                    &kCFTypeDictionaryKeyCallBacks,
                                                                    &kCFTypeDictionaryValueCallBacks);
         
         CFNumberRef value = NULL;
-        value = CFNumberCreate(CFAllocatorGetDefault(), kCFNumberSInt8Type, &gdate.minute);
+        value = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt8Type, &gdate.minute);
         CFDictionarySetValue(caldate, CFSTR("Minute"), value);
         CFRelease(value);
-        value = CFNumberCreate(CFAllocatorGetDefault(), kCFNumberSInt8Type, &gdate.hour);
+        value = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt8Type, &gdate.hour);
         CFDictionarySetValue(caldate, CFSTR("Hour"), value);
         CFRelease(value);
-        value = CFNumberCreate(CFAllocatorGetDefault(), kCFNumberSInt8Type, &gdate.day);
+        value = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt8Type, &gdate.day);
         CFDictionarySetValue(caldate, CFSTR("Day"), value);
         CFRelease(value);
-        value = CFNumberCreate(CFAllocatorGetDefault(), kCFNumberSInt8Type, &gdate.month);
+        value = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt8Type, &gdate.month);
         CFDictionarySetValue(caldate, CFSTR("Month"), value);
         CFRelease(value);        
 
@@ -73,7 +73,7 @@ CFDictionaryRef LCSHelperCreateRotavaultJobDictionary(CFStringRef label, CFStrin
 
 OSStatus LCSPropertyListWriteToFD(int fd, CFPropertyListRef plist)
 {
-    CFDataRef xmlData = CFPropertyListCreateXMLData(CFAllocatorGetDefault(), plist);
+    CFDataRef xmlData = CFPropertyListCreateXMLData(kCFAllocatorDefault, plist);
     CFIndex blength = CFDataGetLength(xmlData);
     UInt8 *data = malloc(blength);
     CFDataGetBytes(xmlData, CFRangeMake(0, blength), data);
