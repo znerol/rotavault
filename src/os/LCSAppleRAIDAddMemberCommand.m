@@ -19,6 +19,11 @@
 
 
 @implementation LCSAppleRAIDAddMemberCommand
++ (LCSAppleRAIDAddMemberCommand*) commandWithRaidUUID:(NSString*)raidUUID devicePath:(NSString*)devicePath
+{
+    return [[[LCSAppleRAIDAddMemberCommand alloc] initWithRaidUUID:raidUUID devicePath:devicePath] autorelease];
+}
+
 - (id)initWithRaidUUID:(NSString*)raidUUID devicePath:(NSString*)devicePath
 {
     LCSINIT_SUPER_OR_RETURN_NIL();

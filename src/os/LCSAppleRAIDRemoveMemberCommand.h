@@ -13,4 +13,6 @@
 @interface LCSAppleRAIDRemoveMemberCommand : LCSExternalCommand {
     NSPipe *stdoutPipe;
 }
++ (LCSAppleRAIDRemoveMemberCommand*)commandWithRaidUUID:(NSString*)raidUUID devicePath:(NSString*)devicePath;
+- (id)initWithRaidUUID:(NSString*)raidUUID devicePath:(NSString*)devicePath;
 @end

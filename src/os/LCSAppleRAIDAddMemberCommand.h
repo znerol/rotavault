@@ -13,4 +13,6 @@
 @interface LCSAppleRAIDAddMemberCommand : LCSExternalCommand {
     NSPipe *stdoutPipe;
 }
++ (LCSAppleRAIDAddMemberCommand*) commandWithRaidUUID:(NSString*)raidUUID devicePath:(NSString*)devicePath;
+- (id)initWithRaidUUID:(NSString*)raidUUID devicePath:(NSString*)devicePath;
 @end
