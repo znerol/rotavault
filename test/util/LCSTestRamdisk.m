@@ -34,7 +34,7 @@
     LCSINIT_RELEASE_AND_RETURN_IF_NIL([mkrd terminationStatus] == 0);
     devnode = [[[NSString alloc] initWithData:[[mkrdout fileHandleForReading] readDataToEndOfFile]
                                                encoding:NSUTF8StringEncoding] autorelease];
-    devnode = [devnode stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    devnode = [[devnode stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] retain];
     LCSINIT_RELEASE_AND_RETURN_IF_NIL([devnode hasPrefix:@"/dev/disk"]);
     
     /* create filesystem */

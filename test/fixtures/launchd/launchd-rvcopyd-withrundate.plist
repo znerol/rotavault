@@ -19,7 +19,7 @@
 	</dict>
 	<key>ProgramArguments</key>
 	<array>
-		<string>/opt/local/rotavault/bin/rvcopyd</string>
+		<string>/usr/local/bin/rvcopyd</string>
 		<string>-label</string>
 		<string>test</string>
 		<string>-method</string>

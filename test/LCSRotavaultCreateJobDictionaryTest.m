@@ -7,15 +7,15 @@
 //
 
 #import <GHUnit/GHUnit.h>
-#import "LCSHelperInstallRotavaultJobCommand.h"
+#import "LCSRotavaultCreateJobDictionary.h"
 
-@interface LCSHelperInstallRotavaultJobCommandTest : GHTestCase
+@interface LCSRotavaultCreateJobDictionaryTest : GHTestCase
 @end
 
-@implementation LCSHelperInstallRotavaultJobCommandTest
--(void)testHelperCreateRotavaultJobDictionaryWithoutSchedule
+@implementation LCSRotavaultCreateJobDictionaryTest
+-(void)testRotavaultCreateRotavaultJobDictionaryWithoutSchedule
 {
-    NSDictionary *result = (NSDictionary*)LCSHelperCreateRotavaultJobDictionary(CFSTR("test"), CFSTR("asr"), (CFDateRef)[NSNull null],
+    NSDictionary *result = (NSDictionary*)LCSRotavaultCreateJobDictionary(CFSTR("test"), CFSTR("asr"), nil,
                                                                                 CFSTR("/dev/disk0s1"), CFSTR("/dev/disk1s1"),
                                                                                 CFSTR("uuid:F0117216-C262-41AC-BF4E-8D189E77FB93"),
                                                                                 CFSTR("sha1:e5fa44f2b31c1fb553b6021e7360d07d5d91ff5e"));
@@ -27,14 +27,14 @@
     GHAssertEqualObjects(result, expect, @"Unexpected output");
 }
 
--(void)testHelperCreateRotavaultJobDictionaryWithDate
+-(void)testRotavaultCreateRotavaultJobDictionaryWithDate
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
     
     NSDate *date = [dateFormatter dateFromString:@"2010-07-05 03:01"];
     [dateFormatter release];
-    NSDictionary *result = (NSDictionary*)LCSHelperCreateRotavaultJobDictionary(CFSTR("test"), CFSTR("asr"), (CFDateRef)date,
+    NSDictionary *result = (NSDictionary*)LCSRotavaultCreateJobDictionary(CFSTR("test"), CFSTR("asr"), (CFDateRef)date,
                                                                                 CFSTR("/dev/disk0s1"), CFSTR("/dev/disk1s1"),
                                                                                 CFSTR("uuid:F0117216-C262-41AC-BF4E-8D189E77FB93"),
                                                                                 CFSTR("sha1:e5fa44f2b31c1fb553b6021e7360d07d5d91ff5e"));
