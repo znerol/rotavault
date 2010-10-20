@@ -173,7 +173,6 @@
 		CA4823251264D76D00C2879B /* LCSExternalCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820271264D62700C2879B /* LCSExternalCommand.m */; };
 		CA4823261264D76D00C2879B /* LCSLaunchctlListCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820431264D62700C2879B /* LCSLaunchctlListCommand.m */; };
 		CA4823271264D76D00C2879B /* LCSAsrRestoreCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820351264D62700C2879B /* LCSAsrRestoreCommand.m */; };
-		CA4823281264D76D00C2879B /* LCSCmdlineCommandRunner.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48201B1264D62700C2879B /* LCSCmdlineCommandRunner.m */; };
 		CA4823291264D76D00C2879B /* NSScanner+AppleRAID.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48204B1264D62700C2879B /* NSScanner+AppleRAID.m */; };
 		CA48232A1264D76D00C2879B /* LCSDiskImageAttachCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820371264D62700C2879B /* LCSDiskImageAttachCommand.m */; };
 		CA58FA0B12552AB300BA2694 /* LCSPropertyListSHA1HashTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAE82D35122C311F00715BCF /* LCSPropertyListSHA1HashTest.m */; };
@@ -183,7 +182,6 @@
 		CA7461EC1244E07100CDE8C3 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CABAC5551235464300DBEA0F /* AppKit.framework */; };
 		CA7461ED1244E07100CDE8C3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
 		CA814CDE126F5BEA0070E3E6 /* SampleCommon.c in Sources */ = {isa = PBXBuildFile; fileRef = CAF1CF4B126E26A800E40D5D /* SampleCommon.c */; };
-		CA814CF8126F5C050070E3E6 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAE26A601260A67700B19EC1 /* Security.framework */; };
 		CA877C4F126B27520067649A /* NSNotificationCenter+DefaultCenterThreadLocal.m in Sources */ = {isa = PBXBuildFile; fileRef = CA877C4E126B27520067649A /* NSNotificationCenter+DefaultCenterThreadLocal.m */; };
 		CA877D32126B3D9D0067649A /* LCSAppleRAIDListCommandTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA877D31126B3D9D0067649A /* LCSAppleRAIDListCommandTest.m */; };
 		CA877DB4126B43A00067649A /* LCSRotavaultScheduleInstallCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820521264D62700C2879B /* LCSRotavaultScheduleInstallCommand.m */; };
@@ -225,6 +223,9 @@
 		CADF06BB1264ACDC00A1EB39 /* NSScanner+AppleRAIDTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CADF06BA1264ACDC00A1EB39 /* NSScanner+AppleRAIDTest.m */; };
 		CAE26A611260A67700B19EC1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAE26A601260A67700B19EC1 /* Security.framework */; };
 		CAE26A631260A67700B19EC1 /* SecurityInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAE26A621260A67700B19EC1 /* SecurityInterface.framework */; };
+		CAE3BEDE126F753F00982D14 /* LCSDistributedCommandStatePublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = CAE3BEDD126F753F00982D14 /* LCSDistributedCommandStatePublisher.m */; };
+		CAE3BEF6126F7DFC00982D14 /* LCSDistributedCommandStateWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = CAE3BEF5126F7DFC00982D14 /* LCSDistributedCommandStateWatcher.m */; };
+		CAE3BEF7126F7DFC00982D14 /* LCSDistributedCommandStateWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = CAE3BEF5126F7DFC00982D14 /* LCSDistributedCommandStateWatcher.m */; };
 		CAE42F011266C98A00BD9FD3 /* LCSAppleRAIDMonitorRebuildCommandTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAE42F001266C98A00BD9FD3 /* LCSAppleRAIDMonitorRebuildCommandTest.m */; };
 		CAE4CA75126466E600498A37 /* disk3.plist in Resources */ = {isa = PBXBuildFile; fileRef = CAE4CA67126466E600498A37 /* disk3.plist */; };
 		CAE4CA76126466E600498A37 /* disk3s1.plist in Resources */ = {isa = PBXBuildFile; fileRef = CAE4CA68126466E600498A37 /* disk3s1.plist */; };
@@ -531,6 +532,10 @@
 		CADF06BA1264ACDC00A1EB39 /* NSScanner+AppleRAIDTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSScanner+AppleRAIDTest.m"; sourceTree = "<group>"; };
 		CAE26A601260A67700B19EC1 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		CAE26A621260A67700B19EC1 /* SecurityInterface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SecurityInterface.framework; path = System/Library/Frameworks/SecurityInterface.framework; sourceTree = SDKROOT; };
+		CAE3BEDC126F753F00982D14 /* LCSDistributedCommandStatePublisher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSDistributedCommandStatePublisher.h; sourceTree = "<group>"; };
+		CAE3BEDD126F753F00982D14 /* LCSDistributedCommandStatePublisher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSDistributedCommandStatePublisher.m; sourceTree = "<group>"; };
+		CAE3BEF4126F7DFC00982D14 /* LCSDistributedCommandStateWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSDistributedCommandStateWatcher.h; sourceTree = "<group>"; };
+		CAE3BEF5126F7DFC00982D14 /* LCSDistributedCommandStateWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSDistributedCommandStateWatcher.m; sourceTree = "<group>"; };
 		CAE42F001266C98A00BD9FD3 /* LCSAppleRAIDMonitorRebuildCommandTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSAppleRAIDMonitorRebuildCommandTest.m; sourceTree = "<group>"; };
 		CAE4CA67126466E600498A37 /* disk3.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = disk3.plist; sourceTree = "<group>"; };
 		CAE4CA68126466E600498A37 /* disk3s1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = disk3s1.plist; sourceTree = "<group>"; };
@@ -558,7 +563,7 @@
 		CAEE8B84126CEF1900B0BE92 /* ch.znerol.rotavault.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = ch.znerol.rotavault.plist; path = ../../../Desktop/ch.znerol.rotavault.plist; sourceTree = SOURCE_ROOT; };
 		CAEE8B97126CF38C00B0BE92 /* preinstall */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = preinstall; sourceTree = "<group>"; };
 		CAEE8B98126CF38C00B0BE92 /* postinstall */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = postinstall; sourceTree = "<group>"; };
-		CAEE8BC7126D00A400B0BE92 /* Rotavault System Tools.pkg */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.installer-pkg"; path = "Rotavault System Tools.pkg"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CAEE8BC7126D00A400B0BE92 /* Rotavault System Tools.pkg */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rotavault System Tools.pkg"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAF1CE9B126E1CF800E40D5D /* LCSRotavaultPrivilegedJobInstallCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSRotavaultPrivilegedJobInstallCommand.h; sourceTree = "<group>"; };
 		CAF1CE9C126E1CF800E40D5D /* LCSRotavaultPrivilegedJobInstallCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSRotavaultPrivilegedJobInstallCommand.m; sourceTree = "<group>"; };
 		CAF1CE9F126E1DB400E40D5D /* LCSRotavaultPrivilegedJobRemoveCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSRotavaultPrivilegedJobRemoveCommand.h; sourceTree = "<group>"; };
@@ -622,7 +627,6 @@
 				CABAC60C1235467800DBEA0F /* Foundation.framework in Frameworks */,
 				CABAC60D1235467800DBEA0F /* CoreServices.framework in Frameworks */,
 				CA877E53126B5A360067649A /* CoreFoundation.framework in Frameworks */,
-				CA814CF8126F5C050070E3E6 /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -777,6 +781,8 @@
 			children = (
 				CA48201A1264D62700C2879B /* LCSCmdlineCommandRunner.h */,
 				CA48201B1264D62700C2879B /* LCSCmdlineCommandRunner.m */,
+				CAE3BEDC126F753F00982D14 /* LCSDistributedCommandStatePublisher.h */,
+				CAE3BEDD126F753F00982D14 /* LCSDistributedCommandStatePublisher.m */,
 				CA48205A1264D62700C2879B /* LCSSignalHandler.h */,
 				CA48205B1264D62700C2879B /* LCSSignalHandler.m */,
 				CA48230E1264D74400C2879B /* rvcksum.m */,
@@ -796,6 +802,8 @@
 				CA4820211264D62700C2879B /* LCSCommandControllerCollection.h */,
 				CA4820221264D62700C2879B /* LCSCommandControllerCollection.m */,
 				CA4820251264D62700C2879B /* LCSCommandRunner.h */,
+				CAE3BEF4126F7DFC00982D14 /* LCSDistributedCommandStateWatcher.h */,
+				CAE3BEF5126F7DFC00982D14 /* LCSDistributedCommandStateWatcher.m */,
 				CA4820261264D62700C2879B /* LCSExternalCommand.h */,
 				CA4820271264D62700C2879B /* LCSExternalCommand.m */,
 				CA4820281264D62700C2879B /* LCSPlistExternalCommand.h */,
@@ -1194,9 +1202,7 @@
 			files = (
 			);
 			inputPaths = (
-				"$(CONFIGURATION_BUILD_DIR)/systools.pmdoc/*",
-				"$(CONFIGURATION_BUILD_DIR)/systools-pkgroot/*",
-				"$(CONFIGURATION_BUILD_DIR)/systools-scripts/*",
+				"$(CONFIGURATION_BUILD_DIR)/rvcopyd",
 			);
 			outputPaths = (
 				"$(CONFIGURATION_BUILD_DIR)/$(PRODUCT_NAME)",
@@ -1272,6 +1278,7 @@
 				CA1924991266036200E05A63 /* LCSAppleRAIDRemoveMemberCommand.m in Sources */,
 				CAB8276812660B4C00F158DB /* LCSAppleRAIDMonitorRebuildCommand.m in Sources */,
 				CAFF3ED3126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.m in Sources */,
+				CAE3BEDE126F753F00982D14 /* LCSDistributedCommandStatePublisher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1300,7 +1307,6 @@
 				CA4823251264D76D00C2879B /* LCSExternalCommand.m in Sources */,
 				CA4823261264D76D00C2879B /* LCSLaunchctlListCommand.m in Sources */,
 				CA4823271264D76D00C2879B /* LCSAsrRestoreCommand.m in Sources */,
-				CA4823281264D76D00C2879B /* LCSCmdlineCommandRunner.m in Sources */,
 				CA48230F1264D74400C2879B /* rvcksum.m in Sources */,
 				CA4823291264D76D00C2879B /* NSScanner+AppleRAID.m in Sources */,
 				CA48232A1264D76D00C2879B /* LCSDiskImageAttachCommand.m in Sources */,
@@ -1373,6 +1379,7 @@
 				CAF42A84126CBC5B006D3C31 /* LCSRotavaultCreateJobDictionaryTest.m in Sources */,
 				CA0B5272126F3A2000973D2D /* LCSRotavaultCreateJobDictionary.c in Sources */,
 				CA814CDE126F5BEA0070E3E6 /* SampleCommon.c in Sources */,
+				CAE3BEF7126F7DFC00982D14 /* LCSDistributedCommandStateWatcher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1418,6 +1425,7 @@
 				CAF1CF53126E26BD00E40D5D /* SampleCommon.c in Sources */,
 				CA0B5271126F3A2000973D2D /* LCSRotavaultCreateJobDictionary.c in Sources */,
 				CAFF3ED1126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.m in Sources */,
+				CAE3BEF6126F7DFC00982D14 /* LCSDistributedCommandStateWatcher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
