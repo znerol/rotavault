@@ -27,10 +27,19 @@ CFDictionaryRef LCSHelperCreateRotavaultJobDictionary(CFStringRef label, CFStrin
     CFMutableDictionaryRef plist = CFDictionaryCreateMutable(kCFAllocatorDefault, 4,
                                                              &kCFTypeDictionaryKeyCallBacks,
                                                              &kCFTypeDictionaryValueCallBacks);
+    if (plist == NULL) {
+        return NULL;
+    }
+    
     CFDictionaryAddValue(plist, CFSTR("Label"), label);
     CFDictionaryAddValue(plist, CFSTR("LaunchOnlyOnce"), kCFBooleanTrue);
 
     CFMutableArrayRef args = CFArrayCreateMutable(kCFAllocatorDefault, 13, &kCFTypeArrayCallBacks);
+    if (args == NULL) {
+        CFRelease(plist);
+        return NULL;
+    }
+    
     CFArrayAppendValue(args, CFSTR("/usr/local/bin/rvcopyd"));
     CFArrayAppendValue(args, CFSTR("-label"));
     CFArrayAppendValue(args, label);
@@ -50,22 +59,54 @@ CFDictionaryRef LCSHelperCreateRotavaultJobDictionary(CFStringRef label, CFStrin
     
     if (rundate) {
         CFTimeZoneRef systz = CFTimeZoneCopySystem();
+        if (systz == NULL) {
+            CFRelease(plist);
+            return NULL;
+        }
+        
         CFGregorianDate gdate = CFAbsoluteTimeGetGregorianDate(CFDateGetAbsoluteTime(rundate), systz);
         CFMutableDictionaryRef caldate = CFDictionaryCreateMutable(kCFAllocatorDefault, 4,
                                                                    &kCFTypeDictionaryKeyCallBacks,
                                                                    &kCFTypeDictionaryValueCallBacks);
+        if (caldate == NULL) {
+            CFRelease(plist);
+            return NULL;
+        }
         
         CFNumberRef value = NULL;
         value = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt8Type, &gdate.minute);
+        if (value == NULL) {
+            CFRelease(caldate);
+            CFRelease(plist);
+            return NULL;
+        }
         CFDictionarySetValue(caldate, CFSTR("Minute"), value);
         CFRelease(value);
+        
         value = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt8Type, &gdate.hour);
+        if (value == NULL) {
+            CFRelease(caldate);
+            CFRelease(plist);
+            return NULL;
+        }
         CFDictionarySetValue(caldate, CFSTR("Hour"), value);
         CFRelease(value);
+        
         value = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt8Type, &gdate.day);
+        if (value == NULL) {
+            CFRelease(caldate);
+            CFRelease(plist);
+            return NULL;
+        }
         CFDictionarySetValue(caldate, CFSTR("Day"), value);
         CFRelease(value);
+        
         value = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt8Type, &gdate.month);
+        if (value == NULL) {
+            CFRelease(caldate);
+            CFRelease(plist);
+            return NULL;
+        }
         CFDictionarySetValue(caldate, CFSTR("Month"), value);
         CFRelease(value);        
 
@@ -180,9 +221,14 @@ OSStatus LCSHelperInstallRotavaultJobCommand(CFStringRef label, CFStringRef meth
                                              CFStringRef source, CFStringRef target, CFStringRef sourceChecksum,
                                              CFStringRef targetChecksum)
 {
+    OSStatus retval = noErr;
     CFDictionaryRef job = LCSHelperCreateRotavaultJobDictionary(label, method, rundate, source, target, sourceChecksum, 
                                                                 targetChecksum);
-    LCSHelperInstallRotavaultLaunchdJob(job);
+    if (job == NULL) {
+        return memFullErr;
+    }
+    
+    retval = LCSHelperInstallRotavaultLaunchdJob(job);
     CFRelease(job);
-    return noErr;
+    return retval;
 }
