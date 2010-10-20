@@ -58,6 +58,10 @@
 
 -(void)handleError:(NSError*)error
 {
+    if (controller.state == LCSCommandStateInvalidated) {
+        return;
+    }
+    
     [activeControllers unwatchState:LCSCommandStateFailed];
     [activeControllers unwatchState:LCSCommandStateCancelled];
     [activeControllers unwatchState:LCSCommandStateFinished];
