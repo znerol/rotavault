@@ -31,6 +31,7 @@ int main (int argc, const char * argv[]) {
 
     LCSCommandController *ctl = [LCSCommandController controllerWithCommand:
                                  [LCSDiskInfoCommand commandWithDevicePath:device]];
+    [ctl start];
     [ctl waitUntilDone];
     
     if (ctl.result == nil) {
