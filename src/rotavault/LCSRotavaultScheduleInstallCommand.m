@@ -16,6 +16,7 @@
 #import "LCSRotavaultPrivilegedJobInfoCommand.h"
 #import "LCSRotavaultPrivilegedJobInstallCommand.h"
 #import "LCSRotavaultPrivilegedJobRemoveCommand.h"
+#import "LCSRotavaultCreateJobDictionary.h"
 #import "LCSCommandRunner.h"
 #import "NSData+Hex.h"
 #import "LCSPropertyListSHA1Hash.h"
@@ -147,46 +148,14 @@
     NSString *sourceUUID = [sourceDiskInformation objectForKey:@"VolumeUUID"];
     NSString *targetSHA1 = [[LCSPropertyListSHA1Hash sha1HashFromPropertyList:targetDiskInformation] stringWithHexBytes];
     
-    // FIXME: handle nil/empty values
-    NSArray *args = [NSArray arrayWithObjects:rvcopydLaunchPath, @"-sourcedev", sourceDevice, @"-targetdev",
-                     targetDevice, @"-sourcecheck", [NSString stringWithFormat:@"uuid:%@", sourceUUID], @"-targetcheck", 
-                     [NSString stringWithFormat:@"sha1:%@", targetSHA1], rvcopydLabel, @"label", nil];
-    
-    NSString *runKey;
-    id runValue;
-    if (runAtDate) {
-        runKey = @"StartCalendarInterval";
-        NSDateFormatter *minFormatter = [[[NSDateFormatter alloc] init] autorelease];
-        [minFormatter setDateFormat:@"mm"];
-        NSDateFormatter *hourFormatter = [[[NSDateFormatter alloc] init] autorelease];
-        [hourFormatter setDateFormat:@"HH"];
-        NSDateFormatter *dayFormatter = [[[NSDateFormatter alloc] init] autorelease];
-        [dayFormatter setDateFormat:@"dd"];
-        NSDateFormatter *monthFormatter = [[[NSDateFormatter alloc] init] autorelease];
-        [monthFormatter setDateFormat:@"MM"];
-        NSNumberFormatter *numberFormatter = [[[NSNumberFormatter alloc] init] autorelease];
-        [numberFormatter setAllowsFloats:NO];
-        [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-        
-        runValue = [NSDictionary dictionaryWithObjectsAndKeys:
-                    [numberFormatter numberFromString:[minFormatter stringFromDate:runAtDate]], @"Minute",
-                    [numberFormatter numberFromString:[hourFormatter stringFromDate:runAtDate]], @"Hour",
-                    [numberFormatter numberFromString:[dayFormatter stringFromDate:runAtDate]], @"Day",
-                    [numberFormatter numberFromString:[monthFormatter stringFromDate:runAtDate]], @"Month",
-                    nil];
-    }
-    else {
-        runKey = @"RunAtLoad";
-        runValue = [NSNumber numberWithBool:YES];
-    }
-    
-    launchdPlist = [[NSDictionary alloc] initWithObjectsAndKeys:
-                    rvcopydLabel, @"Label",
-                    args, @"ProgramArguments",
-                    [NSNumber numberWithBool:YES], @"LaunchOnlyOnce",
-                    runValue, runKey,
-                    nil];
-    return YES;
+    launchdPlist = (NSDictionary*)LCSRotavaultCreateJobDictionary((CFStringRef)rvcopydLabel,
+                                                                           CFSTR("asr"),
+                                                                           (CFDateRef)runAtDate,
+                                                                           (CFStringRef)sourceDevice,
+                                                                           (CFStringRef)targetDevice,
+                                                                           (CFStringRef)[NSString stringWithFormat:@"uuid:%@", sourceUUID],
+                                                                           (CFStringRef)[NSString stringWithFormat:@"sha1:%@", targetSHA1]);
+    return (launchdPlist != nil);
 }
 
 -(BOOL)writeLaunchdPlist

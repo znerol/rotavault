@@ -57,6 +57,9 @@
 		CA050EFD1264D9D60076D8BF /* LCSAppleRAIDListCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA050EFB1264D9D60076D8BF /* LCSAppleRAIDListCommand.m */; };
 		CA050EFE1264D9D60076D8BF /* LCSAppleRAIDListCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA050EFB1264D9D60076D8BF /* LCSAppleRAIDListCommand.m */; };
 		CA050EFF1264D9D60076D8BF /* LCSAppleRAIDListCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA050EFB1264D9D60076D8BF /* LCSAppleRAIDListCommand.m */; };
+		CA0B5270126F3A2000973D2D /* LCSRotavaultCreateJobDictionary.c in Sources */ = {isa = PBXBuildFile; fileRef = CA0B526F126F3A2000973D2D /* LCSRotavaultCreateJobDictionary.c */; };
+		CA0B5271126F3A2000973D2D /* LCSRotavaultCreateJobDictionary.c in Sources */ = {isa = PBXBuildFile; fileRef = CA0B526F126F3A2000973D2D /* LCSRotavaultCreateJobDictionary.c */; };
+		CA0B5272126F3A2000973D2D /* LCSRotavaultCreateJobDictionary.c in Sources */ = {isa = PBXBuildFile; fileRef = CA0B526F126F3A2000973D2D /* LCSRotavaultCreateJobDictionary.c */; };
 		CA0F95651254DA200008F47C /* LCSExternalCommandTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA963A83124E3A990098D281 /* LCSExternalCommandTest.m */; };
 		CA0F95661254DA200008F47C /* LCSQuickExternalCommandTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA963E42124E59FB0098D281 /* LCSQuickExternalCommandTest.m */; };
 		CA0F95671254DA200008F47C /* LCSPlistExternalCommandTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAAB8A54125074C4009AD28E /* LCSPlistExternalCommandTest.m */; };
@@ -403,6 +406,8 @@
 		CA050EFA1264D9D60076D8BF /* LCSAppleRAIDListCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSAppleRAIDListCommand.h; sourceTree = "<group>"; };
 		CA050EFB1264D9D60076D8BF /* LCSAppleRAIDListCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSAppleRAIDListCommand.m; sourceTree = "<group>"; };
 		CA050F131264E0090076D8BF /* LCSOSMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSOSMacros.h; sourceTree = "<group>"; };
+		CA0B526E126F3A2000973D2D /* LCSRotavaultCreateJobDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSRotavaultCreateJobDictionary.h; sourceTree = "<group>"; };
+		CA0B526F126F3A2000973D2D /* LCSRotavaultCreateJobDictionary.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LCSRotavaultCreateJobDictionary.c; sourceTree = "<group>"; };
 		CA0DF0DA11F71D8B0029B5F7 /* internals.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = internals.txt; sourceTree = "<group>"; };
 		CA0DF0DB11F71D8B0029B5F7 /* rotavault.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = rotavault.1; sourceTree = "<group>"; };
 		CA0DF11811F7216D0029B5F7 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -971,6 +976,8 @@
 			children = (
 				CAF1CF49126E26A800E40D5D /* BetterAuthorizationSampleLib.c */,
 				CAF1CF4A126E26A800E40D5D /* BetterAuthorizationSampleLib.h */,
+				CA0B526F126F3A2000973D2D /* LCSRotavaultCreateJobDictionary.c */,
+				CA0B526E126F3A2000973D2D /* LCSRotavaultCreateJobDictionary.h */,
 				CAF1CF4B126E26A800E40D5D /* SampleCommon.c */,
 				CAF1CF4C126E26A800E40D5D /* SampleCommon.h */,
 			);
@@ -1219,6 +1226,7 @@
 				CAF1CF57126E26CD00E40D5D /* SampleTool.c in Sources */,
 				CAF1CF5F126E276700E40D5D /* LCSHelperInfoForRotavaultJobCommand.c in Sources */,
 				CAF76891126ED1E7005A9C84 /* LCSHelperRemoveRotavaultJobCommand.c in Sources */,
+				CA0B5270126F3A2000973D2D /* LCSRotavaultCreateJobDictionary.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1359,6 +1367,7 @@
 				CA67827C126DFF1900900B82 /* LCSRotavaultPrivilegedJobInfoCommand.m in Sources */,
 				CAF1CE9E126E1CF800E40D5D /* LCSRotavaultPrivilegedJobInstallCommand.m in Sources */,
 				CAF1CEA2126E1DB400E40D5D /* LCSRotavaultPrivilegedJobRemoveCommand.m in Sources */,
+				CA0B5272126F3A2000973D2D /* LCSRotavaultCreateJobDictionary.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1402,6 +1411,7 @@
 				CAF1CF51126E26BA00E40D5D /* LCSExecuteBASCommand.m in Sources */,
 				CAF1CF52126E26BD00E40D5D /* BetterAuthorizationSampleLib.c in Sources */,
 				CAF1CF53126E26BD00E40D5D /* SampleCommon.c in Sources */,
+				CA0B5271126F3A2000973D2D /* LCSRotavaultCreateJobDictionary.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
