@@ -44,11 +44,6 @@
     }
 }
 
--(void)handleControllerInvalidatedNotification:(NSNotification*)ntf
-{
-    CFRunLoopStop([[NSRunLoop currentRunLoop] getCFRunLoop]);
-}
-
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if (object != ctl || ![keyPath isEqualToString:@"progressMessage"]) {
@@ -60,19 +55,15 @@
 
 -(NSError*)run
 {
-    ctl = [LCSCommandController controllerWithCommand:cmd];
+    ctl = [[LCSCommandController controllerWithCommand:cmd] retain];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleControllerFailedNotification:)
                                                  name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFailed]
                                                object:ctl];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(handleControllerInvalidatedNotification:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateInvalidated]
-                                               object:ctl];
     [ctl addObserver:self forKeyPath:@"progressMessage" options:0 context:nil];
     
     [ctl start];
-    [[NSRunLoop currentRunLoop] run];
+    [ctl waitUntilDone];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [ctl removeObserver:self forKeyPath:@"progressMessage"];
