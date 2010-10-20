@@ -1023,6 +1023,7 @@ static OSStatus FindCommand(
     which is exactly what I want.
 */
 
+/*
 static void EnableWatchdog(void)
     // Start the watchdog timer.  If you don't call DisableWatchdog before the 
     // timer expires, the process will die with a SIGALRM.
@@ -1035,7 +1036,7 @@ static void DisableWatchdog(void)
 {
     (void) alarm(0);
 }
-
+*/
 #if ! defined(NDEBUG)
     
     static bool CommandArraySizeMatchesCommandProcArraySize(
@@ -1507,7 +1508,7 @@ extern int BASHelperToolMain(
         // From this point on, we're running on the watchdog timer.  If we get 
         // stuck anywhere, the watchdog will fire eventually and we'll quit.
         
-        EnableWatchdog();
+//        EnableWatchdog();
 		
         // The accept should never get stuck because this is a non-blocking 
         // socket.
@@ -1561,7 +1562,7 @@ extern int BASHelperToolMain(
             assert(err == 0);
         }
 
-        DisableWatchdog();
+//        DisableWatchdog();
 	}
 	
 done:

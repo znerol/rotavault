@@ -73,6 +73,7 @@
 // Get launchd information on rvcopyd job (requires monitor privilege)
 #define kLCSHelperInfoForRotavaultJobCommand "JobInfoCommand" /* CFString */
 #define kLCSHelperInfoForRotavaultJobLabelParameter "Label" /* CFString */
+#define kLCSHelperInfoForRotavaultJobResultPlistKey "ResultPlist" /* CFDictionary */
 
 extern const BASCommandSpec kLCSHelperCommandSet[];
 

@@ -53,6 +53,8 @@
 
 #include "BetterAuthorizationSampleLib.h"
 #include "LCSHelperInstallRotavaultJobCommand.h"
+#include "LCSHelperInfoForRotavaultJobCommand.h"
+#include "LCSHelperRemoveRotavaultJobCommand.h"
 
 #include "SampleCommon.h"
 
@@ -103,6 +105,8 @@ static OSStatus JobRemoveCommand(AuthorizationRef auth, const void * userData, C
     // asl may be NULL
     // aslMsg may be NULL
 	
+    CFStringRef label = CFDictionaryGetValue(request, CFSTR(kLCSHelperInfoForRotavaultJobLabelParameter));
+    retval = LCSHelperRemoveRotavaultJobCommand(label);
     
 	return retval;
 }
@@ -124,6 +128,14 @@ static OSStatus JobInfoCommand(AuthorizationRef auth, const void * userData, CFD
     // asl may be NULL
     // aslMsg may be NULL
 	
+    CFStringRef label = CFDictionaryGetValue(request, CFSTR(kLCSHelperInfoForRotavaultJobLabelParameter));
+    
+    CFDictionaryRef result;
+    retval = LCSHelperInfoForRotavaultJobCommand(label, &result);
+    if (retval == noErr) {
+        CFDictionarySetValue(response, CFSTR(kLCSHelperInfoForRotavaultJobResultPlistKey), result);
+        CFRelease(result);
+    }
     
 	return retval;
 }

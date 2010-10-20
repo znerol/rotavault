@@ -15,6 +15,7 @@
     NSString *targetDevice;
 
     LCSCommandController *launchdInfoCtl;
+    NSDictionary *launchctlInfoResponse;
     LCSCommandController *sourceInfoCtl;
     LCSCommandController *targetInfoCtl;
     LCSCommandController *startupInfoCtl;
@@ -25,6 +26,7 @@
     NSString *launchdPlistPath;
     NSDictionary *launchdPlist;
     NSDate *runAtDate;
+    AuthorizationRef authorization;
 }
 
 @property(copy) NSString *rvcopydLaunchPath;
@@ -32,6 +34,10 @@
 
 +(LCSRotavaultScheduleInstallCommand*)commandWithSourceDevice:(NSString*)sourcedev
                                                  targetDevice:(NSString*)targetdev
-                                                      runDate:(NSDate*)runDate;
--(id)initWithSourceDevice:(NSString*)sourcedev targetDevice:(NSString*)targetdev runDate:(NSDate*)runDate;
+                                                      runDate:(NSDate*)runDate
+                                            withAuthorization:(AuthorizationRef)auth;
+-(id)initWithSourceDevice:(NSString*)sourcedev
+             targetDevice:(NSString*)targetdev
+                  runDate:(NSDate*)runDate
+        withAuthorization:(AuthorizationRef)auth;
 @end

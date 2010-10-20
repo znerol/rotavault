@@ -13,9 +13,13 @@
 #import "LCSLaunchctlRemoveCommand.h"
 #import "LCSLaunchctlInfoCommand.h"
 #import "LCSLaunchctlLoadCommand.h"
+#import "LCSRotavaultPrivilegedJobInfoCommand.h"
+#import "LCSRotavaultPrivilegedJobInstallCommand.h"
+#import "LCSRotavaultPrivilegedJobRemoveCommand.h"
 #import "LCSCommandRunner.h"
 #import "NSData+Hex.h"
 #import "LCSPropertyListSHA1Hash.h"
+#import "SampleCommon.h"
 
 @interface LCSRotavaultScheduleInstallCommand (Internal)
 -(void)startGatherInformation;
@@ -33,13 +37,18 @@
 +(LCSRotavaultScheduleInstallCommand*)commandWithSourceDevice:(NSString*)sourcedev
                                                  targetDevice:(NSString*)targetdev
                                                       runDate:(NSDate*)runDate
+                                            withAuthorization:(AuthorizationRef)auth
 {
     return [[[LCSRotavaultScheduleInstallCommand alloc] initWithSourceDevice:sourcedev
                                                                 targetDevice:targetdev
-                                                                     runDate:runDate] autorelease];
+                                                                     runDate:runDate
+                                                           withAuthorization:auth] autorelease];
 }
 
--(id)initWithSourceDevice:(NSString*)sourcedev targetDevice:(NSString*)targetdev runDate:(NSDate*)runDate
+-(id)initWithSourceDevice:(NSString*)sourcedev
+             targetDevice:(NSString*)targetdev
+                  runDate:(NSDate*)runDate
+        withAuthorization:(AuthorizationRef)auth
 {
     LCSINIT_SUPER_OR_RETURN_NIL();
     
@@ -49,6 +58,8 @@
     LCSINIT_RELEASE_AND_RETURN_IF_NIL(targetDevice);
     runAtDate = [runDate copy];
     // runAtDate is optional
+    authorization = auth;
+    // authorization is optional
     
     rvcopydLaunchPath = @"/usr/local/sbin/rvcopyd";
     rvcopydLabel = @"ch.znerol.rvcopyd";
@@ -235,11 +246,19 @@ writeLaunchdPlist_freeAndReturn:
                                                  name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
                                                object:activeControllers];
     
-    launchdInfoCtl = [LCSCommandController controllerWithCommand:[LCSLaunchctlInfoCommand commandWithLabel:rvcopydLabel]];
+    if (authorization) {
+        launchdInfoCtl = [LCSCommandController controllerWithCommand:[LCSRotavaultPrivilegedJobInfoCommand
+                                                                      privilegedJobInfoCommandWithLabel:rvcopydLabel
+                                                                      authorization:authorization]];
+    }
+    else {
+        launchdInfoCtl = [LCSCommandController controllerWithCommand:[LCSLaunchctlInfoCommand commandWithLabel:rvcopydLabel]];
+    }
+    
     launchdInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on launchd job"];
     [activeControllers addController:launchdInfoCtl];
     [launchdInfoCtl start];
-    
+                          
     startupInfoCtl = [LCSCommandController controllerWithCommand:[LCSDiskInfoCommand commandWithDevicePath:@"/"]];
     startupInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on startup disk"];
     [activeControllers addController:startupInfoCtl];
@@ -288,8 +307,15 @@ writeLaunchdPlist_freeAndReturn:
                                              selector:@selector(completeLaunchctlRemove:)
                                                  name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
                                                object:activeControllers];
-    
-    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:[LCSLaunchctlRemoveCommand commandWithLabel:rvcopydLabel]];
+    LCSCommandController *ctl = nil;
+    if (authorization) {
+        ctl = [LCSCommandController controllerWithCommand:[LCSRotavaultPrivilegedJobRemoveCommand
+                                                           privilegedJobRemoveCommandWithLabel:rvcopydLabel
+                                                           authorization:authorization]];
+    }
+    else {
+        ctl = [LCSCommandController controllerWithCommand:[LCSLaunchctlRemoveCommand commandWithLabel:rvcopydLabel]];
+    }
     ctl.title = [NSString localizedStringWithFormat:@"Remove old launchd job"];
     [activeControllers addController:ctl];
     [ctl start];
@@ -312,8 +338,26 @@ writeLaunchdPlist_freeAndReturn:
                                              selector:@selector(completeLaunchctlInstall:)
                                                  name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
                                                object:activeControllers];
-    
-    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:[LCSLaunchctlLoadCommand commandWithPath:launchdPlistPath]];
+    LCSCommandController *ctl = nil;
+    if (authorization) {
+        NSDictionary *sourceDiskInformation = sourceInfoCtl.result;
+        NSDictionary *targetDiskInformation = targetInfoCtl.result;
+        NSString *sourceUUID = [sourceDiskInformation objectForKey:@"VolumeUUID"];
+        NSString *targetSHA1 = [[LCSPropertyListSHA1Hash sha1HashFromPropertyList:targetDiskInformation] stringWithHexBytes];
+        
+        ctl = [LCSCommandController controllerWithCommand:[LCSRotavaultPrivilegedJobInstallCommand
+                                                           privilegedJobInstallCommandWithLabel:rvcopydLabel
+                                                           method:@"asr"
+                                                           runDate:runAtDate
+                                                           source:sourceDevice
+                                                           target:targetDevice
+                                                           sourceChecksum:[NSString stringWithFormat:@"uuid:%@", sourceUUID]
+                                                           targetChecksum:[NSString stringWithFormat:@"sha1:%@", targetSHA1]
+                                                           authorization:authorization]];
+    }
+    else {
+        ctl = [LCSCommandController controllerWithCommand:[LCSLaunchctlLoadCommand commandWithPath:launchdPlistPath]];
+    }
     ctl.title = [NSString localizedStringWithFormat:@"Install new launchd job"];
     [activeControllers addController:ctl];
     [ctl start];

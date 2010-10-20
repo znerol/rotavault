@@ -21,7 +21,7 @@ CFDictionaryRef LCSHelperCreateRotavaultJobDictionary(CFStringRef label, CFStrin
     CFDictionaryAddValue(plist, CFSTR("LaunchOnlyOnce"), kCFBooleanTrue);
 
     CFMutableArrayRef args = CFArrayCreateMutable(CFAllocatorGetDefault(), 13, &kCFTypeArrayCallBacks);
-    CFArrayAppendValue(args, CFSTR("/opt/local/rotavault/bin/rvcopyd"));
+    CFArrayAppendValue(args, CFSTR("/usr/local/bin/rvcopyd"));
     CFArrayAppendValue(args, CFSTR("-label"));
     CFArrayAppendValue(args, label);
     CFArrayAppendValue(args, CFSTR("-method"));
@@ -38,10 +38,7 @@ CFDictionaryRef LCSHelperCreateRotavaultJobDictionary(CFStringRef label, CFStrin
     CFDictionaryAddValue(plist, CFSTR("ProgramArguments"), args);
     CFRelease(args);
     
-    if (CFGetTypeID(rundate) == CFNullGetTypeID()) {
-        CFDictionaryAddValue(plist, CFSTR("RunAtLoad"), kCFBooleanTrue);
-    }
-    else {
+    if (rundate) {
         CFTimeZoneRef systz = CFTimeZoneCopySystem();
         CFGregorianDate gdate = CFAbsoluteTimeGetGregorianDate(CFDateGetAbsoluteTime(rundate), systz);
         CFMutableDictionaryRef caldate = CFDictionaryCreateMutable(CFAllocatorGetDefault(), 4,
@@ -66,6 +63,9 @@ CFDictionaryRef LCSHelperCreateRotavaultJobDictionary(CFStringRef label, CFStrin
         
         CFRelease(caldate);
         CFRelease(systz);
+    }
+    else {
+        CFDictionaryAddValue(plist, CFSTR("RunAtLoad"), kCFBooleanTrue);
     }
     
     return plist;
@@ -92,7 +92,7 @@ OSStatus LCSHelperInstallRotavaultLaunchdJob(CFDictionaryRef job)
     
     LCSPropertyListWriteToFD(fd, job);
     
-    char *args[] = {"load", path, NULL};
+    char *args[] = {args[0], "load", path, NULL};
     
     pid_t pid = fork();
     

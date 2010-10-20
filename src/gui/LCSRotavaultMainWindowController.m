@@ -7,6 +7,7 @@
 
 #import "LCSRotavaultMainWindowController.h"
 #import "LCSRotavaultScheduleInstallCommand.h"
+#import "SampleCommon.h"
 
 @implementation LCSRotavaultMainWindowController
 
@@ -15,10 +16,38 @@
 }
 
 - (IBAction)scheduleTask:(id)sender {
+    
+    AuthorizationItem monitorAndManage[] = 
+    {
+        {
+            .name = kLCSHelperManageRotavaultLaunchdJobRightName,
+            .valueLength = 0,
+            .value = NULL,
+            .flags = 0
+        }, {
+            .name = kLCSHelperMonitorRotavaultLaunchdJobRightName,
+            .valueLength = 0,
+            .value = NULL,
+            .flags = 0
+        }
+    };
+    AuthorizationRights rights = {
+        .count = 2,
+        .items = monitorAndManage
+    };
+        
+    AuthorizationRef auth;
+    OSStatus err = AuthorizationCreate(&rights, kAuthorizationEmptyEnvironment,
+                                       kAuthorizationFlagInteractionAllowed | kAuthorizationFlagExtendRights, &auth);
+    if (err) {
+        return;
+    }
+    
     LCSRotavaultScheduleInstallCommand *cmd = [LCSRotavaultScheduleInstallCommand
                                                commandWithSourceDevice:sourceDeviceField.stringValue
                                                targetDevice:targetDeviceField.stringValue
-                                               runDate:runDateField.dateValue];
+                                               runDate:runDateField.dateValue
+                                               withAuthorization:auth];
     cmd.rvcopydLaunchPath = [[NSBundle mainBundle] pathForResource:@"rvcopyd" ofType:nil];
     
     LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
@@ -39,10 +68,37 @@
 }
 
 - (IBAction)startTask:(id)sender {
+    AuthorizationItem monitorAndManage[] = 
+    {
+        {
+            .name = kLCSHelperManageRotavaultLaunchdJobRightName,
+            .valueLength = 0,
+            .value = NULL,
+            .flags = 0
+        }, {
+            .name = kLCSHelperMonitorRotavaultLaunchdJobRightName,
+            .valueLength = 0,
+            .value = NULL,
+            .flags = 0
+        }
+    };
+    AuthorizationRights rights = {
+        .count = 2,
+        .items = monitorAndManage
+    };
+    
+    AuthorizationRef auth;
+    OSStatus err = AuthorizationCreate(&rights, kAuthorizationEmptyEnvironment,
+                                       kAuthorizationFlagInteractionAllowed | kAuthorizationFlagExtendRights, &auth);
+    if (err) {
+        return;
+    }
+    
     LCSRotavaultScheduleInstallCommand *cmd = [LCSRotavaultScheduleInstallCommand
                                                commandWithSourceDevice:sourceDeviceField.stringValue
                                                targetDevice:targetDeviceField.stringValue
-                                               runDate:nil];
+                                               runDate:nil
+                                               withAuthorization:auth];
     cmd.rvcopydLaunchPath = [[NSBundle mainBundle] pathForResource:@"rvcopyd" ofType:nil];
     
     LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
