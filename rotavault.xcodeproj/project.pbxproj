@@ -179,14 +179,11 @@
 		CA58FA0B12552AB300BA2694 /* LCSPropertyListSHA1HashTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAE82D35122C311F00715BCF /* LCSPropertyListSHA1HashTest.m */; };
 		CA58FA0C12552AC600BA2694 /* LCSRotavaultErrorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA12461C1240B301004C1191 /* LCSRotavaultErrorTest.m */; };
 		CA67827B126DFF1900900B82 /* LCSRotavaultPrivilegedJobInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA67827A126DFF1900900B82 /* LCSRotavaultPrivilegedJobInfoCommand.m */; };
-		CA67827C126DFF1900900B82 /* LCSRotavaultPrivilegedJobInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA67827A126DFF1900900B82 /* LCSRotavaultPrivilegedJobInfoCommand.m */; };
 		CA69E8A5125CB590000A0E09 /* rvcopyd in Resources */ = {isa = PBXBuildFile; fileRef = CA94887A1211892500415257 /* rvcopyd */; };
 		CA7461EC1244E07100CDE8C3 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CABAC5551235464300DBEA0F /* AppKit.framework */; };
 		CA7461ED1244E07100CDE8C3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
 		CA814CDE126F5BEA0070E3E6 /* SampleCommon.c in Sources */ = {isa = PBXBuildFile; fileRef = CAF1CF4B126E26A800E40D5D /* SampleCommon.c */; };
 		CA814CF8126F5C050070E3E6 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAE26A601260A67700B19EC1 /* Security.framework */; };
-		CA814CFB126F5C1B0070E3E6 /* LCSExecuteBASCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF1CF47126E26A800E40D5D /* LCSExecuteBASCommand.m */; };
-		CA814D00126F5C270070E3E6 /* BetterAuthorizationSampleLib.c in Sources */ = {isa = PBXBuildFile; fileRef = CAF1CF49126E26A800E40D5D /* BetterAuthorizationSampleLib.c */; };
 		CA877C4F126B27520067649A /* NSNotificationCenter+DefaultCenterThreadLocal.m in Sources */ = {isa = PBXBuildFile; fileRef = CA877C4E126B27520067649A /* NSNotificationCenter+DefaultCenterThreadLocal.m */; };
 		CA877D32126B3D9D0067649A /* LCSAppleRAIDListCommandTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CA877D31126B3D9D0067649A /* LCSAppleRAIDListCommandTest.m */; };
 		CA877DB4126B43A00067649A /* LCSRotavaultScheduleInstallCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820521264D62700C2879B /* LCSRotavaultScheduleInstallCommand.m */; };
@@ -258,9 +255,7 @@
 		CAEE8BA1126CF43100B0BE92 /* postinstall in CopyFiles */ = {isa = PBXBuildFile; fileRef = CAEE8B98126CF38C00B0BE92 /* postinstall */; };
 		CAEE8BCA126D00C200B0BE92 /* Rotavault System Tools.pkg in Resources */ = {isa = PBXBuildFile; fileRef = CAEE8BC7126D00A400B0BE92 /* Rotavault System Tools.pkg */; };
 		CAF1CE9D126E1CF800E40D5D /* LCSRotavaultPrivilegedJobInstallCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF1CE9C126E1CF800E40D5D /* LCSRotavaultPrivilegedJobInstallCommand.m */; };
-		CAF1CE9E126E1CF800E40D5D /* LCSRotavaultPrivilegedJobInstallCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF1CE9C126E1CF800E40D5D /* LCSRotavaultPrivilegedJobInstallCommand.m */; };
 		CAF1CEA1126E1DB400E40D5D /* LCSRotavaultPrivilegedJobRemoveCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF1CEA0126E1DB400E40D5D /* LCSRotavaultPrivilegedJobRemoveCommand.m */; };
-		CAF1CEA2126E1DB400E40D5D /* LCSRotavaultPrivilegedJobRemoveCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF1CEA0126E1DB400E40D5D /* LCSRotavaultPrivilegedJobRemoveCommand.m */; };
 		CAF1CF51126E26BA00E40D5D /* LCSExecuteBASCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF1CF47126E26A800E40D5D /* LCSExecuteBASCommand.m */; };
 		CAF1CF52126E26BD00E40D5D /* BetterAuthorizationSampleLib.c in Sources */ = {isa = PBXBuildFile; fileRef = CAF1CF49126E26A800E40D5D /* BetterAuthorizationSampleLib.c */; };
 		CAF1CF53126E26BD00E40D5D /* SampleCommon.c in Sources */ = {isa = PBXBuildFile; fileRef = CAF1CF4B126E26A800E40D5D /* SampleCommon.c */; };
@@ -272,7 +267,6 @@
 		CAF42A84126CBC5B006D3C31 /* LCSRotavaultCreateJobDictionaryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF42A83126CBC5B006D3C31 /* LCSRotavaultCreateJobDictionaryTest.m */; };
 		CAF76891126ED1E7005A9C84 /* LCSHelperRemoveRotavaultJobCommand.c in Sources */ = {isa = PBXBuildFile; fileRef = CAF76890126ED1E7005A9C84 /* LCSHelperRemoveRotavaultJobCommand.c */; };
 		CAFF3ED1126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CAFF3ED0126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.m */; };
-		CAFF3ED2126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CAFF3ED0126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.m */; };
 		CAFF3ED3126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CAFF3ED0126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.m */; };
 /* End PBXBuildFile section */
 
@@ -1377,14 +1371,8 @@
 				CA877D32126B3D9D0067649A /* LCSAppleRAIDListCommandTest.m in Sources */,
 				CA877DDF126B467B0067649A /* LCSExternalCommand+MockableTask.m in Sources */,
 				CAF42A84126CBC5B006D3C31 /* LCSRotavaultCreateJobDictionaryTest.m in Sources */,
-				CA67827C126DFF1900900B82 /* LCSRotavaultPrivilegedJobInfoCommand.m in Sources */,
-				CAF1CE9E126E1CF800E40D5D /* LCSRotavaultPrivilegedJobInstallCommand.m in Sources */,
-				CAF1CEA2126E1DB400E40D5D /* LCSRotavaultPrivilegedJobRemoveCommand.m in Sources */,
 				CA0B5272126F3A2000973D2D /* LCSRotavaultCreateJobDictionary.c in Sources */,
-				CAFF3ED2126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.m in Sources */,
 				CA814CDE126F5BEA0070E3E6 /* SampleCommon.c in Sources */,
-				CA814CFB126F5C1B0070E3E6 /* LCSExecuteBASCommand.m in Sources */,
-				CA814D00126F5C270070E3E6 /* BetterAuthorizationSampleLib.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
