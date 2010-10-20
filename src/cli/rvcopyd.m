@@ -27,6 +27,8 @@ int main (int argc, const char * argv[]) {
     /* FIXME: check / create pid file */
     // NSString *pidfile = [args stringForKey:@"pidfile"];
     
+    NSString* label = [args objectForKey:@"label"];
+    
     NSString* method = [args objectForKey:@"method"];
     id <LCSCommand> copyCommand = nil;
     if ([@"asr" isEqualToString:method]) {
@@ -44,16 +46,20 @@ int main (int argc, const char * argv[]) {
     
     int status = 0;
     if (copyCommand) {
-        /* alloc and run operation queue */
-        LCSCmdlineCommandRunner *runner = [[LCSCmdlineCommandRunner alloc] initWithCommand:copyCommand];
+        /* run operation */
+        NSString* title = [NSString stringWithFormat:@"Rotavault copying from %@ to %@",
+                           [args stringForKey:@"sourcedev"], [args stringForKey:@"targetdev"]];
+        LCSCmdlineCommandRunner *runner = [[LCSCmdlineCommandRunner alloc] initWithCommand:copyCommand
+                                                                                     label:label
+                                                                                     title:title];
         
         NSError *error = [runner run];
         
         if (error) {
             status = 1;
         }
-        
         [runner release];
+        
     }
     else {
         status = 2;

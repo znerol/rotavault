@@ -10,15 +10,22 @@
 #import "LCSCmdlineCommandRunner.h"
 #import "LCSInitMacros.h"
 #import "LCSCommandController.h"
+#import "LCSDistributedCommandStatePublisher.h"
 
 
 @implementation LCSCmdlineCommandRunner
--(id)initWithCommand:(id <LCSCommand>)command
+-(id)initWithCommand:(id <LCSCommand>)command label:(NSString*)lbl title:(NSString*)tit
 {
     LCSINIT_SUPER_OR_RETURN_NIL();
     
     cmd = [command retain];
     LCSINIT_RELEASE_AND_RETURN_IF_NIL(cmd);
+    
+    label = [lbl copy];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(label);
+    
+    title = [tit copy];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(title);
     
     LCSSignalHandler *sighandler = [LCSSignalHandler defaultSignalHandler];
     [sighandler addSignal:SIGHUP];
@@ -31,6 +38,8 @@
 
 -(void)dealloc
 {
+    [title release];
+    [label release];
     [cmd release];
     [ctl release];
     [super dealloc];
@@ -60,13 +69,26 @@
                                              selector:@selector(handleControllerFailedNotification:)
                                                  name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFailed]
                                                object:ctl];
+        
+    /* wire up command to our logging function */
     [ctl addObserver:self forKeyPath:@"progressMessage" options:0 context:nil];
     
+    /* wire up command to distributed notification center */
+    LCSDistributedCommandStatePublisher *pub =
+        [[LCSDistributedCommandStatePublisher alloc] initWithCommandController:ctl label:label];
+    [pub watch];
+    
+    ctl.title = title;
+    
+    /* run */
     [ctl start];
     [ctl waitUntilDone];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [ctl removeObserver:self forKeyPath:@"progressMessage"];
+    [pub unwatch];
+    [pub release];
+    
     return ctl.error;
 }
 

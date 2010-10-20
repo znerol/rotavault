@@ -22,6 +22,8 @@
 #import "LCSPropertyListSHA1Hash.h"
 #import "SampleCommon.h"
 
+#import "LCSDistributedCommandStateWatcher.h"
+
 @interface LCSRotavaultScheduleInstallCommand (Internal)
 -(void)startGatherInformation;
 -(void)completeGatherInformation:(NSNotification*)ntf;
@@ -329,6 +331,12 @@ writeLaunchdPlist_freeAndReturn:
     }
     ctl.title = [NSString localizedStringWithFormat:@"Install new launchd job"];
     [activeControllers addController:ctl];
+    
+    /* Launch watcher out into the blue */
+    LCSCommandController* watcher = 
+        [LCSCommandController controllerWithCommand:[LCSDistributedCommandStateWatcher commandWithLabel:rvcopydLabel]];
+    [watcher start];
+
     [ctl start];
 }
 
