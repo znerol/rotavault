@@ -9,6 +9,8 @@
 
 #include <unistd.h>
 #include "LCSHelperRemoveRotavaultJobCommand.h"
+#include "BetterAuthorizationSampleLib.h"
+#include "SampleCommon.h"
 
 #if 1
     #include <CoreServices/CoreServices.h>
@@ -27,30 +29,31 @@ OSStatus LCSHelperRemoveRotavaultJobCommand(CFStringRef label)
         return paramErr;
     }
     
-    char *args[] = {"/bin/launchctl", "remove", clabel, NULL};
-    
     pid_t pid = fork();
-    
-    if (pid == 0) {
-        // child
-        // close file descriptors other than stdio
+    if (pid == -1) {
+        return BASErrnoToOSStatus(errno);
+    }    
+    else if (pid == 0) {
+        /* close file descriptors other than stdio in child process */
         for (int i = 3; i < getdtablesize(); i++) {
             close(i);
         }
         
-        int status = execv(args[0], args);
+        /* execute launchctl */
+        char *args[] = {"/bin/launchctl", "remove", clabel, NULL};
+        execv(args[0], args);
+        asl_log(NULL, NULL, ASL_LEVEL_ERR, "Failed to execute launchctl unload: %m");
         
-        // only reached when execve fails
-        assert(status == 0);
+        /* only reached when execve fails */
+        _exit(1);
     }
-    
-    assert(pid > 0);
     
     int status;
     waitpid(pid, &status, 0);
     
-    if (status != 0) {
-        retval = paramErr;
+    if (!WIFEXITED(status) || WEXITSTATUS(status) != 0) {
+        asl_log(NULL, NULL, ASL_LEVEL_INFO, "Launchctl returned non-zero exit status %d", WEXITSTATUS(status));
+        retval = kLCSHelperChildProcessRetunedNonZeroStatus;
     }
     
     return retval;

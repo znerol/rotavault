@@ -9,6 +9,9 @@
 
 #include <unistd.h>
 #include "LCSHelperInfoForRotavaultJobCommand.h"
+#include "BetterAuthorizationSampleLib.h"
+#include "SampleCommon.h"
+
 #if 1
     #include <CoreServices/CoreServices.h>
 #else
@@ -18,21 +21,22 @@
 #endif
 
 OSStatus LCSHelperInfoForRotavaultJobCommand(CFStringRef label, CFDictionaryRef *jobdict)
-{
-    OSStatus retval = noErr;
-    
+{    
     char clabel[256];
     if (!CFStringGetCString(label, clabel, sizeof(clabel), kCFStringEncodingASCII)) {
         return paramErr;
     }
     
-    char *args[] = {"/bin/launchctl", "list", "-x", clabel, NULL};
-    
     int pipe_fd[2];
-    assert(pipe(pipe_fd) == 0);
-    pid_t pid = fork();
+    if (pipe(pipe_fd) == -1) {
+        return BASErrnoToOSStatus(errno);
+    }
     
-    if (pid == 0) {
+    pid_t pid = fork();
+    if (pid == -1) {
+        return BASErrnoToOSStatus(errno);
+    }
+    else if (pid == 0) {
         // child
 
         // redirect stderr (yes, launchctl prints the plist to stderr!)
@@ -40,23 +44,22 @@ OSStatus LCSHelperInfoForRotavaultJobCommand(CFStringRef label, CFDictionaryRef 
         
         // close file descriptors other than stdio
         for (int i = 3; i < getdtablesize(); i++) {
-            if (i == pipe_fd[1]) {
-                continue;
-            }
+            close(i);
         }
         
-        int status = execv(args[0], args);
+        char *args[] = {"/bin/launchctl", "list", "-x", clabel, NULL};
+        execv(args[0], args);
+        asl_log(NULL, NULL, ASL_LEVEL_ERR, "Failed to execute launchctl list: %m");
         
         // only reached when execve fails
-        assert(status == 0);
+        _exit(1);
     }
-    
-    assert(pid > 0);
-    
+        
     /* close write end of output */
     close(pipe_fd[1]);
     
     /* read output */
+    OSStatus retval = noErr;
     CFMutableDataRef data = CFDataCreateMutable(kCFAllocatorDefault, 0);
     UInt8 buf[1024];
     int len;
@@ -86,19 +89,23 @@ OSStatus LCSHelperInfoForRotavaultJobCommand(CFStringRef label, CFDictionaryRef 
     int status;
     waitpid(pid, &status, 0);
     
-    /* build result */
-    if (status == 0) {
-        CFPropertyListRef result = CFPropertyListCreateFromXMLData(kCFAllocatorDefault, data,
-                                                                   kCFPropertyListImmutable, NULL);
+    if (!WIFEXITED(status) || WEXITSTATUS(status) != 0) {
+        asl_log(NULL, NULL, ASL_LEVEL_INFO, "Launchctl returned non-zero exit status %d", WEXITSTATUS(status));
+        if (retval == noErr) {
+            retval = kLCSHelperChildProcessRetunedNonZeroStatus;
+        }
+    }
+    
+    if (retval == noErr) {
+        /* build result */
+        CFPropertyListRef result = CFPropertyListCreateFromXMLData(kCFAllocatorDefault, data, kCFPropertyListImmutable,
+                                                                   NULL);
         if (result == NULL) {
-            /* FIXME: handle error */
+            retval = kLCSHelperPropertyListParseError;
         }
         else {
             *jobdict = result;
-        }
-    }
-    else {
-        retval = paramErr;
+        }        
     }
     
     CFRelease(data);

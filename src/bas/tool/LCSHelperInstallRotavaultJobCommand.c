@@ -178,32 +178,30 @@ OSStatus LCSHelperInstallRotavaultLaunchdJob(CFDictionaryRef job)
         goto closeTempfileAndReturnErr;
     }
     
-    char *args[] = {"/bin/launchctl", "load", path, NULL};
-    
     pid_t pid = fork();
-    
-    if (pid == 0) {
+    if (pid == -1) {
+        return BASErrnoToOSStatus(errno);
+    }    
+    else if (pid == 0) {
         /* close file descriptors other than stdio in child process */
         for (int i = 3; i < getdtablesize(); i++) {
             close(i);
         }
         
         /* execute launchctl */
+        char *args[] = {"/bin/launchctl", "load", path, NULL};
         execv(args[0], args);
-        asl_log(NULL, NULL, ASL_LEVEL_ERR, "Failed to execute launchctl: %m");
+        asl_log(NULL, NULL, ASL_LEVEL_ERR, "Failed to execute launchctl load: %m");
         
         /* only reached when execve fails */
         _exit(1);
     }
     
-    assert(pid > 0);
     int status;
     waitpid(pid, &status, 0);
-    if (WIFEXITED(status) && WEXITSTATUS(status) == 0) {
-        retval = noErr;
-    }
-    else {
-        asl_log(NULL, NULL, ASL_LEVEL_INFO, "Launchctl returned non-zero exit status");
+    
+    if (!WIFEXITED(status) || WEXITSTATUS(status) != 0) {
+        asl_log(NULL, NULL, ASL_LEVEL_INFO, "Launchctl returned non-zero exit status %d", WEXITSTATUS(status));
         retval = kLCSHelperChildProcessRetunedNonZeroStatus;
     }
     

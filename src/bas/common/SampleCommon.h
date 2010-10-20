@@ -77,6 +77,7 @@
 
 // Application specific OSStatus codes
 #define kLCSHelperChildProcessRetunedNonZeroStatus 1000
+#define kLCSHelperPropertyListParseError 1001
 
 extern const BASCommandSpec kLCSHelperCommandSet[];
 
