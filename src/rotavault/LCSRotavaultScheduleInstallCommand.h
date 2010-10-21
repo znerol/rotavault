@@ -32,12 +32,14 @@
 @property(copy) NSString *rvcopydLaunchPath;
 @property(copy) NSString *rvcopydLabel;
 
-+(LCSRotavaultScheduleInstallCommand*)commandWithSourceDevice:(NSString*)sourcedev
-                                                 targetDevice:(NSString*)targetdev
-                                                      runDate:(NSDate*)runDate
-                                            withAuthorization:(AuthorizationRef)auth;
--(id)initWithSourceDevice:(NSString*)sourcedev
-             targetDevice:(NSString*)targetdev
-                  runDate:(NSDate*)runDate
-        withAuthorization:(AuthorizationRef)auth;
++(LCSRotavaultScheduleInstallCommand*)commandWithLabel:(NSString*)label
+                                          sourceDevice:(NSString*)sourcedev
+                                          targetDevice:(NSString*)targetdev
+                                               runDate:(NSDate*)runDate
+                                     withAuthorization:(AuthorizationRef)auth;
+-(id)initWithLabel:(NSString*)label
+      sourceDevice:(NSString*)sourcedev
+      targetDevice:(NSString*)targetdev
+           runDate:(NSDate*)runDate
+ withAuthorization:(AuthorizationRef)auth;
 @end

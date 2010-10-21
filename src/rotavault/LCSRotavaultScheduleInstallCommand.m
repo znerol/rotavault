@@ -37,24 +37,29 @@
 @synthesize rvcopydLaunchPath;
 @synthesize rvcopydLabel;
 
-+(LCSRotavaultScheduleInstallCommand*)commandWithSourceDevice:(NSString*)sourcedev
-                                                 targetDevice:(NSString*)targetdev
-                                                      runDate:(NSDate*)runDate
-                                            withAuthorization:(AuthorizationRef)auth
++(LCSRotavaultScheduleInstallCommand*)commandWithLabel:(NSString*)label
+                                          sourceDevice:(NSString*)sourcedev
+                                          targetDevice:(NSString*)targetdev
+                                               runDate:(NSDate*)runDate
+                                     withAuthorization:(AuthorizationRef)auth
 {
-    return [[[LCSRotavaultScheduleInstallCommand alloc] initWithSourceDevice:sourcedev
-                                                                targetDevice:targetdev
-                                                                     runDate:runDate
-                                                           withAuthorization:auth] autorelease];
+    return [[[LCSRotavaultScheduleInstallCommand alloc] initWithLabel:(NSString*)label
+                                                         sourceDevice:sourcedev
+                                                         targetDevice:targetdev
+                                                              runDate:runDate
+                                                    withAuthorization:auth] autorelease];
 }
 
--(id)initWithSourceDevice:(NSString*)sourcedev
-             targetDevice:(NSString*)targetdev
-                  runDate:(NSDate*)runDate
-        withAuthorization:(AuthorizationRef)auth
+-(id)initWithLabel:(NSString*)label
+      sourceDevice:(NSString*)sourcedev
+      targetDevice:(NSString*)targetdev
+           runDate:(NSDate*)runDate
+ withAuthorization:(AuthorizationRef)auth
 {
     LCSINIT_SUPER_OR_RETURN_NIL();
     
+    rvcopydLabel = [label copy];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(rvcopydLabel);
     sourceDevice = [sourcedev copy];
     LCSINIT_RELEASE_AND_RETURN_IF_NIL(sourceDevice);
     targetDevice = [targetdev copy];
@@ -65,7 +70,6 @@
     // authorization is optional
     
     rvcopydLaunchPath = @"/usr/local/sbin/rvcopyd";
-    rvcopydLabel = @"ch.znerol.rvcopyd";
     
     return self;
 }
@@ -332,11 +336,6 @@ writeLaunchdPlist_freeAndReturn:
     ctl.title = [NSString localizedStringWithFormat:@"Install new launchd job"];
     [activeControllers addController:ctl];
     
-    /* Launch watcher out into the blue */
-    LCSCommandController* watcher = 
-        [LCSCommandController controllerWithCommand:[LCSDistributedCommandStateWatcher commandWithLabel:rvcopydLabel]];
-    [watcher start];
-
     [ctl start];
 }
 
