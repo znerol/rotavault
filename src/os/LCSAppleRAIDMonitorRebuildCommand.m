@@ -37,7 +37,7 @@
     memberDevpath = [devicePath copy];
     LCSINIT_RELEASE_AND_RETURN_IF_NIL(memberDevpath);
     
-    updateInterval = 5.0;
+    updateInterval = 2.0;
     return self;
 }
 
