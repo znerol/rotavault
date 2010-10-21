@@ -11,6 +11,8 @@
 
 
 @interface LCSRotavaultScheduleInstallCommand : LCSBatchCommand {
+    NSString *rvcopydLabel;
+    NSString *method;
     NSString *sourceDevice;
     NSString *targetDevice;
     
@@ -19,7 +21,6 @@
     LCSCommandController *startupInfoCtl;
 
     NSString *rvcopydLaunchPath;
-    NSString *rvcopydLabel;
     
     NSString *launchdPlistPath;
     NSDictionary *launchdPlist;
@@ -28,14 +29,15 @@
 }
 
 @property(copy) NSString *rvcopydLaunchPath;
-@property(copy) NSString *rvcopydLabel;
 
 +(LCSRotavaultScheduleInstallCommand*)commandWithLabel:(NSString*)label
+                                                method:(NSString*)bcmethod
                                           sourceDevice:(NSString*)sourcedev
                                           targetDevice:(NSString*)targetdev
                                                runDate:(NSDate*)runDate
                                      withAuthorization:(AuthorizationRef)auth;
 -(id)initWithLabel:(NSString*)label
+            method:(NSString*)bcmethod
       sourceDevice:(NSString*)sourcedev
       targetDevice:(NSString*)targetdev
            runDate:(NSDate*)runDate

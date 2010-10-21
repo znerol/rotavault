@@ -29,15 +29,16 @@
 
 @implementation LCSRotavaultScheduleInstallCommand
 @synthesize rvcopydLaunchPath;
-@synthesize rvcopydLabel;
 
 +(LCSRotavaultScheduleInstallCommand*)commandWithLabel:(NSString*)label
+                                                method:(NSString*)bcmethod
                                           sourceDevice:(NSString*)sourcedev
                                           targetDevice:(NSString*)targetdev
                                                runDate:(NSDate*)runDate
                                      withAuthorization:(AuthorizationRef)auth
 {
     return [[[LCSRotavaultScheduleInstallCommand alloc] initWithLabel:(NSString*)label
+                                                               method:(NSString*)bcmethod
                                                          sourceDevice:sourcedev
                                                          targetDevice:targetdev
                                                               runDate:runDate
@@ -45,6 +46,7 @@
 }
 
 -(id)initWithLabel:(NSString*)label
+            method:(NSString*)bcmethod
       sourceDevice:(NSString*)sourcedev
       targetDevice:(NSString*)targetdev
            runDate:(NSDate*)runDate
@@ -54,6 +56,8 @@
     
     rvcopydLabel = [label copy];
     LCSINIT_RELEASE_AND_RETURN_IF_NIL(rvcopydLabel);
+    method = [bcmethod copy];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL([@"asr" isEqualToString:bcmethod] || [@"appleraid" isEqualToString:bcmethod]);
     sourceDevice = [sourcedev copy];
     LCSINIT_RELEASE_AND_RETURN_IF_NIL(sourceDevice);
     targetDevice = [targetdev copy];
@@ -88,8 +92,9 @@
     NSDictionary *targetDiskInformation = targetInfoCtl.result;
     NSDictionary *startupDiskInformation = startupInfoCtl.result;
     
-    /* error if source device is the startup disk */
-    if ([[sourceDiskInformation objectForKey:@"DeviceNode"] isEqual:[startupDiskInformation objectForKey:@"DeviceNode"]]) {
+    /* error if source device is the startup disk (only holds for asr) */
+    if ([@"asr" isEqualToString:method] && [[sourceDiskInformation objectForKey:@"DeviceNode"] isEqual:
+         [startupDiskInformation objectForKey:@"DeviceNode"]]) {
         
         NSError *error = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
                                          LCSERROR_LOCALIZED_DESCRIPTION(@"Block copy operation from startup disk is not supported"));
@@ -122,6 +127,35 @@
         return NO;
     }
     
+    /* error if source device is not a raid-master (this only holds for appleraid) */
+    if ([@"appleraid" isEqualToString:method] && ![[sourceDiskInformation objectForKey:@"RAIDMaster"] isEqual:
+                                                     [NSNumber numberWithBool:YES]]) {
+        
+        NSError *error = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
+                                         LCSERROR_LOCALIZED_DESCRIPTION(@"Source device is not a raid volume"));
+        [self handleError:error];
+        return NO;
+    }
+    
+    /* error if source device is not a raid-1 (this only holds for appleraid) */
+    if ([@"appleraid" isEqualToString:method] && ![[sourceDiskInformation objectForKey:@"RAIDSetLevelType"] isEqual:
+                                                     @"Mirror"]) {
+        
+        NSError *error = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
+                                         LCSERROR_LOCALIZED_DESCRIPTION(@"Source device is not raid mirror"));
+        [self handleError:error];
+        return NO;
+    }
+    
+    /* error if source device is not a raid-1 (this only holds for appleraid) */
+    if ([@"appleraid" isEqualToString:method] && ![[sourceDiskInformation objectForKey:@"RAIDSetStatus"] isEqual:
+                                                     @"Online"]) {
+        
+        NSError *error = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
+                                         LCSERROR_LOCALIZED_DESCRIPTION(@"Source raid is not online"));
+        [self handleError:error];
+        return NO;
+    }
     return YES;
 }
 
@@ -133,7 +167,7 @@
     NSString *targetSHA1 = [[LCSPropertyListSHA1Hash sha1HashFromPropertyList:targetDiskInformation] stringWithHexBytes];
     
     launchdPlist = (NSDictionary*)LCSRotavaultCreateJobDictionary((CFStringRef)rvcopydLabel,
-                                                                           CFSTR("asr"),
+                                                                           (CFStringRef)method,
                                                                            (CFDateRef)runAtDate,
                                                                            (CFStringRef)sourceDevice,
                                                                            (CFStringRef)targetDevice,
@@ -251,7 +285,7 @@ writeLaunchdPlist_freeAndReturn:
         
         ctl = [LCSCommandController controllerWithCommand:[LCSRotavaultPrivilegedJobInstallCommand
                                                            privilegedJobInstallCommandWithLabel:rvcopydLabel
-                                                           method:@"asr"
+                                                           method:method
                                                            runDate:runAtDate
                                                            source:sourceDevice
                                                            target:targetDevice

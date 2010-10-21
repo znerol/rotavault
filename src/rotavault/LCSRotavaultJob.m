@@ -101,9 +101,7 @@
 {
     self.runAsRootEnabled =         !currentCommand && !jobScheduled;
     self.sourceDeviceEnabled =      !currentCommand && !jobScheduled;
-    /* not implemented yet
     self.blockCopyMethodEnabled =   !currentCommand && !jobScheduled;
-     */
     self.targetDeviceEnabled =      !currentCommand && !jobScheduled;
     /* not implemented yet
     self.createImageEnabled =       !currentCommand && !jobScheduled;
@@ -143,6 +141,7 @@
     
     currentCommand = [LCSCommandController controllerWithCommand:[LCSRotavaultScheduleInstallCommand
                                                                   commandWithLabel:label
+                                                                  method:(blockCopyMethodIndex ? @"appleraid" : @"asr")
                                                                   sourceDevice:sourceDevice
                                                                   targetDevice:targetDevice
                                                                   runDate:runDate
@@ -192,6 +191,7 @@
     
     currentCommand = [LCSCommandController controllerWithCommand:[LCSRotavaultScheduleInstallCommand
                                                                   commandWithLabel:label
+                                                                  method:(blockCopyMethodIndex ? @"appleraid" : @"asr")
                                                                   sourceDevice:sourceDevice
                                                                   targetDevice:targetDevice
                                                                   runDate:nil

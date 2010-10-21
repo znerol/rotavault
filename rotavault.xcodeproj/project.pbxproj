@@ -79,6 +79,8 @@
 		CA19249A1266036200E05A63 /* LCSAppleRAIDRemoveMemberCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA1924981266036200E05A63 /* LCSAppleRAIDRemoveMemberCommand.m */; };
 		CA19249B1266036200E05A63 /* LCSAppleRAIDRemoveMemberCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA1924981266036200E05A63 /* LCSAppleRAIDRemoveMemberCommand.m */; };
 		CA19249C1266036200E05A63 /* LCSAppleRAIDRemoveMemberCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA1924981266036200E05A63 /* LCSAppleRAIDRemoveMemberCommand.m */; };
+		CA197DFB1270C359005C11F1 /* LCSDiskUnmountCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA197DFA1270C359005C11F1 /* LCSDiskUnmountCommand.m */; };
+		CA197DFC1270C359005C11F1 /* LCSDiskUnmountCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA197DFA1270C359005C11F1 /* LCSDiskUnmountCommand.m */; };
 		CA4822BE1264D69000C2879B /* LCSCommandController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820201264D62700C2879B /* LCSCommandController.m */; };
 		CA4822BF1264D69000C2879B /* LCSDiskImageInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48203B1264D62700C2879B /* LCSDiskImageInfoCommand.m */; };
 		CA4822C01264D69000C2879B /* LCSLaunchctlLoadCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820451264D62700C2879B /* LCSLaunchctlLoadCommand.m */; };
@@ -429,6 +431,8 @@
 		CA1924441265F7DA00E05A63 /* LCSAppleRAIDAddMemberCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSAppleRAIDAddMemberCommand.m; sourceTree = "<group>"; };
 		CA1924971266036200E05A63 /* LCSAppleRAIDRemoveMemberCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSAppleRAIDRemoveMemberCommand.h; sourceTree = "<group>"; };
 		CA1924981266036200E05A63 /* LCSAppleRAIDRemoveMemberCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSAppleRAIDRemoveMemberCommand.m; sourceTree = "<group>"; };
+		CA197DF91270C359005C11F1 /* LCSDiskUnmountCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSDiskUnmountCommand.h; sourceTree = "<group>"; };
+		CA197DFA1270C359005C11F1 /* LCSDiskUnmountCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSDiskUnmountCommand.m; sourceTree = "<group>"; };
 		CA28AF1F12132C7600C9BE6F /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		CA48201A1264D62700C2879B /* LCSCmdlineCommandRunner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSCmdlineCommandRunner.h; sourceTree = "<group>"; };
 		CA48201B1264D62700C2879B /* LCSCmdlineCommandRunner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSCmdlineCommandRunner.m; sourceTree = "<group>"; };
@@ -859,6 +863,8 @@
 				CA48203D1264D62700C2879B /* LCSDiskInfoCommand.m */,
 				CA48203E1264D62700C2879B /* LCSDiskMountCommand.h */,
 				CA48203F1264D62700C2879B /* LCSDiskMountCommand.m */,
+				CA197DF91270C359005C11F1 /* LCSDiskUnmountCommand.h */,
+				CA197DFA1270C359005C11F1 /* LCSDiskUnmountCommand.m */,
 				CA4820401264D62700C2879B /* LCSLaunchctlInfoCommand.h */,
 				CA4820411264D62700C2879B /* LCSLaunchctlInfoCommand.m */,
 				CA4820421264D62700C2879B /* LCSLaunchctlListCommand.h */,
@@ -1288,6 +1294,7 @@
 				CAB8276812660B4C00F158DB /* LCSAppleRAIDMonitorRebuildCommand.m in Sources */,
 				CAFF3ED3126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.m in Sources */,
 				CAE3BEDE126F753F00982D14 /* LCSDistributedCommandStatePublisher.m in Sources */,
+				CA197DFC1270C359005C11F1 /* LCSDiskUnmountCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1436,6 +1443,7 @@
 				CAFF3ED1126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.m in Sources */,
 				CAE3BEF6126F7DFC00982D14 /* LCSDistributedCommandStateWatcher.m in Sources */,
 				CAF65392127032CC00361A2E /* LCSRotavaultJob.m in Sources */,
+				CA197DFB1270C359005C11F1 /* LCSDiskUnmountCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
