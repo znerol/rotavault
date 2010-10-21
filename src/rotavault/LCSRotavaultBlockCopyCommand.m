@@ -164,7 +164,21 @@
                                                object:ctl];
     ctl.title = [NSString localizedStringWithFormat:@"Block copy"];
     [activeControllers addController:ctl];
+    
+    controller.progressIndeterminate = NO;
+    [ctl addObserver:self forKeyPath:@"progress" options:0 context:nil];
+    
     [ctl start];
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath
+                     ofObject:(id)object
+                       change:(NSDictionary *)change
+                      context:(void *)context
+{
+    if ([keyPath isEqualToString:@"progress"]) {
+        controller.progress = ((LCSCommandController*)object).progress;
+    }
 }
 
 -(void)completeBlockCopy:(NSNotification*)ntf
@@ -173,6 +187,8 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:[LCSCommandController notificationNameStateEntered:sender.state]
                                                   object:sender];
+    [sender removeObserver:self forKeyPath:@"progress"];
+    controller.progressIndeterminate = YES;
     
     needsSourceRemount = NO;
     

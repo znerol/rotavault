@@ -211,7 +211,21 @@
     
     ctl.title = [NSString localizedStringWithFormat:@"Block copy"];
     [activeControllers addController:ctl];
+    
+    controller.progressIndeterminate = NO;
+    [ctl addObserver:self forKeyPath:@"progress" options:0 context:nil];
+    
     [ctl start];
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath
+                     ofObject:(id)object
+                       change:(NSDictionary *)change
+                      context:(void *)context
+{
+    if ([keyPath isEqualToString:@"progress"]) {
+        controller.progress = ((LCSCommandController*)object).progress;
+    }
 }
 
 -(void)completeMonitorRebuildRAIDSet:(NSNotification*)ntf
@@ -220,6 +234,9 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFinished]
                                                   object:ctl];
+    [ctl removeObserver:self forKeyPath:@"progress"];
+    controller.progressIndeterminate = YES;
+    
     [self startRemoveTargetFromRAIDSet];
 }
                                  
@@ -254,7 +271,7 @@
 
 -(void)startUnmountTarget
 {
-    controller.progressMessage = [NSString localizedStringWithFormat:@"Removing target from RAID set"];
+    controller.progressMessage = [NSString localizedStringWithFormat:@"Unmounting target device"];
     
     LCSCommandController *ctl = [LCSCommandController controllerWithCommand:[LCSDiskUnmountCommand
                                                                              commandWithDevicePath:targetDevice]];
