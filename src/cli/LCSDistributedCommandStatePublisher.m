@@ -52,6 +52,8 @@
     [controller addObserver:self forKeyPath:@"state" options:0 context:nil];
     [controller addObserver:self forKeyPath:@"progress" options:0 context:nil];
     [controller addObserver:self forKeyPath:@"progressMessage" options:0 context:nil];
+    [controller addObserver:self forKeyPath:@"progressAnimate" options:0 context:nil];
+    [controller addObserver:self forKeyPath:@"progressIndeterminate" options:0 context:nil];
 }
 
 - (void)unwatch
@@ -60,5 +62,7 @@
     [controller removeObserver:self forKeyPath:@"state"];
     [controller removeObserver:self forKeyPath:@"progress"];
     [controller removeObserver:self forKeyPath:@"progressMessage"];
+    [controller removeObserver:self forKeyPath:@"progressAnimate"];
+    [controller removeObserver:self forKeyPath:@"progressIndeterminate"];
 }
 @end
