@@ -258,12 +258,6 @@ writeLaunchdPlist_freeAndReturn:
     if (![self validateDiskInformation]) {
         return;
     }
-    if (![self constructLaunchdPlist]) {
-        return;
-    }
-    if (![self writeLaunchdPlist]) {
-        return;
-    }
     
     [self startLaunchctInstall];
 }
@@ -294,6 +288,9 @@ writeLaunchdPlist_freeAndReturn:
                                                            authorization:authorization]];
     }
     else {
+        if (![self constructLaunchdPlist] || ![self writeLaunchdPlist]) {
+            return;
+        }
         ctl = [LCSCommandController controllerWithCommand:[LCSLaunchctlLoadCommand commandWithPath:launchdPlistPath]];
     }
     ctl.title = [NSString localizedStringWithFormat:@"Install new launchd job"];
@@ -309,6 +306,12 @@ writeLaunchdPlist_freeAndReturn:
                                                   object:activeControllers];
     
     controller.progressMessage = [NSString localizedStringWithFormat:@"Complete"];
+    
+    if (launchdPlistPath) {
+        NSFileManager *fm = [[NSFileManager alloc] init];
+        [fm removeItemAtPath:launchdPlistPath error:nil];
+        [fm release];
+    }
     
     controller.state = LCSCommandStateFinished;
 }
