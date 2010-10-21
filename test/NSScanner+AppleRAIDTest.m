@@ -45,7 +45,7 @@
                                  memberDeviceNode:@"/dev/disk3s1"
                                          progress:&progress];
     GHAssertEqualObjects(status, @"Rebuilding", @"Correct status should be extracted");
-    GHAssertEqualsWithAccuracy(progress, (float)0.15, 0.01, @"Correct progress should be reported");
+    GHAssertEqualsWithAccuracy(progress, (float)15, 0.01, @"Correct progress should be reported");
 
     status = [result extractAppleRAIDMemberStatus:@"664C5B49-ACF4-4B49-8FEF-16FFDE597ABD"
                                  memberDeviceNode:@"/dev/disk1s1"

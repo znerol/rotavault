@@ -249,7 +249,7 @@ finalizeAndReturn:
     
     if ([status hasSuffix:@"(Rebuilding)"]) {
         if (progress != nil) {
-            *progress = [status floatValue] / 100.0;
+            *progress = [status floatValue];
         }
         return @"Rebuilding";
     }
