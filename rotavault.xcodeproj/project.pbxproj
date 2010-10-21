@@ -266,6 +266,8 @@
 		CAF1CF57126E26CD00E40D5D /* SampleTool.c in Sources */ = {isa = PBXBuildFile; fileRef = CAF1CF50126E26A800E40D5D /* SampleTool.c */; };
 		CAF1CF5F126E276700E40D5D /* LCSHelperInfoForRotavaultJobCommand.c in Sources */ = {isa = PBXBuildFile; fileRef = CAF1CF5E126E276700E40D5D /* LCSHelperInfoForRotavaultJobCommand.c */; };
 		CAF42A84126CBC5B006D3C31 /* LCSRotavaultCreateJobDictionaryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF42A83126CBC5B006D3C31 /* LCSRotavaultCreateJobDictionaryTest.m */; };
+		CAF653821270272300361A2E /* StandardPreferences.plist in Resources */ = {isa = PBXBuildFile; fileRef = CAF653811270272300361A2E /* StandardPreferences.plist */; };
+		CAF65392127032CC00361A2E /* LCSRotavaultJob.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF65391127032CC00361A2E /* LCSRotavaultJob.m */; };
 		CAF76891126ED1E7005A9C84 /* LCSHelperRemoveRotavaultJobCommand.c in Sources */ = {isa = PBXBuildFile; fileRef = CAF76890126ED1E7005A9C84 /* LCSHelperRemoveRotavaultJobCommand.c */; };
 		CAFF3ED1126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CAFF3ED0126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.m */; };
 		CAFF3ED3126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CAFF3ED0126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.m */; };
@@ -580,6 +582,9 @@
 		CAF1CF5D126E276700E40D5D /* LCSHelperInfoForRotavaultJobCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSHelperInfoForRotavaultJobCommand.h; sourceTree = "<group>"; };
 		CAF1CF5E126E276700E40D5D /* LCSHelperInfoForRotavaultJobCommand.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LCSHelperInfoForRotavaultJobCommand.c; sourceTree = "<group>"; };
 		CAF42A83126CBC5B006D3C31 /* LCSRotavaultCreateJobDictionaryTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSRotavaultCreateJobDictionaryTest.m; sourceTree = "<group>"; };
+		CAF653811270272300361A2E /* StandardPreferences.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = StandardPreferences.plist; sourceTree = "<group>"; };
+		CAF65390127032CC00361A2E /* LCSRotavaultJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSRotavaultJob.h; sourceTree = "<group>"; };
+		CAF65391127032CC00361A2E /* LCSRotavaultJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSRotavaultJob.m; sourceTree = "<group>"; };
 		CAF7688F126ED1E7005A9C84 /* LCSHelperRemoveRotavaultJobCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSHelperRemoveRotavaultJobCommand.h; sourceTree = "<group>"; };
 		CAF76890126ED1E7005A9C84 /* LCSHelperRemoveRotavaultJobCommand.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LCSHelperRemoveRotavaultJobCommand.c; sourceTree = "<group>"; };
 		CAFF3ECF126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSRotavaultAppleRAIDCopyCommand.h; sourceTree = "<group>"; };
@@ -695,6 +700,7 @@
 				CAEE8B84126CEF1900B0BE92 /* ch.znerol.rotavault.plist */,
 				CAEE8B96126CF38C00B0BE92 /* systools-scripts */,
 				CAEE8B2B126CE72500B0BE92 /* systools.pmdoc */,
+				CAF653811270272300361A2E /* StandardPreferences.plist */,
 			);
 			path = rsrc;
 			sourceTree = "<group>";
@@ -878,6 +884,8 @@
 				CA48204E1264D62700C2879B /* LCSRotavaultBlockCopyCommand.m */,
 				CA48204F1264D62700C2879B /* LCSRotavaultError.h */,
 				CA4820501264D62700C2879B /* LCSRotavaultError.m */,
+				CAF65390127032CC00361A2E /* LCSRotavaultJob.h */,
+				CAF65391127032CC00361A2E /* LCSRotavaultJob.m */,
 				CA678279126DFF1900900B82 /* LCSRotavaultPrivilegedJobInfoCommand.h */,
 				CA67827A126DFF1900900B82 /* LCSRotavaultPrivilegedJobInfoCommand.m */,
 				CAF1CE9B126E1CF800E40D5D /* LCSRotavaultPrivilegedJobInstallCommand.h */,
@@ -1162,6 +1170,7 @@
 				CAEE8BCA126D00C200B0BE92 /* Rotavault System Tools.pkg in Resources */,
 				CA69E8A5125CB590000A0E09 /* rvcopyd in Resources */,
 				CA9E8AED1265E5A900BCF0E0 /* SetupAssistant.xib in Resources */,
+				CAF653821270272300361A2E /* StandardPreferences.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1426,6 +1435,7 @@
 				CA0B5271126F3A2000973D2D /* LCSRotavaultCreateJobDictionary.c in Sources */,
 				CAFF3ED1126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.m in Sources */,
 				CAE3BEF6126F7DFC00982D14 /* LCSDistributedCommandStateWatcher.m in Sources */,
+				CAF65392127032CC00361A2E /* LCSRotavaultJob.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -6,25 +6,22 @@
 //
 
 #import "LCSRotavaultMainWindowController.h"
+#import "LCSInitMacros.h"
 #import "LCSRotavaultScheduleInstallCommand.h"
 #import "SampleCommon.h"
 
 @implementation LCSRotavaultMainWindowController
-
-- (IBAction)createTargetImage:(id)sender {
+@synthesize job;
+- (id)init
+{
+    LCSINIT_SUPER_OR_RETURN_NIL();
     
-}
-
-- (IBAction)scheduleTask:(id)sender {
+    [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithContentsOfFile:
+                                [[NSBundle mainBundle] pathForResource:@"StandardPreferences" ofType:@"plist"]]];
     
-    AuthorizationItem monitorAndManage[] = 
+    AuthorizationItem monitorRights[] = 
     {
         {
-            .name = kLCSHelperManageRotavaultLaunchdJobRightName,
-            .valueLength = 0,
-            .value = NULL,
-            .flags = 0
-        }, {
             .name = kLCSHelperMonitorRotavaultLaunchdJobRightName,
             .valueLength = 0,
             .value = NULL,
@@ -32,88 +29,30 @@
         }
     };
     AuthorizationRights rights = {
-        .count = 2,
-        .items = monitorAndManage
+        .count = 1,
+        .items = monitorRights
     };
+    
+    OSStatus err = AuthorizationCreate(&rights, kAuthorizationEmptyEnvironment,
+                                       kAuthorizationFlagInteractionAllowed | kAuthorizationFlagExtendRights,
+                                       &authorization);
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(err == 0);
         
-    AuthorizationRef auth;
-    OSStatus err = AuthorizationCreate(&rights, kAuthorizationEmptyEnvironment,
-                                       kAuthorizationFlagInteractionAllowed | kAuthorizationFlagExtendRights, &auth);
-    if (err) {
-        return;
-    }
+    job = [[LCSRotavaultJob alloc] initWithDataObject:[NSUserDefaults standardUserDefaults]
+                                              keyPath:@""
+                                        authorization:authorization];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(job);
     
-    LCSRotavaultScheduleInstallCommand *cmd = [LCSRotavaultScheduleInstallCommand
-                                               commandWithSourceDevice:sourceDeviceField.stringValue
-                                               targetDevice:targetDeviceField.stringValue
-                                               runDate:runDateField.dateValue
-                                               withAuthorization:auth];
-    cmd.rvcopydLaunchPath = [[NSBundle mainBundle] pathForResource:@"rvcopyd" ofType:nil];
-    
-    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
-    ctl.title = [NSString localizedStringWithFormat:@"Schedule rotavault job"];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(handleControllerFailedNotification:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFailed]
-                                               object:ctl];
-    [ctl start];
+    return self;
 }
 
-- (IBAction)selectSourceDevice:(id)sender {
-    
+- (void)dealloc
+{
+    [job release];
+    [super dealloc];
 }
 
-- (IBAction)selectTargetDevice:(id)sender {
-    
-}
-
-- (IBAction)startTask:(id)sender {
-    AuthorizationItem monitorAndManage[] = 
-    {
-        {
-            .name = kLCSHelperManageRotavaultLaunchdJobRightName,
-            .valueLength = 0,
-            .value = NULL,
-            .flags = 0
-        }, {
-            .name = kLCSHelperMonitorRotavaultLaunchdJobRightName,
-            .valueLength = 0,
-            .value = NULL,
-            .flags = 0
-        }
-    };
-    AuthorizationRights rights = {
-        .count = 2,
-        .items = monitorAndManage
-    };
-    
-    AuthorizationRef auth;
-    OSStatus err = AuthorizationCreate(&rights, kAuthorizationEmptyEnvironment,
-                                       kAuthorizationFlagInteractionAllowed | kAuthorizationFlagExtendRights, &auth);
-    if (err) {
-        return;
-    }
-    
-    LCSRotavaultScheduleInstallCommand *cmd = [LCSRotavaultScheduleInstallCommand
-                                               commandWithSourceDevice:sourceDeviceField.stringValue
-                                               targetDevice:targetDeviceField.stringValue
-                                               runDate:nil
-                                               withAuthorization:auth];
-    cmd.rvcopydLaunchPath = [[NSBundle mainBundle] pathForResource:@"rvcopyd" ofType:nil];
-    
-    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
-    ctl.title = [NSString localizedStringWithFormat:@"Run rotavault job"];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(handleControllerFailedNotification:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFailed]
-                                               object:ctl];
-    [ctl start];
-}
-
-- (IBAction)stopTask:(id)sender {
-    
-}
-
+#if 0
 - (void)handleControllerFailedNotification:(NSNotification*)ntf
 {
     LCSCommandController *sender = [ntf object];
@@ -125,9 +64,12 @@
         [window performSelector:@selector(presentError:) withObject:sender.error afterDelay:0];
     }
 }
+#endif
 
 - (void)windowWillClose:(NSNotification*)notification
 {
+    [job saveToDataObject:[NSUserDefaults standardUserDefaults] keyPath:@""];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     [[NSApplication sharedApplication] terminate:self];
 }
 @end

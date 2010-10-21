@@ -6,18 +6,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "LCSRotavaultJob.h"
 
 @interface LCSRotavaultMainWindowController : NSObject {
-    IBOutlet NSDatePicker *runDateField;
-    IBOutlet NSTextField *sourceDeviceField;
-    IBOutlet NSTextField *statusField;
-    IBOutlet NSTextField *targetDeviceField;
     IBOutlet NSWindow *window;
+    AuthorizationRef authorization;
 }
-- (IBAction)createTargetImage:(id)sender;
-- (IBAction)scheduleTask:(id)sender;
-- (IBAction)selectSourceDevice:(id)sender;
-- (IBAction)selectTargetDevice:(id)sender;
-- (IBAction)startTask:(id)sender;
-- (IBAction)stopTask:(id)sender;
+
+@property(readonly) LCSRotavaultJob *job;
 @end
