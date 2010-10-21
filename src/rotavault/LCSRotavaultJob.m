@@ -145,6 +145,7 @@
                                              selector:@selector(invalidateScheduleJob:)
                                                  name:[LCSCommandController notificationNameStateEntered:LCSCommandStateInvalidated]
                                                object:currentCommand];
+    currentCommand.title = [NSString localizedStringWithFormat:@"Scheduling rotavault job for later execution"];
     
     [currentCommand retain];
     [currentCommand start];
@@ -186,6 +187,7 @@
                                              selector:@selector(invalidateStartJob:)
                                                  name:[LCSCommandController notificationNameStateEntered:LCSCommandStateInvalidated]
                                                object:currentCommand];
+    currentCommand.title = [NSString localizedStringWithFormat:@"Preparing rotavault job"];
     
     [currentCommand retain];
     [currentCommand start];
@@ -231,6 +233,8 @@
                                              selector:@selector(invalidateRemoveJob:)
                                                  name:[LCSCommandController notificationNameStateEntered:LCSCommandStateInvalidated]
                                                object:currentCommand];
+    currentCommand.title = [NSString localizedStringWithFormat:@"Removing rotavault job"];
+    
     [currentCommand retain];
     [currentCommand start];
     [self updateControls];    
@@ -271,6 +275,8 @@
                                              selector:@selector(invalidateCheckStatus:)
                                                  name:[LCSCommandController notificationNameStateEntered:LCSCommandStateInvalidated]
                                                object:currentCommand];
+    currentCommand.title = [NSString localizedStringWithFormat:@"Checking job status"];
+    
     [currentCommand retain];
     [currentCommand start];
     [self updateControls];
