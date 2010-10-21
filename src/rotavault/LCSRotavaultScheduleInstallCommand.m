@@ -10,12 +10,8 @@
 #import "LCSInitMacros.h"
 #import "LCSRotavaultError.h"
 #import "LCSDiskInfoCommand.h"
-#import "LCSLaunchctlRemoveCommand.h"
-#import "LCSLaunchctlInfoCommand.h"
 #import "LCSLaunchctlLoadCommand.h"
-#import "LCSRotavaultPrivilegedJobInfoCommand.h"
 #import "LCSRotavaultPrivilegedJobInstallCommand.h"
-#import "LCSRotavaultPrivilegedJobRemoveCommand.h"
 #import "LCSRotavaultCreateJobDictionary.h"
 #import "LCSCommandRunner.h"
 #import "NSData+Hex.h"
@@ -27,8 +23,6 @@
 @interface LCSRotavaultScheduleInstallCommand (Internal)
 -(void)startGatherInformation;
 -(void)completeGatherInformation:(NSNotification*)ntf;
--(void)startLaunchctRemove;
--(void)completeLaunchctlRemove:(NSNotification*)ntf;
 -(void)startLaunchctInstall;
 -(void)completeLaunchctlInstall:(NSNotification*)ntf;
 @end
@@ -86,22 +80,6 @@
     [rvcopydLabel release];
     [rvcopydLaunchPath release];
     [super dealloc];
-}
-
--(void)commandCollectionFailed:(NSNotification*)ntf
-{
-    LCSCommandController* originalSender = [[ntf userInfo] objectForKey:LCSCommandControllerCollectionOriginalSenderKey];
-    
-    /*
-     * No need to bail out if there is no launchd job installed. However we need to remove launchdInfoCtl from the
-     * controller collection in order still allow firing of selectors subscribed to all LCSCommandStateFinished.
-     */
-    if (originalSender == launchdInfoCtl) {
-        [activeControllers removeController:launchdInfoCtl];
-        return;
-    }
-    
-    [super commandCollectionFailed:ntf];
 }
 
 -(BOOL)validateDiskInformation
@@ -221,19 +199,6 @@ writeLaunchdPlist_freeAndReturn:
                                                  name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
                                                object:activeControllers];
     
-    if (authorization) {
-        launchdInfoCtl = [LCSCommandController controllerWithCommand:[LCSRotavaultPrivilegedJobInfoCommand
-                                                                      privilegedJobInfoCommandWithLabel:rvcopydLabel
-                                                                      authorization:authorization]];
-    }
-    else {
-        launchdInfoCtl = [LCSCommandController controllerWithCommand:[LCSLaunchctlInfoCommand commandWithLabel:rvcopydLabel]];
-    }
-    
-    launchdInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on launchd job"];
-    [activeControllers addController:launchdInfoCtl];
-    [launchdInfoCtl start];
-                          
     startupInfoCtl = [LCSCommandController controllerWithCommand:[LCSDiskInfoCommand commandWithDevicePath:@"/"]];
     startupInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on startup disk"];
     [activeControllers addController:startupInfoCtl];
@@ -265,42 +230,6 @@ writeLaunchdPlist_freeAndReturn:
     if (![self writeLaunchdPlist]) {
         return;
     }
-    
-    if (launchdInfoCtl.result != nil) {
-        [self startLaunchctRemove];
-    }
-    else {
-        [self startLaunchctInstall];
-    }
-}
-
--(void)startLaunchctRemove
-{
-    controller.progressMessage = [NSString localizedStringWithFormat:@"Removing old launchd job"];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(completeLaunchctlRemove:)
-                                                 name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
-                                               object:activeControllers];
-    LCSCommandController *ctl = nil;
-    if (authorization) {
-        ctl = [LCSCommandController controllerWithCommand:[LCSRotavaultPrivilegedJobRemoveCommand
-                                                           privilegedJobRemoveCommandWithLabel:rvcopydLabel
-                                                           authorization:authorization]];
-    }
-    else {
-        ctl = [LCSCommandController controllerWithCommand:[LCSLaunchctlRemoveCommand commandWithLabel:rvcopydLabel]];
-    }
-    ctl.title = [NSString localizedStringWithFormat:@"Remove old launchd job"];
-    [activeControllers addController:ctl];
-    [ctl start];
-}
-
--(void)completeLaunchctlRemove:(NSNotification*)ntf
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
-                                                  object:activeControllers];
     
     [self startLaunchctInstall];
 }

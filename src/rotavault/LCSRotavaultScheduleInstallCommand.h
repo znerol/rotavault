@@ -13,9 +13,7 @@
 @interface LCSRotavaultScheduleInstallCommand : LCSBatchCommand {
     NSString *sourceDevice;
     NSString *targetDevice;
-
-    LCSCommandController *launchdInfoCtl;
-    NSDictionary *launchctlInfoResponse;
+    
     LCSCommandController *sourceInfoCtl;
     LCSCommandController *targetInfoCtl;
     LCSCommandController *startupInfoCtl;
