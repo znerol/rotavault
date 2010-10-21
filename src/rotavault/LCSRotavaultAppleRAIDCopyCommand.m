@@ -14,6 +14,7 @@
 #import "LCSAppleRAIDAddMemberCommand.h"
 #import "LCSAppleRAIDRemoveMemberCommand.h"
 #import "LCSAppleRAIDMonitorRebuildCommand.h"
+#import "LCSDiskUnmountCommand.h"
 #import "LCSRotavaultError.h"
 #import "LCSPropertyListSHA1Hash.h"
 #import "NSData+Hex.h"
@@ -28,6 +29,8 @@
 -(void)completeMonitorRebuildRAIDSet:(NSNotification*)ntf;
 -(void)startRemoveTargetFromRAIDSet;
 -(void)completeRemoveTargetFromRAIDSet:(NSNotification*)ntf;
+-(void)startUnmountTarget;
+-(void)completeUnmountTarget:(NSNotification*)ntf;
 @end
 
 
@@ -246,9 +249,36 @@
     
     controller.progressMessage = [NSString localizedStringWithFormat:@"Complete"];
     
-    controller.state = LCSCommandStateFinished;
+    [self startUnmountTarget];
 }    
 
+-(void)startUnmountTarget
+{
+    controller.progressMessage = [NSString localizedStringWithFormat:@"Removing target from RAID set"];
+    
+    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:[LCSDiskUnmountCommand
+                                                                             commandWithDevicePath:targetDevice]];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(completeUnmountTarget:)
+                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFinished]
+                                               object:ctl];
+    
+    ctl.title = [NSString localizedStringWithFormat:@"Unmount target device"];
+    [activeControllers addController:ctl];
+    [ctl start];    
+}
+
+-(void)completeUnmountTarget:(NSNotification*)ntf
+{
+    LCSCommandController *ctl = [ntf object];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFinished]
+                                                  object:ctl];
+    
+    controller.progressMessage = [NSString localizedStringWithFormat:@"Complete"];
+    
+    controller.state = LCSCommandStateFinished;
+}    
 
 -(void)start
 {
