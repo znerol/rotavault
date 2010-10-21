@@ -53,8 +53,8 @@
 
 // Commands supported by rotavault helper tool
 
-#define kLCSHelperManageRotavaultLaunchdJobRightName "ch.znerol.rotavault.monitor"
-#define kLCSHelperMonitorRotavaultLaunchdJobRightName "ch.znerol.rotavault.manage"
+#define kLCSHelperManageRotavaultLaunchdJobRightName "ch.znerol.rotavault.manage"
+#define kLCSHelperMonitorRotavaultLaunchdJobRightName "ch.znerol.rotavault.monitor"
 
 // Schedule rvcopyd job (requires manage privilege)
 #define kLCSHelperInstallRotavaultJobCommand "JobInstallCommand" /* CFString */
