@@ -43,28 +43,31 @@
                                         authorization:authorization];
     LCSINIT_RELEASE_AND_RETURN_IF_NIL(job);
     
+    [job addObserver:self forKeyPath:@"lastError" options:0 context:nil];
+    
     return self;
 }
 
 - (void)dealloc
 {
+    [job removeObserver:self forKeyPath:@"lastError"];
     [job release];
     [super dealloc];
 }
 
-#if 0
-- (void)handleControllerFailedNotification:(NSNotification*)ntf
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context
 {
-    LCSCommandController *sender = [ntf object];
-    if (sender.error != nil) {
+    if (job.lastError != nil) {
         /* 
          * presentError runs the current runloop, so we better defer that until after all notification handlers got the
          * chance to act.
          */
-        [window performSelector:@selector(presentError:) withObject:sender.error afterDelay:0];
+        [window performSelector:@selector(presentError:) withObject:job.lastError afterDelay:0];
     }
 }
-#endif
 
 - (void)windowWillClose:(NSNotification*)notification
 {

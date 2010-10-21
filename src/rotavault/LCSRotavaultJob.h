@@ -36,6 +36,8 @@
     BOOL startJobEnabled;
     NSString *statusMessage;
     BOOL removeJobEnabled;
+    
+    NSError *lastError;
 }
 
 @property(copy) NSString *label;
@@ -61,6 +63,8 @@
 
 @property(copy) NSString *statusMessage;
 @property(assign) BOOL removeJobEnabled;
+
+@property(retain) NSError *lastError;
 
 - (id)initWithDataObject:(id)anObject keyPath:(NSString*)keyPath authorization:(AuthorizationRef)anAuth;
 - (void)saveToDataObject:(id)anObject keyPath:(NSString*)keyPath;
