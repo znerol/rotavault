@@ -7,6 +7,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "LCSRotavaultJob.h"
+#import "LCSRotavaultSystemTools.h"
 
 @interface LCSRotavaultMainWindowController : NSObject {
     IBOutlet NSWindow *window;
@@ -14,4 +15,5 @@
 }
 
 @property(readonly) LCSRotavaultJob *job;
+@property(readonly) LCSRotavaultSystemTools *systools;
 @end

@@ -12,6 +12,8 @@
 
 @implementation LCSRotavaultMainWindowController
 @synthesize job;
+@synthesize systools;
+
 - (id)init
 {
     LCSINIT_SUPER_OR_RETURN_NIL();
@@ -30,6 +32,10 @@
     
     [job addObserver:self forKeyPath:@"lastError" options:0 context:nil];
     
+    systools = [[LCSRotavaultSystemTools alloc] init];
+    [systools checkInstalledVersion];
+    systools.autocheck = YES;
+    
     return self;
 }
 
@@ -37,6 +43,7 @@
 {
     [job removeObserver:self forKeyPath:@"lastError"];
     [job release];
+    [systools release];
     [super dealloc];
 }
 
@@ -52,6 +59,13 @@
          */
         [window performSelector:@selector(presentError:) withObject:job.lastError afterDelay:0];
     }
+}
+
+- (void)installRotavaultSystemTools
+{
+    NSString *pkgpath = [[NSBundle mainBundle] pathForResource:@"Rotavault System Tools.pkg" ofType:nil];
+    assert(pkgpath != nil);
+    [[NSWorkspace sharedWorkspace] openFile:pkgpath withApplication:@"Installer.app" andDeactivate:YES];
 }
 
 - (void)windowWillClose:(NSNotification*)notification
