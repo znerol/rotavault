@@ -84,6 +84,9 @@
 		CA197DFC1270C359005C11F1 /* LCSDiskUnmountCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA197DFA1270C359005C11F1 /* LCSDiskUnmountCommand.m */; };
 		CA36E8D6127242DA0052C306 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA36E89C127242570052C306 /* SenTestingKit.framework */; };
 		CA36E8E11272432F0052C306 /* SenTestingKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = CA36E89C127242570052C306 /* SenTestingKit.framework */; };
+		CA36E91E127246300052C306 /* diskutil-appleraid-list-10.5-rebuild.txt in Resources */ = {isa = PBXBuildFile; fileRef = CA36E91B127246300052C306 /* diskutil-appleraid-list-10.5-rebuild.txt */; };
+		CA36E91F127246300052C306 /* diskutil-appleraid-list-10.5.txt in Resources */ = {isa = PBXBuildFile; fileRef = CA36E91C127246300052C306 /* diskutil-appleraid-list-10.5.txt */; };
+		CA36E920127246300052C306 /* diskutil-appleraid-list-10.6.txt in Resources */ = {isa = PBXBuildFile; fileRef = CA36E91D127246300052C306 /* diskutil-appleraid-list-10.6.txt */; };
 		CA4822BE1264D69000C2879B /* LCSCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820201264D62700C2879B /* LCSCommand.m */; };
 		CA4822BF1264D69000C2879B /* LCSDiskImageInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48203B1264D62700C2879B /* LCSDiskImageInfoCommand.m */; };
 		CA4822C01264D69000C2879B /* LCSLaunchctlLoadCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820451264D62700C2879B /* LCSLaunchctlLoadCommand.m */; };
@@ -246,7 +249,6 @@
 		CAE4CA80126466E600498A37 /* diskutil-appleraid-list-degraded-rebuilding-2.txt in Resources */ = {isa = PBXBuildFile; fileRef = CAE4CA72126466E600498A37 /* diskutil-appleraid-list-degraded-rebuilding-2.txt */; };
 		CAE4CA81126466E600498A37 /* diskutil-appleraid-list-degraded-rebuilding-3.txt in Resources */ = {isa = PBXBuildFile; fileRef = CAE4CA73126466E600498A37 /* diskutil-appleraid-list-degraded-rebuilding-3.txt */; };
 		CAE4CA82126466E600498A37 /* diskutil-appleraid-list-ok.txt in Resources */ = {isa = PBXBuildFile; fileRef = CAE4CA74126466E600498A37 /* diskutil-appleraid-list-ok.txt */; };
-		CAE4CA9912646C4800498A37 /* diskutil-appleraid-list.txt in Resources */ = {isa = PBXBuildFile; fileRef = CAE4CA9812646C4800498A37 /* diskutil-appleraid-list.txt */; };
 		CAE9A1A71255227C00CD9C33 /* LCSAsrRestoreCommandTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAE9A1A61255227C00CD9C33 /* LCSAsrRestoreCommandTest.m */; };
 		CAEC4B97125EEE5A00CDBEA1 /* LCSCommandCollectionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAEC4B96125EEE5A00CDBEA1 /* LCSCommandCollectionTest.m */; };
 		CAEE8A85126CDA0C00B0BE92 /* launchd-rvcopyd-runatload.plist in Resources */ = {isa = PBXBuildFile; fileRef = CAEE8A83126CDA0C00B0BE92 /* launchd-rvcopyd-runatload.plist */; };
@@ -444,6 +446,9 @@
 		CA197DFA1270C359005C11F1 /* LCSDiskUnmountCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSDiskUnmountCommand.m; sourceTree = "<group>"; };
 		CA28AF1F12132C7600C9BE6F /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		CA36E89C127242570052C306 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = /Xcode2.5/Library/Frameworks/SenTestingKit.framework; sourceTree = "<absolute>"; };
+		CA36E91B127246300052C306 /* diskutil-appleraid-list-10.5-rebuild.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "diskutil-appleraid-list-10.5-rebuild.txt"; sourceTree = "<group>"; };
+		CA36E91C127246300052C306 /* diskutil-appleraid-list-10.5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "diskutil-appleraid-list-10.5.txt"; sourceTree = "<group>"; };
+		CA36E91D127246300052C306 /* diskutil-appleraid-list-10.6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "diskutil-appleraid-list-10.6.txt"; sourceTree = "<group>"; };
 		CA48201A1264D62700C2879B /* LCSCmdlineCommandRunner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSCmdlineCommandRunner.h; sourceTree = "<group>"; };
 		CA48201B1264D62700C2879B /* LCSCmdlineCommandRunner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSCmdlineCommandRunner.m; sourceTree = "<group>"; };
 		CA48201C1264D62700C2879B /* rvcopyd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rvcopyd.m; sourceTree = "<group>"; };
@@ -569,7 +574,6 @@
 		CAE4CA72126466E600498A37 /* diskutil-appleraid-list-degraded-rebuilding-2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "diskutil-appleraid-list-degraded-rebuilding-2.txt"; sourceTree = "<group>"; };
 		CAE4CA73126466E600498A37 /* diskutil-appleraid-list-degraded-rebuilding-3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "diskutil-appleraid-list-degraded-rebuilding-3.txt"; sourceTree = "<group>"; };
 		CAE4CA74126466E600498A37 /* diskutil-appleraid-list-ok.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "diskutil-appleraid-list-ok.txt"; sourceTree = "<group>"; };
-		CAE4CA9812646C4800498A37 /* diskutil-appleraid-list.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "diskutil-appleraid-list.txt"; sourceTree = "<group>"; };
 		CAE82D35122C311F00715BCF /* LCSPropertyListSHA1HashTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSPropertyListSHA1HashTest.m; sourceTree = "<group>"; };
 		CAE9A1A61255227C00CD9C33 /* LCSAsrRestoreCommandTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSAsrRestoreCommandTest.m; sourceTree = "<group>"; };
 		CAEC4B96125EEE5A00CDBEA1 /* LCSCommandCollectionTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSCommandCollectionTest.m; sourceTree = "<group>"; };
@@ -970,7 +974,9 @@
 				CAE4CA72126466E600498A37 /* diskutil-appleraid-list-degraded-rebuilding-2.txt */,
 				CAE4CA73126466E600498A37 /* diskutil-appleraid-list-degraded-rebuilding-3.txt */,
 				CAE4CA74126466E600498A37 /* diskutil-appleraid-list-ok.txt */,
-				CAE4CA9812646C4800498A37 /* diskutil-appleraid-list.txt */,
+				CA36E91B127246300052C306 /* diskutil-appleraid-list-10.5-rebuild.txt */,
+				CA36E91C127246300052C306 /* diskutil-appleraid-list-10.5.txt */,
+				CA36E91D127246300052C306 /* diskutil-appleraid-list-10.6.txt */,
 			);
 			path = appleraid;
 			sourceTree = "<group>";
@@ -1176,9 +1182,11 @@
 				CAE4CA80126466E600498A37 /* diskutil-appleraid-list-degraded-rebuilding-2.txt in Resources */,
 				CAE4CA81126466E600498A37 /* diskutil-appleraid-list-degraded-rebuilding-3.txt in Resources */,
 				CAE4CA82126466E600498A37 /* diskutil-appleraid-list-ok.txt in Resources */,
-				CAE4CA9912646C4800498A37 /* diskutil-appleraid-list.txt in Resources */,
 				CAEE8A85126CDA0C00B0BE92 /* launchd-rvcopyd-runatload.plist in Resources */,
 				CAEE8A86126CDA0C00B0BE92 /* launchd-rvcopyd-withrundate.plist in Resources */,
+				CA36E91E127246300052C306 /* diskutil-appleraid-list-10.5-rebuild.txt in Resources */,
+				CA36E91F127246300052C306 /* diskutil-appleraid-list-10.5.txt in Resources */,
+				CA36E920127246300052C306 /* diskutil-appleraid-list-10.6.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
