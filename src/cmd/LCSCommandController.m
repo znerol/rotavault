@@ -25,7 +25,7 @@
 @synthesize error;
 @synthesize userInfo;
 
-+(LCSCommandController*)controllerWithCommand:(id <LCSCommand>)anCommand
++(LCSCommandController*)controllerWithCommand:(<LCSCommandTemp>)anCommand
 {
     LCSCommandController* controller = [[LCSCommandController alloc] init];
     controller.command = anCommand;
@@ -43,7 +43,7 @@
     [super dealloc];
 }
 
--(void)setCommand:(id <LCSCommand>)anCommand
+-(void)setCommand:(<LCSCommandTemp>)anCommand
 {
     NSParameterAssert(anCommand != nil);
     NSParameterAssert(anCommand.controller == nil);

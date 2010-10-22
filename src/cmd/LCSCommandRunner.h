@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol LCSCommand;
+@protocol LCSCommandTemp;
 @class LCSCommandController;
 
 
 @protocol LCSCommandRunner <NSObject>
--(LCSCommandController*)run:(id <LCSCommand>)command;
+-(LCSCommandController*)run:(id <LCSCommandTemp>)command;
 @end

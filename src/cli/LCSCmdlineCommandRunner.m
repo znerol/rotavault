@@ -14,7 +14,7 @@
 
 
 @implementation LCSCmdlineCommandRunner
--(id)initWithCommand:(id <LCSCommand>)command label:(NSString*)lbl title:(NSString*)tit
+-(id)initWithCommand:(<LCSCommandTemp>)command label:(NSString*)lbl title:(NSString*)tit
 {
     LCSINIT_SUPER_OR_RETURN_NIL();
     

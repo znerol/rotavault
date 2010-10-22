@@ -7,12 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LCSCommand.h"
+#import "LCSCommandTemp.h"
 #import "LCSCommandController.h"
 #import "BetterAuthorizationSampleLib.h"
 
 
-@interface LCSExecuteBASCommand : NSObject <LCSCommand> {
+@interface LCSExecuteBASCommand : NSObject <LCSCommandTemp> {
     LCSCommandController    *controller;
     
     AuthorizationRef        authorization;

@@ -82,8 +82,6 @@
     }
 }
 
-#pragma mark LCSCommand Implementation
-
 -(void)start
 {
     [[NSNotificationCenter defaultCenter] addObserver:self

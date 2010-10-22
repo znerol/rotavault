@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LCSCommand.h"
+#import "LCSCommandTemp.h"
 
 
 typedef enum {
@@ -33,7 +33,7 @@ typedef enum {
 @interface LCSCommandController : NSObject {
     LCSCommandState  state;
     LCSCommandState  exitState;
-    id <LCSCommand>  command;
+    id <LCSCommandTemp>  command;
     
     NSString *title;
     float progress;
@@ -52,7 +52,7 @@ typedef enum {
 
 @property(assign) LCSCommandState  state;
 @property(assign) LCSCommandState  exitState;
-@property(retain) id <LCSCommand>  command;
+@property(retain) id <LCSCommandTemp>  command;
 
 @property(retain) NSString *title;
 @property(assign) float progress;
@@ -68,7 +68,7 @@ typedef enum {
 
 @property(assign) id userInfo;
 
-+(LCSCommandController*)controllerWithCommand:(id <LCSCommand>)anCommand;
++(LCSCommandController*)controllerWithCommand:(id <LCSCommandTemp>)anCommand;
 
 -(BOOL)validateNextState:(LCSCommandState)newState;
 -(void)start;

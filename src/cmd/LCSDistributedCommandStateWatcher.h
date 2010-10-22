@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LCSCommand.h"
+#import "LCSCommandTemp.h"
 #import "LCSCommandController.h"
 
 
-@interface LCSDistributedCommandStateWatcher : NSObject <LCSCommand> {
+@interface LCSDistributedCommandStateWatcher : NSObject <LCSCommandTemp> {
     LCSCommandController *controller;
     NSString *label;
 }

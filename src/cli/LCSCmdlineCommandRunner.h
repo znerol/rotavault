@@ -7,17 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LCSCommand.h"
+#import "LCSCommandTemp.h"
 #import "LCSSignalHandler.h"
 
 
 @interface LCSCmdlineCommandRunner : NSObject <LCSSignalHandlerDelegate> {
-    id <LCSCommand> cmd;
+    <LCSCommandTemp> cmd;
     LCSCommandController *ctl;
     NSString *label;
     NSString *title;
     NSError* error;
 }
--(id)initWithCommand:(id <LCSCommand>)command label:(NSString*)lbl title:(NSString*)tit;
+-(id)initWithCommand:(<LCSCommandTemp>)command label:(NSString*)lbl title:(NSString*)tit;
 -(NSError*)run;
 @end

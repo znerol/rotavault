@@ -1,5 +1,5 @@
 //
-//  LCSCommand.h
+//  LCSCommandTemp.h
 //  task-test-2
 //
 //  Created by Lorenz Schori on 23.09.10.
@@ -11,7 +11,7 @@
 
 @class LCSCommandController;
 
-@protocol LCSCommand <NSObject>
+@protocol LCSCommandTemp <NSObject>
 
 /**
  * A reference to the command controller. This value is set automatically via dependency injection.

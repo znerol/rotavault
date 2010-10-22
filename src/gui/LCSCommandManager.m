@@ -7,7 +7,7 @@
 //
 
 #import "LCSCommandManager.h"
-#import "LCSCommand.h"
+#import "LCSCommandTemp.h"
 
 @interface LCSCommandManager (Private)
 -(void)controllerLeftInitState:(NSNotification*)ntf;

@@ -437,7 +437,7 @@
 		CA48201A1264D62700C2879B /* LCSCmdlineCommandRunner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSCmdlineCommandRunner.h; sourceTree = "<group>"; };
 		CA48201B1264D62700C2879B /* LCSCmdlineCommandRunner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSCmdlineCommandRunner.m; sourceTree = "<group>"; };
 		CA48201C1264D62700C2879B /* rvcopyd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rvcopyd.m; sourceTree = "<group>"; };
-		CA48201E1264D62700C2879B /* LCSCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSCommand.h; sourceTree = "<group>"; };
+		CA48201E1264D62700C2879B /* LCSCommandTemp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSCommandTemp.h; sourceTree = "<group>"; };
 		CA48201F1264D62700C2879B /* LCSCommandController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSCommandController.h; sourceTree = "<group>"; };
 		CA4820201264D62700C2879B /* LCSCommandController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSCommandController.m; sourceTree = "<group>"; };
 		CA4820211264D62700C2879B /* LCSCommandControllerCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSCommandControllerCollection.h; sourceTree = "<group>"; };
@@ -806,7 +806,7 @@
 			children = (
 				CAA7A5351264E6AE000EAED2 /* LCSBatchCommand.h */,
 				CAA7A5361264E6AE000EAED2 /* LCSBatchCommand.m */,
-				CA48201E1264D62700C2879B /* LCSCommand.h */,
+				CA48201E1264D62700C2879B /* LCSCommandTemp.h */,
 				CA48201F1264D62700C2879B /* LCSCommandController.h */,
 				CA4820201264D62700C2879B /* LCSCommandController.m */,
 				CA4820211264D62700C2879B /* LCSCommandControllerCollection.h */,

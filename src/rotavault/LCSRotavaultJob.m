@@ -8,7 +8,7 @@
 
 #import "LCSRotavaultJob.h"
 #import "LCSInitMacros.h"
-#import "LCSCommand.h"
+#import "LCSCommandTemp.h"
 #import "LCSCommandController.h"
 #import "LCSRotavaultScheduleInstallCommand.h"
 #import "LCSLaunchctlInfoCommand.h"
@@ -240,7 +240,7 @@
         return;
     }
     
-    id <LCSCommand> removeCommand = nil;
+    <LCSCommandTemp> removeCommand = nil;
     if (runAsRoot) {
         removeCommand = [LCSRotavaultPrivilegedJobRemoveCommand privilegedJobRemoveCommandWithLabel:label
                                                                                     authorization:authorization];
@@ -289,7 +289,7 @@
         return;
     }
     
-    id <LCSCommand> infoCommand = nil;
+    <LCSCommandTemp> infoCommand = nil;
     if (runAsRoot) {
         infoCommand = [LCSRotavaultPrivilegedJobInfoCommand privilegedJobInfoCommandWithLabel:label
                                                                                 authorization:authorization];

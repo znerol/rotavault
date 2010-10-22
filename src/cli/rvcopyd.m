@@ -30,7 +30,7 @@ int main (int argc, const char * argv[]) {
     NSString* label = [args objectForKey:@"label"];
     
     NSString* method = [args objectForKey:@"method"];
-    id <LCSCommand> copyCommand = nil;
+    <LCSCommandTemp> copyCommand = nil;
     if ([@"asr" isEqualToString:method]) {
         copyCommand = [LCSRotavaultBlockCopyCommand commandWithSourceDevice:[args stringForKey:@"sourcedev"]
                                                              sourceChecksum:[args stringForKey:@"sourcecheck"]
