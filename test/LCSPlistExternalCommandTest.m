@@ -8,7 +8,7 @@
 
 #import <GHUnit/GHUnit.h>
 #import "LCSQuickExternalCommand.h"
-#import "LCSCommandController.h"
+#import "LCSCommand.h"
 #import "LCSPlistExternalCommand.h"
 #import "LCSTestdir.h"
 

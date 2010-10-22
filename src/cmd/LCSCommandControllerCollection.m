@@ -43,7 +43,7 @@ NSString* LCSCommandControllerCollectionOriginalSenderKey = @"LCSCommandControll
 
 -(void)handleControllerState:(NSNotification*)ntf
 {
-    LCSCommandController* sender = [ntf object];
+    LCSCommand* sender = [ntf object];
     
     NSMutableSet *controllersPerState = [[watchers objectForKey:[NSNumber numberWithInt:sender.state]] retain];
     
@@ -63,25 +63,25 @@ NSString* LCSCommandControllerCollectionOriginalSenderKey = @"LCSCommandControll
     [controllersPerState release];
 }
 
--(void)addController:(LCSCommandController*)ctl
+-(void)addController:(LCSCommand*)ctl
 {
     [controllers addObject:ctl];
     
     for (NSNumber *state in [watchers allKeys]) {
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(handleControllerState:)
-                                                     name:[LCSCommandController notificationNameStateEntered:[state intValue]]
+                                                     name:[LCSCommand notificationNameStateEntered:[state intValue]]
                                                    object:ctl];
     }
 }
 
--(void)removeController:(LCSCommandController*)ctl
+-(void)removeController:(LCSCommand*)ctl
 {
     [controllers removeObject:ctl];
     
     for (NSNumber *state in [watchers allKeys]) {
         [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                        name:[LCSCommandController notificationNameStateEntered:[state intValue]]
+                                                        name:[LCSCommand notificationNameStateEntered:[state intValue]]
                                                       object:ctl];
     }
 }
@@ -95,10 +95,10 @@ NSString* LCSCommandControllerCollectionOriginalSenderKey = @"LCSCommandControll
     
     [watchers setObject:[NSMutableSet set] forKey:[NSNumber numberWithInt:state]];
     
-    for (LCSCommandController *ctl in controllers) {
+    for (LCSCommand *ctl in controllers) {
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(handleControllerState:)
-                                                     name:[LCSCommandController notificationNameStateEntered:state]
+                                                     name:[LCSCommand notificationNameStateEntered:state]
                                                    object:ctl];
     }
 }
@@ -112,9 +112,9 @@ NSString* LCSCommandControllerCollectionOriginalSenderKey = @"LCSCommandControll
     
     [watchers removeObjectForKey:[NSNumber numberWithInt:state]];
     
-    for (LCSCommandController *ctl in controllers) {
+    for (LCSCommand *ctl in controllers) {
         [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                        name:[LCSCommandController notificationNameStateEntered:state]
+                                                        name:[LCSCommand notificationNameStateEntered:state]
                                                       object:ctl];
     }
 }

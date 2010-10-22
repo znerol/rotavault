@@ -7,15 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LCSCommandController.h"
+#import "LCSCommand.h"
 
 
 @interface LCSDistributedCommandStatePublisher : NSObject {
-    LCSCommandController* controller;
+    LCSCommand* controller;
     NSString* label;
 }
 
-- (id)initWithCommandController:(LCSCommandController*)ctl label:(NSString*)sndlabel;
+- (id)initWithCommandController:(LCSCommand*)ctl label:(NSString*)sndlabel;
 - (void)watch;
 - (void)unwatch;
 @end

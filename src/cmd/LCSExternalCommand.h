@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LCSCommandController.h"
+#import "LCSCommand.h"
 
 
-@interface LCSExternalCommand : LCSCommandController {
+@interface LCSExternalCommand : LCSCommand {
     NSTask *task;
 
 }

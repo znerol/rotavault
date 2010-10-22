@@ -7,7 +7,7 @@
 //
 
 #import "LCSAppleRAIDListCommand.h"
-#import "LCSCommandController.h"
+#import "LCSCommand.h"
 #import "LCSInitMacros.h"
 #import "LCSOSMacros.h"
 #import "LCSRotavaultError.h"

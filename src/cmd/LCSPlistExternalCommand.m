@@ -7,7 +7,7 @@
 //
 
 #import "LCSPlistExternalCommand.h"
-#import "LCSCommandController.h"
+#import "LCSCommand.h"
 #import "LCSRotavaultError.h"
 
 

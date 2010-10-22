@@ -19,8 +19,8 @@
     
     NSString* raidUUID;
     
-    LCSCommandController *sourceInfoCtl;
-    LCSCommandController *targetInfoCtl;    
+    LCSCommand *sourceInfoCtl;
+    LCSCommand *targetInfoCtl;    
 }
 
 +(LCSRotavaultAppleRAIDCopyCommand*)commandWithSourceDevice:(NSString*)sourcedev

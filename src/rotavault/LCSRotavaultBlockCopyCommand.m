@@ -8,7 +8,7 @@
 
 #import "LCSRotavaultBlockCopyCommand.h"
 #import "LCSInitMacros.h"
-#import "LCSCommandController.h"
+#import "LCSCommand.h"
 #import "LCSDiskInfoCommand.h"
 #import "LCSAsrRestoreCommand.h"
 #import "LCSDiskMountCommand.h"
@@ -157,10 +157,10 @@
     self.progressMessage = [NSString localizedStringWithFormat:@"Performing block copy"];
     
     needsSourceRemount = YES;
-    LCSCommandController *ctl = [LCSAsrRestoreCommand commandWithSource:sourceDevice target:targetDevice];
+    LCSCommand *ctl = [LCSAsrRestoreCommand commandWithSource:sourceDevice target:targetDevice];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(completeBlockCopy:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFinished]
+                                                 name:[LCSCommand notificationNameStateEntered:LCSCommandStateFinished]
                                                object:ctl];
     ctl.title = [NSString localizedStringWithFormat:@"Block copy"];
     [activeControllers addController:ctl];
@@ -177,15 +177,15 @@
                       context:(void *)context
 {
     if ([keyPath isEqualToString:@"progress"]) {
-        self.progress = ((LCSCommandController*)object).progress;
+        self.progress = ((LCSCommand*)object).progress;
     }
 }
 
 -(void)completeBlockCopy:(NSNotification*)ntf
 {
-    LCSCommandController* sender = [ntf object];
+    LCSCommand* sender = [ntf object];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandController notificationNameStateEntered:sender.state]
+                                                    name:[LCSCommand notificationNameStateEntered:sender.state]
                                                   object:sender];
     [sender removeObserver:self forKeyPath:@"progress"];
     self.progressIndeterminate = YES;
@@ -201,10 +201,10 @@
 {
     self.progressMessage = [NSString localizedStringWithFormat:@"Remounting source device"];
     
-    LCSCommandController *ctl = [LCSDiskMountCommand commandWithDevicePath:sourceDevice];
+    LCSCommand *ctl = [LCSDiskMountCommand commandWithDevicePath:sourceDevice];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(completeSourceRemount:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateInvalidated]
+                                                 name:[LCSCommand notificationNameStateEntered:LCSCommandStateInvalidated]
                                                object:ctl];
     ctl.title = [NSString localizedStringWithFormat:@"Remount source device"];
     [activeControllers addController:ctl];
@@ -213,9 +213,9 @@
 
 -(void)completeSourceRemount:(NSNotification*)ntf
 {
-    LCSCommandController* sender = [ntf object];
+    LCSCommand* sender = [ntf object];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandController notificationNameStateEntered:sender.state]
+                                                    name:[LCSCommand notificationNameStateEntered:sender.state]
                                                   object:sender];
 }
 

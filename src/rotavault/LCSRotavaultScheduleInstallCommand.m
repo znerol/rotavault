@@ -269,7 +269,7 @@ writeLaunchdPlist_freeAndReturn:
                                              selector:@selector(completeLaunchctlInstall:)
                                                  name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
                                                object:activeControllers];
-    LCSCommandController *ctl = nil;
+    LCSCommand *ctl = nil;
     if (authorization) {
         NSDictionary *sourceDiskInformation = sourceInfoCtl.result;
         NSDictionary *targetDiskInformation = targetInfoCtl.result;

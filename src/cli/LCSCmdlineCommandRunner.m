@@ -9,12 +9,12 @@
 #import <asl.h>
 #import "LCSCmdlineCommandRunner.h"
 #import "LCSInitMacros.h"
-#import "LCSCommandController.h"
+#import "LCSCommand.h"
 #import "LCSDistributedCommandStatePublisher.h"
 
 
 @implementation LCSCmdlineCommandRunner
--(id)initWithCommand:(LCSCommandController*)command label:(NSString*)lbl title:(NSString*)tit
+-(id)initWithCommand:(LCSCommand*)command label:(NSString*)lbl title:(NSString*)tit
 {
     LCSINIT_SUPER_OR_RETURN_NIL();
     
@@ -46,7 +46,7 @@
 
 -(void)handleControllerFailedNotification:(NSNotification*)ntf
 {
-    LCSCommandController *sender = [ntf object];
+    LCSCommand *sender = [ntf object];
     if (sender.error != nil) {
         asl_log(NULL, NULL, ASL_LEVEL_ERR, "%s", [[sender.error localizedDescription] cStringUsingEncoding:NSUTF8StringEncoding]);
     }
@@ -65,7 +65,7 @@
 {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleControllerFailedNotification:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFailed]
+                                                 name:[LCSCommand notificationNameStateEntered:LCSCommandStateFailed]
                                                object:cmd];
         
     /* wire up command to our logging function */

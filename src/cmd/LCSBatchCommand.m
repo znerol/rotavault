@@ -8,7 +8,7 @@
 
 #import "LCSRotavaultBlockCopyCommand.h"
 #import "LCSInitMacros.h"
-#import "LCSCommandController.h"
+#import "LCSCommand.h"
 #import "LCSRotavaultError.h"
 
 @implementation LCSBatchCommand
@@ -67,7 +67,7 @@
     self.error = err;
     self.state = LCSCommandStateFailed;
     
-    for (LCSCommandController *ctl in activeControllers.controllers) {
+    for (LCSCommand *ctl in activeControllers.controllers) {
         [ctl cancel];
     }
 }
@@ -75,7 +75,7 @@
 -(void)commandCollectionFailed:(NSNotification*)ntf
 {
     LCSCommandControllerCollection* sender = [ntf object];
-    LCSCommandController* originalSender = [[ntf userInfo] objectForKey:LCSCommandControllerCollectionOriginalSenderKey];
+    LCSCommand* originalSender = [[ntf userInfo] objectForKey:LCSCommandControllerCollectionOriginalSenderKey];
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:[LCSCommandControllerCollection notificationNameAnyControllerEnteredState:LCSCommandStateFailed]
                                                   object:sender];

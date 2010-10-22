@@ -8,7 +8,7 @@
 
 #import "LCSAppleRAIDMonitorRebuildCommand.h"
 #import "LCSInitMacros.h"
-#import "LCSCommandController.h"
+#import "LCSCommand.h"
 #import "LCSAppleRAIDListCommand.h"
 #import "NSScanner+AppleRAID.h"
 
@@ -65,7 +65,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(invalidateCheckraid:)
-                                                 name:[LCSCommandController notificationNameStateEntered:
+                                                 name:[LCSCommand notificationNameStateEntered:
                                                        LCSCommandStateInvalidated]
                                                object:listraidctl];
     [listraidctl start];
@@ -74,7 +74,7 @@
 - (void)invalidateCheckraid:(NSNotification*)ntf
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandController notificationNameStateEntered:
+                                                    name:[LCSCommand notificationNameStateEntered:
                                                           LCSCommandStateInvalidated]
                                                   object:listraidctl];
     

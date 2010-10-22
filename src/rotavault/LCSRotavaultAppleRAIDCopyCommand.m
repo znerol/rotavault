@@ -8,7 +8,7 @@
 
 #import "LCSRotavaultAppleRAIDCopyCommand.h"
 #import "LCSInitMacros.h"
-#import "LCSCommandController.h"
+#import "LCSCommand.h"
 #import "LCSDiskInfoCommand.h"
 #import "LCSAppleRAIDListCommand.h"
 #import "LCSAppleRAIDAddMemberCommand.h"
@@ -175,11 +175,11 @@
 {
     self.progressMessage = [NSString localizedStringWithFormat:@"Adding target to RAID set"];
     
-    LCSCommandController *ctl = [LCSAppleRAIDAddMemberCommand commandWithRaidUUID:raidUUID
+    LCSCommand *ctl = [LCSAppleRAIDAddMemberCommand commandWithRaidUUID:raidUUID
                                                                        devicePath:targetDevice];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(completeAddTargetToRAIDSet:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFinished]
+                                                 name:[LCSCommand notificationNameStateEntered:LCSCommandStateFinished]
                                                object:ctl];
     
     ctl.title = [NSString localizedStringWithFormat:@"Add target to RAID set"];
@@ -189,9 +189,9 @@
 
 -(void)completeAddTargetToRAIDSet:(NSNotification*)ntf
 {
-    LCSCommandController *ctl = [ntf object];
+    LCSCommand *ctl = [ntf object];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFinished]
+                                                    name:[LCSCommand notificationNameStateEntered:LCSCommandStateFinished]
                                                   object:ctl];
     
     [self startMonitorRebuildRAIDSet];
@@ -200,11 +200,11 @@
 -(void)startMonitorRebuildRAIDSet
 {
     self.progressMessage = [NSString localizedStringWithFormat:@"Performing block copy"];    
-    LCSCommandController *ctl = [LCSAppleRAIDMonitorRebuildCommand commandWithRaidUUID:raidUUID
+    LCSCommand *ctl = [LCSAppleRAIDMonitorRebuildCommand commandWithRaidUUID:raidUUID
                                                                             devicePath:targetDevice];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(completeMonitorRebuildRAIDSet:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFinished]
+                                                 name:[LCSCommand notificationNameStateEntered:LCSCommandStateFinished]
                                                object:ctl];
     
     ctl.title = [NSString localizedStringWithFormat:@"Block copy"];
@@ -222,15 +222,15 @@
                       context:(void *)context
 {
     if ([keyPath isEqualToString:@"progress"]) {
-        self.progress = ((LCSCommandController*)object).progress;
+        self.progress = ((LCSCommand*)object).progress;
     }
 }
 
 -(void)completeMonitorRebuildRAIDSet:(NSNotification*)ntf
 {
-    LCSCommandController *ctl = [ntf object];
+    LCSCommand *ctl = [ntf object];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFinished]
+                                                    name:[LCSCommand notificationNameStateEntered:LCSCommandStateFinished]
                                                   object:ctl];
     [ctl removeObserver:self forKeyPath:@"progress"];
     self.progressIndeterminate = YES;
@@ -242,11 +242,11 @@
 {
     self.progressMessage = [NSString localizedStringWithFormat:@"Removing target from RAID set"];
     
-    LCSCommandController *ctl = [LCSAppleRAIDRemoveMemberCommand commandWithRaidUUID:raidUUID
+    LCSCommand *ctl = [LCSAppleRAIDRemoveMemberCommand commandWithRaidUUID:raidUUID
                                                                           devicePath:targetDevice];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(completeRemoveTargetFromRAIDSet:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFinished]
+                                                 name:[LCSCommand notificationNameStateEntered:LCSCommandStateFinished]
                                                object:ctl];
     
     ctl.title = [NSString localizedStringWithFormat:@"Remove target from RAID set"];
@@ -256,9 +256,9 @@
 
 -(void)completeRemoveTargetFromRAIDSet:(NSNotification*)ntf
 {
-    LCSCommandController *ctl = [ntf object];
+    LCSCommand *ctl = [ntf object];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFinished]
+                                                    name:[LCSCommand notificationNameStateEntered:LCSCommandStateFinished]
                                                   object:ctl];
     
     self.progressMessage = [NSString localizedStringWithFormat:@"Complete"];
@@ -270,10 +270,10 @@
 {
     self.progressMessage = [NSString localizedStringWithFormat:@"Unmounting target device"];
     
-    LCSCommandController *ctl = [LCSDiskUnmountCommand commandWithDevicePath:targetDevice];
+    LCSCommand *ctl = [LCSDiskUnmountCommand commandWithDevicePath:targetDevice];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(completeUnmountTarget:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFinished]
+                                                 name:[LCSCommand notificationNameStateEntered:LCSCommandStateFinished]
                                                object:ctl];
     
     ctl.title = [NSString localizedStringWithFormat:@"Unmount target device"];
@@ -283,9 +283,9 @@
 
 -(void)completeUnmountTarget:(NSNotification*)ntf
 {
-    LCSCommandController *ctl = [ntf object];
+    LCSCommand *ctl = [ntf object];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFinished]
+                                                    name:[LCSCommand notificationNameStateEntered:LCSCommandStateFinished]
                                                   object:ctl];
     
     self.progressMessage = [NSString localizedStringWithFormat:@"Complete"];

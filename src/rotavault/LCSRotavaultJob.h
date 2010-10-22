@@ -7,12 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LCSCommandController.h"
+#import "LCSCommand.h"
 
 
 @interface LCSRotavaultJob : NSObject {
-    LCSCommandController*   currentCommand;
-    LCSCommandController*   backgroundCommand;
+    LCSCommand*   currentCommand;
+    LCSCommand*   backgroundCommand;
     
     AuthorizationRef        authorization;
     

@@ -8,7 +8,7 @@
 
 #import <GHUnit/GHUnit.h>
 #import "LCSLaunchctlInfoCommand.h"
-#import "LCSCommandController.h"
+#import "LCSCommand.h"
 #import "LCSTestdir.h"
 
 

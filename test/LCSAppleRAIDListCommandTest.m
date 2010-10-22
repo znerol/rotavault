@@ -13,7 +13,7 @@
 #import "OCMockObject+NSTask.h"
 #import "LCSExternalCommand.h"
 #import "LCSExternalCommand+MockableTask.h"
-#import "LCSCommandController.h"
+#import "LCSCommand.h"
 
 @interface LCSAppleRAIDListCommandTest : GHTestCase
 {

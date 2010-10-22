@@ -6,10 +6,10 @@
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
-#import "LCSCommandController.h"
+#import "LCSCommand.h"
 #import "LCSInitMacros.h"
 
-@implementation LCSCommandController
+@implementation LCSCommand
 @synthesize state;
 @synthesize exitState;
 @synthesize title;
@@ -161,7 +161,7 @@
 
 @end
 
-@implementation LCSCommandController (RunLoopHelpers)
+@implementation LCSCommand (RunLoopHelpers)
 -(void)waitUntilDone
 {
     while (state != LCSCommandStateInvalidated) {

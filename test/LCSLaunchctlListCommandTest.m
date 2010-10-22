@@ -11,7 +11,7 @@
 #import "OCMockObject+NSTask.h"
 #import "LCSExternalCommand+MockableTask.h"
 #import "LCSLaunchctlListCommand.h"
-#import "LCSCommandController.h"
+#import "LCSCommand.h"
 
 @interface LCSLaunchctlListCommandTest : GHTestCase
 @end

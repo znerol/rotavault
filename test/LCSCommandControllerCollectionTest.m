@@ -24,7 +24,7 @@
 
 -(void)testOneControllerWatchOneState
 {
-    LCSCommandController *ctl = [LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFinished];
+    LCSCommand *ctl = [LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFinished];
     
     LCSCommandControllerCollection *col = [LCSCommandControllerCollection collection];
     [col addController:ctl];
@@ -55,9 +55,9 @@
 
 -(void)testManyControllersWatchOneState
 {
-    LCSCommandController *ctl1 = [LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFinished];
-    LCSCommandController *ctl2 = [LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFinished];
-    LCSCommandController *ctl3 = [LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFinished];
+    LCSCommand *ctl1 = [LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFinished];
+    LCSCommand *ctl2 = [LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFinished];
+    LCSCommand *ctl3 = [LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFinished];
     
     LCSCommandControllerCollection *col = [LCSCommandControllerCollection collection];
     [col addController:ctl1];
@@ -113,9 +113,9 @@
 
 -(void)testManyControllersOneFailingWatchOneState
 {
-    LCSCommandController *ctl1 = [LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFinished];
-    LCSCommandController *ctl2 = [LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFinished];
-    LCSCommandController *ctl3 = [LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFailed];
+    LCSCommand *ctl1 = [LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFinished];
+    LCSCommand *ctl2 = [LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFinished];
+    LCSCommand *ctl3 = [LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFailed];
     
     LCSCommandControllerCollection *col = [LCSCommandControllerCollection collection];
     [col watchState:LCSCommandStateFinished];

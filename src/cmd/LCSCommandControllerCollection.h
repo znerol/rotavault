@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LCSCommandController.h"
+#import "LCSCommand.h"
 
 
 extern NSString* LCSCommandControllerCollectionOriginalSenderKey;
@@ -19,8 +19,8 @@ extern NSString* LCSCommandControllerCollectionOriginalSenderKey;
 
 +(LCSCommandControllerCollection*)collection;
 
--(void)addController:(LCSCommandController*)commandController;
--(void)removeController:(LCSCommandController*)commandController;
+-(void)addController:(LCSCommand*)commandController;
+-(void)removeController:(LCSCommand*)commandController;
 -(void)watchState:(LCSCommandState)state;
 -(void)unwatchState:(LCSCommandState)state;
 

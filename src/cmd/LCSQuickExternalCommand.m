@@ -8,7 +8,7 @@
 
 #import "LCSQuickExternalCommand.h"
 #import "LCSInitMacros.h"
-#import "LCSCommandController.h"
+#import "LCSCommand.h"
 
 
 @implementation LCSQuickExternalCommand

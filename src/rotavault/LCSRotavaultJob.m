@@ -8,7 +8,7 @@
 
 #import "LCSRotavaultJob.h"
 #import "LCSInitMacros.h"
-#import "LCSCommandController.h"
+#import "LCSCommand.h"
 #import "LCSRotavaultScheduleInstallCommand.h"
 #import "LCSLaunchctlInfoCommand.h"
 #import "LCSLaunchctlRemoveCommand.h"
@@ -124,7 +124,7 @@
 
 - (void)controllerFailed:(NSNotification*)ntf
 {
-    LCSCommandController *ctl = [ntf object];
+    LCSCommand *ctl = [ntf object];
     self.lastError = ctl.error;
 }
 
@@ -147,11 +147,11 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(invalidateScheduleJob:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateInvalidated]
+                                                 name:[LCSCommand notificationNameStateEntered:LCSCommandStateInvalidated]
                                                object:currentCommand];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(controllerFailed:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFailed]
+                                                 name:[LCSCommand notificationNameStateEntered:LCSCommandStateFailed]
                                                object:currentCommand];
     currentCommand.title = [NSString localizedStringWithFormat:@"Scheduling rotavault job for later execution"];
     
@@ -165,10 +165,10 @@
     assert(currentCommand == [ntf object]);
     
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandController notificationNameStateEntered:LCSCommandStateInvalidated]
+                                                    name:[LCSCommand notificationNameStateEntered:LCSCommandStateInvalidated]
                                                   object:currentCommand];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFailed]
+                                                    name:[LCSCommand notificationNameStateEntered:LCSCommandStateFailed]
                                                   object:currentCommand];
     
     [currentCommand performSelector:@selector(release) withObject:nil afterDelay:0];
@@ -196,11 +196,11 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(invalidateStartJob:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateInvalidated]
+                                                 name:[LCSCommand notificationNameStateEntered:LCSCommandStateInvalidated]
                                                object:currentCommand];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(controllerFailed:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFailed]
+                                                 name:[LCSCommand notificationNameStateEntered:LCSCommandStateFailed]
                                                object:currentCommand];
     currentCommand.title = [NSString localizedStringWithFormat:@"Preparing rotavault job"];
     
@@ -214,10 +214,10 @@
     assert(currentCommand == [ntf object]);
     
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandController notificationNameStateEntered:LCSCommandStateInvalidated]
+                                                    name:[LCSCommand notificationNameStateEntered:LCSCommandStateInvalidated]
                                                   object:currentCommand];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFailed]
+                                                    name:[LCSCommand notificationNameStateEntered:LCSCommandStateFailed]
                                                   object:currentCommand];
     
     [currentCommand performSelector:@selector(release) withObject:nil afterDelay:0];
@@ -247,11 +247,11 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(invalidateRemoveJob:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateInvalidated]
+                                                 name:[LCSCommand notificationNameStateEntered:LCSCommandStateInvalidated]
                                                object:currentCommand];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(controllerFailed:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFailed]
+                                                 name:[LCSCommand notificationNameStateEntered:LCSCommandStateFailed]
                                                object:currentCommand];
     currentCommand.title = [NSString localizedStringWithFormat:@"Removing rotavault job"];
     
@@ -265,10 +265,10 @@
     assert(currentCommand == [ntf object]);
     
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandController notificationNameStateEntered:LCSCommandStateInvalidated]
+                                                    name:[LCSCommand notificationNameStateEntered:LCSCommandStateInvalidated]
                                                   object:currentCommand];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFailed]
+                                                    name:[LCSCommand notificationNameStateEntered:LCSCommandStateFailed]
                                                   object:currentCommand];
     
     [currentCommand performSelector:@selector(release) withObject:nil afterDelay:0];
@@ -294,7 +294,7 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(invalidateCheckStatus:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateInvalidated]
+                                                 name:[LCSCommand notificationNameStateEntered:LCSCommandStateInvalidated]
                                                object:currentCommand];
     currentCommand.title = [NSString localizedStringWithFormat:@"Checking job status"];
     
@@ -308,7 +308,7 @@
     assert(currentCommand == [ntf object]);
     
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandController notificationNameStateEntered:LCSCommandStateInvalidated]
+                                                    name:[LCSCommand notificationNameStateEntered:LCSCommandStateInvalidated]
                                                   object:currentCommand];
     
     jobScheduled = (currentCommand.exitState == LCSCommandStateFinished);
@@ -326,13 +326,13 @@
 - (void)replaceStateWatcher
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandController notificationNameStateEntered:LCSCommandStateInvalidated]
+                                                    name:[LCSCommand notificationNameStateEntered:LCSCommandStateInvalidated]
                                                   object:backgroundCommand];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFailed]
+                                                    name:[LCSCommand notificationNameStateEntered:LCSCommandStateFailed]
                                                   object:currentCommand];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandController notificationNameStateLeft:LCSCommandStateInit]
+                                                    name:[LCSCommand notificationNameStateLeft:LCSCommandStateInit]
                                                   object:backgroundCommand];
     [backgroundCommand performSelector:@selector(release) withObject:nil afterDelay:0];
     
@@ -340,15 +340,15 @@
     backgroundCommand = [LCSDistributedCommandStateWatcher commandWithLabel:label];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(invalidateStateWatcher:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateInvalidated]
+                                                 name:[LCSCommand notificationNameStateEntered:LCSCommandStateInvalidated]
                                                object:backgroundCommand];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(controllerFailed:)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFailed]
+                                                 name:[LCSCommand notificationNameStateEntered:LCSCommandStateFailed]
                                                object:backgroundCommand];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(startedStateWatcher:)
-                                                 name:[LCSCommandController notificationNameStateLeft:LCSCommandStateInit]
+                                                 name:[LCSCommand notificationNameStateLeft:LCSCommandStateInit]
                                                object:backgroundCommand];
     [backgroundCommand retain];
     

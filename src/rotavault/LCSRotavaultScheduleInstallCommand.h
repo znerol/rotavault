@@ -16,9 +16,9 @@
     NSString *sourceDevice;
     NSString *targetDevice;
     
-    LCSCommandController *sourceInfoCtl;
-    LCSCommandController *targetInfoCtl;
-    LCSCommandController *startupInfoCtl;
+    LCSCommand *sourceInfoCtl;
+    LCSCommand *targetInfoCtl;
+    LCSCommand *startupInfoCtl;
 
     NSString *rvcopydLaunchPath;
     

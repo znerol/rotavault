@@ -54,11 +54,11 @@
 {
     [[NSDistributedNotificationCenter defaultCenter] addObserver:self
                                                         selector:@selector(updateStatus:)
-                                                            name:[LCSCommandController notificationNameStateChanged]
+                                                            name:[LCSCommand notificationNameStateChanged]
                                                           object:label];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(invalidate)
-                                                 name:[LCSCommandController notificationNameStateEntered:LCSCommandStateInvalidated]
+                                                 name:[LCSCommand notificationNameStateEntered:LCSCommandStateInvalidated]
                                                object:self];
 }
 @end

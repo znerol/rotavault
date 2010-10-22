@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-#import "LCSCommandController.h"
+#import "LCSCommand.h"
 #import "LCSDiskInfoCommand.h"
 #import "LCSPropertyListSHA1Hash.h"
 #import "NSData+Hex.h"
@@ -29,7 +29,7 @@ int main (int argc, const char * argv[]) {
         return 1;
     }
 
-    LCSCommandController *ctl = [LCSDiskInfoCommand commandWithDevicePath:device];
+    LCSCommand *ctl = [LCSDiskInfoCommand commandWithDevicePath:device];
     [ctl start];
     [ctl waitUntilDone];
     

@@ -11,7 +11,7 @@
 
 
 @implementation LCSDistributedCommandStatePublisher
-- (id)initWithCommandController:(LCSCommandController*)ctl label:(NSString*)sndlabel
+- (id)initWithCommandController:(LCSCommand*)ctl label:(NSString*)sndlabel
 {
     LCSINIT_SUPER_OR_RETURN_NIL();
     
@@ -42,7 +42,7 @@
     NSDictionary *msg = [NSDictionary dictionaryWithObject:[controller valueForKeyPath:keyPath] forKey:keyPath];
     
     [[NSDistributedNotificationCenter defaultCenter]
-     postNotificationName:[LCSCommandController notificationNameStateChanged] object:label userInfo:msg
+     postNotificationName:[LCSCommand notificationNameStateChanged] object:label userInfo:msg
      options:NSNotificationPostToAllSessions];
 }
 

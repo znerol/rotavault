@@ -10,10 +10,8 @@
 #import "LCSCommandControllerCollection.h"
 
 
-@interface LCSBatchCommand : LCSCommandController
+@interface LCSBatchCommand : LCSCommand
 {
-    LCSCommandController* controller;
-    
     LCSCommandControllerCollection* activeControllers;
 }
 @end

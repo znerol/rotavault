@@ -19,8 +19,8 @@
     
     BOOL needsSourceRemount;
     
-    LCSCommandController *sourceInfoCtl;
-    LCSCommandController *targetInfoCtl;
+    LCSCommand *sourceInfoCtl;
+    LCSCommand *targetInfoCtl;
 }
 
 +(LCSRotavaultBlockCopyCommand*)commandWithSourceDevice:(NSString*)sourcedev

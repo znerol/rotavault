@@ -9,7 +9,7 @@
 
 #import <GHUnit/GHUnit.h>
 #import "LCSQuickExternalCommand.h"
-#import "LCSCommandController.h"
+#import "LCSCommand.h"
 #import "LCSTestdir.h"
 
 @interface LCSQuickExternalCommandTest : GHTestCase {

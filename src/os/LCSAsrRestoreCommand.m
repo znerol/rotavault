@@ -8,7 +8,7 @@
 
 #import "LCSAsrRestoreCommand.h"
 #import "LCSInitMacros.h"
-#import "LCSCommandController.h"
+#import "LCSCommand.h"
 
 
 @implementation LCSAsrRestoreCommand

@@ -9,7 +9,7 @@
 #import "LCSLaunchctlListCommand.h"
 #import "LCSInitMacros.h"
 #import "LCSRotavaultError.h"
-#import "LCSCommandController.h"
+#import "LCSCommand.h"
 
 
 @implementation LCSLaunchctlListCommand

@@ -1,5 +1,5 @@
 //
-//  LCSCommandController.h
+//  LCSCommand.h
 //  task-test-2
 //
 //  Created by Lorenz Schori on 23.09.10.
@@ -29,7 +29,7 @@ typedef enum {
     LCSCommandStateCount
 } LCSCommandState;
 
-@interface LCSCommandController : NSObject {
+@interface LCSCommand : NSObject {
     LCSCommandState  state;
     LCSCommandState  exitState;
     
@@ -66,7 +66,7 @@ typedef enum {
 -(void)cancel;
 @end
 
-@interface LCSCommandController (SubclassOverride)
+@interface LCSCommand (SubclassOverride)
 /**
  * Start a background command. This method should not perform any substantial work but prepare the command for
  * asynchronous processing. Typically you start an NSTask or submit an NSOperation to a queue and let the magic happen
@@ -81,13 +81,13 @@ typedef enum {
 -(void)performCancel;
 @end
 
-@interface LCSCommandController (NotificationHelpers)
+@interface LCSCommand (NotificationHelpers)
 +(NSString*)notificationNameStateLeft:(LCSCommandState)oldState;
 +(NSString*)notificationNameStateTransfered:(LCSCommandState)oldState toState:(LCSCommandState)newState;
 +(NSString*)notificationNameStateEntered:(LCSCommandState)newState;
 +(NSString*)notificationNameStateChanged;
 @end
 
-@interface LCSCommandController (RunLoopHelpers)
+@interface LCSCommand (RunLoopHelpers)
 -(void)waitUntilDone;
 @end

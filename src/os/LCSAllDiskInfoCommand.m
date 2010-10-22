@@ -49,7 +49,7 @@
                                                object:activeControllers];
     
     for (char **devpath = g.gl_pathv; *devpath != NULL; devpath++) {
-        LCSCommandController *ctl = [LCSDiskInfoCommand commandWithDevicePath:
+        LCSCommand *ctl = [LCSDiskInfoCommand commandWithDevicePath:
                                      [NSString stringWithCString:*devpath encoding:NSUTF8StringEncoding]];
         ctl.title = [NSString localizedStringWithFormat:@"Get information on device %s", *devpath];
         [activeControllers addController:ctl];

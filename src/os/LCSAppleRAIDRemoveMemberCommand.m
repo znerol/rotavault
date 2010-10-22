@@ -10,7 +10,7 @@
 #import "LCSInitMacros.h"
 #import "LCSRotavaultError.h"
 #import "LCSOSMacros.h"
-#import "LCSCommandController.h"
+#import "LCSCommand.h"
 
 
 @interface LCSAppleRAIDRemoveMemberCommand (Internal)

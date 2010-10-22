@@ -11,11 +11,11 @@
 
 
 @interface LCSCmdlineCommandRunner : NSObject <LCSSignalHandlerDelegate> {
-    LCSCommandController *cmd;
+    LCSCommand *cmd;
     NSString *label;
     NSString *title;
     NSError* error;
 }
--(id)initWithCommand:(LCSCommandController*)command label:(NSString*)lbl title:(NSString*)tit;
+-(id)initWithCommand:(LCSCommand*)command label:(NSString*)lbl title:(NSString*)tit;
 -(NSError*)run;
 @end

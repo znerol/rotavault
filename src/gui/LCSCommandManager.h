@@ -7,15 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LCSCommandController.h"
+#import "LCSCommand.h"
 
 
 @interface LCSCommandManager : NSObject {
     NSArray *commands;
 }
 
--(void)addCommandController:(LCSCommandController*)controller;
--(void)removeCommandController:(LCSCommandController*)controller;
+-(void)addCommandController:(LCSCommand*)controller;
+-(void)removeCommandController:(LCSCommand*)controller;
 
 /**
  * List of running LCSCommandController

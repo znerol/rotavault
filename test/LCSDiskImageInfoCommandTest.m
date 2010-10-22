@@ -8,7 +8,7 @@
 
 #import <GHUnit/GHUnit.h>
 #import "LCSDiskImageInfoCommand.h"
-#import "LCSCommandController.h"
+#import "LCSCommand.h"
 
 
 @interface LCSDiskImageInfoCommandTest : GHTestCase
