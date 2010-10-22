@@ -66,7 +66,7 @@ extern double RotavaultVersionNumber;
         installedVersion = [version doubleValue];
     }
     
-    [currentCommand performSelector:@selector(release) withObject:nil afterDelay:0];
+    [currentCommand autorelease];
     currentCommand = nil;
     
     [self updateControls];

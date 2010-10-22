@@ -171,7 +171,7 @@
                                                     name:[LCSCommand notificationNameStateEntered:LCSCommandStateFailed]
                                                   object:currentCommand];
     
-    [currentCommand performSelector:@selector(release) withObject:nil afterDelay:0];
+    [currentCommand autorelease];
     currentCommand = nil;
     
     [self checkStatus];
@@ -220,7 +220,7 @@
                                                     name:[LCSCommand notificationNameStateEntered:LCSCommandStateFailed]
                                                   object:currentCommand];
     
-    [currentCommand performSelector:@selector(release) withObject:nil afterDelay:0];
+    [currentCommand autorelease];
     currentCommand = nil;
     
     [self checkStatus];
@@ -271,7 +271,7 @@
                                                     name:[LCSCommand notificationNameStateEntered:LCSCommandStateFailed]
                                                   object:currentCommand];
     
-    [currentCommand performSelector:@selector(release) withObject:nil afterDelay:0];
+    [currentCommand autorelease];
     currentCommand = nil;
     
     [self checkStatus];
@@ -313,7 +313,7 @@
     
     jobScheduled = (currentCommand.exitState == LCSCommandStateFinished);
     jobRunning = jobScheduled && ([currentCommand.result objectForKey:@"PID"] != nil);
-    [currentCommand performSelector:@selector(release) withObject:nil afterDelay:0];
+    [currentCommand autorelease];
     currentCommand = nil;
     
     if (!backgroundCommand) {
@@ -334,7 +334,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:[LCSCommand notificationNameStateLeft:LCSCommandStateInit]
                                                   object:backgroundCommand];
-    [backgroundCommand performSelector:@selector(release) withObject:nil afterDelay:0];
+    [backgroundCommand autorelease];
     
     
     backgroundCommand = [LCSDistributedCommandStateWatcher commandWithLabel:label];
