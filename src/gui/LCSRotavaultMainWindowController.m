@@ -7,12 +7,13 @@
 
 #import "LCSRotavaultMainWindowController.h"
 #import "LCSInitMacros.h"
-#import "LCSRotavaultScheduleInstallCommand.h"
+#import "LCSDiskImageAttachCommand.h"
 #import "SampleCommon.h"
 
 @implementation LCSRotavaultMainWindowController
 @synthesize job;
 @synthesize systools;
+@synthesize attachImageEnabled;
 
 - (id)init
 {
@@ -35,6 +36,8 @@
     systools = [[LCSRotavaultSystemTools alloc] init];
     [systools checkInstalledVersion];
     systools.autocheck = YES;
+    
+    self.attachImageEnabled = YES;
     
     return self;
 }
@@ -66,6 +69,56 @@
     NSString *pkgpath = [[NSBundle mainBundle] pathForResource:@"Rotavault System Tools.pkg" ofType:nil];
     assert(pkgpath != nil);
     [[NSWorkspace sharedWorkspace] openFile:pkgpath withApplication:@"Installer.app" andDeactivate:YES];
+}
+
+- (void)attachImage
+{
+    NSOpenPanel *op = [NSOpenPanel openPanel];
+    [op setAllowsMultipleSelection:NO];
+    
+    NSInteger resp = [op runModalForTypes:[NSArray arrayWithObjects:@"dmg", @"sparseimage", @"sparsebundle", nil]];
+    if (resp != NSOKButton) {
+        return;
+    }
+    
+    self.attachImageEnabled = NO;
+    
+    NSString *imagepath = [[op filenames] objectAtIndex:0];
+    
+    LCSCommand *cmd = [LCSDiskImageAttachCommand commandWithImagePath:imagepath];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(attachImageInvalidated:)
+                                                 name:[LCSCommand notificationNameStateEntered:LCSCommandStateInvalidated]
+                                               object:cmd];
+    [cmd start];
+}
+
+- (void)attachImageInvalidated:(NSNotification*)ntf
+{
+    self.attachImageEnabled = YES;
+    
+    LCSCommand *cmd = [ntf object];
+    if (cmd.exitState == LCSCommandStateFailed && cmd.error) {
+        [window performSelector:@selector(presentError:) withObject:cmd.error afterDelay:0];
+        return;
+    }
+    
+    NSArray *labels = [cmd.result objectForKey:@"system-entities"];
+    NSString *deventry = nil;
+    for (NSDictionary *label in labels) {
+        if (![@"Apple_HFS" isEqualToString:[label objectForKey:@"content-hint"]]) {
+            continue;
+        }
+        
+        deventry = [label objectForKey:@"dev-entry"];
+    }
+    
+    if (!deventry) {
+        NSRunAlertPanel(@"Image Attach Error", @"Failed to attach the specified image", nil, nil, nil);
+        return;
+    }
+    
+    job.targetDevice = deventry;
 }
 
 - (void)windowWillClose:(NSNotification*)notification

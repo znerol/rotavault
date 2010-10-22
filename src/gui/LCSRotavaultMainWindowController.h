@@ -12,8 +12,10 @@
 @interface LCSRotavaultMainWindowController : NSObject {
     IBOutlet NSWindow *window;
     AuthorizationRef authorization;
+    
+    BOOL attachImageEnabled;
 }
-
 @property(readonly) LCSRotavaultJob *job;
 @property(readonly) LCSRotavaultSystemTools *systools;
+@property(assign) BOOL attachImageEnabled;
 @end

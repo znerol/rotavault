@@ -102,10 +102,8 @@
     self.sourceDeviceEnabled =      !currentCommand && !jobScheduled;
     self.blockCopyMethodEnabled =   !currentCommand && !jobScheduled;
     self.targetDeviceEnabled =      !currentCommand && !jobScheduled;
-    /* not implemented yet
     self.createImageEnabled =       !currentCommand && !jobScheduled;
     self.attachImageEnabled =       !currentCommand && !jobScheduled;
-     */
     self.runDateEnabled =           !currentCommand && !jobScheduled;
     self.scheduleJobEnabled =       !currentCommand && !jobScheduled;
     self.startJobEnabled =          !currentCommand && !jobScheduled;
