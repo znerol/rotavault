@@ -22,7 +22,7 @@
 
 @implementation LCSCommandCollectionTest
 
--(void)testOneControllerWatchOneState
+-(void)testOneCommandWatchOneState
 {
     LCSCommand *ctl = [LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFinished];
     
@@ -53,7 +53,7 @@
     [mockany verify];
 }
 
--(void)testManyControllersWatchOneState
+-(void)testManyCommandsWatchOneState
 {
     LCSCommand *ctl1 = [LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFinished];
     LCSCommand *ctl2 = [LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFinished];
@@ -111,7 +111,7 @@
     [mockall verify];
 }
 
--(void)testManyControllersOneFailingWatchOneState
+-(void)testManyCommandsOneFailingWatchOneState
 {
     LCSCommand *ctl1 = [LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFinished];
     LCSCommand *ctl2 = [LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFinished];

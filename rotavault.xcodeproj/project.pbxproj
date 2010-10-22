@@ -245,7 +245,7 @@
 		CAE4CA82126466E600498A37 /* diskutil-appleraid-list-ok.txt in Resources */ = {isa = PBXBuildFile; fileRef = CAE4CA74126466E600498A37 /* diskutil-appleraid-list-ok.txt */; };
 		CAE4CA9912646C4800498A37 /* diskutil-appleraid-list.txt in Resources */ = {isa = PBXBuildFile; fileRef = CAE4CA9812646C4800498A37 /* diskutil-appleraid-list.txt */; };
 		CAE9A1A71255227C00CD9C33 /* LCSAsrRestoreCommandTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAE9A1A61255227C00CD9C33 /* LCSAsrRestoreCommandTest.m */; };
-		CAEC4B97125EEE5A00CDBEA1 /* LCSCommandControllerCollectionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAEC4B96125EEE5A00CDBEA1 /* LCSCommandControllerCollectionTest.m */; };
+		CAEC4B97125EEE5A00CDBEA1 /* LCSCommandCollectionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAEC4B96125EEE5A00CDBEA1 /* LCSCommandCollectionTest.m */; };
 		CAEE8A85126CDA0C00B0BE92 /* launchd-rvcopyd-runatload.plist in Resources */ = {isa = PBXBuildFile; fileRef = CAEE8A83126CDA0C00B0BE92 /* launchd-rvcopyd-runatload.plist */; };
 		CAEE8A86126CDA0C00B0BE92 /* launchd-rvcopyd-withrundate.plist in Resources */ = {isa = PBXBuildFile; fileRef = CAEE8A84126CDA0C00B0BE92 /* launchd-rvcopyd-withrundate.plist */; };
 		CAEE8B1B126CE57A00B0BE92 /* rvcopyd in CopyFiles */ = {isa = PBXBuildFile; fileRef = CA94887A1211892500415257 /* rvcopyd */; };
@@ -558,7 +558,7 @@
 		CAE4CA9812646C4800498A37 /* diskutil-appleraid-list.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "diskutil-appleraid-list.txt"; sourceTree = "<group>"; };
 		CAE82D35122C311F00715BCF /* LCSPropertyListSHA1HashTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSPropertyListSHA1HashTest.m; sourceTree = "<group>"; };
 		CAE9A1A61255227C00CD9C33 /* LCSAsrRestoreCommandTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSAsrRestoreCommandTest.m; sourceTree = "<group>"; };
-		CAEC4B96125EEE5A00CDBEA1 /* LCSCommandControllerCollectionTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSCommandControllerCollectionTest.m; sourceTree = "<group>"; };
+		CAEC4B96125EEE5A00CDBEA1 /* LCSCommandCollectionTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSCommandCollectionTest.m; sourceTree = "<group>"; };
 		CAEE8A83126CDA0C00B0BE92 /* launchd-rvcopyd-runatload.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "launchd-rvcopyd-runatload.plist"; sourceTree = "<group>"; };
 		CAEE8A84126CDA0C00B0BE92 /* launchd-rvcopyd-withrundate.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "launchd-rvcopyd-withrundate.plist"; sourceTree = "<group>"; };
 		CAEE8B2C126CE72500B0BE92 /* 01systools-contents.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "01systools-contents.xml"; sourceTree = "<group>"; };
@@ -727,7 +727,7 @@
 				CA877D31126B3D9D0067649A /* LCSAppleRAIDListCommandTest.m */,
 				CAE42F001266C98A00BD9FD3 /* LCSAppleRAIDMonitorRebuildCommandTest.m */,
 				CAE9A1A61255227C00CD9C33 /* LCSAsrRestoreCommandTest.m */,
-				CAEC4B96125EEE5A00CDBEA1 /* LCSCommandControllerCollectionTest.m */,
+				CAEC4B96125EEE5A00CDBEA1 /* LCSCommandCollectionTest.m */,
 				CAB3C8B81254F3F1002E4AF5 /* LCSDiskImageAttachCommandTest.m */,
 				CAB3C8DF1254F7C5002E4AF5 /* LCSDiskImageDetachCommandTest.m */,
 				CA016CCD1253977E0047D82A /* LCSDiskImageInfoCommandTest.m */,
@@ -1375,7 +1375,7 @@
 				CA12697112567DF1000F7582 /* LCSTestdir.m in Sources */,
 				CA12697212567DF1000F7582 /* NSData+HexTest.m in Sources */,
 				CA12697312567DF1000F7582 /* OCMockObject+NSTask.m in Sources */,
-				CAEC4B97125EEE5A00CDBEA1 /* LCSCommandControllerCollectionTest.m in Sources */,
+				CAEC4B97125EEE5A00CDBEA1 /* LCSCommandCollectionTest.m in Sources */,
 				CAC5EE7012634613001EB12B /* LCSAllDiskInfoCommandTest.m in Sources */,
 				CADF06BB1264ACDC00A1EB39 /* NSScanner+AppleRAIDTest.m in Sources */,
 				CA050EFC1264D9D60076D8BF /* LCSAppleRAIDListCommand.m in Sources */,
