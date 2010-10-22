@@ -56,10 +56,9 @@
 
 - (void)startCheckraid
 {
-    if (listraidctl && listraidctl.state != LCSCommandStateInvalidated) {
+    if (listraidctl) {
         return;
     }
-    [listraidctl release];
     
     listraidctl = [[LCSAppleRAIDListCommand command] retain];
     
@@ -79,6 +78,9 @@
                                                   object:listraidctl];
     
     NSArray *res = listraidctl.result;
+    [listraidctl autorelease];
+    listraidctl = nil;
+    
     float progr;
     NSString *status = [res extractAppleRAIDMemberStatus:raidsetUUID
                                         memberDeviceNode:memberDevpath
