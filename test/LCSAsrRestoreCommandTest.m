@@ -28,13 +28,13 @@
     LCSPlistExternalCommand *createsource = [[[LCSPlistExternalCommand alloc] init] autorelease];
     [createsource.task setLaunchPath:@"/usr/bin/hdiutil"];
     [createsource.task setArguments:[NSArray arrayWithObjects:@"create", @"-sectors", @"2000", @"-layout", @"NONE",
-                                     @"-fs", @"JHFS+", @"-plist", @"-attach", dmgsourcepath, nil]];
+                                     @"-fs", @"HFS+", @"-plist", @"-attach", dmgsourcepath, nil]];
     [createsource start];
     
     LCSPlistExternalCommand *createtarget = [[[LCSPlistExternalCommand alloc] init] autorelease];
     [createtarget.task setLaunchPath:@"/usr/bin/hdiutil"];
     [createtarget.task setArguments:[NSArray arrayWithObjects:@"create", @"-sectors", @"2000", @"-layout", @"NONE",
-                                     @"-fs", @"JHFS+", @"-plist", @"-attach", dmgtargetpath, nil]];
+                                     @"-fs", @"HFS+", @"-plist", @"-attach", dmgtargetpath, nil]];
     [createtarget start];
     
     [createsource waitUntilDone];

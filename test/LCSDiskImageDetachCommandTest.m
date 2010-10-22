@@ -27,7 +27,7 @@
     NSPipe *dmgpipe = [NSPipe pipe];
     [dmgcreate setLaunchPath:@"/usr/bin/hdiutil"];
     [dmgcreate setArguments:[NSArray arrayWithObjects:@"create", @"-sectors", @"2000", @"-layout", @"NONE", @"-fs",
-                             @"JHFS+", @"-plist", @"-attach",dmgpath, nil]];
+                             @"HFS+", @"-plist", @"-attach",dmgpath, nil]];
     [dmgcreate setStandardOutput:dmgpipe];
     [dmgcreate launch];
     [dmgcreate waitUntilExit];
