@@ -82,18 +82,16 @@
                                               commandWithRaidUUID:@"76898140-1ED1-41AB-931F-2E30D015829F"
                                               devicePath:@"/dev/disk3s1"];
     cmd.updateInterval = 0;
-    LCSCommandController *ctl = [[LCSCommandController controllerWithCommand:cmd] retain];
     
-    [ctl start];
-    [ctl waitUntilDone];
+    [cmd start];
+    [cmd waitUntilDone];
     
     for (id taskMock in taskMocks) {
         [taskMock verify];
     }
     
-    GHAssertEquals(ctl.exitState, LCSCommandStateFinished, @"Expected LCSCommandStateFinished");
+    GHAssertEquals(cmd.exitState, LCSCommandStateFinished, @"Expected LCSCommandStateFinished");
     
-    [ctl release];
     [taskFixtures release];
     [taskFixtureEnumerator release];
 }
@@ -113,18 +111,16 @@
                                               commandWithRaidUUID:@"76898140-1ED1-41AB-931F-2E30D015829F"
                                               devicePath:@"/dev/disk3s1"];
     cmd.updateInterval = 0;
-    LCSCommandController *ctl = [[LCSCommandController controllerWithCommand:cmd] retain];
     
-    [ctl start];
-    [ctl waitUntilDone];
+    [cmd start];
+    [cmd waitUntilDone];
     
     for (id taskMock in taskMocks) {
         [taskMock verify];
     }
     
-    GHAssertEquals(ctl.exitState, LCSCommandStateFinished, @"Expected LCSCommandStateFinished");
+    GHAssertEquals(cmd.exitState, LCSCommandStateFinished, @"Expected LCSCommandStateFinished");
     
-    [ctl release];
     [taskFixtures release];
     [taskFixtureEnumerator release];
 }
@@ -144,18 +140,16 @@
                                               commandWithRaidUUID:@"76898140-1ED1-41AB-931F-2E30D015829F"
                                               devicePath:@"/dev/disk3s1"];
     cmd.updateInterval = 0;
-    LCSCommandController *ctl = [[LCSCommandController controllerWithCommand:cmd] retain];
     
-    [ctl start];
-    [ctl waitUntilDone];
+    [cmd start];
+    [cmd waitUntilDone];
     
     for (id taskMock in taskMocks) {
         [taskMock verify];
     }
     
-    GHAssertEquals(ctl.exitState, LCSCommandStateFailed, @"Expected LCSCommandStateFailed");
+    GHAssertEquals(cmd.exitState, LCSCommandStateFailed, @"Expected LCSCommandStateFailed");
     
-    [ctl release];
     [taskFixtures release];
     [taskFixtureEnumerator release];
 }

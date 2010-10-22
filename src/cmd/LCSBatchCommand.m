@@ -12,8 +12,6 @@
 #import "LCSRotavaultError.h"
 
 @implementation LCSBatchCommand
-@synthesize controller;
-
 -(id)init
 {
     LCSINIT_SUPER_OR_RETURN_NIL();
@@ -53,12 +51,12 @@
     [activeControllers unwatchState:LCSCommandStateInvalidated];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
-    controller.state = LCSCommandStateInvalidated;
+    self.state = LCSCommandStateInvalidated;
 }
 
--(void)handleError:(NSError*)error
+-(void)handleError:(NSError*)err
 {
-    if (controller.state == LCSCommandStateInvalidated) {
+    if (self.state == LCSCommandStateInvalidated) {
         return;
     }
     
@@ -66,8 +64,8 @@
     [activeControllers unwatchState:LCSCommandStateCancelled];
     [activeControllers unwatchState:LCSCommandStateFinished];
     
-    controller.error = error;
-    controller.state = LCSCommandStateFailed;
+    self.error = err;
+    self.state = LCSCommandStateFailed;
     
     for (LCSCommandController *ctl in activeControllers.controllers) {
         [ctl cancel];
@@ -96,12 +94,5 @@
 -(void)commandCollectionInvalidated:(NSNotification*)ntf
 {
     [self invalidate];    
-}
-
--(void)start
-{
-    @throw [NSException exceptionWithName:NSInternalInconsistencyException
-                                   reason:@"[LCSBatchCommand start] is a pure virtual method. You have to override it in a subclass"
-                                 userInfo:nil];
 }
 @end

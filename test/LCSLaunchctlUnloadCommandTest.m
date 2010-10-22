@@ -39,12 +39,11 @@
     [job writeToFile:plistPath atomically:NO];
     
     LCSLaunchctlUnloadCommand *cmd = [LCSLaunchctlUnloadCommand commandWithPath:plistPath];
-    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
     
-    [ctl start];
-    [ctl waitUntilDone];
+    [cmd start];
+    [cmd waitUntilDone];
     
-    GHAssertEquals(ctl.exitState, LCSCommandStateFinished, @"Expecting LCSCommandStateFinished");
+    GHAssertEquals(cmd.exitState, LCSCommandStateFinished, @"Expecting LCSCommandStateFinished");
     
     [testdir remove];
     [testdir release];
@@ -68,12 +67,11 @@
     [job writeToFile:plistPath atomically:NO];
     
     LCSLaunchctlUnloadCommand *cmd = [LCSLaunchctlUnloadCommand commandWithPath:plistPath];
-    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
     
-    [ctl start];
-    [ctl waitUntilDone];
+    [cmd start];
+    [cmd waitUntilDone];
     
-    GHAssertEquals(ctl.exitState, LCSCommandStateFinished, @"Expecting LCSCommandStateFinished");
+    GHAssertEquals(cmd.exitState, LCSCommandStateFinished, @"Expecting LCSCommandStateFinished");
     
     [testdir remove];
     [testdir release];

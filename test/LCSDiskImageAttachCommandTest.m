@@ -28,13 +28,12 @@
     [dmgcreate waitUntilExit];
     
     LCSDiskImageAttachCommand *cmd = [LCSDiskImageAttachCommand commandWithImagePath:dmgpath];
-    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
     
-    [ctl start];
-    [ctl waitUntilDone];
+    [cmd start];
+    [cmd waitUntilDone];
     
-    GHAssertEquals(ctl.exitState, LCSCommandStateFinished, @"Expecting LCSCommandStateFinished");
-    NSString *devpath = [[ctl.result valueForKeyPath:@"system-entities.dev-entry"] objectAtIndex:0];
+    GHAssertEquals(cmd.exitState, LCSCommandStateFinished, @"Expecting LCSCommandStateFinished");
+    NSString *devpath = [[cmd.result valueForKeyPath:@"system-entities.dev-entry"] objectAtIndex:0];
     GHAssertTrue([devpath isKindOfClass:[NSString class]], @"Expecting string value for device path");
     
     NSTask *ejectTask = [NSTask launchedTaskWithLaunchPath:@"/usr/sbin/diskutil"
@@ -52,12 +51,11 @@
     NSString *dmgpath = [[testdir path] stringByAppendingPathComponent:@"test.dmg"];
     
     LCSDiskImageAttachCommand *cmd = [LCSDiskImageAttachCommand commandWithImagePath:dmgpath];
-    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
     
-    [ctl start];
-    [ctl waitUntilDone];
+    [cmd start];
+    [cmd waitUntilDone];
     
-    GHAssertEquals(ctl.exitState, LCSCommandStateFailed, @"Expecting LCSCommandStateFailed");
+    GHAssertEquals(cmd.exitState, LCSCommandStateFailed, @"Expecting LCSCommandStateFailed");
     
     [testdir remove];
     [testdir release];

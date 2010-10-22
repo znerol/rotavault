@@ -29,36 +29,33 @@
     [createsource.task setLaunchPath:@"/usr/bin/hdiutil"];
     [createsource.task setArguments:[NSArray arrayWithObjects:@"create", @"-sectors", @"2000", @"-layout", @"NONE",
                                      @"-fs", @"JHFS+", @"-plist", @"-attach", dmgsourcepath, nil]];
-    LCSCommandController *sourcectl = [LCSCommandController controllerWithCommand:createsource];
-    [sourcectl start];
+    [createsource start];
     
     LCSPlistExternalCommand *createtarget = [[[LCSPlistExternalCommand alloc] init] autorelease];
     [createtarget.task setLaunchPath:@"/usr/bin/hdiutil"];
     [createtarget.task setArguments:[NSArray arrayWithObjects:@"create", @"-sectors", @"2000", @"-layout", @"NONE",
                                      @"-fs", @"JHFS+", @"-plist", @"-attach", dmgtargetpath, nil]];
-    LCSCommandController *targetctl = [LCSCommandController controllerWithCommand:createtarget];
-    [targetctl start];
+    [createtarget start];
     
-    [sourcectl waitUntilDone];
-    [targetctl waitUntilDone];
+    [createsource waitUntilDone];
+    [createtarget waitUntilDone];
     
-    GHAssertEquals(sourcectl.exitState, LCSCommandStateFinished, @"Expected LCSCommandStateFinished as a result of creating the source image");
-    GHAssertTrue([sourcectl.result isKindOfClass:[NSDictionary class]], @"Expecting an NSDictionary as a result of creating the source image");
-    NSString *sourcedev = [[sourcectl.result valueForKeyPath:@"system-entities.dev-entry"] objectAtIndex:0];
+    GHAssertEquals(createsource.exitState, LCSCommandStateFinished, @"Expected LCSCommandStateFinished as a result of creating the source image");
+    GHAssertTrue([createsource.result isKindOfClass:[NSDictionary class]], @"Expecting an NSDictionary as a result of creating the source image");
+    NSString *sourcedev = [[createsource.result valueForKeyPath:@"system-entities.dev-entry"] objectAtIndex:0];
     GHAssertTrue([sourcedev isKindOfClass:[NSString class]], @"Expecting string value for device path");
-    GHAssertEquals(targetctl.exitState, LCSCommandStateFinished, @"Expected LCSCommandStateFinished as a result of creating the target image");
-    GHAssertTrue([targetctl.result isKindOfClass:[NSDictionary class]], @"Expecting an NSDictionary as a result of creating the target image");
-    NSString *targetdev = [[targetctl.result valueForKeyPath:@"system-entities.dev-entry"] objectAtIndex:0];
+    GHAssertEquals(createtarget.exitState, LCSCommandStateFinished, @"Expected LCSCommandStateFinished as a result of creating the target image");
+    GHAssertTrue([createtarget.result isKindOfClass:[NSDictionary class]], @"Expecting an NSDictionary as a result of creating the target image");
+    NSString *targetdev = [[createtarget.result valueForKeyPath:@"system-entities.dev-entry"] objectAtIndex:0];
     GHAssertTrue([targetdev isKindOfClass:[NSString class]], @"Expecting string value for device path");
     
     /** test the asr command **/
     LCSAsrRestoreCommand *cmd = [LCSAsrRestoreCommand commandWithSource:sourcedev target:targetdev];
-    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
     
-    [ctl start];
-    [ctl waitUntilDone];
+    [cmd start];
+    [cmd waitUntilDone];
     
-    GHAssertEquals(ctl.exitState, LCSCommandStateFinished, @"Expecting LCSCommandStateFinished");
+    GHAssertEquals(cmd.exitState, LCSCommandStateFinished, @"Expecting LCSCommandStateFinished");
     
     NSTask *ejectSourceTask = [NSTask launchedTaskWithLaunchPath:@"/usr/sbin/diskutil"
                                                  arguments:[NSArray arrayWithObjects:@"eject", sourcedev, nil]];

@@ -11,7 +11,6 @@
 #import "LCSRotavaultError.h"
 #import "LCSInitMacros.h"
 #import "LCSDiskInfoCommand.h"
-#import "LCSCommandRunner.h"
 
 @interface LCSAllDiskInfoCommand (PrivateMethods)
 -(void)startGatherInformation;
@@ -35,24 +34,23 @@
     /* iterate thru disks */
     if (err != 0) {
         NSString *reason = LCSErrorLocalizedFailureReasonFromErrno(errno);
-        NSError *error = LCSERROR_METHOD(NSPOSIXErrorDomain, errno,
-                                         LCSERROR_LOCALIZED_DESCRIPTION(@"Unable to get list of disk device nodes: %@", reason),
-                                         LCSERROR_LOCALIZED_DESCRIPTION(reason));
+        NSError *err = LCSERROR_METHOD(NSPOSIXErrorDomain, errno,
+                                       LCSERROR_LOCALIZED_DESCRIPTION(@"Unable to get list of disk device nodes: %@", reason),
+                                       LCSERROR_LOCALIZED_DESCRIPTION(reason));
         globfree(&g);
-        [self handleError:error];
+        [self handleError:err];
         return;
     }
 
-    controller.progressMessage = [NSString localizedStringWithFormat:@"Gathering information"];
+    self.progressMessage = [NSString localizedStringWithFormat:@"Gathering information"];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(completeGatherInformation:)
                                                  name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
                                                object:activeControllers];
     
     for (char **devpath = g.gl_pathv; *devpath != NULL; devpath++) {
-        LCSCommandController *ctl = [LCSCommandController controllerWithCommand:
-                                     [LCSDiskInfoCommand commandWithDevicePath:
-                                      [NSString stringWithCString:*devpath encoding:NSUTF8StringEncoding]]];
+        LCSCommandController *ctl = [LCSDiskInfoCommand commandWithDevicePath:
+                                     [NSString stringWithCString:*devpath encoding:NSUTF8StringEncoding]];
         ctl.title = [NSString localizedStringWithFormat:@"Get information on device %s", *devpath];
         [activeControllers addController:ctl];
         [ctl start];
@@ -70,26 +68,18 @@
     NSArray *entries = [[activeControllers valueForKeyPath:@"controllers.result"] allObjects];
     NSArray *devnodes = [entries valueForKey:@"DeviceNode"];
     
-    controller.result = [NSDictionary dictionaryWithObjects:entries forKeys:devnodes];
-    controller.state = LCSCommandStateFinished;
+    self.result = [NSDictionary dictionaryWithObjects:entries forKeys:devnodes];
+    self.state = LCSCommandStateFinished;
 }
 
-- (void)start
+- (void)performStart
 {
-    if (![controller tryStart]) {
-        return;
-    }
-    
-    controller.state = LCSCommandStateRunning;
+    self.state = LCSCommandStateRunning;
     [self startGatherInformation];
 }
 
-- (void)cancel
+- (void)performCancel
 {
-    if (![controller tryCancel]) {
-        return;
-    }
-    
     [self handleError:LCSERROR_METHOD(NSCocoaErrorDomain, NSUserCancelledError)];    
 }
 

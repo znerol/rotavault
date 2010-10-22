@@ -39,11 +39,11 @@
     NSString *str = [[NSString alloc] initWithData:[[ntf userInfo] objectForKey:NSFileHandleNotificationDataItem]
                                           encoding:NSUTF8StringEncoding];
     NSScanner *scanner = [NSScanner scannerWithString:str];
-    float progress;
+    float progr;
     while (![scanner isAtEnd]) {
         if([scanner scanString:@"PINF" intoString:nil]) {
-            [scanner scanFloat:&progress];
-            controller.progress = progress;
+            [scanner scanFloat:&progr];
+            self.progress = progr;
         }
         else {
             [scanner scanUpToString:@"PINF" intoString:nil];
@@ -70,12 +70,8 @@
     [super invalidate];
 }
 
--(void)start
+-(void)performStart
 {
-    if (![controller tryStart]) {
-        return;
-    }
-    
     stdoutPipe = [[NSPipe alloc] init];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleReadCompletionNotification:)
@@ -83,6 +79,6 @@
                                                object:[stdoutPipe fileHandleForReading]];
     [[stdoutPipe fileHandleForReading] readInBackgroundAndNotify];
     [task setStandardOutput:stdoutPipe];
-    [super start];
+    [super performStart];
 }
 @end

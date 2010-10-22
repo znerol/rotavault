@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LCSCommandTemp.h"
 
 
 typedef enum {
@@ -33,7 +32,6 @@ typedef enum {
 @interface LCSCommandController : NSObject {
     LCSCommandState  state;
     LCSCommandState  exitState;
-    id <LCSCommandTemp>  command;
     
     NSString *title;
     float progress;
@@ -46,13 +44,10 @@ typedef enum {
     
     id result;
     NSError* error;
-    
-    id userInfo;
 }
 
 @property(assign) LCSCommandState  state;
 @property(assign) LCSCommandState  exitState;
-@property(retain) id <LCSCommandTemp>  command;
 
 @property(retain) NSString *title;
 @property(assign) float progress;
@@ -66,14 +61,24 @@ typedef enum {
 @property(retain) id result;
 @property(retain) NSError* error;
 
-@property(assign) id userInfo;
-
-+(LCSCommandController*)controllerWithCommand:(id <LCSCommandTemp>)anCommand;
-
 -(BOOL)validateNextState:(LCSCommandState)newState;
--(BOOL)tryStart;
--(BOOL)tryCancel;
+-(void)start;
+-(void)cancel;
+@end
 
+@interface LCSCommandController (SubclassOverride)
+/**
+ * Start a background command. This method should not perform any substantial work but prepare the command for
+ * asynchronous processing. Typically you start an NSTask or submit an NSOperation to a queue and let the magic happen
+ * in the background.
+ */
+-(void)performStart;
+
+/**
+ * If implemented this method must initiate the cancellation of the background command. The implementation must switch
+ * the state to LCSCommandStateCancelled at the end of the method.
+ */
+-(void)performCancel;
 @end
 
 @interface LCSCommandController (NotificationHelpers)

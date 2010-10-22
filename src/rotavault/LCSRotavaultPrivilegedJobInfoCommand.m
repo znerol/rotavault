@@ -37,6 +37,6 @@
 
 - (void)collectResults
 {
-    controller.result = [response objectForKey:@kLCSHelperInfoForRotavaultJobResultPlistKey];
+    self.result = [response objectForKey:@kLCSHelperInfoForRotavaultJobResultPlistKey];
 }
 @end

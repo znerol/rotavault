@@ -10,7 +10,6 @@
 #import "LCSInitMacros.h"
 
 @implementation LCSCommandController
-@synthesize command;
 @synthesize state;
 @synthesize exitState;
 @synthesize title;
@@ -23,35 +22,14 @@
 @synthesize resumable;
 @synthesize result;
 @synthesize error;
-@synthesize userInfo;
-
-+(LCSCommandController*)controllerWithCommand:(<LCSCommandTemp>)anCommand
-{
-    LCSCommandController* controller = [[LCSCommandController alloc] init];
-    controller.command = anCommand;
-    
-    return [controller autorelease];
-}
 
 -(void)dealloc
 {
-    [command release];
     [title release];
     [progressMessage release];
     [result release];
     [error release];
     [super dealloc];
-}
-
--(void)setCommand:(<LCSCommandTemp>)anCommand
-{
-    NSParameterAssert(anCommand != nil);
-    NSParameterAssert(anCommand.controller == nil);
-    
-    NSAssert(command == nil, @"The controllers command may not be set more than once");
-    
-    command = [anCommand retain];
-    command.controller = self;
 }
 
 -(BOOL)validateNextState:(LCSCommandState)newState
@@ -71,6 +49,7 @@
         { NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO }    // LCSCommandStateInvalidated
     };
     
+    /*
     if ((![command respondsToSelector:@selector(cancel)] &&
          (newState == LCSCommandStateCancelling || newState == LCSCommandStateCancelled))) {
         return NO;
@@ -83,8 +62,11 @@
         
     }
     else {
+     */
         return statematrix[state][newState];
+    /*
     }
+     */
 }
 
 -(void)setState:(LCSCommandState)newState
@@ -126,26 +108,35 @@
      postNotificationName:[[self class] notificationNameStateChanged] object:self];
 }
 
--(BOOL)tryStart
+-(void)start
 {
     if ([self validateNextState:LCSCommandStateStarting]) {
         self.progressIndeterminate = YES;
         self.progressMessage = @"Starting";
         self.state = LCSCommandStateStarting;
-        return YES;
+        [self performStart];
     }
-    return NO;
 }
 
--(BOOL)tryCancel
+-(void)cancel
 {
     if ([self validateNextState:LCSCommandStateCancelling]) {
         self.progressIndeterminate = YES;
         self.progressMessage = @"Cancelling";
         self.state = LCSCommandStateCancelling;
-        return YES;
+        [self performCancel];
     }
-    return NO;
+}
+
+-(void)performStart
+{
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:@"[LCSCommandController start] is a pure virtual method. You have to override it in a subclass"
+                                 userInfo:nil];    
+}
+
+-(void)performCancel
+{
 }
 
 +(NSString*)notificationNameStateLeft:(LCSCommandState)oldState

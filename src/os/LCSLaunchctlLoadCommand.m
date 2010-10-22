@@ -32,12 +32,12 @@
     if ([stderrData length] > 0) {
         NSString *failureReason = [[NSString alloc] initWithData:stderrData encoding:NSUTF8StringEncoding];
         
-        NSError *error = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSUnexpectedOutputReceivedError,
-                                         LCSERROR_LOCALIZED_DESCRIPTION(@"Failed to load a launchd job: %@",
-                                                                        failureReason),
-                                         LCSERROR_EXECUTABLE_LAUNCH_PATH([task launchPath]),
-                                         LCSERROR_LOCALIZED_FAILURE_REASON(failureReason));
-        [self handleError:error];
+        NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSUnexpectedOutputReceivedError,
+                                       LCSERROR_LOCALIZED_DESCRIPTION(@"Failed to load a launchd job: %@",
+                                                                      failureReason),
+                                       LCSERROR_EXECUTABLE_LAUNCH_PATH([task launchPath]),
+                                       LCSERROR_LOCALIZED_FAILURE_REASON(failureReason));
+        [self handleError:err];
         [failureReason release];
     }
     

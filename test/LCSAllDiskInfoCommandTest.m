@@ -19,13 +19,12 @@
 -(void)testDiskImageInfoCommand
 {
     LCSAllDiskInfoCommand *cmd = [LCSAllDiskInfoCommand command];
-    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
     
-    [ctl start];
-    [ctl waitUntilDone];
+    [cmd start];
+    [cmd waitUntilDone];
     
-    GHAssertTrue([ctl.result isKindOfClass:[NSDictionary class]], @"Result should be a dictionary");
-    GHAssertTrue([[ctl.result valueForKey:@"/dev/disk0"] isKindOfClass:[NSDictionary class]],
+    GHAssertTrue([cmd.result isKindOfClass:[NSDictionary class]], @"Result should be a dictionary");
+    GHAssertTrue([[cmd.result valueForKey:@"/dev/disk0"] isKindOfClass:[NSDictionary class]],
                  @"Result should contain at least an entry for the startup disk");
 }
 @end

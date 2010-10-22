@@ -29,8 +29,7 @@ int main (int argc, const char * argv[]) {
         return 1;
     }
 
-    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:
-                                 [LCSDiskInfoCommand commandWithDevicePath:device]];
+    LCSCommandController *ctl = [LCSDiskInfoCommand commandWithDevicePath:device];
     [ctl start];
     [ctl waitUntilDone];
     

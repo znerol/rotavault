@@ -44,15 +44,15 @@
     NSArray *arraylist;
     BOOL ok = [scanner scanAppleRAIDList:&arraylist];
     if (!ok) {
-        NSError *error = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSUnexpectedOutputReceivedError,
-                                         LCSERROR_LOCALIZED_DESCRIPTION(@"Unable to parse output of diskutil command"),
-                                         LCSERROR_LOCALIZED_FAILURE_REASON(output),
-                                         LCSERROR_EXECUTABLE_LAUNCH_PATH([task launchPath]),
-                                         nil);
-        [self handleError:error];
+        NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSUnexpectedOutputReceivedError,
+                                       LCSERROR_LOCALIZED_DESCRIPTION(@"Unable to parse output of diskutil command"),
+                                       LCSERROR_LOCALIZED_FAILURE_REASON(output),
+                                       LCSERROR_EXECUTABLE_LAUNCH_PATH([task launchPath]),
+                                       nil);
+        [self handleError:err];
         return;
     }
     
-    controller.result = arraylist;
+    self.result = arraylist;
 }
 @end

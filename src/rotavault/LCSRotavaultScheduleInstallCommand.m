@@ -13,7 +13,6 @@
 #import "LCSLaunchctlLoadCommand.h"
 #import "LCSRotavaultPrivilegedJobInstallCommand.h"
 #import "LCSRotavaultCreateJobDictionary.h"
-#import "LCSCommandRunner.h"
 #import "NSData+Hex.h"
 #import "LCSPropertyListSHA1Hash.h"
 #import "SampleCommon.h"
@@ -96,34 +95,34 @@
     if ([@"asr" isEqualToString:method] && [[sourceDiskInformation objectForKey:@"DeviceNode"] isEqual:
          [startupDiskInformation objectForKey:@"DeviceNode"]]) {
         
-        NSError *error = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
-                                         LCSERROR_LOCALIZED_DESCRIPTION(@"Block copy operation from startup disk is not supported"));
-        [self handleError:error];
+        NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
+                                       LCSERROR_LOCALIZED_DESCRIPTION(@"Block copy operation from startup disk is not supported"));
+        [self handleError:err];
         return NO;
     }
     
     /* error if source and target are the same */
     if ([sourceDiskInformation isEqual:targetDiskInformation]) {
-        NSError *error = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
-                                         LCSERROR_LOCALIZED_DESCRIPTION(@"Source and target may not be the same"));
-        [self handleError:error];
+        NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
+                                       LCSERROR_LOCALIZED_DESCRIPTION(@"Source and target may not be the same"));
+        [self handleError:err];
         return NO;
     }
     
     /* error if target disk is mounted */
     if (![[targetDiskInformation objectForKey:@"MountPoint"] isEqualToString:@""])
     {
-        NSError *error = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
-                                         LCSERROR_LOCALIZED_DESCRIPTION(@"Target must not be mounted"));
-        [self handleError:error];
+        NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
+                                       LCSERROR_LOCALIZED_DESCRIPTION(@"Target must not be mounted"));
+        [self handleError:err];
         return NO;
     }
     
     /* error if target device is not big enough to hold contents from source */
     if ([[sourceDiskInformation objectForKey:@"TotalSize"] longLongValue] > [[targetDiskInformation objectForKey:@"TotalSize"] longLongValue]) {
-        NSError *error = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
-                                         LCSERROR_LOCALIZED_DESCRIPTION(@"Target is too small to hold all content of source"));
-        [self handleError:error];
+        NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
+                                       LCSERROR_LOCALIZED_DESCRIPTION(@"Target is too small to hold all content of source"));
+        [self handleError:err];
         return NO;
     }
     
@@ -131,9 +130,9 @@
     if ([@"appleraid" isEqualToString:method] && ![[sourceDiskInformation objectForKey:@"RAIDMaster"] isEqual:
                                                      [NSNumber numberWithBool:YES]]) {
         
-        NSError *error = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
-                                         LCSERROR_LOCALIZED_DESCRIPTION(@"Source device is not a raid volume"));
-        [self handleError:error];
+        NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
+                                       LCSERROR_LOCALIZED_DESCRIPTION(@"Source device is not a raid volume"));
+        [self handleError:err];
         return NO;
     }
     
@@ -141,9 +140,9 @@
     if ([@"appleraid" isEqualToString:method] && ![[sourceDiskInformation objectForKey:@"RAIDSetLevelType"] isEqual:
                                                      @"Mirror"]) {
         
-        NSError *error = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
+        NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
                                          LCSERROR_LOCALIZED_DESCRIPTION(@"Source device is not raid mirror"));
-        [self handleError:error];
+        [self handleError:err];
         return NO;
     }
     
@@ -151,9 +150,9 @@
     if ([@"appleraid" isEqualToString:method] && ![[sourceDiskInformation objectForKey:@"RAIDSetStatus"] isEqual:
                                                      @"Online"]) {
         
-        NSError *error = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
-                                         LCSERROR_LOCALIZED_DESCRIPTION(@"Source raid is not online"));
-        [self handleError:error];
+        NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
+                                       LCSERROR_LOCALIZED_DESCRIPTION(@"Source raid is not online"));
+        [self handleError:err];
         return NO;
     }
     return YES;
@@ -186,10 +185,10 @@
     
     if (tmpfd < 0) {
         NSString *failureReason = LCSErrorLocalizedFailureReasonFromErrno(errno);
-        NSError *error = LCSERROR_METHOD(NSPOSIXErrorDomain, errno,
+        NSError *err = LCSERROR_METHOD(NSPOSIXErrorDomain, errno,
                                          LCSERROR_LOCALIZED_DESCRIPTION(@"Failed to create new temporary file: %@", failureReason),
                                          LCSERROR_LOCALIZED_FAILURE_REASON(failureReason));
-        [self handleError:error];
+        [self handleError:err];
         goto writeLaunchdPlist_freeAndReturn;
     }
     NSFileHandle *fh = [[NSFileHandle alloc] initWithFileDescriptor:tmpfd];
@@ -202,10 +201,10 @@
                                                     errorDescription:&errorDescription];
     
     if (data == nil) {
-        NSError *error = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSPropertyListSerializationError,
-                                         LCSERROR_LOCALIZED_DESCRIPTION(@"Failed to serialize launchd property list: %@", errorDescription),
-                                         LCSERROR_LOCALIZED_FAILURE_REASON(errorDescription));
-        [self handleError:error];
+        NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSPropertyListSerializationError,
+                                       LCSERROR_LOCALIZED_DESCRIPTION(@"Failed to serialize launchd property list: %@", errorDescription),
+                                       LCSERROR_LOCALIZED_FAILURE_REASON(errorDescription));
+        [self handleError:err];
         goto writeLaunchdPlist_closeFHAndReturn;
     }
     
@@ -226,24 +225,24 @@ writeLaunchdPlist_freeAndReturn:
 {
     NSParameterAssert([activeControllers.controllers count] == 0);
     
-    controller.progressMessage = [NSString localizedStringWithFormat:@"Gathering information"];
+    self.progressMessage = [NSString localizedStringWithFormat:@"Gathering information"];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(completeGatherInformation:)
                                                  name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
                                                object:activeControllers];
     
-    startupInfoCtl = [LCSCommandController controllerWithCommand:[LCSDiskInfoCommand commandWithDevicePath:@"/"]];
+    startupInfoCtl = [LCSDiskInfoCommand commandWithDevicePath:@"/"];
     startupInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on startup disk"];
     [activeControllers addController:startupInfoCtl];
     [startupInfoCtl start];
     
-    sourceInfoCtl = [LCSCommandController controllerWithCommand:[LCSDiskInfoCommand commandWithDevicePath:sourceDevice]];
+    sourceInfoCtl = [LCSDiskInfoCommand commandWithDevicePath:sourceDevice];
     sourceInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on source device"];
     [activeControllers addController:sourceInfoCtl];
     [sourceInfoCtl start];
     
-    targetInfoCtl = [LCSCommandController controllerWithCommand:[LCSDiskInfoCommand commandWithDevicePath:targetDevice]];
+    targetInfoCtl = [LCSDiskInfoCommand commandWithDevicePath:targetDevice];
     targetInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on target device"];
     [activeControllers addController:targetInfoCtl];
     [targetInfoCtl start];
@@ -264,7 +263,7 @@ writeLaunchdPlist_freeAndReturn:
 
 -(void)startLaunchctInstall
 {
-    controller.progressMessage = [NSString localizedStringWithFormat:@"Installing new launchd job"];
+    self.progressMessage = [NSString localizedStringWithFormat:@"Installing new launchd job"];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(completeLaunchctlInstall:)
@@ -277,21 +276,20 @@ writeLaunchdPlist_freeAndReturn:
         NSString *sourceUUID = [sourceDiskInformation objectForKey:@"VolumeUUID"];
         NSString *targetSHA1 = [[LCSPropertyListSHA1Hash sha1HashFromPropertyList:targetDiskInformation] stringWithHexBytes];
         
-        ctl = [LCSCommandController controllerWithCommand:[LCSRotavaultPrivilegedJobInstallCommand
-                                                           privilegedJobInstallCommandWithLabel:rvcopydLabel
-                                                           method:method
-                                                           runDate:runAtDate
-                                                           source:sourceDevice
-                                                           target:targetDevice
-                                                           sourceChecksum:[NSString stringWithFormat:@"uuid:%@", sourceUUID]
-                                                           targetChecksum:[NSString stringWithFormat:@"sha1:%@", targetSHA1]
-                                                           authorization:authorization]];
+        ctl = [LCSRotavaultPrivilegedJobInstallCommand privilegedJobInstallCommandWithLabel:rvcopydLabel
+                                                                                     method:method
+                                                                                    runDate:runAtDate
+                                                                                     source:sourceDevice
+                                                                                     target:targetDevice
+                                                                             sourceChecksum:[NSString stringWithFormat:@"uuid:%@", sourceUUID]
+                                                                             targetChecksum:[NSString stringWithFormat:@"sha1:%@", targetSHA1]
+                                                                              authorization:authorization];
     }
     else {
         if (![self constructLaunchdPlist] || ![self writeLaunchdPlist]) {
             return;
         }
-        ctl = [LCSCommandController controllerWithCommand:[LCSLaunchctlLoadCommand commandWithPath:launchdPlistPath]];
+        ctl = [LCSLaunchctlLoadCommand commandWithPath:launchdPlistPath];
     }
     ctl.title = [NSString localizedStringWithFormat:@"Install new launchd job"];
     [activeControllers addController:ctl];
@@ -305,7 +303,7 @@ writeLaunchdPlist_freeAndReturn:
                                                     name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
                                                   object:activeControllers];
     
-    controller.progressMessage = [NSString localizedStringWithFormat:@"Complete"];
+    self.progressMessage = [NSString localizedStringWithFormat:@"Complete"];
     
     if (launchdPlistPath) {
         NSFileManager *fm = [[NSFileManager alloc] init];
@@ -313,16 +311,12 @@ writeLaunchdPlist_freeAndReturn:
         [fm release];
     }
     
-    controller.state = LCSCommandStateFinished;
+    self.state = LCSCommandStateFinished;
 }
 
--(void)start
+-(void)performStart
 {
-    if (![controller tryStart]) {
-        return;
-    }
-    
-    controller.state = LCSCommandStateRunning;
+    self.state = LCSCommandStateRunning;
     [self startGatherInformation];
 }
 @end

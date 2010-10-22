@@ -16,7 +16,6 @@
 @interface LCSPlistExternalCommandTest : GHTestCase {
     NSMutableArray *states;
     LCSQuickExternalCommand *cmd;
-    LCSCommandController *ctl;
 }
 @end
 
@@ -26,19 +25,14 @@
 -(void)setUp
 {
     states = [[NSMutableArray alloc] init];
-    
     cmd = [[LCSPlistExternalCommand alloc] init];
-    ctl = [[LCSCommandController controllerWithCommand:cmd] retain];
-    
-    [ctl addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionInitial context:nil];
+    [cmd addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionInitial context:nil];
 }
 
 -(void)tearDown
 {
-    [ctl removeObserver:self forKeyPath:@"state"];
+    [cmd removeObserver:self forKeyPath:@"state"];
     
-    [ctl release];
-    ctl = nil;
     [cmd release];
     cmd = nil;
     
@@ -48,12 +42,12 @@
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if (object != ctl) {
+    if (object != cmd) {
         return;
     }
     
     if ([keyPath isEqualToString:@"state"]) {
-        [states addObject:[NSNumber numberWithInt:ctl.state]];
+        [states addObject:[NSNumber numberWithInt:cmd.state]];
     }
 }
 
@@ -88,8 +82,8 @@
     [cmd.task setLaunchPath:@"/bin/sh"];
     [cmd.task setArguments:[NSArray arrayWithObject:testscript]];
     
-    [ctl start];
-    [ctl waitUntilDone];
+    [cmd start];
+    [cmd waitUntilDone];
     
     NSArray *expectedStates = [NSArray arrayWithObjects:
                                [NSNumber numberWithInt:LCSCommandStateInit],
@@ -101,7 +95,7 @@
     
     GHAssertEqualObjects(states, expectedStates, @"Unexpected state sequence");
     
-    GHAssertEqualObjects(ctl.result, @"HELLO", @"Unexpected result");
+    GHAssertEqualObjects(cmd.result, @"HELLO", @"Unexpected result");
     
     [fm release];
     [testdir remove];
@@ -113,8 +107,8 @@
     [cmd.task setLaunchPath:@"/bin/echo"];
     [cmd.task setArguments:[NSArray arrayWithObject:@"no plist here!"]];
     
-    [ctl start];
-    [ctl waitUntilDone];
+    [cmd start];
+    [cmd waitUntilDone];
     
     NSArray *expectedStates = [NSArray arrayWithObjects:
                                [NSNumber numberWithInt:LCSCommandStateInit],

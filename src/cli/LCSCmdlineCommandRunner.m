@@ -14,7 +14,7 @@
 
 
 @implementation LCSCmdlineCommandRunner
--(id)initWithCommand:(<LCSCommandTemp>)command label:(NSString*)lbl title:(NSString*)tit
+-(id)initWithCommand:(LCSCommandController*)command label:(NSString*)lbl title:(NSString*)tit
 {
     LCSINIT_SUPER_OR_RETURN_NIL();
     
@@ -41,7 +41,6 @@
     [title release];
     [label release];
     [cmd release];
-    [ctl release];
     [super dealloc];
 }
 
@@ -55,41 +54,40 @@
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if (object != ctl || ![keyPath isEqualToString:@"progressMessage"]) {
+    if (object != cmd || ![keyPath isEqualToString:@"progressMessage"]) {
         return;
     }
     
-    asl_log(NULL, NULL, ASL_LEVEL_INFO, "%s", [ctl.progressMessage cStringUsingEncoding:NSUTF8StringEncoding]);
+    asl_log(NULL, NULL, ASL_LEVEL_INFO, "%s", [cmd.progressMessage cStringUsingEncoding:NSUTF8StringEncoding]);
 }
 
 -(NSError*)run
 {
-    ctl = [[LCSCommandController controllerWithCommand:cmd] retain];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleControllerFailedNotification:)
                                                  name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFailed]
-                                               object:ctl];
+                                               object:cmd];
         
     /* wire up command to our logging function */
-    [ctl addObserver:self forKeyPath:@"progressMessage" options:0 context:nil];
+    [cmd addObserver:self forKeyPath:@"progressMessage" options:0 context:nil];
     
     /* wire up command to distributed notification center */
     LCSDistributedCommandStatePublisher *pub =
-        [[LCSDistributedCommandStatePublisher alloc] initWithCommandController:ctl label:label];
+        [[LCSDistributedCommandStatePublisher alloc] initWithCommandController:cmd label:label];
     [pub watch];
     
-    ctl.title = title;
+    cmd.title = title;
     
     /* run */
-    [ctl start];
-    [ctl waitUntilDone];
+    [cmd start];
+    [cmd waitUntilDone];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [ctl removeObserver:self forKeyPath:@"progressMessage"];
+    [cmd removeObserver:self forKeyPath:@"progressMessage"];
     [pub unwatch];
     [pub release];
     
-    return ctl.error;
+    return cmd.error;
 }
 
 -(void)handleSignal:(NSNumber*)num

@@ -20,7 +20,6 @@
 @end
 
 @implementation LCSAppleRAIDMonitorRebuildCommand
-@synthesize controller;
 @synthesize updateInterval;
 
 + (LCSAppleRAIDMonitorRebuildCommand*)commandWithRaidUUID:(NSString*)raidUUID devicePath:(NSString*)devicePath
@@ -52,7 +51,7 @@
 - (void)invalidate
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    controller.state = LCSCommandStateInvalidated;
+    self.state = LCSCommandStateInvalidated;
 }
 
 - (void)startCheckraid
@@ -62,7 +61,7 @@
     }
     [listraidctl release];
     
-    listraidctl = [[LCSCommandController controllerWithCommand:[LCSAppleRAIDListCommand command]] retain];
+    listraidctl = [[LCSAppleRAIDListCommand command] retain];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(invalidateCheckraid:)
@@ -79,36 +78,32 @@
                                                           LCSCommandStateInvalidated]
                                                   object:listraidctl];
     
-    NSArray *result = listraidctl.result;
-    float progress;
-    NSString *status = [result extractAppleRAIDMemberStatus:raidsetUUID
-                                           memberDeviceNode:memberDevpath
-                                                   progress:&progress];
+    NSArray *res = listraidctl.result;
+    float progr;
+    NSString *status = [res extractAppleRAIDMemberStatus:raidsetUUID
+                                        memberDeviceNode:memberDevpath
+                                                progress:&progr];
     
     if ([status isEqualToString:@"Rebuilding"]) {
         /* still in the rebuilding progress */
-        controller.progress = progress;
+        self.progress = progr;
         [self performSelector:@selector(startCheckraid) withObject:nil afterDelay:updateInterval];
     }
     else if ([status isEqualToString:@"Online"]) {
         /* we're done! */
-        controller.state = LCSCommandStateFinished;
+        self.state = LCSCommandStateFinished;
         [self invalidate];
     }
     else {
         /* Unexpected state. Report error */
-        controller.state = LCSCommandStateFailed;
+        self.state = LCSCommandStateFailed;
         [self invalidate];
     }    
 }
 
-- (void)start
+- (void)performStart
 {
-    if (![controller tryStart]) {
-        return;
-    }
-    
-    controller.state = LCSCommandStateRunning;
+    self.state = LCSCommandStateRunning;
     [self startCheckraid];
 }
 @end

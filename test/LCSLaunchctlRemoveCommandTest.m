@@ -27,12 +27,11 @@
     [submitTask waitUntilExit];
     
     LCSLaunchctlRemoveCommand *cmd = [LCSLaunchctlRemoveCommand commandWithLabel:label];
-    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
     
-    [ctl start];
-    [ctl waitUntilDone];
+    [cmd start];
+    [cmd waitUntilDone];
     
-    GHAssertEquals(ctl.exitState, LCSCommandStateFinished, @"Expecting LCSCommandStateFinished");
+    GHAssertEquals(cmd.exitState, LCSCommandStateFinished, @"Expecting LCSCommandStateFinished");
 }
 
 -(void)testLaunchctlRemoveNonExistingLabel
@@ -40,11 +39,10 @@
     NSString *label = [NSString stringWithFormat:@"ch.znerol.testjob-not-existing.%0X", random()];
     
     LCSLaunchctlRemoveCommand *cmd = [LCSLaunchctlRemoveCommand commandWithLabel:label];
-    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
     
-    [ctl start];
-    [ctl waitUntilDone];
+    [cmd start];
+    [cmd waitUntilDone];
     
-    GHAssertEquals(ctl.exitState, LCSCommandStateFailed, @"Expecting LCSCommandStateFailed");
+    GHAssertEquals(cmd.exitState, LCSCommandStateFailed, @"Expecting LCSCommandStateFailed");
 }
 @end

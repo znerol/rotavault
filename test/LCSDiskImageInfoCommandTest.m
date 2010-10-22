@@ -19,13 +19,12 @@
 -(void)testDiskImageInfoCommand
 {
     LCSDiskImageInfoCommand *cmd = [LCSDiskImageInfoCommand command];
-    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
     
-    [ctl start];
-    [ctl waitUntilDone];
+    [cmd start];
+    [cmd waitUntilDone];
     
-    GHAssertTrue([ctl.result isKindOfClass:[NSDictionary class]], @"Result should be a dictionary");
-    GHAssertTrue([[ctl.result valueForKey:@"images"] isKindOfClass:[NSArray class]],
+    GHAssertTrue([cmd.result isKindOfClass:[NSDictionary class]], @"Result should be a dictionary");
+    GHAssertTrue([[cmd.result valueForKey:@"images"] isKindOfClass:[NSArray class]],
                  @"Result should contain an array for the key 'images'");
 }
 @end

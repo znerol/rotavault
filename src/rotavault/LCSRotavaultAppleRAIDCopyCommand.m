@@ -117,19 +117,19 @@
 {
     NSParameterAssert([activeControllers.controllers count] == 0);
     
-    controller.progressMessage = [NSString localizedStringWithFormat:@"Gathering information"];
+    self.progressMessage = [NSString localizedStringWithFormat:@"Gathering information"];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(completeGatherInformation:)
                                                  name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
                                                object:activeControllers];
     
-    sourceInfoCtl = [LCSCommandController controllerWithCommand:[LCSDiskInfoCommand commandWithDevicePath:sourceDevice]];
+    sourceInfoCtl = [LCSDiskInfoCommand commandWithDevicePath:sourceDevice];
     sourceInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on source device"];
     [activeControllers addController:sourceInfoCtl];
     [sourceInfoCtl start];
     
-    targetInfoCtl = [LCSCommandController controllerWithCommand:[LCSDiskInfoCommand commandWithDevicePath:targetDevice]];
+    targetInfoCtl = [LCSDiskInfoCommand commandWithDevicePath:targetDevice];
     targetInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on target device"];
     [activeControllers addController:targetInfoCtl];
     [targetInfoCtl start];
@@ -148,23 +148,23 @@
         return;
     }
     if (![[sourceInfoCtl.result objectForKey:@"RAIDSetStatus"] isEqualToString:@"Online"]) {
-        NSError *error = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
-                                         LCSERROR_LOCALIZED_DESCRIPTION(@"Source raid set is not online"));
-        [self handleError:error];
+        NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
+                                       LCSERROR_LOCALIZED_DESCRIPTION(@"Source raid set is not online"));
+        [self handleError:err];
         return;
     }
     if (![[sourceInfoCtl.result objectForKey:@"RAIDSetLevelType"] isEqualToString:@"Mirror"]) {
-        NSError *error = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
-                                         LCSERROR_LOCALIZED_DESCRIPTION(@"Source is not a mirror raid set"));
-        [self handleError:error];
+        NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
+                                       LCSERROR_LOCALIZED_DESCRIPTION(@"Source is not a mirror raid set"));
+        [self handleError:err];
         return;
     }
     
     raidUUID = [[sourceInfoCtl.result objectForKey:@"RAIDSetUUID"] retain];
     if ([raidUUID length] != 36) {
-        NSError *error = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
-                                         LCSERROR_LOCALIZED_DESCRIPTION(@"UUID of raid set has wrong format"));
-        [self handleError:error];
+        NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
+                                       LCSERROR_LOCALIZED_DESCRIPTION(@"UUID of raid set has wrong format"));
+        [self handleError:err];
         return;
     }
     
@@ -173,11 +173,10 @@
 
 -(void)startAddTargetToRAIDSet
 {
-    controller.progressMessage = [NSString localizedStringWithFormat:@"Adding target to RAID set"];
+    self.progressMessage = [NSString localizedStringWithFormat:@"Adding target to RAID set"];
     
-    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:[LCSAppleRAIDAddMemberCommand
-                                                                             commandWithRaidUUID:raidUUID
-                                                                             devicePath:targetDevice]];
+    LCSCommandController *ctl = [LCSAppleRAIDAddMemberCommand commandWithRaidUUID:raidUUID
+                                                                       devicePath:targetDevice];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(completeAddTargetToRAIDSet:)
                                                  name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFinished]
@@ -200,10 +199,9 @@
 
 -(void)startMonitorRebuildRAIDSet
 {
-    controller.progressMessage = [NSString localizedStringWithFormat:@"Performing block copy"];    
-    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:[LCSAppleRAIDMonitorRebuildCommand
-                                                                             commandWithRaidUUID:raidUUID
-                                                                             devicePath:targetDevice]];
+    self.progressMessage = [NSString localizedStringWithFormat:@"Performing block copy"];    
+    LCSCommandController *ctl = [LCSAppleRAIDMonitorRebuildCommand commandWithRaidUUID:raidUUID
+                                                                            devicePath:targetDevice];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(completeMonitorRebuildRAIDSet:)
                                                  name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFinished]
@@ -212,7 +210,7 @@
     ctl.title = [NSString localizedStringWithFormat:@"Block copy"];
     [activeControllers addController:ctl];
     
-    controller.progressIndeterminate = NO;
+    self.progressIndeterminate = NO;
     [ctl addObserver:self forKeyPath:@"progress" options:0 context:nil];
     
     [ctl start];
@@ -224,7 +222,7 @@
                       context:(void *)context
 {
     if ([keyPath isEqualToString:@"progress"]) {
-        controller.progress = ((LCSCommandController*)object).progress;
+        self.progress = ((LCSCommandController*)object).progress;
     }
 }
 
@@ -235,18 +233,17 @@
                                                     name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFinished]
                                                   object:ctl];
     [ctl removeObserver:self forKeyPath:@"progress"];
-    controller.progressIndeterminate = YES;
+    self.progressIndeterminate = YES;
     
     [self startRemoveTargetFromRAIDSet];
 }
                                  
 -(void)startRemoveTargetFromRAIDSet
 {
-    controller.progressMessage = [NSString localizedStringWithFormat:@"Removing target from RAID set"];
+    self.progressMessage = [NSString localizedStringWithFormat:@"Removing target from RAID set"];
     
-    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:[LCSAppleRAIDRemoveMemberCommand
-                                                                             commandWithRaidUUID:raidUUID
-                                                                             devicePath:targetDevice]];
+    LCSCommandController *ctl = [LCSAppleRAIDRemoveMemberCommand commandWithRaidUUID:raidUUID
+                                                                          devicePath:targetDevice];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(completeRemoveTargetFromRAIDSet:)
                                                  name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFinished]
@@ -264,17 +261,16 @@
                                                     name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFinished]
                                                   object:ctl];
     
-    controller.progressMessage = [NSString localizedStringWithFormat:@"Complete"];
+    self.progressMessage = [NSString localizedStringWithFormat:@"Complete"];
     
     [self startUnmountTarget];
 }    
 
 -(void)startUnmountTarget
 {
-    controller.progressMessage = [NSString localizedStringWithFormat:@"Unmounting target device"];
+    self.progressMessage = [NSString localizedStringWithFormat:@"Unmounting target device"];
     
-    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:[LCSDiskUnmountCommand
-                                                                             commandWithDevicePath:targetDevice]];
+    LCSCommandController *ctl = [LCSDiskUnmountCommand commandWithDevicePath:targetDevice];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(completeUnmountTarget:)
                                                  name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFinished]
@@ -292,27 +288,19 @@
                                                     name:[LCSCommandController notificationNameStateEntered:LCSCommandStateFinished]
                                                   object:ctl];
     
-    controller.progressMessage = [NSString localizedStringWithFormat:@"Complete"];
+    self.progressMessage = [NSString localizedStringWithFormat:@"Complete"];
     
-    controller.state = LCSCommandStateFinished;
+    self.state = LCSCommandStateFinished;
 }    
 
--(void)start
+-(void)performStart
 {
-    if (![controller tryStart]) {
-        return;
-    }
-    
-    controller.state = LCSCommandStateRunning;
+    self.state = LCSCommandStateRunning;
     [self startGatherInformation];
 }
 
--(void)cancel
+-(void)performCancel
 {
-    if (![controller tryCancel]) {
-        return;
-    }
-    
     [self handleError:LCSERROR_METHOD(NSCocoaErrorDomain, NSUserCancelledError)];    
 }
 @end

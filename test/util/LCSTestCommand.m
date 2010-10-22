@@ -11,9 +11,6 @@
 
 
 @implementation LCSTestCommand
-@synthesize controller;
-
-
 -(id)initWithDelay:(NSTimeInterval)inDelay finalState:(LCSCommandState)inState
 {
     LCSINIT_SUPER_OR_RETURN_NIL();
@@ -32,37 +29,29 @@
 -(void)invalidate
 {
     [[self class] cancelPreviousPerformRequestsWithTarget:self];
-    controller.state = LCSCommandStateInvalidated;
+    self.state = LCSCommandStateInvalidated;
 }
 
--(void)performComplete
+-(void)finishNow
 {
-    controller.state = finalState;
+    self.state = finalState;
     [self invalidate];
+}
+
+-(void)cancelNow
+{
+    self.state = LCSCommandStateCancelled;
+    [self invalidate];
+}
+
+-(void)performStart
+{
+    self.state = LCSCommandStateRunning;
+    [self performSelector:@selector(finishNow) withObject:nil afterDelay:delay];
 }
 
 -(void)performCancel
 {
-    controller.state = LCSCommandStateCancelled;
-    [self invalidate];
-}
-
--(void)start
-{
-    if (![controller tryStart]) {
-        return;
-    }
-    
-    controller.state = LCSCommandStateRunning;
-    [self performSelector:@selector(performComplete) withObject:nil afterDelay:delay];
-}
-
--(void)cancel
-{
-    if (![controller tryCancel]) {
-        return;
-    }
-    
-    [self performSelector:@selector(performCancel) withObject:nil afterDelay:0];
+    [self performSelector:@selector(cancelNow) withObject:nil afterDelay:0];
 }
 @end

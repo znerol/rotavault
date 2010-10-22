@@ -13,7 +13,6 @@
 
 
 @implementation LCSExternalCommand
-@synthesize controller;
 @synthesize task;
 
 -(id)init
@@ -37,28 +36,28 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSTaskDidTerminateNotification object:task];
     [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(cancel) object:nil];
-    controller.state = LCSCommandStateInvalidated;
+    self.state = LCSCommandStateInvalidated;
 }
 
 -(void)handleTaskTermination
 {
-    if ([task terminationStatus] != 0 && [controller validateNextState:LCSCommandStateFailed]) {
-        NSError *error = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSExecutableReturnedNonZeroStatusError,
-                                         LCSERROR_LOCALIZED_DESCRIPTION(@"External helper tool terminated with exit status %d", [task terminationStatus]),
-                                         LCSERROR_EXECUTABLE_TERMINATION_STATUS([task terminationStatus]),
-                                         LCSERROR_EXECUTABLE_LAUNCH_PATH([task launchPath]));
-        [self handleError:error];
+    if ([task terminationStatus] != 0 && [self validateNextState:LCSCommandStateFailed]) {
+        NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSExecutableReturnedNonZeroStatusError,
+                                       LCSERROR_LOCALIZED_DESCRIPTION(@"External helper tool terminated with exit status %d", [task terminationStatus]),
+                                       LCSERROR_EXECUTABLE_TERMINATION_STATUS([task terminationStatus]),
+                                       LCSERROR_EXECUTABLE_LAUNCH_PATH([task launchPath]));
+        [self handleError:err];
     }
-    else if ([controller validateNextState:LCSCommandStateFinished]){
-        controller.state = LCSCommandStateFinished;
+    else if ([self validateNextState:LCSCommandStateFinished]){
+        self.state = LCSCommandStateFinished;
         [self invalidate];
     }
 }
 
--(void)handleError:(NSError*)error
+-(void)handleError:(NSError*)err
 {
-    controller.error = error;
-    controller.state = LCSCommandStateFailed;
+    self.error = err;
+    self.state = LCSCommandStateFailed;
     
     if ([task isRunning]) {
         [task terminate];
@@ -70,11 +69,11 @@
 
 -(void)handleTerminationNotification:(NSNotification*)ntf
 {
-    if (controller.state == LCSCommandStateCancelling) {
-        controller.state = LCSCommandStateCancelled;
+    if (self.state == LCSCommandStateCancelling) {
+        self.state = LCSCommandStateCancelled;
         [self invalidate];
     }
-    else if (controller.state == LCSCommandStateFailed) {
+    else if (self.state == LCSCommandStateFailed) {
         [self invalidate];
     }
     else {
@@ -82,12 +81,8 @@
     }
 }
 
--(void)start
+-(void)performStart
 {
-    if (![controller tryStart]) {
-        return;
-    }
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleTerminationNotification:)
                                                  name:NSTaskDidTerminateNotification
@@ -96,26 +91,26 @@
     NSFileManager *fm = [[[NSFileManager alloc] init] autorelease];
     BOOL isDirectory;
     
-    NSError *error;
+    NSError *err;
     if (![fm fileExistsAtPath:[task launchPath] isDirectory:&isDirectory]) {
-        error = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSLaunchOfExecutableFailedError,
-                                LCSERROR_LOCALIZED_DESCRIPTION(@"Failed to launch external helper tool at %@. No such file", [task launchPath]),
-                                LCSERROR_EXECUTABLE_LAUNCH_PATH([task launchPath]));
-        [self handleError:error];
+        err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSLaunchOfExecutableFailedError,
+                              LCSERROR_LOCALIZED_DESCRIPTION(@"Failed to launch external helper tool at %@. No such file", [task launchPath]),
+                              LCSERROR_EXECUTABLE_LAUNCH_PATH([task launchPath]));
+        [self handleError:err];
         return;
     }
     else if (isDirectory) {
-        error = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSLaunchOfExecutableFailedError,
-                                LCSERROR_LOCALIZED_DESCRIPTION(@"Failed to launch external helper tool. %@ is a directory.", [task launchPath]),
-                                LCSERROR_EXECUTABLE_LAUNCH_PATH([task launchPath]));
-        [self handleError:error];
+        err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSLaunchOfExecutableFailedError,
+                              LCSERROR_LOCALIZED_DESCRIPTION(@"Failed to launch external helper tool. %@ is a directory.", [task launchPath]),
+                              LCSERROR_EXECUTABLE_LAUNCH_PATH([task launchPath]));
+        [self handleError:err];
         return;
     }
     else if (![fm isExecutableFileAtPath:[task launchPath]]) {
-        error = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSLaunchOfExecutableFailedError,
-                                LCSERROR_LOCALIZED_DESCRIPTION(@"Failed to launch external helper tool. %@ is not executable.", [task launchPath]),
-                                LCSERROR_EXECUTABLE_LAUNCH_PATH([task launchPath]));
-        [self handleError:error];
+        err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSLaunchOfExecutableFailedError,
+                              LCSERROR_LOCALIZED_DESCRIPTION(@"Failed to launch external helper tool. %@ is not executable.", [task launchPath]),
+                              LCSERROR_EXECUTABLE_LAUNCH_PATH([task launchPath]));
+        [self handleError:err];
         return;
     }
     
@@ -123,30 +118,27 @@
         [task launch];
     }
     @catch (NSException *e) {
-        error = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSLaunchOfExecutableFailedError,
-                                LCSERROR_LOCALIZED_DESCRIPTION(@"Failed to launch external helper tool. %@", [e description]),
-                                LCSERROR_EXECUTABLE_LAUNCH_PATH([task launchPath]));
-        [self handleError:error];
+        err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSLaunchOfExecutableFailedError,
+                              LCSERROR_LOCALIZED_DESCRIPTION(@"Failed to launch external helper tool. %@", [e description]),
+                              LCSERROR_EXECUTABLE_LAUNCH_PATH([task launchPath]));
+        [self handleError:err];
         return;
     }
     
-    controller.state = LCSCommandStateRunning;
+    self.state = LCSCommandStateRunning;
 }
 
--(void)cancel
+-(void)performCancel
 {
-    if (![controller tryCancel]) {
-        return;
-    }
-    
     if ([task isRunning]) {
         [task terminate];
+        NSLog(@"object: %@ cmd %@", [self description], NSStringFromSelector(_cmd));
         
         /*
          * Because of a race condition in NSTask it is possible that a freshly spawned task does not receive the TERM
          * signal. Therefore we just retry after one second.
          */
-        [self performSelector:@selector(cancel) withObject:nil afterDelay:0.2];
+        [self performSelector:@selector(performCancel) withObject:nil afterDelay:0.2];
     }
 }
 @end

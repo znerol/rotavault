@@ -8,7 +8,6 @@
 
 #import "LCSRotavaultJob.h"
 #import "LCSInitMacros.h"
-#import "LCSCommandTemp.h"
 #import "LCSCommandController.h"
 #import "LCSRotavaultScheduleInstallCommand.h"
 #import "LCSLaunchctlInfoCommand.h"
@@ -139,13 +138,12 @@
         return;
     }
     
-    currentCommand = [LCSCommandController controllerWithCommand:[LCSRotavaultScheduleInstallCommand
-                                                                  commandWithLabel:label
-                                                                  method:(blockCopyMethodIndex ? @"appleraid" : @"asr")
-                                                                  sourceDevice:sourceDevice
-                                                                  targetDevice:targetDevice
+    currentCommand = [LCSRotavaultScheduleInstallCommand commandWithLabel:label
+                                                                   method:(blockCopyMethodIndex ? @"appleraid" : @"asr")
+                                                             sourceDevice:sourceDevice
+                                                             targetDevice:targetDevice
                                                                   runDate:runDate
-                                                                  withAuthorization:(runAsRoot ? authorization : nil)]];
+                                                        withAuthorization:(runAsRoot ? authorization : nil)];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(invalidateScheduleJob:)
@@ -189,13 +187,12 @@
         return;
     }
     
-    currentCommand = [LCSCommandController controllerWithCommand:[LCSRotavaultScheduleInstallCommand
-                                                                  commandWithLabel:label
-                                                                  method:(blockCopyMethodIndex ? @"appleraid" : @"asr")
-                                                                  sourceDevice:sourceDevice
-                                                                  targetDevice:targetDevice
+    currentCommand = [LCSRotavaultScheduleInstallCommand commandWithLabel:label
+                                                                   method:(blockCopyMethodIndex ? @"appleraid" : @"asr")
+                                                             sourceDevice:sourceDevice
+                                                             targetDevice:targetDevice
                                                                   runDate:nil
-                                                                  withAuthorization:(runAsRoot ? authorization : nil)]];
+                                                        withAuthorization:(runAsRoot ? authorization : nil)];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(invalidateStartJob:)
@@ -240,16 +237,14 @@
         return;
     }
     
-    <LCSCommandTemp> removeCommand = nil;
     if (runAsRoot) {
-        removeCommand = [LCSRotavaultPrivilegedJobRemoveCommand privilegedJobRemoveCommandWithLabel:label
+        currentCommand = [LCSRotavaultPrivilegedJobRemoveCommand privilegedJobRemoveCommandWithLabel:label
                                                                                     authorization:authorization];
     }
     else {
-        removeCommand = [LCSLaunchctlRemoveCommand commandWithLabel:label];
+        currentCommand = [LCSLaunchctlRemoveCommand commandWithLabel:label];
     }
     
-    currentCommand = [LCSCommandController controllerWithCommand:removeCommand];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(invalidateRemoveJob:)
                                                  name:[LCSCommandController notificationNameStateEntered:LCSCommandStateInvalidated]
@@ -289,16 +284,14 @@
         return;
     }
     
-    <LCSCommandTemp> infoCommand = nil;
     if (runAsRoot) {
-        infoCommand = [LCSRotavaultPrivilegedJobInfoCommand privilegedJobInfoCommandWithLabel:label
+        currentCommand = [LCSRotavaultPrivilegedJobInfoCommand privilegedJobInfoCommandWithLabel:label
                                                                                 authorization:authorization];
     }
     else {
-        infoCommand = [LCSLaunchctlInfoCommand commandWithLabel:label];
+        currentCommand = [LCSLaunchctlInfoCommand commandWithLabel:label];
     }
 
-    currentCommand = [LCSCommandController controllerWithCommand:infoCommand];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(invalidateCheckStatus:)
                                                  name:[LCSCommandController notificationNameStateEntered:LCSCommandStateInvalidated]
@@ -344,8 +337,7 @@
     [backgroundCommand performSelector:@selector(release) withObject:nil afterDelay:0];
     
     
-    backgroundCommand =
-        [LCSCommandController controllerWithCommand:[LCSDistributedCommandStateWatcher commandWithLabel:label]];
+    backgroundCommand = [LCSDistributedCommandStateWatcher commandWithLabel:label];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(invalidateStateWatcher:)
                                                  name:[LCSCommandController notificationNameStateEntered:LCSCommandStateInvalidated]

@@ -34,13 +34,12 @@
     [job writeToFile:plistPath atomically:NO];
     
     LCSLaunchctlLoadCommand *cmd = [LCSLaunchctlLoadCommand commandWithPath:plistPath];
-    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
     
-    [ctl start];
-    [ctl waitUntilDone];
+    [cmd start];
+    [cmd waitUntilDone];
     
     
-    GHAssertEquals(ctl.exitState, LCSCommandStateFinished, @"Expecting LCSCommandStateFinished");
+    GHAssertEquals(cmd.exitState, LCSCommandStateFinished, @"Expecting LCSCommandStateFinished");
     
     NSTask *removeTask = [NSTask launchedTaskWithLaunchPath:@"/bin/launchctl"
                                                   arguments:[NSArray arrayWithObjects:@"remove", label, nil]];
@@ -68,20 +67,18 @@
     [job writeToFile:plistPath atomically:NO];
     
     LCSLaunchctlLoadCommand *cmd = [LCSLaunchctlLoadCommand commandWithPath:plistPath];
-    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
     
-    [ctl start];
-    [ctl waitUntilDone];
+    [cmd start];
+    [cmd waitUntilDone];
     
-    GHAssertEquals(ctl.exitState, LCSCommandStateFinished, @"Expecting LCSCommandStateFinished");
+    GHAssertEquals(cmd.exitState, LCSCommandStateFinished, @"Expecting LCSCommandStateFinished");
     
     LCSLaunchctlLoadCommand *cmd2 = [LCSLaunchctlLoadCommand commandWithPath:plistPath];
-    LCSCommandController *ctl2 = [LCSCommandController controllerWithCommand:cmd2];
     
-    [ctl2 start];
-    [ctl2 waitUntilDone];
+    [cmd2 start];
+    [cmd2 waitUntilDone];
 
-    GHAssertEquals(ctl2.exitState, LCSCommandStateFailed, @"Expecting LCSCommandStateFailed");
+    GHAssertEquals(cmd2.exitState, LCSCommandStateFailed, @"Expecting LCSCommandStateFailed");
 
     NSTask *removeTask = [NSTask launchedTaskWithLaunchPath:@"/bin/launchctl"
                                                   arguments:[NSArray arrayWithObjects:@"remove", label, nil]];

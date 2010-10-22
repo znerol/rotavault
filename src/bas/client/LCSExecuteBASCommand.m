@@ -58,32 +58,28 @@
     
     /* FIXME: handle IPC error */
     if (err != noErr) {
-        controller.state = LCSCommandStateFailed;
-        controller.state = LCSCommandStateInvalidated;
+        self.state = LCSCommandStateFailed;
+        self.state = LCSCommandStateInvalidated;
         return;
     }
     
     /* FIXME: handle command error */
     err = BASGetErrorFromResponse((CFDictionaryRef)response);
     if (err != noErr) {
-        controller.state = LCSCommandStateFailed;
-        controller.state = LCSCommandStateInvalidated;
+        self.state = LCSCommandStateFailed;
+        self.state = LCSCommandStateInvalidated;
         return;
     }
     
     [self collectResults];
     
-    controller.state = LCSCommandStateFinished;
-    controller.state = LCSCommandStateInvalidated;    
+    self.state = LCSCommandStateFinished;
+    self.state = LCSCommandStateInvalidated;    
 }
 
-- (void)start
+- (void)performStart
 {
-    if (![controller tryStart]) {
-        return;
-    }
-    
-    controller.state = LCSCommandStateRunning;
+    self.state = LCSCommandStateRunning;
     [self performSelector:@selector(execRequest) withObject:nil afterDelay:0];
 }
 @end

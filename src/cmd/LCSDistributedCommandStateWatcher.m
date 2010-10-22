@@ -11,8 +11,6 @@
 
 
 @implementation LCSDistributedCommandStateWatcher
-@synthesize controller;
-
 + (LCSDistributedCommandStateWatcher*)commandWithLabel:(NSString*)senderLabel
 {
     return [[[LCSDistributedCommandStateWatcher alloc] initWithLabel:senderLabel] autorelease];
@@ -48,16 +46,12 @@
     
     NSDictionary *msg = [ntf userInfo];
     for (NSString *keyPath in msg) {
-        [controller setValue:[msg valueForKey:keyPath] forKeyPath:keyPath];
+        [self setValue:[msg valueForKey:keyPath] forKeyPath:keyPath];
     }
 }
 
-- (void)start
+- (void)performStart
 {
-    if (![controller tryStart]) {
-        return;
-    }
-    
     [[NSDistributedNotificationCenter defaultCenter] addObserver:self
                                                         selector:@selector(updateStatus:)
                                                             name:[LCSCommandController notificationNameStateChanged]
@@ -65,6 +59,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(invalidate)
                                                  name:[LCSCommandController notificationNameStateEntered:LCSCommandStateInvalidated]
-                                               object:controller];
+                                               object:self];
 }
 @end

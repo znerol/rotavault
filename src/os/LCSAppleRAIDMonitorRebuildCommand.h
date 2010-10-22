@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LCSCommandTemp.h"
+#import "LCSCommandController.h"
 
 
-@interface LCSAppleRAIDMonitorRebuildCommand : NSObject <LCSCommandTemp> {
+@interface LCSAppleRAIDMonitorRebuildCommand : LCSCommandController {
     NSString *raidsetUUID;
     NSString *memberDevpath;
     

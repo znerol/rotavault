@@ -27,14 +27,13 @@
     [submitTask waitUntilExit];
     
     LCSLaunchctlInfoCommand *cmd = [LCSLaunchctlInfoCommand commandWithLabel:label];
-    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
     
-    [ctl start];
-    [ctl waitUntilDone];
+    [cmd start];
+    [cmd waitUntilDone];
     
-    GHAssertEquals(ctl.exitState, LCSCommandStateFinished, @"Expecting LCSCommandStateFinished");
-    GHAssertTrue([ctl.result isKindOfClass:[NSDictionary class]], @"Expecting a dictionary in the result");
-    GHAssertEqualObjects([ctl.result objectForKey:@"Label"], label, @"Expecting matching job label");
+    GHAssertEquals(cmd.exitState, LCSCommandStateFinished, @"Expecting LCSCommandStateFinished");
+    GHAssertTrue([cmd.result isKindOfClass:[NSDictionary class]], @"Expecting a dictionary in the result");
+    GHAssertEqualObjects([cmd.result objectForKey:@"Label"], label, @"Expecting matching job label");
 
     NSTask *removeTask = [NSTask launchedTaskWithLaunchPath:@"/bin/launchctl"
                                                   arguments:[NSArray arrayWithObjects:@"remove", label, nil]];
@@ -46,11 +45,10 @@
     NSString *label = [NSString stringWithFormat:@"ch.znerol.testjob-not-existing.%0X", random()];
     
     LCSLaunchctlInfoCommand *cmd = [LCSLaunchctlInfoCommand commandWithLabel:label];
-    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
     
-    [ctl start];
-    [ctl waitUntilDone];
+    [cmd start];
+    [cmd waitUntilDone];
     
-    GHAssertEquals(ctl.exitState, LCSCommandStateFailed, @"Expecting LCSCommandStateFailed");
+    GHAssertEquals(cmd.exitState, LCSCommandStateFailed, @"Expecting LCSCommandStateFailed");
 }
 @end

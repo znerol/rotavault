@@ -47,7 +47,7 @@
     
     NSArray *lines = [str componentsSeparatedByString:@"\n"];
     for (NSString *line in lines) {
-        controller.progressMessage = line;
+        self.progressMessage = line;
     }
     
     [str release];
@@ -68,12 +68,8 @@
     [super invalidate];
 }
 
--(void)start
+-(void)performStart
 {
-    if (![controller tryStart]) {
-        return;
-    }
-    
     stdoutPipe = [[NSPipe alloc] init];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleReadCompletionNotification:)
@@ -81,6 +77,6 @@
                                                object:[stdoutPipe fileHandleForReading]];
     [[stdoutPipe fileHandleForReading] readInBackgroundAndNotify];
     [task setStandardOutput:stdoutPipe];
-    [super start];
+    [super performStart];
 }
 @end

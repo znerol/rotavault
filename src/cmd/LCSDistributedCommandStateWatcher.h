@@ -7,12 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LCSCommandTemp.h"
 #import "LCSCommandController.h"
 
 
-@interface LCSDistributedCommandStateWatcher : NSObject <LCSCommandTemp> {
-    LCSCommandController *controller;
+@interface LCSDistributedCommandStateWatcher : LCSCommandController {
     NSString *label;
 }
 + (LCSDistributedCommandStateWatcher*)commandWithLabel:(NSString*)senderLabel;

@@ -15,7 +15,6 @@
 @interface LCSQuickExternalCommandTest : GHTestCase {
     NSMutableArray *states;
     LCSQuickExternalCommand *cmd;
-    LCSCommandController *ctl;
 }
 @end
 
@@ -24,19 +23,14 @@
 -(void)setUp
 {
     states = [[NSMutableArray alloc] init];
-
-    cmd = [[LCSQuickExternalCommand alloc] init];
-    ctl = [[LCSCommandController controllerWithCommand:cmd] retain];
-    
-    [ctl addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionInitial context:nil];
+    cmd = [[LCSQuickExternalCommand alloc] init];    
+    [cmd addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionInitial context:nil];
 }
 
 -(void)tearDown
 {
-    [ctl removeObserver:self forKeyPath:@"state"];
+    [cmd removeObserver:self forKeyPath:@"state"];
     
-    [ctl release];
-    ctl = nil;
     [cmd release];
     cmd = nil;
     
@@ -46,12 +40,12 @@
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if (object != ctl) {
+    if (object != cmd) {
         return;
     }
     
     if ([keyPath isEqualToString:@"state"]) {
-        [states addObject:[NSNumber numberWithInt:ctl.state]];
+        [states addObject:[NSNumber numberWithInt:cmd.state]];
     }
 }
 
@@ -59,8 +53,8 @@
 {
     [cmd.task setLaunchPath:@"/usr/bin/true"];
     
-    [ctl start];
-    [ctl waitUntilDone];
+    [cmd start];
+    [cmd waitUntilDone];
     
     NSArray *expectedStates = [NSArray arrayWithObjects:
                                [NSNumber numberWithInt:LCSCommandStateInit],
@@ -79,8 +73,8 @@
 {
     [cmd.task setLaunchPath:@"/usr/bin/false"];
     
-    [ctl start];
-    [ctl waitUntilDone];
+    [cmd start];
+    [cmd waitUntilDone];
     
     NSArray *expectedStates = [NSArray arrayWithObjects:
                                [NSNumber numberWithInt:LCSCommandStateInit],
@@ -99,10 +93,9 @@
     [cmd.task setLaunchPath:@"/bin/sleep"];
     [cmd.task setArguments:[NSArray arrayWithObject:@"10"]];
     
-    [ctl start];
-    [ctl cancel];
-    
-    [ctl waitUntilDone];
+    [cmd start];
+    [cmd cancel];
+    [cmd waitUntilDone];
     
     NSArray *expectedStates = [NSArray arrayWithObjects:
                                [NSNumber numberWithInt:LCSCommandStateInit],
@@ -122,8 +115,8 @@
     
     [cmd.task setLaunchPath:[testdir path]];
     
-    [ctl start];
-    [ctl waitUntilDone];
+    [cmd start];
+    [cmd waitUntilDone];
     
     NSArray *expectedStates = [NSArray arrayWithObjects:
                                [NSNumber numberWithInt:LCSCommandStateInit],
@@ -144,8 +137,8 @@
     
     [cmd.task setLaunchPath:[[testdir path] stringByAppendingPathComponent:@"nothing"]];
     
-    [ctl start];
-    [ctl waitUntilDone];
+    [cmd start];
+    [cmd waitUntilDone];
     
     NSArray *expectedStates = [NSArray arrayWithObjects:
                                [NSNumber numberWithInt:LCSCommandStateInit],
@@ -169,8 +162,8 @@
     BOOL result = [@"no code at all!" writeToFile:[cmd.task launchPath] atomically:NO encoding:NSUTF8StringEncoding error:nil];
     GHAssertEquals(result, YES, @"Failed to write helper file");
     
-    [ctl start];
-    [ctl waitUntilDone];
+    [cmd start];
+    [cmd waitUntilDone];
     
     NSArray *expectedStates = [NSArray arrayWithObjects:
                                [NSNumber numberWithInt:LCSCommandStateInit],
@@ -196,8 +189,8 @@
     [cmd.task setLaunchPath:@"/bin/cat"];
     [cmd.task setArguments:[NSArray arrayWithObject:testpath]];
     
-    [ctl start];
-    [ctl waitUntilDone];
+    [cmd start];
+    [cmd waitUntilDone];
     
     NSArray *expectedStates = [NSArray arrayWithObjects:
                                [NSNumber numberWithInt:LCSCommandStateInit],
@@ -211,7 +204,7 @@
     
     NSData *expectedData = [NSArray arrayWithObjects:
                             [@"TEST" dataUsingEncoding:NSUTF8StringEncoding], [NSData data], nil];
-    GHAssertEqualObjects(ctl.result, expectedData, @"Unexpected result");
+    GHAssertEqualObjects(cmd.result, expectedData, @"Unexpected result");
     
     [testdir remove];
     [testdir release];
@@ -238,8 +231,8 @@
     [cmd.task setLaunchPath:@"/bin/sh"];
     [cmd.task setArguments:[NSArray arrayWithObject:testscript]];
     
-    [ctl start];
-    [ctl waitUntilDone];
+    [cmd start];
+    [cmd waitUntilDone];
     
     NSArray *expectedStates = [NSArray arrayWithObjects:
                                [NSNumber numberWithInt:LCSCommandStateInit],
@@ -253,7 +246,7 @@
     
     NSData *expectedData = [NSArray arrayWithObjects:
                             [NSData data], [@"HELLO\n" dataUsingEncoding:NSUTF8StringEncoding], nil];
-    GHAssertEqualObjects(ctl.result, expectedData, @"Unexpected result");
+    GHAssertEqualObjects(cmd.result, expectedData, @"Unexpected result");
     
     [fm release];
     [testdir remove];

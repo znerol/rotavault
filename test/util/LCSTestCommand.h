@@ -7,11 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LCSCommandTemp.h"
 #import "LCSCommandController.h"
 
 
-@interface LCSTestCommand : NSObject <LCSCommandTemp> {
+@interface LCSTestCommand : LCSCommandController {
     NSTimeInterval delay;
     LCSCommandState finalState;
     LCSCommandController *controller;

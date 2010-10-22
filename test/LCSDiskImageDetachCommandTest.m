@@ -41,12 +41,11 @@
     /** end creation of image file **/
     
     LCSDiskImageDetachCommand *cmd = [LCSDiskImageDetachCommand commandWithDevicePath:devpath];
-    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
     
-    [ctl start];
-    [ctl waitUntilDone];
+    [cmd start];
+    [cmd waitUntilDone];
     
-    GHAssertEquals(ctl.exitState, LCSCommandStateFinished, @"Expecting LCSCommandStateFinished");
+    GHAssertEquals(cmd.exitState, LCSCommandStateFinished, @"Expecting LCSCommandStateFinished");
     
     [dmgcreate release];
     [testdir remove];
@@ -59,12 +58,11 @@
     NSString *devpath = [[testdir path] stringByAppendingPathComponent:@"diskXsY"];
     
     LCSDiskImageDetachCommand *cmd = [LCSDiskImageDetachCommand commandWithDevicePath:devpath];
-    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
     
-    [ctl start];
-    [ctl waitUntilDone];
+    [cmd start];
+    [cmd waitUntilDone];
     
-    GHAssertEquals(ctl.exitState, LCSCommandStateFailed, @"Expecting LCSCommandStateFailed");
+    GHAssertEquals(cmd.exitState, LCSCommandStateFailed, @"Expecting LCSCommandStateFailed");
     
     [testdir remove];
     [testdir release];

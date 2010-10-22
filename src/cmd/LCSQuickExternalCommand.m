@@ -47,7 +47,7 @@
 
 -(void)collectResults
 {
-    controller.result = [NSArray arrayWithObjects:stdoutData, stderrData, nil];
+    self.result = [NSArray arrayWithObjects:stdoutData, stderrData, nil];
 }
 
 -(void)completeIfDone
@@ -77,7 +77,7 @@
     NSNumber *unixError = [[ntf userInfo] objectForKey:@"NSFileHandleError"];
 
     if ([unixError intValue] != 0) {
-        controller.state = LCSCommandStateFailed;
+        self.state = LCSCommandStateFailed;
         [self invalidate];
     }
     
@@ -100,12 +100,8 @@
     [self completeIfDone];
 }
 
--(void)start
+-(void)performStart
 {
-    if (![controller tryStart]) {
-        return;
-    }
-    
     [task setStandardOutput:stdoutPipe];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleReadToEndOfFileNotification:)
@@ -120,6 +116,6 @@
                                                object:[stderrPipe fileHandleForReading]];
     [[stderrPipe fileHandleForReading] readToEndOfFileInBackgroundAndNotify];
     
-    [super start];
+    [super performStart];
 }
 @end

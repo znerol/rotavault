@@ -26,7 +26,6 @@
 -(void) testList
 {
     LCSAppleRAIDListCommand* cmd = [LCSAppleRAIDListCommand command];
-    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
     
     NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"diskutil-appleraid-list"
                                                                                   ofType:@"txt"]];
@@ -34,18 +33,17 @@
     id taskMock = [OCMockObject mockTask:cmd.task withTerminationStatus:0 stdoutData:data stderrData:[NSData data]];
     cmd.task = taskMock;
     
-    [ctl start];
-    [ctl waitUntilDone];
+    [cmd start];
+    [cmd waitUntilDone];
     
     [taskMock verify];
     
-    GHAssertEquals(ctl.exitState, LCSCommandStateFinished, @"Expected LCSCommandStateFinished");
+    GHAssertEquals(cmd.exitState, LCSCommandStateFinished, @"Expected LCSCommandStateFinished");
 }
 
 -(void) testListFailedController
 {
     LCSAppleRAIDListCommand* cmd = [LCSAppleRAIDListCommand command];
-    LCSCommandController *ctl = [LCSCommandController controllerWithCommand:cmd];
     
     NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"diskutil-appleraid-controller-failed"
                                                                                   ofType:@"txt"]];
@@ -53,12 +51,12 @@
     id taskMock = [OCMockObject mockTask:cmd.task withTerminationStatus:0 stdoutData:data stderrData:[NSData data]];
     cmd.task = taskMock;
     
-    [ctl start];
-    [ctl waitUntilDone];
+    [cmd start];
+    [cmd waitUntilDone];
     
     [taskMock verify];
     
-    GHAssertEquals(ctl.exitState, LCSCommandStateFailed, @"Expected LCSCommandStateFailed");
+    GHAssertEquals(cmd.exitState, LCSCommandStateFailed, @"Expected LCSCommandStateFailed");
 }
 
 @end

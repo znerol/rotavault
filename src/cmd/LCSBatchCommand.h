@@ -7,12 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LCSCommandTemp.h"
-#import "LCSCommandRunner.h"
 #import "LCSCommandControllerCollection.h"
 
 
-@interface LCSBatchCommand : NSObject <LCSCommandTemp>
+@interface LCSBatchCommand : LCSCommandController
 {
     LCSCommandController* controller;
     
