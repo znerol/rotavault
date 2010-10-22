@@ -12,16 +12,16 @@
 typedef enum {
     LCSCommandStateInit = 0,
 
-    LCSCommandStateStarting,   // set by controller in start-selector
+    LCSCommandStateStarting,   // set by base class in start-selector
     LCSCommandStateRunning,    // set by command when the start-selector completes
     
-    LCSCommandStatePausing,    // set by controller in pause-selector
+    LCSCommandStatePausing,    // set by base class in pause-selector
     LCSCommandStatePaused,     // set by command when the pase-selector completes
-    LCSCommandStateResuming,   // set by controller in resume-selector
+    LCSCommandStateResuming,   // set by base class in resume-selector
     
     LCSCommandStateFinished,   // set by command when task has finished
     LCSCommandStateFailed,     // set by command when something went wrong
-    LCSCommandStateCancelling, // set by controller in cancel-selector
+    LCSCommandStateCancelling, // set by base class in cancel-selector
     LCSCommandStateCancelled,  // set by command when the cancel-selector completes
     
     LCSCommandStateInvalidated, // set by command when task is ready to get disposed

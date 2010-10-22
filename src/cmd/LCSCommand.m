@@ -1,5 +1,5 @@
 //
-//  LCSCommandController.m
+//  LCSCommand.m
 //  task-test-2
 //
 //  Created by Lorenz Schori on 23.09.10.
@@ -131,7 +131,7 @@
 -(void)performStart
 {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
-                                   reason:@"[LCSCommandController start] is a pure virtual method. You have to override it in a subclass"
+                                   reason:@"[LCSCommand start] is a pure virtual method. You have to override it in a subclass"
                                  userInfo:nil];    
 }
 
@@ -141,22 +141,22 @@
 
 +(NSString*)notificationNameStateLeft:(LCSCommandState)oldState
 {
-    return [NSString stringWithFormat:@"LCSCommandControllerLeftState-%d", oldState];
+    return [NSString stringWithFormat:@"LCSCommandLeftState-%d", oldState];
 }
 
 +(NSString*)notificationNameStateTransfered:(LCSCommandState)oldState toState:(LCSCommandState)newState
 {
-    return [NSString stringWithFormat:@"LCSCommandControllerTransfered-%d-%d", oldState, newState];
+    return [NSString stringWithFormat:@"LCSCommandTransfered-%d-%d", oldState, newState];
 }
 
 +(NSString*)notificationNameStateEntered:(LCSCommandState)newState
 {
-    return [NSString stringWithFormat:@"LCSCommandControllerEnteredState-%d", newState];
+    return [NSString stringWithFormat:@"LCSCommandEnteredState-%d", newState];
 }
 
 +(NSString*)notificationNameStateChanged
 {
-    return @"LCSCommandControllerStateChanged";
+    return @"LCSCommandStateChanged";
 }
 
 @end
