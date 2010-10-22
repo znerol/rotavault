@@ -11,7 +11,7 @@
 #define LCSThreadLocalDefaultNotificationCenterKey @"LCSThreadLocalDefaultNotificationCenter"
 
 @implementation NSNotificationCenter (DefaultCenterThreadLocal)
-+ (NSNotificationCenter*)defaultCenter
++ (id)defaultCenter
 {
     NSMutableDictionary *threadDictionary = [[NSThread currentThread] threadDictionary];
     NSNotificationCenter *defaultThreadLocalCenter;

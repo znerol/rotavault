@@ -10,5 +10,5 @@
 
 
 @interface NSNotificationCenter (DefaultCenterThreadLocal)
-+ (NSNotificationCenter*)defaultCenter;
++ (id)defaultCenter;
 @end
