@@ -11,7 +11,6 @@
 
 
 @implementation LCSExecuteBASCommand
-@synthesize controller;
 @synthesize bundleID;
 
 + (LCSExecuteBASCommand*)commandWithRequest:(NSDictionary*)req

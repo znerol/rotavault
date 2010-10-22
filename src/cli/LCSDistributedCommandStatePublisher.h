@@ -11,11 +11,11 @@
 
 
 @interface LCSDistributedCommandStatePublisher : NSObject {
-    LCSCommand* controller;
+    LCSCommand* command;
     NSString* label;
 }
 
-- (id)initWithCommandController:(LCSCommand*)ctl label:(NSString*)sndlabel;
+- (id)initWithCommand:(LCSCommand*)cmd label:(NSString*)sndlabel;
 - (void)watch;
 - (void)unwatch;
 @end

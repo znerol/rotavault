@@ -44,7 +44,7 @@
     [super dealloc];
 }
 
--(void)handleControllerFailedNotification:(NSNotification*)ntf
+-(void)handleCommandFailedNotification:(NSNotification*)ntf
 {
     LCSCommand *sender = [ntf object];
     if (sender.error != nil) {
@@ -64,7 +64,7 @@
 -(NSError*)run
 {
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(handleControllerFailedNotification:)
+                                             selector:@selector(handleCommandFailedNotification:)
                                                  name:[LCSCommand notificationNameStateEntered:LCSCommandStateFailed]
                                                object:cmd];
         
@@ -73,7 +73,7 @@
     
     /* wire up command to distributed notification center */
     LCSDistributedCommandStatePublisher *pub =
-        [[LCSDistributedCommandStatePublisher alloc] initWithCommandController:cmd label:label];
+        [[LCSDistributedCommandStatePublisher alloc] initWithCommand:cmd label:label];
     [pub watch];
     
     cmd.title = title;

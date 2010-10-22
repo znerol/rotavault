@@ -181,7 +181,7 @@
     char *tmppath = (char*)malloc(sizeof(template));
     memcpy(tmppath, template, sizeof(template));
     int tmpfd = mkstemp(tmppath);
-    BOOL result = NO;
+    BOOL res = NO;
     
     if (tmpfd < 0) {
         NSString *failureReason = LCSErrorLocalizedFailureReasonFromErrno(errno);
@@ -209,7 +209,7 @@
     }
     
     [fh writeData:data];
-    result = YES;
+    res = YES;
     
 writeLaunchdPlist_closeFHAndReturn:
     [fh closeFile];
@@ -218,7 +218,7 @@ writeLaunchdPlist_closeFHAndReturn:
 writeLaunchdPlist_freeAndReturn:
     free(tmppath);
     
-    return result;
+    return res;
 }
 
 -(void)startGatherInformation

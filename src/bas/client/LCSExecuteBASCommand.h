@@ -12,8 +12,6 @@
 
 
 @interface LCSExecuteBASCommand : LCSCommand {
-    LCSCommand    *controller;
-    
     AuthorizationRef        authorization;
     const BASCommandSpec    *commandSet;
     NSDictionary            *request;

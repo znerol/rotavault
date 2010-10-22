@@ -9,19 +9,20 @@
 #import "LCSCommandManager.h"
 
 @interface LCSCommandManager (Private)
--(void)controllerLeftInitState:(NSNotification*)ntf;
--(void)controllerEnteredInvalidatedState:(NSNotification*)ntf;
+-(void)commandLeftInitState:(NSNotification*)ntf;
+-(void)commandEnteredInvalidatedState:(NSNotification*)ntf;
 @end
 
 
 @implementation LCSCommandManager
+@synthesize commands;
 
 -(id)init
 {
     self = [super init];
     self.commands = [NSArray array];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(controllerLeftInitState:)
+                                             selector:@selector(commandLeftInitState:)
                                                  name:[LCSCommand notificationNameStateLeft:LCSCommandStateInit]
                                                object:nil];
     return self;
@@ -33,34 +34,34 @@
     [super dealloc];
 }
 
--(void)controllerLeftInitState:(NSNotification*)ntf
+-(void)commandLeftInitState:(NSNotification*)ntf
 {
-    LCSCommand* controller = [ntf object];
-    [self addCommandController:controller];
+    LCSCommand* command = [ntf object];
+    [self addCommand:command];
 }
 
--(void)controllerEnteredInvalidatedState:(NSNotification*)ntf
+-(void)commandEnteredInvalidatedState:(NSNotification*)ntf
 {
-    LCSCommand* controller = [ntf object];
-    [self removeCommandController:controller];
+    LCSCommand* command = [ntf object];
+    [self removeCommand:command];
 }
 
--(void)addCommandController:(LCSCommand*)controller
+-(void)addCommand:(LCSCommand*)command
 {
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(controllerEnteredInvalidatedState:)
+                                             selector:@selector(commandEnteredInvalidatedState:)
                                                  name:[LCSCommand notificationNameStateEntered:LCSCommandStateInvalidated]
-                                               object:controller];
+                                               object:command];
     
-    self.commands = [commands arrayByAddingObject:controller];    
+    self.commands = [commands arrayByAddingObject:command];    
 }
 
--(void)removeCommandController:(LCSCommand*)controller
+-(void)removeCommand:(LCSCommand*)command
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:[LCSCommand notificationNameStateEntered:LCSCommandStateInvalidated]
-                                                  object:controller];
+                                                  object:command];
     
-    self.commands = [commands filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF != %@", controller]];
+    self.commands = [commands filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF != %@", command]];
 }
 @end

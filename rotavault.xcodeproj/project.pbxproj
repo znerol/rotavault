@@ -17,6 +17,7 @@
 				CABAC86C123575F800DBEA0F /* PBXTargetDependency */,
 				CABAC86E123575F800DBEA0F /* PBXTargetDependency */,
 				CA9C318E1247264900F542CE /* PBXTargetDependency */,
+				CADC1E1C12718E5600FB7A91 /* PBXTargetDependency */,
 			);
 			name = All;
 			productName = All;
@@ -310,6 +311,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = CA9ED615122CD0BE005CBA5B;
 			remoteInfo = rvcksum;
+		};
+		CADC1E1B12718E5600FB7A91 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CAEE8B12126CE53A00B0BE92 /* System Tools Installer */;
+			remoteInfo = "System Tools Installer";
 		};
 		CAEE8B1E126CE5D200B0BE92 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1470,6 +1478,11 @@
 			isa = PBXTargetDependency;
 			target = CA9ED615122CD0BE005CBA5B /* rvcksum */;
 			targetProxy = CABAC86D123575F800DBEA0F /* PBXContainerItemProxy */;
+		};
+		CADC1E1C12718E5600FB7A91 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CAEE8B12126CE53A00B0BE92 /* System Tools Installer */;
+			targetProxy = CADC1E1B12718E5600FB7A91 /* PBXContainerItemProxy */;
 		};
 		CAEE8B1F126CE5D200B0BE92 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

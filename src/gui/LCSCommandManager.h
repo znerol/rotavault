@@ -14,11 +14,11 @@
     NSArray *commands;
 }
 
--(void)addCommandController:(LCSCommand*)controller;
--(void)removeCommandController:(LCSCommand*)controller;
+-(void)addCommand:(LCSCommand*)command;
+-(void)removeCommand:(LCSCommand*)command;
 
 /**
- * List of running LCSCommandController
+ * List of running instances of LCSCommand
  */
 @property(retain) NSArray *commands;
 @end

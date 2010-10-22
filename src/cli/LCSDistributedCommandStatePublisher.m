@@ -11,12 +11,12 @@
 
 
 @implementation LCSDistributedCommandStatePublisher
-- (id)initWithCommandController:(LCSCommand*)ctl label:(NSString*)sndlabel
+- (id)initWithCommand:(LCSCommand*)cmd label:(NSString*)sndlabel
 {
     LCSINIT_SUPER_OR_RETURN_NIL();
     
-    controller = [ctl retain];
-    LCSINIT_RELEASE_AND_RETURN_IF_NIL(controller);
+    command = [cmd retain];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(command);
     label = [sndlabel copy];
     LCSINIT_RELEASE_AND_RETURN_IF_NIL(label);
     
@@ -25,7 +25,7 @@
 
 - (void)dealloc
 {
-    [controller release];
+    [command release];
     [label release];
     [super dealloc];
 }
@@ -35,11 +35,11 @@
                         change:(NSDictionary *)change
                        context:(void *)context
 {
-    if (object != controller) {
+    if (object != command) {
         return;
     }
     
-    NSDictionary *msg = [NSDictionary dictionaryWithObject:[controller valueForKeyPath:keyPath] forKey:keyPath];
+    NSDictionary *msg = [NSDictionary dictionaryWithObject:[command valueForKeyPath:keyPath] forKey:keyPath];
     
     [[NSDistributedNotificationCenter defaultCenter]
      postNotificationName:[LCSCommand notificationNameStateChanged] object:label userInfo:msg
@@ -48,21 +48,21 @@
 
 - (void)watch
 {
-    [controller addObserver:self forKeyPath:@"title" options:0 context:nil];
-    [controller addObserver:self forKeyPath:@"state" options:0 context:nil];
-    [controller addObserver:self forKeyPath:@"progress" options:0 context:nil];
-    [controller addObserver:self forKeyPath:@"progressMessage" options:0 context:nil];
-    [controller addObserver:self forKeyPath:@"progressAnimate" options:0 context:nil];
-    [controller addObserver:self forKeyPath:@"progressIndeterminate" options:0 context:nil];
+    [command addObserver:self forKeyPath:@"title" options:0 context:nil];
+    [command addObserver:self forKeyPath:@"state" options:0 context:nil];
+    [command addObserver:self forKeyPath:@"progress" options:0 context:nil];
+    [command addObserver:self forKeyPath:@"progressMessage" options:0 context:nil];
+    [command addObserver:self forKeyPath:@"progressAnimate" options:0 context:nil];
+    [command addObserver:self forKeyPath:@"progressIndeterminate" options:0 context:nil];
 }
 
 - (void)unwatch
 {
-    [controller removeObserver:self forKeyPath:@"title"];
-    [controller removeObserver:self forKeyPath:@"state"];
-    [controller removeObserver:self forKeyPath:@"progress"];
-    [controller removeObserver:self forKeyPath:@"progressMessage"];
-    [controller removeObserver:self forKeyPath:@"progressAnimate"];
-    [controller removeObserver:self forKeyPath:@"progressIndeterminate"];
+    [command removeObserver:self forKeyPath:@"title"];
+    [command removeObserver:self forKeyPath:@"state"];
+    [command removeObserver:self forKeyPath:@"progress"];
+    [command removeObserver:self forKeyPath:@"progressMessage"];
+    [command removeObserver:self forKeyPath:@"progressAnimate"];
+    [command removeObserver:self forKeyPath:@"progressIndeterminate"];
 }
 @end

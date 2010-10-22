@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "LCSSignalHandler.h"
+#import "LCSCommand.h"
 
 
 @interface LCSCmdlineCommandRunner : NSObject <LCSSignalHandlerDelegate> {

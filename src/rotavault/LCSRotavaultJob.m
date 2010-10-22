@@ -122,7 +122,7 @@
     }
 }
 
-- (void)controllerFailed:(NSNotification*)ntf
+- (void)commandFailed:(NSNotification*)ntf
 {
     LCSCommand *ctl = [ntf object];
     self.lastError = ctl.error;
@@ -150,7 +150,7 @@
                                                  name:[LCSCommand notificationNameStateEntered:LCSCommandStateInvalidated]
                                                object:currentCommand];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(controllerFailed:)
+                                             selector:@selector(commandFailed:)
                                                  name:[LCSCommand notificationNameStateEntered:LCSCommandStateFailed]
                                                object:currentCommand];
     currentCommand.title = [NSString localizedStringWithFormat:@"Scheduling rotavault job for later execution"];
@@ -199,7 +199,7 @@
                                                  name:[LCSCommand notificationNameStateEntered:LCSCommandStateInvalidated]
                                                object:currentCommand];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(controllerFailed:)
+                                             selector:@selector(commandFailed:)
                                                  name:[LCSCommand notificationNameStateEntered:LCSCommandStateFailed]
                                                object:currentCommand];
     currentCommand.title = [NSString localizedStringWithFormat:@"Preparing rotavault job"];
@@ -250,7 +250,7 @@
                                                  name:[LCSCommand notificationNameStateEntered:LCSCommandStateInvalidated]
                                                object:currentCommand];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(controllerFailed:)
+                                             selector:@selector(commandFailed:)
                                                  name:[LCSCommand notificationNameStateEntered:LCSCommandStateFailed]
                                                object:currentCommand];
     currentCommand.title = [NSString localizedStringWithFormat:@"Removing rotavault job"];
@@ -343,7 +343,7 @@
                                                  name:[LCSCommand notificationNameStateEntered:LCSCommandStateInvalidated]
                                                object:backgroundCommand];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(controllerFailed:)
+                                             selector:@selector(commandFailed:)
                                                  name:[LCSCommand notificationNameStateEntered:LCSCommandStateFailed]
                                                object:backgroundCommand];
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -353,7 +353,7 @@
     [backgroundCommand retain];
     
     /* forbidden under normal circumstances :) */
-    [backgroundCommand.command start];
+    [backgroundCommand performStart];
 }
 
 - (void)startedStateWatcher:(NSNotification*)ntf
