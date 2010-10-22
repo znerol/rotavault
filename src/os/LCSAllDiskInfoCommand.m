@@ -26,7 +26,7 @@
 
 - (void)startGatherInformation
 {
-    NSParameterAssert([activeControllers.commands count] == 0);
+    NSParameterAssert([activeCommands.commands count] == 0);
     
     glob_t g;
     int err = glob("/dev/disk*", GLOB_NOSORT, NULL, &g);
@@ -46,13 +46,13 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(completeGatherInformation:)
                                                  name:[LCSCommandCollection notificationNameAllCommandsEnteredState:LCSCommandStateFinished]
-                                               object:activeControllers];
+                                               object:activeCommands];
     
     for (char **devpath = g.gl_pathv; *devpath != NULL; devpath++) {
         LCSCommand *ctl = [LCSDiskInfoCommand commandWithDevicePath:
                                      [NSString stringWithCString:*devpath encoding:NSUTF8StringEncoding]];
         ctl.title = [NSString localizedStringWithFormat:@"Get information on device %s", *devpath];
-        [activeControllers addCommand:ctl];
+        [activeCommands addCommand:ctl];
         [ctl start];
     }
     
@@ -63,9 +63,9 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:[LCSCommandCollection notificationNameAllCommandsEnteredState:LCSCommandStateFinished]
-                                                  object:activeControllers];
+                                                  object:activeCommands];
     
-    NSArray *entries = [[activeControllers valueForKeyPath:@"commands.result"] allObjects];
+    NSArray *entries = [[activeCommands valueForKeyPath:@"commands.result"] allObjects];
     NSArray *devnodes = [entries valueForKey:@"DeviceNode"];
     
     self.result = [NSDictionary dictionaryWithObjects:entries forKeys:devnodes];

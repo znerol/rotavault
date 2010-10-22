@@ -16,39 +16,39 @@
 {
     LCSINIT_SUPER_OR_RETURN_NIL();
     
-    activeControllers = [[LCSCommandCollection alloc] init];
-    LCSINIT_RELEASE_AND_RETURN_IF_NIL(activeControllers);
+    activeCommands = [[LCSCommandCollection alloc] init];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(activeCommands);
     
-    [activeControllers watchState:LCSCommandStateFailed];
-    [activeControllers watchState:LCSCommandStateCancelled];
-    [activeControllers watchState:LCSCommandStateFinished];
-    [activeControllers watchState:LCSCommandStateInvalidated];
+    [activeCommands watchState:LCSCommandStateFailed];
+    [activeCommands watchState:LCSCommandStateCancelled];
+    [activeCommands watchState:LCSCommandStateFinished];
+    [activeCommands watchState:LCSCommandStateInvalidated];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(commandCollectionFailed:)
                                                  name:[LCSCommandCollection notificationNameAnyCommandEnteredState:LCSCommandStateFailed]
-                                               object:activeControllers];
+                                               object:activeCommands];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(commandCollectionCancelled:)
                                                  name:[LCSCommandCollection notificationNameAnyCommandEnteredState:LCSCommandStateCancelled]
-                                               object:activeControllers];
+                                               object:activeCommands];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(commandCollectionInvalidated:)
                                                  name:[LCSCommandCollection notificationNameAllCommandsEnteredState:LCSCommandStateInvalidated]
-                                               object:activeControllers];
+                                               object:activeCommands];
     
     return self;
 }
 
 -(void)dealloc
 {
-    [activeControllers release];
+    [activeCommands release];
     [super dealloc];
 }
 
 -(void)invalidate
 {
-    [activeControllers unwatchState:LCSCommandStateInvalidated];
+    [activeCommands unwatchState:LCSCommandStateInvalidated];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     self.state = LCSCommandStateInvalidated;
@@ -60,14 +60,14 @@
         return;
     }
     
-    [activeControllers unwatchState:LCSCommandStateFailed];
-    [activeControllers unwatchState:LCSCommandStateCancelled];
-    [activeControllers unwatchState:LCSCommandStateFinished];
+    [activeCommands unwatchState:LCSCommandStateFailed];
+    [activeCommands unwatchState:LCSCommandStateCancelled];
+    [activeCommands unwatchState:LCSCommandStateFinished];
     
     self.error = err;
     self.state = LCSCommandStateFailed;
     
-    for (LCSCommand *ctl in activeControllers.commands) {
+    for (LCSCommand *ctl in activeCommands.commands) {
         [ctl cancel];
     }
 }

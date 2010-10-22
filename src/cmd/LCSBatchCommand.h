@@ -12,7 +12,7 @@
 
 @interface LCSBatchCommand : LCSCommand
 {
-    LCSCommandCollection* activeControllers;
+    LCSCommandCollection* activeCommands;
 }
 @end
 

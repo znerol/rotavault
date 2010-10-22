@@ -116,23 +116,23 @@
 
 -(void)startGatherInformation
 {
-    NSParameterAssert([activeControllers.commands count] == 0);
+    NSParameterAssert([activeCommands.commands count] == 0);
     
     self.progressMessage = [NSString localizedStringWithFormat:@"Gathering information"];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(completeGatherInformation:)
                                                  name:[LCSCommandCollection notificationNameAllCommandsEnteredState:LCSCommandStateFinished]
-                                               object:activeControllers];
+                                               object:activeCommands];
     
     sourceInfoCtl = [LCSDiskInfoCommand commandWithDevicePath:sourceDevice];
     sourceInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on source device"];
-    [activeControllers addCommand:sourceInfoCtl];
+    [activeCommands addCommand:sourceInfoCtl];
     [sourceInfoCtl start];
     
     targetInfoCtl = [LCSDiskInfoCommand commandWithDevicePath:targetDevice];
     targetInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on target device"];
-    [activeControllers addCommand:targetInfoCtl];
+    [activeCommands addCommand:targetInfoCtl];
     [targetInfoCtl start];
 }
 
@@ -140,7 +140,7 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:[LCSCommandCollection notificationNameAllCommandsEnteredState:LCSCommandStateFinished]
-                                                  object:activeControllers];
+                                                  object:activeCommands];
     
     if (![self verifyDiskInformation:sourceInfoCtl.result withChecksum:sourceChecksum]) {
         return;
@@ -163,7 +163,7 @@
                                                  name:[LCSCommand notificationNameStateEntered:LCSCommandStateFinished]
                                                object:ctl];
     ctl.title = [NSString localizedStringWithFormat:@"Block copy"];
-    [activeControllers addCommand:ctl];
+    [activeCommands addCommand:ctl];
     
     self.progressIndeterminate = NO;
     [ctl addObserver:self forKeyPath:@"progress" options:0 context:nil];
@@ -207,7 +207,7 @@
                                                  name:[LCSCommand notificationNameStateEntered:LCSCommandStateInvalidated]
                                                object:ctl];
     ctl.title = [NSString localizedStringWithFormat:@"Remount source device"];
-    [activeControllers addCommand:ctl];
+    [activeCommands addCommand:ctl];
     [ctl start];
 }
 
