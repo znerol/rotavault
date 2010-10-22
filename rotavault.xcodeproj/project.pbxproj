@@ -1238,7 +1238,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# shell script goes here\n/Developer/Applications/Utilities/PackageMaker.app/Contents/MacOS/PackageMaker \\\n\t--doc \"${CONFIGURATION_BUILD_DIR}/systools.pmdoc\" \\\n\t--out \"${CONFIGURATION_BUILD_DIR}/${PRODUCT_NAME}\" \\\n\t--version \"${CURRENT_PROJECT_VERSION}\" \\\n\t--identifier ch.znerol.rotavault.systools\n\t--no-recommend \\\n\t--root-volume-only \\\n\t--verbose\n";
+			shellScript = "# shell script goes here\n/Developer/Applications/Utilities/PackageMaker.app/Contents/MacOS/PackageMaker \\\n\t--doc \"${CONFIGURATION_BUILD_DIR}/systools.pmdoc\" \\\n\t--out \"${CONFIGURATION_BUILD_DIR}/${PRODUCT_NAME}\" \\\n\t--version \"${CURRENT_PROJECT_VERSION}\" \\\n\t--identifier ch.znerol.rotavault.systools \\\n\t--no-recommend \\\n\t--root-volume-only \\\n\t--verbose\n";
 		};
 		CAFF452112329DBC00B4AB77 /* Run Doxygen */ = {
 			isa = PBXShellScriptBuildPhase;
