@@ -51,7 +51,7 @@ OSStatus LCSPropertyListWriteToFD(int fd, CFPropertyListRef plist)
 releaseXMLAndReturnErr:
     CFRelease(xmlData);
 returnErr:    
-    return noErr;
+    return retval;
 }
 
 OSStatus LCSHelperInstallRotavaultJobCommand(CFStringRef label, CFStringRef method, CFDateRef rundate, 
