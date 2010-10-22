@@ -58,6 +58,7 @@ CFDictionaryRef LCSRotavaultCreateJobDictionary(CFStringRef label, CFStringRef m
                                                                    &kCFTypeDictionaryKeyCallBacks,
                                                                    &kCFTypeDictionaryValueCallBacks);
         if (caldate == NULL) {
+            CFRelease(systz);
             CFRelease(plist);
             return NULL;
         }
@@ -66,6 +67,7 @@ CFDictionaryRef LCSRotavaultCreateJobDictionary(CFStringRef label, CFStringRef m
         value = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt8Type, &gdate.minute);
         if (value == NULL) {
             CFRelease(caldate);
+            CFRelease(systz);
             CFRelease(plist);
             return NULL;
         }
@@ -75,6 +77,7 @@ CFDictionaryRef LCSRotavaultCreateJobDictionary(CFStringRef label, CFStringRef m
         value = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt8Type, &gdate.hour);
         if (value == NULL) {
             CFRelease(caldate);
+            CFRelease(systz);
             CFRelease(plist);
             return NULL;
         }
@@ -84,6 +87,7 @@ CFDictionaryRef LCSRotavaultCreateJobDictionary(CFStringRef label, CFStringRef m
         value = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt8Type, &gdate.day);
         if (value == NULL) {
             CFRelease(caldate);
+            CFRelease(systz);
             CFRelease(plist);
             return NULL;
         }
@@ -93,6 +97,7 @@ CFDictionaryRef LCSRotavaultCreateJobDictionary(CFStringRef label, CFStringRef m
         value = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt8Type, &gdate.month);
         if (value == NULL) {
             CFRelease(caldate);
+            CFRelease(systz);
             CFRelease(plist);
             return NULL;
         }

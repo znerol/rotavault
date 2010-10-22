@@ -86,7 +86,8 @@ OSStatus LCSHelperInstallRotavaultJobCommand(CFStringRef label, CFStringRef meth
     
     pid_t pid = fork();
     if (pid == -1) {
-        return BASErrnoToOSStatus(errno);
+        retval = BASErrnoToOSStatus(errno);
+        goto closeTempfileAndReturnErr;
     }    
     else if (pid == 0) {
         /* close file descriptors other than stdio in child process */
@@ -117,6 +118,7 @@ closeTempfileAndReturnErr:
     
 releasePathAndReturnErr:
     free(path);
-returnErr:    
+returnErr:
+    CFRelease(job);
     return retval;
 }
