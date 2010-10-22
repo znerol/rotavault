@@ -104,6 +104,10 @@
 
 - (void)start
 {
+    if (![controller tryStart]) {
+        return;
+    }
+    
     controller.state = LCSCommandStateRunning;
     [self startCheckraid];
 }

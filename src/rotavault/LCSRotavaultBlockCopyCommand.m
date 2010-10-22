@@ -221,12 +221,20 @@
 
 -(void)start
 {
+    if (![controller tryStart]) {
+        return;
+    }
+    
     controller.state = LCSCommandStateRunning;
     [self startGatherInformation];
 }
 
 -(void)cancel
 {
+    if (![controller tryCancel]) {
+        return;
+    }
+    
     [self handleError:LCSERROR_METHOD(NSCocoaErrorDomain, NSUserCancelledError)];    
 }
 @end

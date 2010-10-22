@@ -54,6 +54,10 @@
 
 - (void)start
 {
+    if (![controller tryStart]) {
+        return;
+    }
+    
     [[NSDistributedNotificationCenter defaultCenter] addObserver:self
                                                         selector:@selector(updateStatus:)
                                                             name:[LCSCommandController notificationNameStateChanged]

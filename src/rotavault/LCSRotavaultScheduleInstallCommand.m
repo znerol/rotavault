@@ -318,6 +318,10 @@ writeLaunchdPlist_freeAndReturn:
 
 -(void)start
 {
+    if (![controller tryStart]) {
+        return;
+    }
+    
     controller.state = LCSCommandStateRunning;
     [self startGatherInformation];
 }

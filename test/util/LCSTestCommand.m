@@ -49,12 +49,20 @@
 
 -(void)start
 {
+    if (![controller tryStart]) {
+        return;
+    }
+    
     controller.state = LCSCommandStateRunning;
     [self performSelector:@selector(performComplete) withObject:nil afterDelay:delay];
 }
 
 -(void)cancel
 {
+    if (![controller tryCancel]) {
+        return;
+    }
+    
     [self performSelector:@selector(performCancel) withObject:nil afterDelay:0];
 }
 @end

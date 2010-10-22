@@ -71,10 +71,8 @@ typedef enum {
 +(LCSCommandController*)controllerWithCommand:(id <LCSCommandTemp>)anCommand;
 
 -(BOOL)validateNextState:(LCSCommandState)newState;
--(void)start;
--(void)cancel;
--(void)pause;
--(void)resume;
+-(BOOL)tryStart;
+-(BOOL)tryCancel;
 
 @end
 

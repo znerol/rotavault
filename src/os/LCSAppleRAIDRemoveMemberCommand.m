@@ -71,6 +71,10 @@
 
 -(void)start
 {
+    if (![controller tryStart]) {
+        return;
+    }
+    
     stdoutPipe = [[NSPipe alloc] init];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleReadCompletionNotification:)

@@ -126,40 +126,26 @@
      postNotificationName:[[self class] notificationNameStateChanged] object:self];
 }
 
--(void)start
+-(BOOL)tryStart
 {
     if ([self validateNextState:LCSCommandStateStarting]) {
         self.progressIndeterminate = YES;
         self.progressMessage = @"Starting";
         self.state = LCSCommandStateStarting;
-        [command start];
+        return YES;
     }
+    return NO;
 }
 
--(void)cancel
+-(BOOL)tryCancel
 {
     if ([self validateNextState:LCSCommandStateCancelling]) {
         self.progressIndeterminate = YES;
         self.progressMessage = @"Cancelling";
         self.state = LCSCommandStateCancelling;
-        [command cancel];
+        return YES;
     }
-}
-
--(void)pause
-{
-    if ([self validateNextState:LCSCommandStatePausing]) {
-        self.state = LCSCommandStatePausing;
-        [command pause];
-    }
-}
-
--(void)resume
-{
-    if ([self validateNextState:LCSCommandStateResuming]) {
-        self.state = LCSCommandStateResuming;
-        [command resume];
-    }
+    return NO;
 }
 
 +(NSString*)notificationNameStateLeft:(LCSCommandState)oldState

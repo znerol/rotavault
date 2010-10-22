@@ -79,6 +79,10 @@
 
 - (void)start
 {
+    if (![controller tryStart]) {
+        return;
+    }
+    
     controller.state = LCSCommandStateRunning;
     [self performSelector:@selector(execRequest) withObject:nil afterDelay:0];
 }

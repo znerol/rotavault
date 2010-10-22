@@ -84,6 +84,10 @@
 
 -(void)start
 {
+    if (![controller tryStart]) {
+        return;
+    }
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleTerminationNotification:)
                                                  name:NSTaskDidTerminateNotification
@@ -131,6 +135,10 @@
 
 -(void)cancel
 {
+    if (![controller tryCancel]) {
+        return;
+    }
+    
     if ([task isRunning]) {
         [task terminate];
         
@@ -140,17 +148,5 @@
          */
         [self performSelector:@selector(cancel) withObject:nil afterDelay:0.2];
     }
-}
-
--(void)pause
-{
-    [task suspend];
-    controller.state = LCSCommandStatePaused;
-}
-
--(void)resume
-{
-    [task resume];
-    controller.state = LCSCommandStateRunning;
 }
 @end

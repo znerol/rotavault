@@ -102,6 +102,10 @@
 
 -(void)start
 {
+    if (![controller tryStart]) {
+        return;
+    }
+    
     [task setStandardOutput:stdoutPipe];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleReadToEndOfFileNotification:)
