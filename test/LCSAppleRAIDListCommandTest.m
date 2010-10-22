@@ -27,7 +27,7 @@
 {
     LCSAppleRAIDListCommand* cmd = [LCSAppleRAIDListCommand command];
     
-    NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"diskutil-appleraid-list"
+    NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"diskutil-appleraid-list-10.6"
                                                                                   ofType:@"txt"]];
     
     id taskMock = [OCMockObject mockTask:cmd.task withTerminationStatus:0 stdoutData:data stderrData:[NSData data]];
