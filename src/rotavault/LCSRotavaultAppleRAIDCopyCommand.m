@@ -121,24 +121,24 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(completeGatherInformation:)
-                                                 name:[LCSCommandCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
+                                                 name:[LCSCommandCollection notificationNameAllCommandsEnteredState:LCSCommandStateFinished]
                                                object:activeControllers];
     
     sourceInfoCtl = [LCSDiskInfoCommand commandWithDevicePath:sourceDevice];
     sourceInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on source device"];
-    [activeControllers addController:sourceInfoCtl];
+    [activeControllers addCommand:sourceInfoCtl];
     [sourceInfoCtl start];
     
     targetInfoCtl = [LCSDiskInfoCommand commandWithDevicePath:targetDevice];
     targetInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on target device"];
-    [activeControllers addController:targetInfoCtl];
+    [activeControllers addCommand:targetInfoCtl];
     [targetInfoCtl start];
 }
 
 -(void)completeGatherInformation:(NSNotification*)ntf
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
+                                                    name:[LCSCommandCollection notificationNameAllCommandsEnteredState:LCSCommandStateFinished]
                                                   object:activeControllers];
     
     if (![self verifyDiskInformation:sourceInfoCtl.result withChecksum:sourceChecksum]) {
@@ -183,7 +183,7 @@
                                                object:ctl];
     
     ctl.title = [NSString localizedStringWithFormat:@"Add target to RAID set"];
-    [activeControllers addController:ctl];
+    [activeControllers addCommand:ctl];
     [ctl start];
 }
 
@@ -208,7 +208,7 @@
                                                object:ctl];
     
     ctl.title = [NSString localizedStringWithFormat:@"Block copy"];
-    [activeControllers addController:ctl];
+    [activeControllers addCommand:ctl];
     
     self.progressIndeterminate = NO;
     [ctl addObserver:self forKeyPath:@"progress" options:0 context:nil];
@@ -250,7 +250,7 @@
                                                object:ctl];
     
     ctl.title = [NSString localizedStringWithFormat:@"Remove target from RAID set"];
-    [activeControllers addController:ctl];
+    [activeControllers addCommand:ctl];
     [ctl start];    
 }
 
@@ -277,7 +277,7 @@
                                                object:ctl];
     
     ctl.title = [NSString localizedStringWithFormat:@"Unmount target device"];
-    [activeControllers addController:ctl];
+    [activeControllers addCommand:ctl];
     [ctl start];    
 }
 

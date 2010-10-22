@@ -27,7 +27,7 @@
     LCSCommand *ctl = [LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFinished];
     
     LCSCommandCollection *col = [LCSCommandCollection collection];
-    [col addController:ctl];
+    [col addCommand:ctl];
     [col watchState:LCSCommandStateFinished];
     
     id mockall = [OCMockObject mockForProtocol:@protocol(LCSCommandCollectionTestNotificationConsumer)];
@@ -37,11 +37,11 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:mockall
                                              selector:@selector(consumeNotification:)
-                                                 name:[LCSCommandCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
+                                                 name:[LCSCommandCollection notificationNameAllCommandsEnteredState:LCSCommandStateFinished]
                                                object:col];
     [[NSNotificationCenter defaultCenter] addObserver:mockany
                                              selector:@selector(consumeNotification:)
-                                                 name:[LCSCommandCollection notificationNameAnyControllerEnteredState:LCSCommandStateFinished]
+                                                 name:[LCSCommandCollection notificationNameAnyCommandEnteredState:LCSCommandStateFinished]
                                                object:col];
     [ctl start];
     [ctl waitUntilDone];
@@ -60,20 +60,20 @@
     LCSCommand *ctl3 = [LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFinished];
     
     LCSCommandCollection *col = [LCSCommandCollection collection];
-    [col addController:ctl1];
-    [col addController:ctl2];
-    [col addController:ctl3];
+    [col addCommand:ctl1];
+    [col addCommand:ctl2];
+    [col addCommand:ctl3];
     [col watchState:LCSCommandStateFinished];
     
     
     id mockany = [OCMockObject mockForProtocol:@protocol(LCSCommandCollectionTestNotificationConsumer)];
-    [[mockany expect] consumeNotification:[NSNotification notificationWithName:[LCSCommandCollection notificationNameAnyControllerEnteredState:LCSCommandStateFinished]
+    [[mockany expect] consumeNotification:[NSNotification notificationWithName:[LCSCommandCollection notificationNameAnyCommandEnteredState:LCSCommandStateFinished]
                                                                         object:col
                                                                       userInfo:[NSDictionary dictionaryWithObject:ctl1 forKey:LCSCommandCollectionOriginalSenderKey]]];
-    [[mockany expect] consumeNotification:[NSNotification notificationWithName:[LCSCommandCollection notificationNameAnyControllerEnteredState:LCSCommandStateFinished]
+    [[mockany expect] consumeNotification:[NSNotification notificationWithName:[LCSCommandCollection notificationNameAnyCommandEnteredState:LCSCommandStateFinished]
                                                                         object:col
                                                                       userInfo:[NSDictionary dictionaryWithObject:ctl2 forKey:LCSCommandCollectionOriginalSenderKey]]];
-    [[mockany expect] consumeNotification:[NSNotification notificationWithName:[LCSCommandCollection notificationNameAnyControllerEnteredState:LCSCommandStateFinished]
+    [[mockany expect] consumeNotification:[NSNotification notificationWithName:[LCSCommandCollection notificationNameAnyCommandEnteredState:LCSCommandStateFinished]
                                                                         object:col
                                                                       userInfo:[NSDictionary dictionaryWithObject:ctl3 forKey:LCSCommandCollectionOriginalSenderKey]]];
         
@@ -84,12 +84,12 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:mockany
                                              selector:@selector(consumeNotification:)
-                                                 name:[LCSCommandCollection notificationNameAnyControllerEnteredState:LCSCommandStateFinished]
+                                                 name:[LCSCommandCollection notificationNameAnyCommandEnteredState:LCSCommandStateFinished]
                                                object:col];
     
     [[NSNotificationCenter defaultCenter] addObserver:mockall
                                              selector:@selector(consumeNotification:)
-                                                 name:[LCSCommandCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
+                                                 name:[LCSCommandCollection notificationNameAllCommandsEnteredState:LCSCommandStateFinished]
                                                object:col];
     
     [ctl1 start];
@@ -103,9 +103,9 @@
     [[NSNotificationCenter defaultCenter] removeObserver:mockall];
     
     [col unwatchState:LCSCommandStateFinished];
-    [col removeController:ctl1];
-    [col removeController:ctl2];
-    [col removeController:ctl3];
+    [col removeCommand:ctl1];
+    [col removeCommand:ctl2];
+    [col removeCommand:ctl3];
     
     [mockany verify];
     [mockall verify];
@@ -119,18 +119,18 @@
     
     LCSCommandCollection *col = [LCSCommandCollection collection];
     [col watchState:LCSCommandStateFinished];
-    [col addController:ctl1];
-    [col addController:ctl2];
-    [col addController:ctl3];
+    [col addCommand:ctl1];
+    [col addCommand:ctl2];
+    [col addCommand:ctl3];
     
     /* watch one more time */
     [col watchState:LCSCommandStateFinished];
     
     id mockany = [OCMockObject mockForProtocol:@protocol(LCSCommandCollectionTestNotificationConsumer)];
-    [[mockany expect] consumeNotification:[NSNotification notificationWithName:[LCSCommandCollection notificationNameAnyControllerEnteredState:LCSCommandStateFinished]
+    [[mockany expect] consumeNotification:[NSNotification notificationWithName:[LCSCommandCollection notificationNameAnyCommandEnteredState:LCSCommandStateFinished]
                                                                         object:col
                                                                       userInfo:[NSDictionary dictionaryWithObject:ctl1 forKey:LCSCommandCollectionOriginalSenderKey]]];
-    [[mockany expect] consumeNotification:[NSNotification notificationWithName:[LCSCommandCollection notificationNameAnyControllerEnteredState:LCSCommandStateFinished]
+    [[mockany expect] consumeNotification:[NSNotification notificationWithName:[LCSCommandCollection notificationNameAnyCommandEnteredState:LCSCommandStateFinished]
                                                                         object:col
                                                                       userInfo:[NSDictionary dictionaryWithObject:ctl2 forKey:LCSCommandCollectionOriginalSenderKey]]];
     
@@ -140,12 +140,12 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:mockany
                                              selector:@selector(consumeNotification:)
-                                                 name:[LCSCommandCollection notificationNameAnyControllerEnteredState:LCSCommandStateFinished]
+                                                 name:[LCSCommandCollection notificationNameAnyCommandEnteredState:LCSCommandStateFinished]
                                                object:col];
     
     [[NSNotificationCenter defaultCenter] addObserver:mockall
                                              selector:@selector(consumeNotification:)
-                                                 name:[LCSCommandCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
+                                                 name:[LCSCommandCollection notificationNameAllCommandsEnteredState:LCSCommandStateFinished]
                                                object:col];
     
     [ctl1 start];
@@ -158,9 +158,9 @@
     [[NSNotificationCenter defaultCenter] removeObserver:mockany];
     [[NSNotificationCenter defaultCenter] removeObserver:mockall];
     
-    [col removeController:ctl1];
-    [col removeController:ctl2];
-    [col removeController:ctl3];    
+    [col removeCommand:ctl1];
+    [col removeCommand:ctl2];
+    [col removeCommand:ctl3];    
     [col unwatchState:LCSCommandStateFinished];
     
     /* unwatch one more (test) */

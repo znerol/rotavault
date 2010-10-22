@@ -45,14 +45,14 @@
     self.progressMessage = [NSString localizedStringWithFormat:@"Gathering information"];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(completeGatherInformation:)
-                                                 name:[LCSCommandCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
+                                                 name:[LCSCommandCollection notificationNameAllCommandsEnteredState:LCSCommandStateFinished]
                                                object:activeControllers];
     
     for (char **devpath = g.gl_pathv; *devpath != NULL; devpath++) {
         LCSCommand *ctl = [LCSDiskInfoCommand commandWithDevicePath:
                                      [NSString stringWithCString:*devpath encoding:NSUTF8StringEncoding]];
         ctl.title = [NSString localizedStringWithFormat:@"Get information on device %s", *devpath];
-        [activeControllers addController:ctl];
+        [activeControllers addCommand:ctl];
         [ctl start];
     }
     
@@ -62,7 +62,7 @@
 - (void)completeGatherInformation:(NSNotification*)ntf
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
+                                                    name:[LCSCommandCollection notificationNameAllCommandsEnteredState:LCSCommandStateFinished]
                                                   object:activeControllers];
     
     NSArray *entries = [[activeControllers valueForKeyPath:@"commands.result"] allObjects];

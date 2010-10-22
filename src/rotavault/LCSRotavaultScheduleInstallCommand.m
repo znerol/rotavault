@@ -229,29 +229,29 @@ writeLaunchdPlist_freeAndReturn:
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(completeGatherInformation:)
-                                                 name:[LCSCommandCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
+                                                 name:[LCSCommandCollection notificationNameAllCommandsEnteredState:LCSCommandStateFinished]
                                                object:activeControllers];
     
     startupInfoCtl = [LCSDiskInfoCommand commandWithDevicePath:@"/"];
     startupInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on startup disk"];
-    [activeControllers addController:startupInfoCtl];
+    [activeControllers addCommand:startupInfoCtl];
     [startupInfoCtl start];
     
     sourceInfoCtl = [LCSDiskInfoCommand commandWithDevicePath:sourceDevice];
     sourceInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on source device"];
-    [activeControllers addController:sourceInfoCtl];
+    [activeControllers addCommand:sourceInfoCtl];
     [sourceInfoCtl start];
     
     targetInfoCtl = [LCSDiskInfoCommand commandWithDevicePath:targetDevice];
     targetInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on target device"];
-    [activeControllers addController:targetInfoCtl];
+    [activeControllers addCommand:targetInfoCtl];
     [targetInfoCtl start];
 }
 
 -(void)completeGatherInformation:(NSNotification*)ntf
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
+                                                    name:[LCSCommandCollection notificationNameAllCommandsEnteredState:LCSCommandStateFinished]
                                                   object:activeControllers];
     
     if (![self validateDiskInformation]) {
@@ -267,7 +267,7 @@ writeLaunchdPlist_freeAndReturn:
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(completeLaunchctlInstall:)
-                                                 name:[LCSCommandCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
+                                                 name:[LCSCommandCollection notificationNameAllCommandsEnteredState:LCSCommandStateFinished]
                                                object:activeControllers];
     LCSCommand *ctl = nil;
     if (authorization) {
@@ -292,7 +292,7 @@ writeLaunchdPlist_freeAndReturn:
         ctl = [LCSLaunchctlLoadCommand commandWithPath:launchdPlistPath];
     }
     ctl.title = [NSString localizedStringWithFormat:@"Install new launchd job"];
-    [activeControllers addController:ctl];
+    [activeControllers addCommand:ctl];
     
     [ctl start];
 }
@@ -300,7 +300,7 @@ writeLaunchdPlist_freeAndReturn:
 -(void)completeLaunchctlInstall:(NSNotification*)ntf
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
+                                                    name:[LCSCommandCollection notificationNameAllCommandsEnteredState:LCSCommandStateFinished]
                                                   object:activeControllers];
     
     self.progressMessage = [NSString localizedStringWithFormat:@"Complete"];

@@ -26,15 +26,15 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(commandCollectionFailed:)
-                                                 name:[LCSCommandCollection notificationNameAnyControllerEnteredState:LCSCommandStateFailed]
+                                                 name:[LCSCommandCollection notificationNameAnyCommandEnteredState:LCSCommandStateFailed]
                                                object:activeControllers];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(commandCollectionCancelled:)
-                                                 name:[LCSCommandCollection notificationNameAnyControllerEnteredState:LCSCommandStateCancelled]
+                                                 name:[LCSCommandCollection notificationNameAnyCommandEnteredState:LCSCommandStateCancelled]
                                                object:activeControllers];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(commandCollectionInvalidated:)
-                                                 name:[LCSCommandCollection notificationNameAllControllersEnteredState:LCSCommandStateInvalidated]
+                                                 name:[LCSCommandCollection notificationNameAllCommandsEnteredState:LCSCommandStateInvalidated]
                                                object:activeControllers];
     
     return self;
@@ -77,7 +77,7 @@
     LCSCommandCollection* sender = [ntf object];
     LCSCommand* originalSender = [[ntf userInfo] objectForKey:LCSCommandCollectionOriginalSenderKey];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandCollection notificationNameAnyControllerEnteredState:LCSCommandStateFailed]
+                                                    name:[LCSCommandCollection notificationNameAnyCommandEnteredState:LCSCommandStateFailed]
                                                   object:sender];
     [self handleError:originalSender.error];
 }
@@ -86,7 +86,7 @@
 {
     LCSCommandCollection* sender = [ntf object];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandCollection notificationNameAnyControllerEnteredState:LCSCommandStateCancelled]
+                                                    name:[LCSCommandCollection notificationNameAnyCommandEnteredState:LCSCommandStateCancelled]
                                                   object:sender];
     [self handleError:LCSERROR_METHOD(NSCocoaErrorDomain, NSUserCancelledError)];
 }

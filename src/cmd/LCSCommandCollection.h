@@ -19,13 +19,13 @@ extern NSString* LCSCommandCollectionOriginalSenderKey;
 
 +(LCSCommandCollection*)collection;
 
--(void)addController:(LCSCommand*)commandController;
--(void)removeController:(LCSCommand*)commandController;
+-(void)addCommand:(LCSCommand*)commandCommand;
+-(void)removeCommand:(LCSCommand*)commandCommand;
 -(void)watchState:(LCSCommandState)state;
 -(void)unwatchState:(LCSCommandState)state;
 
 @property(readonly) NSMutableSet *commands;
 
-+(NSString*)notificationNameAnyControllerEnteredState:(LCSCommandState)state;
-+(NSString*)notificationNameAllControllersEnteredState:(LCSCommandState)state;
++(NSString*)notificationNameAnyCommandEnteredState:(LCSCommandState)state;
++(NSString*)notificationNameAllCommandsEnteredState:(LCSCommandState)state;
 @end

@@ -41,7 +41,7 @@ NSString* LCSCommandCollectionOriginalSenderKey = @"LCSCommandCollectionOriginal
     [super dealloc];
 }
 
--(void)handleControllerState:(NSNotification*)ntf
+-(void)handleCommandState:(NSNotification*)ntf
 {
     LCSCommand* sender = [ntf object];
     
@@ -52,30 +52,30 @@ NSString* LCSCommandCollectionOriginalSenderKey = @"LCSCommandCollectionOriginal
     NSDictionary *userInfo = [NSDictionary dictionaryWithObject:sender
                                                          forKey:LCSCommandCollectionOriginalSenderKey];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:[LCSCommandCollection notificationNameAnyControllerEnteredState:sender.state]
+    [[NSNotificationCenter defaultCenter] postNotificationName:[LCSCommandCollection notificationNameAnyCommandEnteredState:sender.state]
                                                         object:self
                                                       userInfo:userInfo];
     
     if ([commandsPerState isEqualToSet:commands]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:[LCSCommandCollection notificationNameAllControllersEnteredState:sender.state]
+        [[NSNotificationCenter defaultCenter] postNotificationName:[LCSCommandCollection notificationNameAllCommandsEnteredState:sender.state]
                                                             object:self];
     }
     [commandsPerState release];
 }
 
--(void)addController:(LCSCommand*)ctl
+-(void)addCommand:(LCSCommand*)ctl
 {
     [commands addObject:ctl];
     
     for (NSNumber *state in [watchers allKeys]) {
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(handleControllerState:)
+                                                 selector:@selector(handleCommandState:)
                                                      name:[LCSCommand notificationNameStateEntered:[state intValue]]
                                                    object:ctl];
     }
 }
 
--(void)removeController:(LCSCommand*)ctl
+-(void)removeCommand:(LCSCommand*)ctl
 {
     [commands removeObject:ctl];
     
@@ -97,7 +97,7 @@ NSString* LCSCommandCollectionOriginalSenderKey = @"LCSCommandCollectionOriginal
     
     for (LCSCommand *ctl in commands) {
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(handleControllerState:)
+                                                 selector:@selector(handleCommandState:)
                                                      name:[LCSCommand notificationNameStateEntered:state]
                                                    object:ctl];
     }
@@ -119,12 +119,12 @@ NSString* LCSCommandCollectionOriginalSenderKey = @"LCSCommandCollectionOriginal
     }
 }
 
-+(NSString*)notificationNameAnyControllerEnteredState:(LCSCommandState)state
++(NSString*)notificationNameAnyCommandEnteredState:(LCSCommandState)state
 {
     return [NSString stringWithFormat:@"LCSCommandCollectionAnyEnteredState-%d", state];
 }
 
-+(NSString*)notificationNameAllControllersEnteredState:(LCSCommandState)state
++(NSString*)notificationNameAllCommandsEnteredState:(LCSCommandState)state
 {
     return [NSString stringWithFormat:@"LCSCommandCollectionAllEnteredState-%d", state];
 }
