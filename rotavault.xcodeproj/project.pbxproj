@@ -212,7 +212,6 @@
 		CABAC23D1235364A00DBEA0F /* OCMock.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = CA9E2D58120F398D006C4DE7 /* OCMock.framework */; };
 		CABAC23E1235364A00DBEA0F /* GHUnit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = CABAC213123535CC00DBEA0F /* GHUnit.framework */; };
 		CABAC3D51235378200DBEA0F /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA0DF11811F7216D0029B5F7 /* SenTestingKit.framework */; };
-		CABAC3D61235378A00DBEA0F /* SenTestingKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = CA0DF11811F7216D0029B5F7 /* SenTestingKit.framework */; };
 		CABAC3DC1235385F00DBEA0F /* GHUnitMain.m in Sources */ = {isa = PBXBuildFile; fileRef = CABAC3DB1235385F00DBEA0F /* GHUnitMain.m */; };
 		CABAC4CE123545F400DBEA0F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
 		CABAC4CF123545F400DBEA0F /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA28AF1F12132C7600C9BE6F /* CoreServices.framework */; };
@@ -353,7 +352,6 @@
 			files = (
 				CABAC23D1235364A00DBEA0F /* OCMock.framework in Copy Frameworks */,
 				CABAC23E1235364A00DBEA0F /* GHUnit.framework in Copy Frameworks */,
-				CABAC3D61235378A00DBEA0F /* SenTestingKit.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
