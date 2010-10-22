@@ -9,7 +9,10 @@
 #import <Foundation/Foundation.h>
 
 
-@interface LCSTestRamdisk : NSObject
+@interface LCSTestRamdisk : NSObject {
+    NSString* devnode;
+    NSString* mountpoint;
+}
 @property(readonly) NSString* devnode;
 @property(readonly) NSString* mountpoint;
 -(id) initWithBlocks:(int)blocks;

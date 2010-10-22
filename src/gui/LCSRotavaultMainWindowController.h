@@ -13,6 +13,8 @@
     IBOutlet NSWindow *window;
     AuthorizationRef authorization;
     
+    LCSRotavaultJob *job;
+    LCSRotavaultSystemTools *systools;
     BOOL attachImageEnabled;
 }
 @property(readonly) LCSRotavaultJob *job;
