@@ -578,7 +578,7 @@
 		CAEE8B2C126CE72500B0BE92 /* 01systools-contents.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "01systools-contents.xml"; sourceTree = "<group>"; };
 		CAEE8B2D126CE72500B0BE92 /* 01systools.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = 01systools.xml; sourceTree = "<group>"; };
 		CAEE8B2E126CE72500B0BE92 /* index.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = index.xml; sourceTree = "<group>"; };
-		CAEE8B84126CEF1900B0BE92 /* ch.znerol.rotavault.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = ch.znerol.rotavault.plist; path = ../../../Desktop/ch.znerol.rotavault.plist; sourceTree = SOURCE_ROOT; };
+		CAEE8B84126CEF1900B0BE92 /* ch.znerol.rotavault.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ch.znerol.rotavault.plist; sourceTree = "<group>"; };
 		CAEE8B97126CF38C00B0BE92 /* preinstall */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = preinstall; sourceTree = "<group>"; };
 		CAEE8B98126CF38C00B0BE92 /* postinstall */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = postinstall; sourceTree = "<group>"; };
 		CAEE8BC7126D00A400B0BE92 /* Rotavault System Tools.pkg */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rotavault System Tools.pkg"; sourceTree = BUILT_PRODUCTS_DIR; };
