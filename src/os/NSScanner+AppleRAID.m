@@ -17,13 +17,14 @@
     NSCharacterSet *saveSet = [self charactersToBeSkipped];
     [self setCharactersToBeSkipped:nil];
     
-    if([self scanString:@"No AppleRAID sets found\n" intoString:nil]) {
+    if([self scanString:@"No RAID sets found" intoString:nil] || [self scanString:@"No AppleRAID sets found\n" intoString:nil]) {
         ok = YES;
         if (intoArray != nil) {
             *intoArray = [NSArray array];
         }
     }
     
+	/* snow leopard */
     if([self scanString:@"AppleRAID sets (" intoString:nil]) {
         int count = 0;
         ok = YES;
@@ -44,6 +45,22 @@
             *intoArray = [[entries copy] autorelease];
         }
     }
+	/* leopard */
+	else if ([self scanString:@"RAID SETS\n---------\n" intoString:nil]) {
+        ok = YES;
+        NSMutableArray *entries = [NSMutableArray array];
+        while (![self isAtEnd]) {
+            NSDictionary *entry;
+            ok &= [self scanAppleRAIDEntry:&entry];
+            if (!ok) goto finalizeAndReturn;
+            
+            [entries addObject:entry];
+        }
+        
+        if (intoArray != nil) {
+            *intoArray = [[entries copy] autorelease];
+        }
+	}
     
 finalizeAndReturn:
     [self setCharactersToBeSkipped:saveSet];
@@ -158,12 +175,14 @@ finalizeAndReturn:
     ok &= [self scanUpToString:@"\n" intoString:&size];
     ok &= [self scanString:@"\n" intoString:nil];
     if (!ok) goto finalizeAndReturn;
-
-    NSString *rebuild;
-    ok &= [self scanString:@"Rebuild:              " intoString:nil];
-    ok &= [self scanUpToString:@"\n" intoString:&rebuild];
-    ok &= [self scanString:@"\n" intoString:nil];
-    if (!ok) goto finalizeAndReturn;
+	
+	/* only in snow leopard */
+    NSString *rebuild = @"unknown";
+    if ([self scanString:@"Rebuild:              " intoString:nil]) {
+		ok &= [self scanUpToString:@"\n" intoString:&rebuild];
+		ok &= [self scanString:@"\n" intoString:nil];
+		if (!ok) goto finalizeAndReturn;
+	}
 
     NSString *devid;
     ok &= [self scanString:@"Device Node:          " intoString:nil];
@@ -171,6 +190,14 @@ finalizeAndReturn:
     ok &= [self scanString:@"\n" intoString:nil];
     if (!ok) goto finalizeAndReturn;
     
+	/* only in leopard */
+    NSString *raidvers = @"unknown";
+    if ([self scanString:@"Apple RAID Version:   " intoString:nil]) {
+		ok &= [self scanUpToString:@"\n" intoString:&raidvers];
+		ok &= [self scanString:@"\n" intoString:nil];
+		if (!ok) goto finalizeAndReturn;
+	}
+	
     NSString *devnode = [NSString pathWithComponents:[NSArray arrayWithObjects:@"/", @"dev", devid, nil]];
     
     if (intoDictionary != nil) {
@@ -183,6 +210,7 @@ finalizeAndReturn:
                            rebuild, @"RebuildOption",
                            devid, @"DeviceIdentifier",
                            devnode,  @"DeviceNode",
+						   raidvers, @"RAIDSetVersion",
                            nil];
     }
     
