@@ -13,7 +13,6 @@
 @interface LCSTestCommand : LCSCommand {
     NSTimeInterval delay;
     LCSCommandState finalState;
-    LCSCommand *controller;
 }
 
 -(id)initWithDelay:(NSTimeInterval)delay finalState:(LCSCommandState)state;

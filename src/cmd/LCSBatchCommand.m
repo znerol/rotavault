@@ -16,7 +16,7 @@
 {
     LCSINIT_SUPER_OR_RETURN_NIL();
     
-    activeControllers = [[LCSCommandControllerCollection alloc] init];
+    activeControllers = [[LCSCommandCollection alloc] init];
     LCSINIT_RELEASE_AND_RETURN_IF_NIL(activeControllers);
     
     [activeControllers watchState:LCSCommandStateFailed];
@@ -26,15 +26,15 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(commandCollectionFailed:)
-                                                 name:[LCSCommandControllerCollection notificationNameAnyControllerEnteredState:LCSCommandStateFailed]
+                                                 name:[LCSCommandCollection notificationNameAnyControllerEnteredState:LCSCommandStateFailed]
                                                object:activeControllers];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(commandCollectionCancelled:)
-                                                 name:[LCSCommandControllerCollection notificationNameAnyControllerEnteredState:LCSCommandStateCancelled]
+                                                 name:[LCSCommandCollection notificationNameAnyControllerEnteredState:LCSCommandStateCancelled]
                                                object:activeControllers];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(commandCollectionInvalidated:)
-                                                 name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateInvalidated]
+                                                 name:[LCSCommandCollection notificationNameAllControllersEnteredState:LCSCommandStateInvalidated]
                                                object:activeControllers];
     
     return self;
@@ -67,26 +67,26 @@
     self.error = err;
     self.state = LCSCommandStateFailed;
     
-    for (LCSCommand *ctl in activeControllers.controllers) {
+    for (LCSCommand *ctl in activeControllers.commands) {
         [ctl cancel];
     }
 }
 
 -(void)commandCollectionFailed:(NSNotification*)ntf
 {
-    LCSCommandControllerCollection* sender = [ntf object];
-    LCSCommand* originalSender = [[ntf userInfo] objectForKey:LCSCommandControllerCollectionOriginalSenderKey];
+    LCSCommandCollection* sender = [ntf object];
+    LCSCommand* originalSender = [[ntf userInfo] objectForKey:LCSCommandCollectionOriginalSenderKey];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandControllerCollection notificationNameAnyControllerEnteredState:LCSCommandStateFailed]
+                                                    name:[LCSCommandCollection notificationNameAnyControllerEnteredState:LCSCommandStateFailed]
                                                   object:sender];
     [self handleError:originalSender.error];
 }
 
 -(void)commandCollectionCancelled:(NSNotification*)ntf
 {
-    LCSCommandControllerCollection* sender = [ntf object];
+    LCSCommandCollection* sender = [ntf object];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandControllerCollection notificationNameAnyControllerEnteredState:LCSCommandStateCancelled]
+                                                    name:[LCSCommandCollection notificationNameAnyControllerEnteredState:LCSCommandStateCancelled]
                                                   object:sender];
     [self handleError:LCSERROR_METHOD(NSCocoaErrorDomain, NSUserCancelledError)];
 }

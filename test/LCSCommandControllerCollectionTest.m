@@ -1,5 +1,5 @@
 //
-//  LCSCommandControllerCollectionTest.m
+//  LCSCommandCollectionTest.m
 //  rotavault
 //
 //  Created by Lorenz Schori on 08.10.10.
@@ -8,40 +8,40 @@
 
 #import <GHUnit/GHUnit.h>
 #import <OCMock/OCMock.h>
-#import "LCSCommandControllerCollection.h"
+#import "LCSCommandCollection.h"
 #import "LCSTestCommand.h"
 
-@interface LCSCommandControllerCollectionTest : GHTestCase
+@interface LCSCommandCollectionTest : GHTestCase
 @end
 
 
-@protocol LCSCommandControllerCollectionTestNotificationConsumer
+@protocol LCSCommandCollectionTestNotificationConsumer
 -(void)consumeNotification:(NSNotification*)ntf;
 @end
 
 
-@implementation LCSCommandControllerCollectionTest
+@implementation LCSCommandCollectionTest
 
 -(void)testOneControllerWatchOneState
 {
     LCSCommand *ctl = [LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFinished];
     
-    LCSCommandControllerCollection *col = [LCSCommandControllerCollection collection];
+    LCSCommandCollection *col = [LCSCommandCollection collection];
     [col addController:ctl];
     [col watchState:LCSCommandStateFinished];
     
-    id mockall = [OCMockObject mockForProtocol:@protocol(LCSCommandControllerCollectionTestNotificationConsumer)];
+    id mockall = [OCMockObject mockForProtocol:@protocol(LCSCommandCollectionTestNotificationConsumer)];
     [[mockall expect] consumeNotification:[OCMArg any]];
-    id mockany = [OCMockObject mockForProtocol:@protocol(LCSCommandControllerCollectionTestNotificationConsumer)];
+    id mockany = [OCMockObject mockForProtocol:@protocol(LCSCommandCollectionTestNotificationConsumer)];
     [[mockany expect] consumeNotification:[OCMArg any]];
     
     [[NSNotificationCenter defaultCenter] addObserver:mockall
                                              selector:@selector(consumeNotification:)
-                                                 name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
+                                                 name:[LCSCommandCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
                                                object:col];
     [[NSNotificationCenter defaultCenter] addObserver:mockany
                                              selector:@selector(consumeNotification:)
-                                                 name:[LCSCommandControllerCollection notificationNameAnyControllerEnteredState:LCSCommandStateFinished]
+                                                 name:[LCSCommandCollection notificationNameAnyControllerEnteredState:LCSCommandStateFinished]
                                                object:col];
     [ctl start];
     [ctl waitUntilDone];
@@ -59,37 +59,37 @@
     LCSCommand *ctl2 = [LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFinished];
     LCSCommand *ctl3 = [LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFinished];
     
-    LCSCommandControllerCollection *col = [LCSCommandControllerCollection collection];
+    LCSCommandCollection *col = [LCSCommandCollection collection];
     [col addController:ctl1];
     [col addController:ctl2];
     [col addController:ctl3];
     [col watchState:LCSCommandStateFinished];
     
     
-    id mockany = [OCMockObject mockForProtocol:@protocol(LCSCommandControllerCollectionTestNotificationConsumer)];
-    [[mockany expect] consumeNotification:[NSNotification notificationWithName:[LCSCommandControllerCollection notificationNameAnyControllerEnteredState:LCSCommandStateFinished]
+    id mockany = [OCMockObject mockForProtocol:@protocol(LCSCommandCollectionTestNotificationConsumer)];
+    [[mockany expect] consumeNotification:[NSNotification notificationWithName:[LCSCommandCollection notificationNameAnyControllerEnteredState:LCSCommandStateFinished]
                                                                         object:col
-                                                                      userInfo:[NSDictionary dictionaryWithObject:ctl1 forKey:LCSCommandControllerCollectionOriginalSenderKey]]];
-    [[mockany expect] consumeNotification:[NSNotification notificationWithName:[LCSCommandControllerCollection notificationNameAnyControllerEnteredState:LCSCommandStateFinished]
+                                                                      userInfo:[NSDictionary dictionaryWithObject:ctl1 forKey:LCSCommandCollectionOriginalSenderKey]]];
+    [[mockany expect] consumeNotification:[NSNotification notificationWithName:[LCSCommandCollection notificationNameAnyControllerEnteredState:LCSCommandStateFinished]
                                                                         object:col
-                                                                      userInfo:[NSDictionary dictionaryWithObject:ctl2 forKey:LCSCommandControllerCollectionOriginalSenderKey]]];
-    [[mockany expect] consumeNotification:[NSNotification notificationWithName:[LCSCommandControllerCollection notificationNameAnyControllerEnteredState:LCSCommandStateFinished]
+                                                                      userInfo:[NSDictionary dictionaryWithObject:ctl2 forKey:LCSCommandCollectionOriginalSenderKey]]];
+    [[mockany expect] consumeNotification:[NSNotification notificationWithName:[LCSCommandCollection notificationNameAnyControllerEnteredState:LCSCommandStateFinished]
                                                                         object:col
-                                                                      userInfo:[NSDictionary dictionaryWithObject:ctl3 forKey:LCSCommandControllerCollectionOriginalSenderKey]]];
+                                                                      userInfo:[NSDictionary dictionaryWithObject:ctl3 forKey:LCSCommandCollectionOriginalSenderKey]]];
         
     /* FIXME: replace [OCMArg any] with properly initialized NSNotification. */
-    id mockall = [OCMockObject mockForProtocol:@protocol(LCSCommandControllerCollectionTestNotificationConsumer)];
+    id mockall = [OCMockObject mockForProtocol:@protocol(LCSCommandCollectionTestNotificationConsumer)];
     [[mockall expect] consumeNotification:[OCMArg any]];
     
     
     [[NSNotificationCenter defaultCenter] addObserver:mockany
                                              selector:@selector(consumeNotification:)
-                                                 name:[LCSCommandControllerCollection notificationNameAnyControllerEnteredState:LCSCommandStateFinished]
+                                                 name:[LCSCommandCollection notificationNameAnyControllerEnteredState:LCSCommandStateFinished]
                                                object:col];
     
     [[NSNotificationCenter defaultCenter] addObserver:mockall
                                              selector:@selector(consumeNotification:)
-                                                 name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
+                                                 name:[LCSCommandCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
                                                object:col];
     
     [ctl1 start];
@@ -117,7 +117,7 @@
     LCSCommand *ctl2 = [LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFinished];
     LCSCommand *ctl3 = [LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFailed];
     
-    LCSCommandControllerCollection *col = [LCSCommandControllerCollection collection];
+    LCSCommandCollection *col = [LCSCommandCollection collection];
     [col watchState:LCSCommandStateFinished];
     [col addController:ctl1];
     [col addController:ctl2];
@@ -126,26 +126,26 @@
     /* watch one more time */
     [col watchState:LCSCommandStateFinished];
     
-    id mockany = [OCMockObject mockForProtocol:@protocol(LCSCommandControllerCollectionTestNotificationConsumer)];
-    [[mockany expect] consumeNotification:[NSNotification notificationWithName:[LCSCommandControllerCollection notificationNameAnyControllerEnteredState:LCSCommandStateFinished]
+    id mockany = [OCMockObject mockForProtocol:@protocol(LCSCommandCollectionTestNotificationConsumer)];
+    [[mockany expect] consumeNotification:[NSNotification notificationWithName:[LCSCommandCollection notificationNameAnyControllerEnteredState:LCSCommandStateFinished]
                                                                         object:col
-                                                                      userInfo:[NSDictionary dictionaryWithObject:ctl1 forKey:LCSCommandControllerCollectionOriginalSenderKey]]];
-    [[mockany expect] consumeNotification:[NSNotification notificationWithName:[LCSCommandControllerCollection notificationNameAnyControllerEnteredState:LCSCommandStateFinished]
+                                                                      userInfo:[NSDictionary dictionaryWithObject:ctl1 forKey:LCSCommandCollectionOriginalSenderKey]]];
+    [[mockany expect] consumeNotification:[NSNotification notificationWithName:[LCSCommandCollection notificationNameAnyControllerEnteredState:LCSCommandStateFinished]
                                                                         object:col
-                                                                      userInfo:[NSDictionary dictionaryWithObject:ctl2 forKey:LCSCommandControllerCollectionOriginalSenderKey]]];
+                                                                      userInfo:[NSDictionary dictionaryWithObject:ctl2 forKey:LCSCommandCollectionOriginalSenderKey]]];
     
     /* Don't expect anything */
-    id mockall = [OCMockObject mockForProtocol:@protocol(LCSCommandControllerCollectionTestNotificationConsumer)];
+    id mockall = [OCMockObject mockForProtocol:@protocol(LCSCommandCollectionTestNotificationConsumer)];
     
     
     [[NSNotificationCenter defaultCenter] addObserver:mockany
                                              selector:@selector(consumeNotification:)
-                                                 name:[LCSCommandControllerCollection notificationNameAnyControllerEnteredState:LCSCommandStateFinished]
+                                                 name:[LCSCommandCollection notificationNameAnyControllerEnteredState:LCSCommandStateFinished]
                                                object:col];
     
     [[NSNotificationCenter defaultCenter] addObserver:mockall
                                              selector:@selector(consumeNotification:)
-                                                 name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
+                                                 name:[LCSCommandCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
                                                object:col];
     
     [ctl1 start];

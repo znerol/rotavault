@@ -7,12 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LCSCommandControllerCollection.h"
+#import "LCSCommandCollection.h"
 
 
 @interface LCSBatchCommand : LCSCommand
 {
-    LCSCommandControllerCollection* activeControllers;
+    LCSCommandCollection* activeControllers;
 }
 @end
 

@@ -26,7 +26,7 @@
 
 - (void)startGatherInformation
 {
-    NSParameterAssert([activeControllers.controllers count] == 0);
+    NSParameterAssert([activeControllers.commands count] == 0);
     
     glob_t g;
     int err = glob("/dev/disk*", GLOB_NOSORT, NULL, &g);
@@ -45,7 +45,7 @@
     self.progressMessage = [NSString localizedStringWithFormat:@"Gathering information"];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(completeGatherInformation:)
-                                                 name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
+                                                 name:[LCSCommandCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
                                                object:activeControllers];
     
     for (char **devpath = g.gl_pathv; *devpath != NULL; devpath++) {
@@ -62,10 +62,10 @@
 - (void)completeGatherInformation:(NSNotification*)ntf
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
+                                                    name:[LCSCommandCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
                                                   object:activeControllers];
     
-    NSArray *entries = [[activeControllers valueForKeyPath:@"controllers.result"] allObjects];
+    NSArray *entries = [[activeControllers valueForKeyPath:@"commands.result"] allObjects];
     NSArray *devnodes = [entries valueForKey:@"DeviceNode"];
     
     self.result = [NSDictionary dictionaryWithObjects:entries forKeys:devnodes];

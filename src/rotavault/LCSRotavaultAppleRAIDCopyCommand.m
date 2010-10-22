@@ -115,13 +115,13 @@
 
 -(void)startGatherInformation
 {
-    NSParameterAssert([activeControllers.controllers count] == 0);
+    NSParameterAssert([activeControllers.commands count] == 0);
     
     self.progressMessage = [NSString localizedStringWithFormat:@"Gathering information"];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(completeGatherInformation:)
-                                                 name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
+                                                 name:[LCSCommandCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
                                                object:activeControllers];
     
     sourceInfoCtl = [LCSDiskInfoCommand commandWithDevicePath:sourceDevice];
@@ -138,7 +138,7 @@
 -(void)completeGatherInformation:(NSNotification*)ntf
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
+                                                    name:[LCSCommandCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
                                                   object:activeControllers];
     
     if (![self verifyDiskInformation:sourceInfoCtl.result withChecksum:sourceChecksum]) {

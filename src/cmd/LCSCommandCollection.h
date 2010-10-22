@@ -1,5 +1,5 @@
 //
-//  LCSCommandControllerCollection.h
+//  LCSCommandCollection.h
 //  rotavault
 //
 //  Created by Lorenz Schori on 07.10.10.
@@ -10,21 +10,21 @@
 #import "LCSCommand.h"
 
 
-extern NSString* LCSCommandControllerCollectionOriginalSenderKey;
+extern NSString* LCSCommandCollectionOriginalSenderKey;
 
-@interface LCSCommandControllerCollection : NSObject {
-    NSMutableSet *controllers; // set of observed controllers
-    NSMutableDictionary *watchers; // key:state value: set of controllers which entered that state at least once
+@interface LCSCommandCollection : NSObject {
+    NSMutableSet *commands; // set of observed commands
+    NSMutableDictionary *watchers; // key:state value: set of commands which entered that state at least once
 }
 
-+(LCSCommandControllerCollection*)collection;
++(LCSCommandCollection*)collection;
 
 -(void)addController:(LCSCommand*)commandController;
 -(void)removeController:(LCSCommand*)commandController;
 -(void)watchState:(LCSCommandState)state;
 -(void)unwatchState:(LCSCommandState)state;
 
-@property(readonly) NSMutableSet *controllers;
+@property(readonly) NSMutableSet *commands;
 
 +(NSString*)notificationNameAnyControllerEnteredState:(LCSCommandState)state;
 +(NSString*)notificationNameAllControllersEnteredState:(LCSCommandState)state;

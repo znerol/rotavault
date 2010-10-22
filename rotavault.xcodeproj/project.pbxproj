@@ -91,7 +91,7 @@
 		CA4822C51264D69000C2879B /* LCSPropertyListSHA1Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820591264D62700C2879B /* LCSPropertyListSHA1Hash.m */; };
 		CA4822C61264D69000C2879B /* LCSDiskInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48203D1264D62700C2879B /* LCSDiskInfoCommand.m */; };
 		CA4822C71264D69000C2879B /* LCSCommandManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820241264D62700C2879B /* LCSCommandManager.m */; };
-		CA4822C81264D69000C2879B /* LCSCommandControllerCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820221264D62700C2879B /* LCSCommandControllerCollection.m */; };
+		CA4822C81264D69000C2879B /* LCSCommandCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820221264D62700C2879B /* LCSCommandCollection.m */; };
 		CA4822C91264D69000C2879B /* LCSQuickExternalCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48202B1264D62700C2879B /* LCSQuickExternalCommand.m */; };
 		CA4822CA1264D69000C2879B /* LCSLaunchctlUnloadCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820491264D62700C2879B /* LCSLaunchctlUnloadCommand.m */; };
 		CA4822CB1264D69000C2879B /* LCSRotavaultMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48202E1264D62700C2879B /* LCSRotavaultMainWindowController.m */; };
@@ -118,7 +118,7 @@
 		CA4822E11264D6C700C2879B /* LCSPropertyListSHA1Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820591264D62700C2879B /* LCSPropertyListSHA1Hash.m */; };
 		CA4822E21264D6C700C2879B /* LCSDiskInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48203D1264D62700C2879B /* LCSDiskInfoCommand.m */; };
 		CA4822E31264D6C700C2879B /* LCSCommandManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820241264D62700C2879B /* LCSCommandManager.m */; };
-		CA4822E41264D6C700C2879B /* LCSCommandControllerCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820221264D62700C2879B /* LCSCommandControllerCollection.m */; };
+		CA4822E41264D6C700C2879B /* LCSCommandCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820221264D62700C2879B /* LCSCommandCollection.m */; };
 		CA4822E51264D6C700C2879B /* LCSQuickExternalCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48202B1264D62700C2879B /* LCSQuickExternalCommand.m */; };
 		CA4822E71264D6C700C2879B /* LCSLaunchctlUnloadCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820491264D62700C2879B /* LCSLaunchctlUnloadCommand.m */; };
 		CA4822E81264D6C700C2879B /* LCSPlistExternalCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820291264D62700C2879B /* LCSPlistExternalCommand.m */; };
@@ -141,7 +141,7 @@
 		CA4822FC1264D70100C2879B /* LCSAllDiskInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820331264D62700C2879B /* LCSAllDiskInfoCommand.m */; };
 		CA4822FD1264D70100C2879B /* LCSPropertyListSHA1Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820591264D62700C2879B /* LCSPropertyListSHA1Hash.m */; };
 		CA4822FE1264D70100C2879B /* LCSDiskInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48203D1264D62700C2879B /* LCSDiskInfoCommand.m */; };
-		CA4823001264D70100C2879B /* LCSCommandControllerCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820221264D62700C2879B /* LCSCommandControllerCollection.m */; };
+		CA4823001264D70100C2879B /* LCSCommandCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820221264D62700C2879B /* LCSCommandCollection.m */; };
 		CA4823011264D70100C2879B /* LCSQuickExternalCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48202B1264D62700C2879B /* LCSQuickExternalCommand.m */; };
 		CA4823031264D70100C2879B /* LCSLaunchctlUnloadCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820491264D62700C2879B /* LCSLaunchctlUnloadCommand.m */; };
 		CA4823041264D70100C2879B /* LCSPlistExternalCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820291264D62700C2879B /* LCSPlistExternalCommand.m */; };
@@ -165,7 +165,7 @@
 		CA4823191264D76D00C2879B /* LCSPropertyListSHA1Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820591264D62700C2879B /* LCSPropertyListSHA1Hash.m */; };
 		CA48231A1264D76D00C2879B /* LCSDiskInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48203D1264D62700C2879B /* LCSDiskInfoCommand.m */; };
 		CA48231B1264D76D00C2879B /* LCSCommandManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820241264D62700C2879B /* LCSCommandManager.m */; };
-		CA48231C1264D76D00C2879B /* LCSCommandControllerCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820221264D62700C2879B /* LCSCommandControllerCollection.m */; };
+		CA48231C1264D76D00C2879B /* LCSCommandCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820221264D62700C2879B /* LCSCommandCollection.m */; };
 		CA48231D1264D76D00C2879B /* LCSQuickExternalCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48202B1264D62700C2879B /* LCSQuickExternalCommand.m */; };
 		CA48231F1264D76D00C2879B /* LCSLaunchctlUnloadCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820491264D62700C2879B /* LCSLaunchctlUnloadCommand.m */; };
 		CA4823201264D76D00C2879B /* LCSPlistExternalCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820291264D62700C2879B /* LCSPlistExternalCommand.m */; };
@@ -439,8 +439,8 @@
 		CA48201C1264D62700C2879B /* rvcopyd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rvcopyd.m; sourceTree = "<group>"; };
 		CA48201F1264D62700C2879B /* LCSCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSCommand.h; sourceTree = "<group>"; };
 		CA4820201264D62700C2879B /* LCSCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSCommand.m; sourceTree = "<group>"; };
-		CA4820211264D62700C2879B /* LCSCommandControllerCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSCommandControllerCollection.h; sourceTree = "<group>"; };
-		CA4820221264D62700C2879B /* LCSCommandControllerCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSCommandControllerCollection.m; sourceTree = "<group>"; };
+		CA4820211264D62700C2879B /* LCSCommandCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSCommandCollection.h; sourceTree = "<group>"; };
+		CA4820221264D62700C2879B /* LCSCommandCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSCommandCollection.m; sourceTree = "<group>"; };
 		CA4820231264D62700C2879B /* LCSCommandManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSCommandManager.h; sourceTree = "<group>"; };
 		CA4820241264D62700C2879B /* LCSCommandManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSCommandManager.m; sourceTree = "<group>"; };
 		CA4820261264D62700C2879B /* LCSExternalCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSExternalCommand.h; sourceTree = "<group>"; };
@@ -806,8 +806,8 @@
 				CAA7A5361264E6AE000EAED2 /* LCSBatchCommand.m */,
 				CA48201F1264D62700C2879B /* LCSCommand.h */,
 				CA4820201264D62700C2879B /* LCSCommand.m */,
-				CA4820211264D62700C2879B /* LCSCommandControllerCollection.h */,
-				CA4820221264D62700C2879B /* LCSCommandControllerCollection.m */,
+				CA4820211264D62700C2879B /* LCSCommandCollection.h */,
+				CA4820221264D62700C2879B /* LCSCommandCollection.m */,
 				CAE3BEF4126F7DFC00982D14 /* LCSDistributedCommandStateWatcher.h */,
 				CAE3BEF5126F7DFC00982D14 /* LCSDistributedCommandStateWatcher.m */,
 				CA4820261264D62700C2879B /* LCSExternalCommand.h */,
@@ -1269,7 +1269,7 @@
 				CA4822E11264D6C700C2879B /* LCSPropertyListSHA1Hash.m in Sources */,
 				CA4822E21264D6C700C2879B /* LCSDiskInfoCommand.m in Sources */,
 				CA4822E31264D6C700C2879B /* LCSCommandManager.m in Sources */,
-				CA4822E41264D6C700C2879B /* LCSCommandControllerCollection.m in Sources */,
+				CA4822E41264D6C700C2879B /* LCSCommandCollection.m in Sources */,
 				CA4822E51264D6C700C2879B /* LCSQuickExternalCommand.m in Sources */,
 				CA4822E71264D6C700C2879B /* LCSLaunchctlUnloadCommand.m in Sources */,
 				CA4822E81264D6C700C2879B /* LCSPlistExternalCommand.m in Sources */,
@@ -1309,7 +1309,7 @@
 				CA4823191264D76D00C2879B /* LCSPropertyListSHA1Hash.m in Sources */,
 				CA48231A1264D76D00C2879B /* LCSDiskInfoCommand.m in Sources */,
 				CA48231B1264D76D00C2879B /* LCSCommandManager.m in Sources */,
-				CA48231C1264D76D00C2879B /* LCSCommandControllerCollection.m in Sources */,
+				CA48231C1264D76D00C2879B /* LCSCommandCollection.m in Sources */,
 				CA48231D1264D76D00C2879B /* LCSQuickExternalCommand.m in Sources */,
 				CA48231F1264D76D00C2879B /* LCSLaunchctlUnloadCommand.m in Sources */,
 				CA4823201264D76D00C2879B /* LCSPlistExternalCommand.m in Sources */,
@@ -1343,7 +1343,7 @@
 				CA4822FC1264D70100C2879B /* LCSAllDiskInfoCommand.m in Sources */,
 				CA4822FD1264D70100C2879B /* LCSPropertyListSHA1Hash.m in Sources */,
 				CA4822FE1264D70100C2879B /* LCSDiskInfoCommand.m in Sources */,
-				CA4823001264D70100C2879B /* LCSCommandControllerCollection.m in Sources */,
+				CA4823001264D70100C2879B /* LCSCommandCollection.m in Sources */,
 				CA4823011264D70100C2879B /* LCSQuickExternalCommand.m in Sources */,
 				CA4823031264D70100C2879B /* LCSLaunchctlUnloadCommand.m in Sources */,
 				CA4823041264D70100C2879B /* LCSPlistExternalCommand.m in Sources */,
@@ -1409,7 +1409,7 @@
 				CA4822C51264D69000C2879B /* LCSPropertyListSHA1Hash.m in Sources */,
 				CA4822C61264D69000C2879B /* LCSDiskInfoCommand.m in Sources */,
 				CA4822C71264D69000C2879B /* LCSCommandManager.m in Sources */,
-				CA4822C81264D69000C2879B /* LCSCommandControllerCollection.m in Sources */,
+				CA4822C81264D69000C2879B /* LCSCommandCollection.m in Sources */,
 				CA4822C91264D69000C2879B /* LCSQuickExternalCommand.m in Sources */,
 				CA4822CA1264D69000C2879B /* LCSLaunchctlUnloadCommand.m in Sources */,
 				CA4822CB1264D69000C2879B /* LCSRotavaultMainWindowController.m in Sources */,

@@ -223,13 +223,13 @@ writeLaunchdPlist_freeAndReturn:
 
 -(void)startGatherInformation
 {
-    NSParameterAssert([activeControllers.controllers count] == 0);
+    NSParameterAssert([activeControllers.commands count] == 0);
     
     self.progressMessage = [NSString localizedStringWithFormat:@"Gathering information"];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(completeGatherInformation:)
-                                                 name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
+                                                 name:[LCSCommandCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
                                                object:activeControllers];
     
     startupInfoCtl = [LCSDiskInfoCommand commandWithDevicePath:@"/"];
@@ -251,7 +251,7 @@ writeLaunchdPlist_freeAndReturn:
 -(void)completeGatherInformation:(NSNotification*)ntf
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
+                                                    name:[LCSCommandCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
                                                   object:activeControllers];
     
     if (![self validateDiskInformation]) {
@@ -267,7 +267,7 @@ writeLaunchdPlist_freeAndReturn:
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(completeLaunchctlInstall:)
-                                                 name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
+                                                 name:[LCSCommandCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
                                                object:activeControllers];
     LCSCommand *ctl = nil;
     if (authorization) {
@@ -300,7 +300,7 @@ writeLaunchdPlist_freeAndReturn:
 -(void)completeLaunchctlInstall:(NSNotification*)ntf
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommandControllerCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
+                                                    name:[LCSCommandCollection notificationNameAllControllersEnteredState:LCSCommandStateFinished]
                                                   object:activeControllers];
     
     self.progressMessage = [NSString localizedStringWithFormat:@"Complete"];
