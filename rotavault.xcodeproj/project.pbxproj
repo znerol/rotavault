@@ -82,6 +82,8 @@
 		CA19249C1266036200E05A63 /* LCSAppleRAIDRemoveMemberCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA1924981266036200E05A63 /* LCSAppleRAIDRemoveMemberCommand.m */; };
 		CA197DFB1270C359005C11F1 /* LCSDiskUnmountCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA197DFA1270C359005C11F1 /* LCSDiskUnmountCommand.m */; };
 		CA197DFC1270C359005C11F1 /* LCSDiskUnmountCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA197DFA1270C359005C11F1 /* LCSDiskUnmountCommand.m */; };
+		CA36E8D6127242DA0052C306 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA36E89C127242570052C306 /* SenTestingKit.framework */; };
+		CA36E8E11272432F0052C306 /* SenTestingKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = CA36E89C127242570052C306 /* SenTestingKit.framework */; };
 		CA4822BE1264D69000C2879B /* LCSCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820201264D62700C2879B /* LCSCommand.m */; };
 		CA4822BF1264D69000C2879B /* LCSDiskImageInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48203B1264D62700C2879B /* LCSDiskImageInfoCommand.m */; };
 		CA4822C01264D69000C2879B /* LCSLaunchctlLoadCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820451264D62700C2879B /* LCSLaunchctlLoadCommand.m */; };
@@ -211,7 +213,6 @@
 		CABAC217123535CF00DBEA0F /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA9E2D58120F398D006C4DE7 /* OCMock.framework */; };
 		CABAC23D1235364A00DBEA0F /* OCMock.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = CA9E2D58120F398D006C4DE7 /* OCMock.framework */; };
 		CABAC23E1235364A00DBEA0F /* GHUnit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = CABAC213123535CC00DBEA0F /* GHUnit.framework */; };
-		CABAC3D51235378200DBEA0F /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA0DF11811F7216D0029B5F7 /* SenTestingKit.framework */; };
 		CABAC3DC1235385F00DBEA0F /* GHUnitMain.m in Sources */ = {isa = PBXBuildFile; fileRef = CABAC3DB1235385F00DBEA0F /* GHUnitMain.m */; };
 		CABAC4CE123545F400DBEA0F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
 		CABAC4CF123545F400DBEA0F /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA28AF1F12132C7600C9BE6F /* CoreServices.framework */; };
@@ -350,8 +351,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				CABAC23D1235364A00DBEA0F /* OCMock.framework in Copy Frameworks */,
+				CA36E8E11272432F0052C306 /* SenTestingKit.framework in Copy Frameworks */,
 				CABAC23E1235364A00DBEA0F /* GHUnit.framework in Copy Frameworks */,
+				CABAC23D1235364A00DBEA0F /* OCMock.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -424,7 +426,6 @@
 		CA0B526F126F3A2000973D2D /* LCSRotavaultCreateJobDictionary.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LCSRotavaultCreateJobDictionary.c; sourceTree = "<group>"; };
 		CA0DF0DA11F71D8B0029B5F7 /* internals.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = internals.txt; sourceTree = "<group>"; };
 		CA0DF0DB11F71D8B0029B5F7 /* rotavault.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = rotavault.1; sourceTree = "<group>"; };
-		CA0DF11811F7216D0029B5F7 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		CA0F95431254D82D0008F47C /* LCSLaunchctlUnloadCommandTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSLaunchctlUnloadCommandTest.m; sourceTree = "<group>"; };
 		CA12461C1240B301004C1191 /* LCSRotavaultErrorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSRotavaultErrorTest.m; sourceTree = "<group>"; };
 		CA12696812567DF1000F7582 /* LCSTestCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSTestCommand.h; sourceTree = "<group>"; };
@@ -442,6 +443,7 @@
 		CA197DF91270C359005C11F1 /* LCSDiskUnmountCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSDiskUnmountCommand.h; sourceTree = "<group>"; };
 		CA197DFA1270C359005C11F1 /* LCSDiskUnmountCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSDiskUnmountCommand.m; sourceTree = "<group>"; };
 		CA28AF1F12132C7600C9BE6F /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		CA36E89C127242570052C306 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = /Xcode2.5/Library/Frameworks/SenTestingKit.framework; sourceTree = "<absolute>"; };
 		CA48201A1264D62700C2879B /* LCSCmdlineCommandRunner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSCmdlineCommandRunner.h; sourceTree = "<group>"; };
 		CA48201B1264D62700C2879B /* LCSCmdlineCommandRunner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSCmdlineCommandRunner.m; sourceTree = "<group>"; };
 		CA48201C1264D62700C2879B /* rvcopyd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rvcopyd.m; sourceTree = "<group>"; };
@@ -641,11 +643,11 @@
 				CAD89E921256794600804E00 /* libgcov.a in Frameworks */,
 				CABAC214123535CC00DBEA0F /* GHUnit.framework in Frameworks */,
 				CABAC217123535CF00DBEA0F /* OCMock.framework in Frameworks */,
-				CABAC3D51235378200DBEA0F /* SenTestingKit.framework in Frameworks */,
 				CABAC60B1235467700DBEA0F /* AppKit.framework in Frameworks */,
 				CABAC60C1235467800DBEA0F /* Foundation.framework in Frameworks */,
 				CABAC60D1235467800DBEA0F /* CoreServices.framework in Frameworks */,
 				CA877E53126B5A360067649A /* CoreFoundation.framework in Frameworks */,
+				CA36E8D6127242DA0052C306 /* SenTestingKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -688,7 +690,7 @@
 				CA9E2D58120F398D006C4DE7 /* OCMock.framework */,
 				CAE26A601260A67700B19EC1 /* Security.framework */,
 				CAE26A621260A67700B19EC1 /* SecurityInterface.framework */,
-				CA0DF11811F7216D0029B5F7 /* SenTestingKit.framework */,
+				CA36E89C127242570052C306 /* SenTestingKit.framework */,
 			);
 			name = "External Frameworks and Libraries";
 			sourceTree = "<group>";
@@ -1693,6 +1695,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/Frameworks\"",
 					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
+					/Xcode2.5/Library/Frameworks,
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -1707,6 +1710,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "Rotavault Test";
+				VALID_ARCHS = "i386 ppc";
 			};
 			name = Debug;
 		};
@@ -1718,6 +1722,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/Frameworks\"",
 					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
+					/Xcode2.5/Library/Frameworks,
 				);
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -1730,6 +1735,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "Rotavault Test";
+				VALID_ARCHS = "i386 ppc";
 			};
 			name = Coverage;
 		};
@@ -1742,6 +1748,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/Frameworks\"",
 					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
+					/Xcode2.5/Library/Frameworks,
 				);
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
@@ -1755,6 +1762,7 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = "Rotavault Test";
 				STRIP_INSTALLED_PRODUCT = NO;
+				VALID_ARCHS = "i386 ppc";
 				ZERO_LINK = NO;
 			};
 			name = Release;
