@@ -46,7 +46,7 @@ enum {
             [NSString stringWithCString:__FILE__ encoding:NSUTF8StringEncoding], LCSSourceFileNameKey, \
             [NSNumber numberWithInt:__LINE__], LCSSourceFileLineNumberKey, \
             NSStringFromSelector(_cmd), LCSSourceFileSelectorKey, \
-            self, LCSSourceFileObjectKey, ## __VA_ARGS__, nil]]
+            [self description], LCSSourceFileObjectKey, ## __VA_ARGS__, nil]]
 
 #define LCSERROR_LOCALIZED_DESCRIPTION(fmt...) \
     [NSString localizedStringWithFormat:fmt], NSLocalizedDescriptionKey
