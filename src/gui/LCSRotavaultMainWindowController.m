@@ -19,22 +19,7 @@
     [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithContentsOfFile:
                                 [[NSBundle mainBundle] pathForResource:@"StandardPreferences" ofType:@"plist"]]];
     
-    AuthorizationItem monitorRights[] = 
-    {
-        {
-            .name = kLCSHelperMonitorRotavaultLaunchdJobRightName,
-            .valueLength = 0,
-            .value = NULL,
-            .flags = 0
-        }
-    };
-    AuthorizationRights rights = {
-        .count = 1,
-        .items = monitorRights
-    };
-    
-    OSStatus err = AuthorizationCreate(&rights, kAuthorizationEmptyEnvironment,
-                                       kAuthorizationFlagInteractionAllowed | kAuthorizationFlagExtendRights,
+    OSStatus err = AuthorizationCreate(NULL, kAuthorizationEmptyEnvironment, kAuthorizationFlagDefaults,
                                        &authorization);
     LCSINIT_RELEASE_AND_RETURN_IF_NIL(err == 0);
         
