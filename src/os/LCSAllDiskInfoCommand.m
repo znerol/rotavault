@@ -67,8 +67,19 @@
     
     NSArray *entries = [[activeCommands valueForKeyPath:@"commands.result"] allObjects];
     NSArray *devnodes = [entries valueForKey:@"DeviceNode"];
+	
+	/* In Mac OS X Leopard we don't get the whole path (i.e. /dev/disk0) in the DeviceNode property. Let's fix that at least for the keys in the resulting dictionary */
+	NSMutableArray *keys = [NSMutableArray arrayWithCapacity:[devnodes count]];
+	for (NSString *devnode in devnodes) {
+		if ([devnode hasPrefix:@"/dev/"]) {
+			[keys addObject:devnode];
+		}
+		else {
+			[keys addObject:[@"/dev/" stringByAppendingString:devnode]];
+		}
+	}
     
-    self.result = [NSDictionary dictionaryWithObjects:entries forKeys:devnodes];
+    self.result = [NSDictionary dictionaryWithObjects:entries forKeys:keys];
     self.state = LCSCommandStateFinished;
 }
 
