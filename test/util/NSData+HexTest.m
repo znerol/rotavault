@@ -7,10 +7,10 @@
 //
 
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <GHUnit/GHUnit.h>
 #import "NSData+Hex.h"
 
-@interface NSData_HexTest : SenTestCase
+@interface NSData_HexTest : GHTestCase
 @end
 
 @implementation NSData_HexTest
@@ -18,7 +18,7 @@
 {
     NSData* zeroData = [NSData data];
     NSString* result = [zeroData stringWithHexBytes];
-    STAssertTrue([result isEqualToString:@""], @"%@", @"Hexifying zero bytes must result in a zero-length string");
+    GHAssertTrue([result isEqualToString:@""], @"%@", @"Hexifying zero bytes must result in a zero-length string");
 }
 
 -(void)testStringWithHexBytesoneData
@@ -26,7 +26,7 @@
     const unsigned char oneByte[] = {0x1};
     NSData* oneData = [NSData dataWithBytes:oneByte length:sizeof(oneByte)];
     NSString* result = [oneData stringWithHexBytes];
-    STAssertTrue([result isEqualToString:@"01"], @"%@", @"Hexifying 0x1 must result in a zero-prefixed string");
+    GHAssertTrue([result isEqualToString:@"01"], @"%@", @"Hexifying 0x1 must result in a zero-prefixed string");
 }
 
 -(void)testStringWithHexBytes8BitData
@@ -34,13 +34,13 @@
     const unsigned char eightbitBytes[] = {0x80, 0x99, 0xFF};
     NSData* eightbitData = [NSData dataWithBytes:eightbitBytes length:sizeof(eightbitBytes)];
     NSString* result = [eightbitData stringWithHexBytes];
-    STAssertTrue([result isEqualToString:@"8099FF"], @"%@", @"Hexifying eight-bit bytes must result in correct string");
+    GHAssertTrue([result isEqualToString:@"8099FF"], @"%@", @"Hexifying eight-bit bytes must result in correct string");
 }
 
 -(void)testDataFromHexStringZeroBytes
 {
     NSData* result = [NSData dataFromHexString:@""];
-    STAssertEquals([result length], (NSUInteger)0, @"%@", @"Creation from empty Hex string must result in a zero-length data object");
+    GHAssertEquals([result length], (NSUInteger)0, @"%@", @"Creation from empty Hex string must result in a zero-length data object");
 }
 
 -(void)testDataFromHexStringWithZeroByte
@@ -48,7 +48,7 @@
     const unsigned char zeroByte[] = {0};
     NSData* expect = [NSData dataWithBytes:zeroByte length:sizeof(zeroByte)];
     NSData* result = [NSData dataFromHexString:@"0"];
-    STAssertTrue([result isEqualTo:expect], @"%@", @"Creation from Hex string '0' must result in a data object containing one null byte");
+    GHAssertTrue([result isEqualTo:expect], @"%@", @"Creation from Hex string '0' must result in a data object containing one null byte");
 }
 
 -(void)testDataFromHexStringWithOneNibble
@@ -56,7 +56,7 @@
     const unsigned char oneByte[] = {1};
     NSData* expect = [NSData dataWithBytes:oneByte length:sizeof(oneByte)];
     NSData* result = [NSData dataFromHexString:@"1"];
-    STAssertTrue([result isEqualTo:expect], @"%@", @"Creation from Hex string '1' must result in a data object containing one byte with the value of 1");    
+    GHAssertTrue([result isEqualTo:expect], @"%@", @"Creation from Hex string '1' must result in a data object containing one byte with the value of 1");    
 }
 
 -(void)testDataFromHexStringWithHexString
@@ -101,7 +101,7 @@
 
     NSData* expect = [NSData dataWithBytes:hexBytes length:sizeof(hexBytes)];
     NSData* result = [NSData dataFromHexString:hexString];
-    STAssertTrue([result isEqualTo:expect], @"%@", @"Creation from Hex string must result in correct data");    
+    GHAssertTrue([result isEqualTo:expect], @"%@", @"Creation from Hex string must result in correct data");    
 }
 
 -(void)testDataFromHexStringFromInvalidBytes
@@ -129,7 +129,7 @@
     for(const unsigned char *c = hexBytes; c < hexBytes + sizeof(hexBytes); c++) {
         NSString* s = [NSString stringWithFormat:@"%c", *c];
         NSData* d = [NSData dataFromHexString:s];
-        STAssertNil(d, @"Data from invalid hex string (ascii %0X) must not be interpreted by dataFromHexString", *c);
+        GHAssertNil(d, @"Data from invalid hex string (ascii %0X) must not be interpreted by dataFromHexString", *c);
     }
 }
 

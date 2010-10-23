@@ -82,8 +82,6 @@
 		CA19249C1266036200E05A63 /* LCSAppleRAIDRemoveMemberCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA1924981266036200E05A63 /* LCSAppleRAIDRemoveMemberCommand.m */; };
 		CA197DFB1270C359005C11F1 /* LCSDiskUnmountCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA197DFA1270C359005C11F1 /* LCSDiskUnmountCommand.m */; };
 		CA197DFC1270C359005C11F1 /* LCSDiskUnmountCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA197DFA1270C359005C11F1 /* LCSDiskUnmountCommand.m */; };
-		CA36E8D6127242DA0052C306 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA36E89C127242570052C306 /* SenTestingKit.framework */; };
-		CA36E8E11272432F0052C306 /* SenTestingKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = CA36E89C127242570052C306 /* SenTestingKit.framework */; };
 		CA36E91E127246300052C306 /* diskutil-appleraid-list-10.5-rebuild.txt in Resources */ = {isa = PBXBuildFile; fileRef = CA36E91B127246300052C306 /* diskutil-appleraid-list-10.5-rebuild.txt */; };
 		CA36E91F127246300052C306 /* diskutil-appleraid-list-10.5.txt in Resources */ = {isa = PBXBuildFile; fileRef = CA36E91C127246300052C306 /* diskutil-appleraid-list-10.5.txt */; };
 		CA36E920127246300052C306 /* diskutil-appleraid-list-10.6.txt in Resources */ = {isa = PBXBuildFile; fileRef = CA36E91D127246300052C306 /* diskutil-appleraid-list-10.6.txt */; };
@@ -351,7 +349,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				CA36E8E11272432F0052C306 /* SenTestingKit.framework in Copy Frameworks */,
 				CABAC23E1235364A00DBEA0F /* GHUnit.framework in Copy Frameworks */,
 				CABAC23D1235364A00DBEA0F /* OCMock.framework in Copy Frameworks */,
 			);
@@ -441,7 +438,6 @@
 		CA197DF91270C359005C11F1 /* LCSDiskUnmountCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSDiskUnmountCommand.h; sourceTree = "<group>"; };
 		CA197DFA1270C359005C11F1 /* LCSDiskUnmountCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSDiskUnmountCommand.m; sourceTree = "<group>"; };
 		CA28AF1F12132C7600C9BE6F /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
-		CA36E89C127242570052C306 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = /Xcode2.5/Library/Frameworks/SenTestingKit.framework; sourceTree = "<absolute>"; };
 		CA36E91B127246300052C306 /* diskutil-appleraid-list-10.5-rebuild.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "diskutil-appleraid-list-10.5-rebuild.txt"; sourceTree = "<group>"; };
 		CA36E91C127246300052C306 /* diskutil-appleraid-list-10.5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "diskutil-appleraid-list-10.5.txt"; sourceTree = "<group>"; };
 		CA36E91D127246300052C306 /* diskutil-appleraid-list-10.6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "diskutil-appleraid-list-10.6.txt"; sourceTree = "<group>"; };
@@ -524,7 +520,6 @@
 		CA9E8A541265CFBE00BCF0E0 /* LCSTestRamdisk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSTestRamdisk.m; sourceTree = "<group>"; };
 		CA9E8AEC1265E5A900BCF0E0 /* SetupAssistant.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SetupAssistant.xib; sourceTree = "<group>"; };
 		CA9ED616122CD0BE005CBA5B /* rvcksum */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = rvcksum; sourceTree = BUILT_PRODUCTS_DIR; };
-		CAA74ADD120A12DB00D234F9 /* rotavault_test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rotavault_test.m; sourceTree = "<group>"; };
 		CAA7A5351264E6AE000EAED2 /* LCSBatchCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSBatchCommand.h; sourceTree = "<group>"; };
 		CAA7A5361264E6AE000EAED2 /* LCSBatchCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSBatchCommand.m; sourceTree = "<group>"; };
 		CAAB8A54125074C4009AD28E /* LCSPlistExternalCommandTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSPlistExternalCommandTest.m; sourceTree = "<group>"; };
@@ -647,7 +642,6 @@
 				CABAC60C1235467800DBEA0F /* Foundation.framework in Frameworks */,
 				CABAC60D1235467800DBEA0F /* CoreServices.framework in Frameworks */,
 				CA877E53126B5A360067649A /* CoreFoundation.framework in Frameworks */,
-				CA36E8D6127242DA0052C306 /* SenTestingKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -690,7 +684,6 @@
 				CA9E2D58120F398D006C4DE7 /* OCMock.framework */,
 				CAE26A601260A67700B19EC1 /* Security.framework */,
 				CAE26A621260A67700B19EC1 /* SecurityInterface.framework */,
-				CA36E89C127242570052C306 /* SenTestingKit.framework */,
 			);
 			name = "External Frameworks and Libraries";
 			sourceTree = "<group>";
@@ -758,7 +751,6 @@
 				CA12461C1240B301004C1191 /* LCSRotavaultErrorTest.m */,
 				CADF06BA1264ACDC00A1EB39 /* NSScanner+AppleRAIDTest.m */,
 				CA9344E912560D35004CAB5B /* OCMockObject+NSTaskTest.m */,
-				CAA74ADD120A12DB00D234F9 /* rotavault_test.m */,
 			);
 			path = test;
 			sourceTree = "<group>";
@@ -1714,7 +1706,6 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "Rotavault Test";
-				VALID_ARCHS = "i386 ppc";
 			};
 			name = Debug;
 		};
@@ -1739,7 +1730,6 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "Rotavault Test";
-				VALID_ARCHS = "i386 ppc";
 			};
 			name = Coverage;
 		};
@@ -1766,7 +1756,6 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = "Rotavault Test";
 				STRIP_INSTALLED_PRODUCT = NO;
-				VALID_ARCHS = "i386 ppc";
 				ZERO_LINK = NO;
 			};
 			name = Release;

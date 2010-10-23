@@ -6,11 +6,11 @@
 //  Copyright 2010 znerol.ch. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <GHUnit/GHUnit.h>
 #import "LCSPropertyListSHA1Hash.h"
 
 
-@interface LCSPropertyListSHA1HashTest : SenTestCase
+@interface LCSPropertyListSHA1HashTest : GHTestCase
 @end
     
 @implementation LCSPropertyListSHA1HashTest
@@ -24,6 +24,6 @@
         0x8e, 0x7f, 0x26, 0x20, 0xd7, 0xb5, 0x65};
     NSData *expected = [NSData dataWithBytes:expectedBytes length:sizeof(expectedBytes)];
 
-    STAssertTrue([testhash isEqualTo:expected], @"%@", @"base64 representation of hash value does not match expected value");
+    GHAssertTrue([testhash isEqualTo:expected], @"%@", @"base64 representation of hash value does not match expected value");
 }
 @end

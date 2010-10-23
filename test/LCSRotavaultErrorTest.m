@@ -6,11 +6,11 @@
 //  Copyright 2010 znerol.ch. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <GHUnit/GHUnit.h>
 #import "LCSRotavaultError.h"
 
 
-@interface LCSRotavaultErrorTest : SenTestCase    
+@interface LCSRotavaultErrorTest : GHTestCase    
 @end
 
 @implementation LCSRotavaultErrorTest
@@ -18,12 +18,12 @@
 {
     NSError *error = LCSERROR_METHOD(NSCocoaErrorDomain, NSUserCancelledError);
     
-    STAssertNotNil(error, @"An error object must have been created");
-    STAssertEqualObjects([error domain], NSCocoaErrorDomain, @"The correct error domain must have been set");
-    STAssertEquals([error code], (NSInteger)NSUserCancelledError, @"The correct error code must have been set");
-    STAssertTrue([[error userInfo] isKindOfClass:[NSDictionary class]],
+    GHAssertNotNil(error, @"An error object must have been created");
+    GHAssertEqualObjects([error domain], NSCocoaErrorDomain, @"The correct error domain must have been set");
+    GHAssertEquals([error code], (NSInteger)NSUserCancelledError, @"The correct error code must have been set");
+    GHAssertTrue([[error userInfo] isKindOfClass:[NSDictionary class]],
                          @"The error must contain a userInfo dictionary");
-    STAssertEquals([[error userInfo] count], (NSUInteger)4,
+    GHAssertEquals([[error userInfo] count], (NSUInteger)4,
                    @"The user info must contain two objects (source file and source line, class and selector");
 }
 
@@ -35,7 +35,7 @@
                                      LCSERROR_LOCALIZED_FAILURE_REASON(@"The binary returned a non-zero status code"),
                                      LCSERROR_UNDERLYING_ERROR(underlyingError));
     
-    STAssertEquals([[error userInfo] count], (NSUInteger)7,
+    GHAssertEquals([[error userInfo] count], (NSUInteger)7,
                    @"The user info must contain two objects (source file/line/class/selector, description, underlying error");
 }
 
@@ -43,6 +43,6 @@
 {
     NSString *expect = @"Operation not permitted";
     NSString *actual = LCSErrorLocalizedFailureReasonFromErrno(EPERM);
-    STAssertEqualObjects(expect, actual, @"Unexpected error reason reported");
+    GHAssertEqualObjects(expect, actual, @"Unexpected error reason reported");
 }
 @end
