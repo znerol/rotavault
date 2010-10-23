@@ -27,13 +27,13 @@
     /** create source and target images **/
     LCSPlistExternalCommand *createsource = [[[LCSPlistExternalCommand alloc] init] autorelease];
     [createsource.task setLaunchPath:@"/usr/bin/hdiutil"];
-    [createsource.task setArguments:[NSArray arrayWithObjects:@"create", @"-sectors", @"2000", @"-layout", @"NONE",
+    [createsource.task setArguments:[NSArray arrayWithObjects:@"create", @"-size", @"10M", @"-layout", @"NONE",
                                      @"-fs", @"HFS+", @"-plist", @"-attach", dmgsourcepath, nil]];
     [createsource start];
     
     LCSPlistExternalCommand *createtarget = [[[LCSPlistExternalCommand alloc] init] autorelease];
     [createtarget.task setLaunchPath:@"/usr/bin/hdiutil"];
-    [createtarget.task setArguments:[NSArray arrayWithObjects:@"create", @"-sectors", @"2000", @"-layout", @"NONE",
+    [createtarget.task setArguments:[NSArray arrayWithObjects:@"create", @"-size", @"10M", @"-layout", @"NONE",
                                      @"-fs", @"HFS+", @"-plist", @"-attach", dmgtargetpath, nil]];
     [createtarget start];
     
