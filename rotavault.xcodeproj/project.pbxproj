@@ -255,8 +255,6 @@
 		CAEE8A86126CDA0C00B0BE92 /* launchd-rvcopyd-withrundate.plist in Resources */ = {isa = PBXBuildFile; fileRef = CAEE8A84126CDA0C00B0BE92 /* launchd-rvcopyd-withrundate.plist */; };
 		CAEE8B1B126CE57A00B0BE92 /* rvcopyd in CopyFiles */ = {isa = PBXBuildFile; fileRef = CA94887A1211892500415257 /* rvcopyd */; };
 		CAEE8B1D126CE5CB00B0BE92 /* ch.znerol.rotavault in CopyFiles */ = {isa = PBXBuildFile; fileRef = CA877E10126B5A030067649A /* ch.znerol.rotavault */; };
-		CAEE8B54126CED1100B0BE92 /* 01systools-contents.xml in CopyFiles */ = {isa = PBXBuildFile; fileRef = CAEE8B2C126CE72500B0BE92 /* 01systools-contents.xml */; };
-		CAEE8B55126CED1100B0BE92 /* 01systools.xml in CopyFiles */ = {isa = PBXBuildFile; fileRef = CAEE8B2D126CE72500B0BE92 /* 01systools.xml */; };
 		CAEE8B56126CED1100B0BE92 /* index.xml in CopyFiles */ = {isa = PBXBuildFile; fileRef = CAEE8B2E126CE72500B0BE92 /* index.xml */; };
 		CAEE8B88126CEF4D00B0BE92 /* ch.znerol.rotavault.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = CAEE8B84126CEF1900B0BE92 /* ch.znerol.rotavault.plist */; };
 		CAEE8BA0126CF43100B0BE92 /* preinstall in CopyFiles */ = {isa = PBXBuildFile; fileRef = CAEE8B97126CF38C00B0BE92 /* preinstall */; };
@@ -386,8 +384,6 @@
 			dstPath = systools.pmdoc;
 			dstSubfolderSpec = 16;
 			files = (
-				CAEE8B54126CED1100B0BE92 /* 01systools-contents.xml in CopyFiles */,
-				CAEE8B55126CED1100B0BE92 /* 01systools.xml in CopyFiles */,
 				CAEE8B56126CED1100B0BE92 /* index.xml in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -585,7 +581,7 @@
 		CAEE8B84126CEF1900B0BE92 /* ch.znerol.rotavault.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ch.znerol.rotavault.plist; sourceTree = "<group>"; };
 		CAEE8B97126CF38C00B0BE92 /* preinstall */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = preinstall; sourceTree = "<group>"; };
 		CAEE8B98126CF38C00B0BE92 /* postinstall */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = postinstall; sourceTree = "<group>"; };
-		CAEE8BC7126D00A400B0BE92 /* Rotavault System Tools.pkg */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rotavault System Tools.pkg"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CAEE8BC7126D00A400B0BE92 /* Rotavault System Tools.pkg */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.installer-pkg"; path = "Rotavault System Tools.pkg"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAF1CE9B126E1CF800E40D5D /* LCSRotavaultPrivilegedJobInstallCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSRotavaultPrivilegedJobInstallCommand.h; sourceTree = "<group>"; };
 		CAF1CE9C126E1CF800E40D5D /* LCSRotavaultPrivilegedJobInstallCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSRotavaultPrivilegedJobInstallCommand.m; sourceTree = "<group>"; };
 		CAF1CE9F126E1DB400E40D5D /* LCSRotavaultPrivilegedJobRemoveCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSRotavaultPrivilegedJobRemoveCommand.h; sourceTree = "<group>"; };
@@ -1246,7 +1242,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# shell script goes here\n/Developer/Applications/Utilities/PackageMaker.app/Contents/MacOS/PackageMaker \\\n\t--doc \"${CONFIGURATION_BUILD_DIR}/systools.pmdoc\" \\\n\t--out \"${CONFIGURATION_BUILD_DIR}/${PRODUCT_NAME}\" \\\n\t--version \"${CURRENT_PROJECT_VERSION}\" \\\n\t--id ch.znerol.rotavault.systools \\\n\t--no-recommend \\\n\t--root-volume-only \\\n\t--verbose\n";
+			shellScript = "/usr/bin/xsltproc --stringparam PKG_ROOT ${CONFIGURATION_BUILD_DIR}/systools-pkgroot \\\n\t\"${PROJECT_DIR}/rsrc/systools-scripts/fix-absolute-path-in-pmdoc.xslt\" \\\n\t\"${PROJECT_DIR}/rsrc/systools.pmdoc/01systools-contents.xml\" \\\n\t> \"${CONFIGURATION_BUILD_DIR}/systools.pmdoc/01systools-contents.xml\"\n\n/usr/bin/xsltproc --stringparam PKG_ROOT ${CONFIGURATION_BUILD_DIR}/systools-pkgroot \\\n\t\"${PROJECT_DIR}/rsrc/systools-scripts/fix-absolute-path-in-pmdoc.xslt\" \\\n\t\"${PROJECT_DIR}/rsrc/systools.pmdoc/01systools.xml\" \\\n\t> \"${CONFIGURATION_BUILD_DIR}/systools.pmdoc/01systools.xml\"\n\n/Developer/Applications/Utilities/PackageMaker.app/Contents/MacOS/PackageMaker \\\n\t--doc \"${CONFIGURATION_BUILD_DIR}/systools.pmdoc\" \\\n\t--out \"${CONFIGURATION_BUILD_DIR}/${PRODUCT_NAME}\" \\\n\t--version \"${CURRENT_PROJECT_VERSION}\" \\\n\t--id ch.znerol.rotavault.systools \\\n\t--no-recommend \\\n\t--root-volume-only \\\n\t--verbose\n";
 		};
 		CAFF452112329DBC00B4AB77 /* Run Doxygen */ = {
 			isa = PBXShellScriptBuildPhase;
