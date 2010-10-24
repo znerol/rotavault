@@ -661,7 +661,6 @@
 		CAF830DB127461FD00F8D695 /* LCSQuickExternalCommandTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSQuickExternalCommandTest.m; sourceTree = "<group>"; };
 		CAF830DC127461FD00F8D695 /* LCSRotavaultCreateJobDictionaryTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSRotavaultCreateJobDictionaryTest.m; sourceTree = "<group>"; };
 		CAF830DD127461FD00F8D695 /* LCSRotavaultErrorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSRotavaultErrorTest.m; sourceTree = "<group>"; };
-		CAF830DE127461FD00F8D695 /* NSData+HexTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+HexTest.h"; sourceTree = "<group>"; };
 		CAF830DF127461FD00F8D695 /* NSData+HexTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+HexTest.m"; sourceTree = "<group>"; };
 		CAF830E0127461FD00F8D695 /* NSScanner+AppleRAIDTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSScanner+AppleRAIDTest.m"; sourceTree = "<group>"; };
 		CAF830E1127461FD00F8D695 /* OCMockObject+NSTaskTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OCMockObject+NSTaskTest.m"; sourceTree = "<group>"; };
@@ -1073,21 +1072,20 @@
 			isa = PBXGroup;
 			children = (
 				CAF830BB127461FD00F8D695 /* fixtures */,
-				CAF830D4127461FD00F8D695 /* LCSMockedAppleRAIDListCommandUnitTest.m */,
-				CAF830D5127461FD00F8D695 /* LCSMockedAppleRAIDMonitorRebuildCommandUnitTest.m */,
+				CAF830E2127461FD00F8D695 /* util */,
+				CAF833E012746DDA00F8D695 /* LCSBatchCommandUnitTest.m */,
 				CAF830D6127461FD00F8D695 /* LCSCommandCollectionTest.m */,
 				CAF830D7127461FD00F8D695 /* LCSExternalCommandTest.m */,
+				CAF830D4127461FD00F8D695 /* LCSMockedAppleRAIDListCommandUnitTest.m */,
+				CAF830D5127461FD00F8D695 /* LCSMockedAppleRAIDMonitorRebuildCommandUnitTest.m */,
 				CAF830D9127461FD00F8D695 /* LCSPlistExternalCommandTest.m */,
 				CAF830DA127461FD00F8D695 /* LCSPropertyListSHA1HashTest.m */,
 				CAF830DB127461FD00F8D695 /* LCSQuickExternalCommandTest.m */,
 				CAF830DC127461FD00F8D695 /* LCSRotavaultCreateJobDictionaryTest.m */,
 				CAF830DD127461FD00F8D695 /* LCSRotavaultErrorTest.m */,
-				CAF830DE127461FD00F8D695 /* NSData+HexTest.h */,
 				CAF830DF127461FD00F8D695 /* NSData+HexTest.m */,
 				CAF830E0127461FD00F8D695 /* NSScanner+AppleRAIDTest.m */,
 				CAF830E1127461FD00F8D695 /* OCMockObject+NSTaskTest.m */,
-				CAF830E2127461FD00F8D695 /* util */,
-				CAF833E012746DDA00F8D695 /* LCSBatchCommandUnitTest.m */,
 			);
 			path = unit;
 			sourceTree = "<group>";
