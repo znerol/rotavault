@@ -38,12 +38,6 @@
     [self invalidate];
 }
 
--(void)cancelNow
-{
-    self.state = LCSCommandStateCancelled;
-    [self invalidate];
-}
-
 -(void)performStart
 {
     self.state = LCSCommandStateRunning;
@@ -52,6 +46,7 @@
 
 -(void)performCancel
 {
-    [self performSelector:@selector(cancelNow) withObject:nil afterDelay:0];
+    self.state = LCSCommandStateCancelled;
+    [self invalidate];
 }
 @end
