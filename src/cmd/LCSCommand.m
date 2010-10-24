@@ -44,18 +44,15 @@ NSString *LCSCommandStateName[LCSCommandStateCount] = {
 -(BOOL)validateNextState:(LCSCommandState)newState
 {
     static LCSCommandState statematrix[LCSCommandStateCount][LCSCommandStateCount] = {
-        //in, sig, run, pig, psd, res, fin, fld, cig, ced, inv
-        { NO, YES,  NO,  NO,  NO,  NO,  NO, YES,  NO,  NO,  NO },   // LCSCommandStateInit
-        { NO,  NO, YES,  NO,  NO,  NO,  NO, YES,  NO,  NO,  NO },   // LCSCommandStateStarting
-        { NO,  NO,  NO, YES,  NO,  NO, YES, YES, YES,  NO,  NO },   // LCSCommandStateRunning
-        { NO,  NO,  NO,  NO, YES,  NO,  NO, YES,  NO,  NO,  NO },   // LCSCommandStatePausing
-        { NO,  NO,  NO,  NO,  NO, YES,  NO, YES, YES,  NO,  NO },   // LCSCommandStatePaused
-        { NO,  NO, YES,  NO,  NO,  NO,  NO, YES,  NO,  NO,  NO },   // LCSCommandStateResuming
-        { NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO, YES },   // LCSCommandStateFinished
-        { NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO, YES },   // LCSCommandStateFailed
-        { NO,  NO,  NO,  NO,  NO,  NO,  NO, YES,  NO, YES,  NO },   // LCSCommandStateCancelling
-        { NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO, YES },   // LCSCommandStateCancelled
-        { NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO }    // LCSCommandStateInvalidated
+        //in, sig, run, fin, fld, cig, ced, inv
+        { NO, YES,  NO,  NO, YES,  NO,  NO,  NO },   // LCSCommandStateInit
+        { NO,  NO, YES,  NO, YES,  NO,  NO,  NO },   // LCSCommandStateStarting
+        { NO,  NO,  NO, YES, YES, YES,  NO,  NO },   // LCSCommandStateRunning
+        { NO,  NO,  NO,  NO,  NO,  NO,  NO, YES },   // LCSCommandStateFinished
+        { NO,  NO,  NO,  NO,  NO,  NO,  NO, YES },   // LCSCommandStateFailed
+        { NO,  NO,  NO,  NO, YES,  NO, YES,  NO },   // LCSCommandStateCancelling
+        { NO,  NO,  NO,  NO,  NO,  NO,  NO, YES },   // LCSCommandStateCancelled
+        { NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO }    // LCSCommandStateInvalidated
     };
     
     /*
