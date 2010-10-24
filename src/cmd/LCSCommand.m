@@ -23,6 +23,20 @@
 @synthesize result;
 @synthesize error;
 
+NSString *LCSCommandStateName[LCSCommandStateCount] = {
+    @"Init",
+    @"Starting",
+    @"Running",
+    @"Pausing",
+    @"Paused",
+    @"Resuming",
+    @"Finished",
+    @"Failed",
+    @"Cancelling",
+    @"Cancelled",
+    @"Invalidated"
+};
+
 -(void)dealloc
 {
     [title release];
@@ -71,7 +85,8 @@
 
 -(void)setState:(LCSCommandState)newState
 {
-    NSParameterAssert([self validateNextState:newState]);
+    NSAssert4([self validateNextState:newState], @"Attempted invalid transition from state %@ (%d) to state %@ (%d)",
+              LCSCommandStateName[self.state], self.state, LCSCommandStateName[newState], newState);
     
     LCSCommandState oldState = state;
     if (newState == LCSCommandStateInvalidated) {

@@ -29,6 +29,8 @@ typedef enum {
     LCSCommandStateCount
 } LCSCommandState;
 
+extern NSString *LCSCommandStateName[LCSCommandStateCount];
+
 @interface LCSCommand : NSObject {
     LCSCommandState  state;
     LCSCommandState  exitState;
