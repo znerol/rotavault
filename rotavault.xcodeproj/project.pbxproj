@@ -270,9 +270,9 @@
 		CAF830F51274621000F8D695 /* LCSExternalCommandTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF830D7127461FD00F8D695 /* LCSExternalCommandTest.m */; };
 		CAF830F61274621100F8D695 /* OCMockObject+NSTaskTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF830E1127461FD00F8D695 /* OCMockObject+NSTaskTest.m */; };
 		CAF830F71274621100F8D695 /* LCSTestCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF830E6127461FD00F8D695 /* LCSTestCommand.m */; };
-		CAF830F91274621200F8D695 /* LCSAppleRAIDListCommandTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF830D4127461FD00F8D695 /* LCSAppleRAIDListCommandTest.m */; };
+		CAF830F91274621200F8D695 /* LCSMockedAppleRAIDListCommandUnitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF830D4127461FD00F8D695 /* LCSMockedAppleRAIDListCommandUnitTest.m */; };
 		CAF830FA1274621300F8D695 /* LCSPropertyListSHA1HashTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF830DA127461FD00F8D695 /* LCSPropertyListSHA1HashTest.m */; };
-		CAF830FB1274621400F8D695 /* LCSAppleRAIDMonitorRebuildCommandTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF830D5127461FD00F8D695 /* LCSAppleRAIDMonitorRebuildCommandTest.m */; };
+		CAF830FB1274621400F8D695 /* LCSMockedAppleRAIDMonitorRebuildCommandUnitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF830D5127461FD00F8D695 /* LCSMockedAppleRAIDMonitorRebuildCommandUnitTest.m */; };
 		CAF830FC1274621400F8D695 /* LCSPlistExternalCommandTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF830D9127461FD00F8D695 /* LCSPlistExternalCommandTest.m */; };
 		CAF830FD1274621500F8D695 /* disk5s2.plist in Resources */ = {isa = PBXBuildFile; fileRef = CAF830C3127461FD00F8D695 /* disk5s2.plist */; };
 		CAF830FE1274621500F8D695 /* disk3.plist in Resources */ = {isa = PBXBuildFile; fileRef = CAF830BD127461FD00F8D695 /* disk3.plist */; };
@@ -324,6 +324,7 @@
 		CAF833991274690E00F8D695 /* LCSExecuteBASCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF1CF47126E26A800E40D5D /* LCSExecuteBASCommand.m */; };
 		CAF8339C1274691400F8D695 /* BetterAuthorizationSampleLib.c in Sources */ = {isa = PBXBuildFile; fileRef = CAF1CF49126E26A800E40D5D /* BetterAuthorizationSampleLib.c */; };
 		CAF8339F1274692800F8D695 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAE26A601260A67700B19EC1 /* Security.framework */; };
+		CAF833E112746DDA00F8D695 /* LCSBatchCommandUnitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF833E012746DDA00F8D695 /* LCSBatchCommandUnitTest.m */; };
 		CAFF3ED1126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CAFF3ED0126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.m */; };
 		CAFF3ED3126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CAFF3ED0126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.m */; };
 /* End PBXBuildFile section */
@@ -651,8 +652,8 @@
 		CAF830D0127461FD00F8D695 /* diskutil-info-member-rebuilding-disk3s1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "diskutil-info-member-rebuilding-disk3s1.plist"; sourceTree = "<group>"; };
 		CAF830D2127461FD00F8D695 /* launchd-rvcopyd-runatload.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "launchd-rvcopyd-runatload.plist"; sourceTree = "<group>"; };
 		CAF830D3127461FD00F8D695 /* launchd-rvcopyd-withrundate.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "launchd-rvcopyd-withrundate.plist"; sourceTree = "<group>"; };
-		CAF830D4127461FD00F8D695 /* LCSAppleRAIDListCommandTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSAppleRAIDListCommandTest.m; sourceTree = "<group>"; };
-		CAF830D5127461FD00F8D695 /* LCSAppleRAIDMonitorRebuildCommandTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSAppleRAIDMonitorRebuildCommandTest.m; sourceTree = "<group>"; };
+		CAF830D4127461FD00F8D695 /* LCSMockedAppleRAIDListCommandUnitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSMockedAppleRAIDListCommandUnitTest.m; sourceTree = "<group>"; };
+		CAF830D5127461FD00F8D695 /* LCSMockedAppleRAIDMonitorRebuildCommandUnitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSMockedAppleRAIDMonitorRebuildCommandUnitTest.m; sourceTree = "<group>"; };
 		CAF830D6127461FD00F8D695 /* LCSCommandCollectionTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSCommandCollectionTest.m; sourceTree = "<group>"; };
 		CAF830D7127461FD00F8D695 /* LCSExternalCommandTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSExternalCommandTest.m; sourceTree = "<group>"; };
 		CAF830D9127461FD00F8D695 /* LCSPlistExternalCommandTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSPlistExternalCommandTest.m; sourceTree = "<group>"; };
@@ -671,6 +672,7 @@
 		CAF830E7127461FD00F8D695 /* OCMockObject+NSTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OCMockObject+NSTask.h"; sourceTree = "<group>"; };
 		CAF830E8127461FD00F8D695 /* OCMockObject+NSTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OCMockObject+NSTask.m"; sourceTree = "<group>"; };
 		CAF833C312746B7200F8D695 /* LCSTestNotificationConsumer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSTestNotificationConsumer.h; sourceTree = "<group>"; };
+		CAF833E012746DDA00F8D695 /* LCSBatchCommandUnitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSBatchCommandUnitTest.m; sourceTree = "<group>"; };
 		CAFF3ECF126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSRotavaultAppleRAIDCopyCommand.h; sourceTree = "<group>"; };
 		CAFF3ED0126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSRotavaultAppleRAIDCopyCommand.m; sourceTree = "<group>"; };
 		CAFF453312329FDD00B4AB77 /* doxygen.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = doxygen.conf; sourceTree = "<group>"; };
@@ -1071,8 +1073,8 @@
 			isa = PBXGroup;
 			children = (
 				CAF830BB127461FD00F8D695 /* fixtures */,
-				CAF830D4127461FD00F8D695 /* LCSAppleRAIDListCommandTest.m */,
-				CAF830D5127461FD00F8D695 /* LCSAppleRAIDMonitorRebuildCommandTest.m */,
+				CAF830D4127461FD00F8D695 /* LCSMockedAppleRAIDListCommandUnitTest.m */,
+				CAF830D5127461FD00F8D695 /* LCSMockedAppleRAIDMonitorRebuildCommandUnitTest.m */,
 				CAF830D6127461FD00F8D695 /* LCSCommandCollectionTest.m */,
 				CAF830D7127461FD00F8D695 /* LCSExternalCommandTest.m */,
 				CAF830D9127461FD00F8D695 /* LCSPlistExternalCommandTest.m */,
@@ -1085,6 +1087,7 @@
 				CAF830E0127461FD00F8D695 /* NSScanner+AppleRAIDTest.m */,
 				CAF830E1127461FD00F8D695 /* OCMockObject+NSTaskTest.m */,
 				CAF830E2127461FD00F8D695 /* util */,
+				CAF833E012746DDA00F8D695 /* LCSBatchCommandUnitTest.m */,
 			);
 			path = unit;
 			sourceTree = "<group>";
@@ -1561,13 +1564,14 @@
 				CAF830F51274621000F8D695 /* LCSExternalCommandTest.m in Sources */,
 				CAF830F61274621100F8D695 /* OCMockObject+NSTaskTest.m in Sources */,
 				CAF830F71274621100F8D695 /* LCSTestCommand.m in Sources */,
-				CAF830F91274621200F8D695 /* LCSAppleRAIDListCommandTest.m in Sources */,
+				CAF830F91274621200F8D695 /* LCSMockedAppleRAIDListCommandUnitTest.m in Sources */,
 				CAF830FA1274621300F8D695 /* LCSPropertyListSHA1HashTest.m in Sources */,
-				CAF830FB1274621400F8D695 /* LCSAppleRAIDMonitorRebuildCommandTest.m in Sources */,
+				CAF830FB1274621400F8D695 /* LCSMockedAppleRAIDMonitorRebuildCommandUnitTest.m in Sources */,
 				CAF830FC1274621400F8D695 /* LCSPlistExternalCommandTest.m in Sources */,
 				CAF831121274622400F8D695 /* NSData+HexTest.m in Sources */,
 				CAF831221274637400F8D695 /* LCSDiskUnmountCommand.m in Sources */,
 				CAF831231274637500F8D695 /* LCSPkgInfoCommand.m in Sources */,
+				CAF833E112746DDA00F8D695 /* LCSBatchCommandUnitTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
