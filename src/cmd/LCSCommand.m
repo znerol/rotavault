@@ -18,8 +18,6 @@
 @synthesize progressAnimate;
 @synthesize progressIndeterminate;
 @synthesize cancellable;
-@synthesize pausable;
-@synthesize resumable;
 @synthesize result;
 @synthesize error;
 
@@ -27,9 +25,6 @@ NSString *LCSCommandStateName[LCSCommandStateCount] = {
     @"Init",
     @"Starting",
     @"Running",
-    @"Pausing",
-    @"Paused",
-    @"Resuming",
     @"Finished",
     @"Failed",
     @"Cancelling",
@@ -96,15 +91,10 @@ NSString *LCSCommandStateName[LCSCommandStateCount] = {
     state = newState;
     
     self.cancellable = [self validateNextState:LCSCommandStateCancelling];
-    self.pausable = [self validateNextState:LCSCommandStatePausing];
-    self.resumable = [self validateNextState:LCSCommandStateResuming];
     
     switch (state) {
         case LCSCommandStateStarting:
         case LCSCommandStateRunning:
-        case LCSCommandStatePausing:
-        case LCSCommandStatePaused:
-        case LCSCommandStateResuming:
         case LCSCommandStateCancelling:
             self.progressAnimate = YES;
             break;

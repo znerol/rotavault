@@ -14,11 +14,6 @@ typedef enum {
 
     LCSCommandStateStarting,   // set by base class in start-selector
     LCSCommandStateRunning,    // set by command when the start-selector completes
-    
-    LCSCommandStatePausing,    // set by base class in pause-selector
-    LCSCommandStatePaused,     // set by command when the pase-selector completes
-    LCSCommandStateResuming,   // set by base class in resume-selector
-    
     LCSCommandStateFinished,   // set by command when task has finished
     LCSCommandStateFailed,     // set by command when something went wrong
     LCSCommandStateCancelling, // set by base class in cancel-selector
@@ -39,8 +34,6 @@ extern NSString *LCSCommandStateName[LCSCommandStateCount];
     float progress;
     NSString *progressMessage;
     BOOL cancellable;
-    BOOL pausable;
-    BOOL resumable;
     BOOL progressAnimate;
     BOOL progressIndeterminate;
     
@@ -55,8 +48,6 @@ extern NSString *LCSCommandStateName[LCSCommandStateCount];
 @property(assign) float progress;
 @property(retain) NSString *progressMessage;
 @property(assign) BOOL cancellable;
-@property(assign) BOOL pausable;
-@property(assign) BOOL resumable;
 @property(assign) BOOL progressAnimate;
 @property(assign) BOOL progressIndeterminate;
 
