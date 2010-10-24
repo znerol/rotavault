@@ -7,10 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LCSPlistExternalCommand.h"
+#import "LCSCommand.h"
 
 
-@interface LCSLaunchctlInfoCommand : LCSPlistExternalCommand
--(id)initWithLabel:(NSString*)label;
-+(LCSLaunchctlInfoCommand*)commandWithLabel:(NSString*)label;
+@interface LCSLaunchctlInfoCommand : LCSCommand
+{
+    NSString *label;
+}
+
+-(id)initWithLabel:(NSString*)aLabel;
++(LCSLaunchctlInfoCommand*)commandWithLabel:(NSString*)aLabel;
 @end

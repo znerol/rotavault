@@ -78,6 +78,7 @@
 // Application specific OSStatus codes
 #define kLCSHelperChildProcessRetunedNonZeroStatus 1000
 #define kLCSHelperPropertyListParseError 1001
+#define kLCSHelperLaunchdJobNotFound 1002
 
 extern const BASCommandSpec kLCSHelperCommandSet[];
 

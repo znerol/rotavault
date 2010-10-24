@@ -8,39 +8,42 @@
 
 #import "LCSLaunchctlInfoCommand.h"
 #import "LCSInitMacros.h"
+#import "LCSRotavaultError.h"
+#import "LCSDictionaryCreateFromLaunchdJobWithLabel.h"
 
 
 @implementation LCSLaunchctlInfoCommand
--(id)initWithLabel:(NSString*)label
+-(id)initWithLabel:(NSString*)aLabel
 {
     LCSINIT_SUPER_OR_RETURN_NIL();
     
-    [task setLaunchPath:@"/bin/launchctl"];
-    [task setArguments:[NSArray arrayWithObjects:@"list", @"-x", label, nil]];
+    label = [aLabel copy];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(label);
     
     return self;
 }
 
-+(LCSLaunchctlInfoCommand*)commandWithLabel:(NSString*)label
++(LCSLaunchctlInfoCommand*)commandWithLabel:(NSString*)aLabel
 {
-    return [[[LCSLaunchctlInfoCommand alloc] initWithLabel:label] autorelease];
+    return [[[LCSLaunchctlInfoCommand alloc] initWithLabel:aLabel] autorelease];
 }
 
--(void)stdoutDataAvailable:(NSData *)data
+-(void)performStart
 {
-    /*
-     * launchd list -x <label> displays information about the specified job in plist/xml format. Surprisingly enough
-     * this information gets written to stderr instead of stdout. Because of that we send stdout to /dev/null here and
-     * instead collect the input via stderr handler.
-     */
+    self.state = LCSCommandStateRunning;
+    NSDictionary* jobdict = (NSDictionary*)LCSDictionaryCreateFromLaunchdJobWithLabel((CFStringRef)label);
     
-    /* do nothing */
-}
-
--(void)stderrDataAvailable:(NSData *)data
-{
-    /* Yes, we call [super updateStandardOutput] intentionally here. See the comment from updateStandardOutput above */
-    [super stdoutDataAvailable:data];
-    stderrCollected = YES;
+    if (!jobdict) {
+        LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSUnexpectedOutputReceivedError,
+                        LCSERROR_LOCALIZED_DESCRIPTION(@"Unable to retreive information for specified launchd job"));
+        self.state = LCSCommandStateFailed;
+    }
+    else {
+        self.result = jobdict;
+        [jobdict release];
+        self.state = LCSCommandStateFinished;
+    }
+    
+    self.state = LCSCommandStateInvalidated;
 }
 @end
