@@ -55,30 +55,32 @@ NSString *LCSCommandStateName[LCSCommandStateCount] = {
         { NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO }    // LCSCommandStateInvalidated
     };
     
-    /*
-    if ((![command respondsToSelector:@selector(cancel)] &&
-         (newState == LCSCommandStateCancelling || newState == LCSCommandStateCancelled))) {
+    if (newState < 0 || newState > LCSCommandStateInvalidated) {
         return NO;
-    }
-    else if (((![command respondsToSelector:@selector(pause)] || ![command respondsToSelector:@selector(resume)]) &&
-              (newState == LCSCommandStatePausing || newState == LCSCommandStatePaused ||
-               newState == LCSCommandStateResuming)))
-    {
-        return NO;
-        
     }
     else {
-     */
         return statematrix[state][newState];
-    /*
     }
-     */
 }
 
 -(void)setState:(LCSCommandState)newState
 {
-    NSAssert4([self validateNextState:newState], @"Attempted invalid transition from state %@ (%d) to state %@ (%d)",
-              LCSCommandStateName[self.state], self.state, LCSCommandStateName[newState], newState);
+    BOOL validState = [self validateNextState:newState];
+    if (!validState) {
+        if (newState < 0 || newState > LCSCommandStateInvalidated) {
+            @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                            reason:@"Attempt to set state to an invalid value"
+                                         userInfo:nil];
+        }
+        else {
+            @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                           reason:[NSString stringWithFormat:
+                                                   @"Attempt invalid state transition from %@ (%d) to %@ (%d)",
+                                                   LCSCommandStateName[state], state, LCSCommandStateName[newState],
+                                                   newState]
+                                         userInfo:nil];
+        }
+    }
     
     LCSCommandState oldState = state;
     if (newState == LCSCommandStateInvalidated) {
