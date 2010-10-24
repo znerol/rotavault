@@ -1,5 +1,5 @@
 //
-//  LCSAppleRAIDListCommandTest.m
+//  LCSMockedAppleRAIDListCommandUnitTest.m
 //  rotavault
 //
 //  Created by Lorenz Schori on 17.10.10.
@@ -15,14 +15,14 @@
 #import "LCSExternalCommand+MockableTask.h"
 #import "LCSCommand.h"
 
-@interface LCSAppleRAIDListCommandTest : GHTestCase
+@interface LCSMockedAppleRAIDListCommandUnitTest : GHTestCase
 {
     NSEnumerator* taskFixtureEnumerator;
     NSMutableArray* taskMocks;
 }
 @end
 
-@implementation LCSAppleRAIDListCommandTest
+@implementation LCSMockedAppleRAIDListCommandUnitTest
 -(void) testList
 {
     LCSAppleRAIDListCommand* cmd = [LCSAppleRAIDListCommand command];

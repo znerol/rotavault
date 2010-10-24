@@ -1,5 +1,5 @@
 //
-//  LCSAppleRAIDMonitorRebuildCommandTest.m
+//  LCSMockedAppleRAIDMonitorRebuildCommandUnitTest.m
 //  rotavault
 //
 //  Created by Lorenz Schori on 14.10.10.
@@ -15,14 +15,14 @@
 #import "LCSCommand.h"
 #import "LCSTestNotificationConsumer.h"
 
-@interface LCSAppleRAIDMonitorRebuildCommandTest : GHTestCase
+@interface LCSMockedAppleRAIDMonitorRebuildCommandUnitTest : GHTestCase
 {
     NSEnumerator* taskFixtureEnumerator;
     NSMutableArray* taskMocks;
 }
 @end
 
-@implementation LCSAppleRAIDMonitorRebuildCommandTest
+@implementation LCSMockedAppleRAIDMonitorRebuildCommandUnitTest
 - (void)taskInitNotification:(NSNotification*)ntf
 {
     LCSExternalCommand* cmd = [ntf object];
