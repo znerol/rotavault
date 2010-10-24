@@ -13,10 +13,7 @@
 #import "LCSExternalCommand.h"
 #import "LCSExternalCommand+MockableTask.h"
 #import "LCSCommand.h"
-
-@protocol LCSTestNotificationConsumer
--(void)consumeNotification:(NSNotification*)ntf;
-@end
+#import "LCSTestNotificationConsumer.h"
 
 @interface LCSAppleRAIDMonitorRebuildCommandTest : GHTestCase
 {

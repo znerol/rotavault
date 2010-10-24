@@ -670,6 +670,7 @@
 		CAF830E6127461FD00F8D695 /* LCSTestCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSTestCommand.m; sourceTree = "<group>"; };
 		CAF830E7127461FD00F8D695 /* OCMockObject+NSTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OCMockObject+NSTask.h"; sourceTree = "<group>"; };
 		CAF830E8127461FD00F8D695 /* OCMockObject+NSTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OCMockObject+NSTask.m"; sourceTree = "<group>"; };
+		CAF833C312746B7200F8D695 /* LCSTestNotificationConsumer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSTestNotificationConsumer.h; sourceTree = "<group>"; };
 		CAFF3ECF126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSRotavaultAppleRAIDCopyCommand.h; sourceTree = "<group>"; };
 		CAFF3ED0126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSRotavaultAppleRAIDCopyCommand.m; sourceTree = "<group>"; };
 		CAFF453312329FDD00B4AB77 /* doxygen.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = doxygen.conf; sourceTree = "<group>"; };
@@ -1140,6 +1141,7 @@
 				CAF830E4127461FD00F8D695 /* LCSExternalCommand+MockableTask.m */,
 				CAF830E5127461FD00F8D695 /* LCSTestCommand.h */,
 				CAF830E6127461FD00F8D695 /* LCSTestCommand.m */,
+				CAF833C312746B7200F8D695 /* LCSTestNotificationConsumer.h */,
 				CAF830E7127461FD00F8D695 /* OCMockObject+NSTask.h */,
 				CAF830E8127461FD00F8D695 /* OCMockObject+NSTask.m */,
 			);

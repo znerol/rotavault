@@ -10,15 +10,10 @@
 #import <OCMock/OCMock.h>
 #import "LCSCommandCollection.h"
 #import "LCSTestCommand.h"
+#import "LCSTestNotificationConsumer.h"
 
 @interface LCSCommandCollectionTest : GHTestCase
 @end
-
-
-@protocol LCSCommandCollectionTestNotificationConsumer
--(void)consumeNotification:(NSNotification*)ntf;
-@end
-
 
 @implementation LCSCommandCollectionTest
 
@@ -30,9 +25,9 @@
     [col addCommand:ctl];
     [col watchState:LCSCommandStateFinished];
     
-    id mockall = [OCMockObject mockForProtocol:@protocol(LCSCommandCollectionTestNotificationConsumer)];
+    id mockall = [OCMockObject mockForProtocol:@protocol(LCSTestNotificationConsumer)];
     [[mockall expect] consumeNotification:[OCMArg any]];
-    id mockany = [OCMockObject mockForProtocol:@protocol(LCSCommandCollectionTestNotificationConsumer)];
+    id mockany = [OCMockObject mockForProtocol:@protocol(LCSTestNotificationConsumer)];
     [[mockany expect] consumeNotification:[OCMArg any]];
     
     [[NSNotificationCenter defaultCenter] addObserver:mockall
@@ -66,7 +61,7 @@
     [col watchState:LCSCommandStateFinished];
     
     
-    id mockany = [OCMockObject mockForProtocol:@protocol(LCSCommandCollectionTestNotificationConsumer)];
+    id mockany = [OCMockObject mockForProtocol:@protocol(LCSTestNotificationConsumer)];
     [[mockany expect] consumeNotification:[NSNotification notificationWithName:[LCSCommandCollection notificationNameAnyCommandEnteredState:LCSCommandStateFinished]
                                                                         object:col
                                                                       userInfo:[NSDictionary dictionaryWithObject:ctl1 forKey:LCSCommandCollectionOriginalSenderKey]]];
@@ -78,7 +73,7 @@
                                                                       userInfo:[NSDictionary dictionaryWithObject:ctl3 forKey:LCSCommandCollectionOriginalSenderKey]]];
         
     /* FIXME: replace [OCMArg any] with properly initialized NSNotification. */
-    id mockall = [OCMockObject mockForProtocol:@protocol(LCSCommandCollectionTestNotificationConsumer)];
+    id mockall = [OCMockObject mockForProtocol:@protocol(LCSTestNotificationConsumer)];
     [[mockall expect] consumeNotification:[OCMArg any]];
     
     
@@ -126,7 +121,7 @@
     /* watch one more time */
     [col watchState:LCSCommandStateFinished];
     
-    id mockany = [OCMockObject mockForProtocol:@protocol(LCSCommandCollectionTestNotificationConsumer)];
+    id mockany = [OCMockObject mockForProtocol:@protocol(LCSTestNotificationConsumer)];
     [[mockany expect] consumeNotification:[NSNotification notificationWithName:[LCSCommandCollection notificationNameAnyCommandEnteredState:LCSCommandStateFinished]
                                                                         object:col
                                                                       userInfo:[NSDictionary dictionaryWithObject:ctl1 forKey:LCSCommandCollectionOriginalSenderKey]]];
@@ -135,7 +130,7 @@
                                                                       userInfo:[NSDictionary dictionaryWithObject:ctl2 forKey:LCSCommandCollectionOriginalSenderKey]]];
     
     /* Don't expect anything */
-    id mockall = [OCMockObject mockForProtocol:@protocol(LCSCommandCollectionTestNotificationConsumer)];
+    id mockall = [OCMockObject mockForProtocol:@protocol(LCSTestNotificationConsumer)];
     
     
     [[NSNotificationCenter defaultCenter] addObserver:mockany

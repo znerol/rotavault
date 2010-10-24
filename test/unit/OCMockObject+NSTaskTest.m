@@ -9,14 +9,8 @@
 #import <GHUnit/GHUnit.h>
 #import "OCMockObject+NSTask.h"
 
-@protocol OCMockObjectsNSTaskNotificationWatcher
--(void)handleNotification:(NSNotification*)notification;
-@end
-
-
 @interface OCMockObjectNSTaskTest : GHTestCase
 @end
-
 
 
 @implementation OCMockObjectNSTaskTest
