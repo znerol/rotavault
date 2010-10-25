@@ -1,5 +1,5 @@
 //
-//  LCSRotavaultBlockCopyCommand.h
+//  LCSRotavaultAsrBlockCopyCommand.h
 //  rotavault
 //
 //  Created by Lorenz Schori on 06.10.10.
