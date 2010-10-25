@@ -13,6 +13,7 @@
 @interface LCSDistributedCommandStatePublisher : NSObject {
     LCSCommand* command;
     NSString* label;
+    NSMutableArray* states;
 }
 
 - (id)initWithCommand:(LCSCommand*)cmd label:(NSString*)sndlabel;

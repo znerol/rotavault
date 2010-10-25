@@ -8,7 +8,13 @@
 
 #import "LCSDistributedCommandStateWatcher.h"
 #import "LCSInitMacros.h"
+#import "LCSRotavaultDistributedStateNotification.h"
 
+
+@interface LCSDistributedCommandStateWatcher (Internal)
+- (void)updateStatus:(NSNotification*)ntf;
+- (void)synchronizeStatus:(NSNotification*)ntf;
+@end
 
 @implementation LCSDistributedCommandStateWatcher
 + (LCSDistributedCommandStateWatcher*)commandWithLabel:(NSString*)senderLabel
@@ -22,6 +28,22 @@
     
     label = [senderLabel copy];
     LCSINIT_RELEASE_AND_RETURN_IF_NIL(label);
+    
+    [[NSDistributedNotificationCenter defaultCenter] addObserver:self
+                                                        selector:@selector(updateStatus:)
+                                                            name:LCSDistributedStateNotification
+                                                          object:label];
+    [[NSDistributedNotificationCenter defaultCenter] addObserver:self
+                                                        selector:@selector(synchronizeStatus:)
+                                                            name:LCSDistributedStateSyncNotification
+                                                          object:label];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(invalidate)
+                                                 name:[LCSCommand notificationNameStateEntered:LCSCommandStateInvalidated]
+                                               object:self];
+    
+    [[NSDistributedNotificationCenter defaultCenter] postNotificationName:LCSDistributedStateSyncRequestNotification
+                                                                   object:label];
     
     return self;
 }
@@ -50,15 +72,27 @@
     }
 }
 
+- (void)synchronizeStatus:(NSNotification*)ntf
+{
+    NSMutableDictionary *msg = [[ntf userInfo] mutableCopy];
+    
+    NSArray *states = [msg objectForKey:@"states"];
+    for (NSNumber *st in states) {
+        self.state = [st intValue];
+    }
+    [msg removeObjectForKey:@"states"];
+    
+    for (NSString *keyPath in msg) {
+        [self setValue:[msg valueForKey:keyPath] forKeyPath:keyPath];
+    }
+    
+    [msg release];
+}
+
 - (void)performStart
 {
-    [[NSDistributedNotificationCenter defaultCenter] addObserver:self
-                                                        selector:@selector(updateStatus:)
-                                                            name:[LCSCommand notificationNameStateChanged]
-                                                          object:label];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(invalidate)
-                                                 name:[LCSCommand notificationNameStateEntered:LCSCommandStateInvalidated]
-                                               object:self];
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:@"[LCSCommand start] Don't start a LCSDistributedCommandWatcher."
+                                 userInfo:nil];    
 }
 @end

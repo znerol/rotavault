@@ -349,9 +349,7 @@
                                                  name:[LCSCommand notificationNameStateLeft:LCSCommandStateInit]
                                                object:backgroundCommand];
     [backgroundCommand retain];
-    
-    /* forbidden under normal circumstances :) */
-    [backgroundCommand performStart];
+    /* don't call [backgroundCommand start] */
 }
 
 - (void)startedStateWatcher:(NSNotification*)ntf
