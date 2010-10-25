@@ -6,7 +6,7 @@
 //  Copyright 2010 znerol.ch. All rights reserved.
 //
 
-#import "LCSRotavaultBlockCopyCommand.h"
+#import "LCSBatchCommand.h"
 #import "LCSInitMacros.h"
 #import "LCSCommand.h"
 #import "LCSRotavaultError.h"
