@@ -2,7 +2,7 @@
 #import <Foundation/Foundation.h>
 #import "LCSCmdlineCommandRunner.h"
 #import "LCSRotavaultAsrBlockCopyCommand.h"
-#import "LCSRotavaultAppleRAIDCopyCommand.h"
+#import "LCSRotavaultAsrOnAppleRAIDSliceCopyCommand.h"
 
 int main (int argc, const char * argv[]) {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
@@ -38,10 +38,10 @@ int main (int argc, const char * argv[]) {
                                                              targetChecksum:[args stringForKey:@"targetcheck"]];
     }
     else if ([@"appleraid" isEqualToString:method]) {
-        copyCommand = [LCSRotavaultAppleRAIDCopyCommand commandWithSourceDevice:[args stringForKey:@"sourcedev"]
-                                                                 sourceChecksum:[args stringForKey:@"sourcecheck"]
-                                                                   targetDevice:[args stringForKey:@"targetdev"]
-                                                                 targetChecksum:[args stringForKey:@"targetcheck"]];
+        copyCommand = [LCSRotavaultAsrOnAppleRAIDSliceCopyCommand commandWithSourceDevice:[args stringForKey:@"sourcedev"]
+                                                                           sourceChecksum:[args stringForKey:@"sourcecheck"]
+                                                                             targetDevice:[args stringForKey:@"targetdev"]
+                                                                           targetChecksum:[args stringForKey:@"targetcheck"]];
     }
     
     int status = 0;

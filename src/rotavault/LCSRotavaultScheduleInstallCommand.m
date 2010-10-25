@@ -127,11 +127,11 @@
     }
     
     /* error if source device is not a raid-master (this only holds for appleraid) */
-    if ([@"appleraid" isEqualToString:method] && ![[sourceDiskInformation objectForKey:@"RAIDMaster"] isEqual:
+    if ([@"appleraid" isEqualToString:method] && ![[sourceDiskInformation objectForKey:@"RAIDSlice"] isEqual:
                                                      [NSNumber numberWithBool:YES]]) {
         
         NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
-                                       LCSERROR_LOCALIZED_DESCRIPTION(@"Source device is not a raid volume"));
+                                       LCSERROR_LOCALIZED_DESCRIPTION(@"Source device is not a raid slice"));
         [self handleError:err];
         return NO;
     }
@@ -162,7 +162,14 @@
 {
     NSDictionary *sourceDiskInformation = sourceInfoCtl.result;
     NSDictionary *targetDiskInformation = targetInfoCtl.result;
-    NSString *sourceUUID = [sourceDiskInformation objectForKey:@"VolumeUUID"];
+    NSString *sourceCheck = nil;
+    if ([@"asr" isEqualToString:method]) {
+        sourceCheck = [NSString stringWithFormat:@"uuid:%@", [sourceDiskInformation objectForKey:@"VolumeUUID"]];
+    }
+    else if ([@"appleraid" isEqualToString:method]) {
+        sourceCheck = [NSString stringWithFormat:@"sha1:%@",
+                       [[LCSPropertyListSHA1Hash sha1HashFromPropertyList:sourceDiskInformation] stringWithHexBytes]];
+    }
     NSString *targetSHA1 = [[LCSPropertyListSHA1Hash sha1HashFromPropertyList:targetDiskInformation] stringWithHexBytes];
     
     launchdPlist = (NSDictionary*)LCSRotavaultCreateJobDictionary((CFStringRef)rvcopydLabel,
@@ -170,7 +177,7 @@
                                                                            (CFDateRef)runAtDate,
                                                                            (CFStringRef)sourceDevice,
                                                                            (CFStringRef)targetDevice,
-                                                                           (CFStringRef)[NSString stringWithFormat:@"uuid:%@", sourceUUID],
+                                                                           (CFStringRef)sourceCheck,
                                                                            (CFStringRef)[NSString stringWithFormat:@"sha1:%@", targetSHA1]);
     return (launchdPlist != nil);
 }
