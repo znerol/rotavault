@@ -6,7 +6,7 @@
 //  Copyright 2010 znerol.ch. All rights reserved.
 //
 
-#import "LCSRotavaultBlockCopyCommand.h"
+#import "LCSRotavaultAsrBlockCopyCommand.h"
 #import "LCSInitMacros.h"
 #import "LCSCommand.h"
 #import "LCSDiskInfoCommand.h"
@@ -16,7 +16,7 @@
 #import "LCSPropertyListSHA1Hash.h"
 #import "NSData+Hex.h"
 
-@interface LCSRotavaultBlockCopyCommand (PrivateMethods)
+@interface LCSRotavaultAsrBlockCopyCommand (PrivateMethods)
 -(BOOL)verifyDiskInformation:(NSDictionary*)diskinfo withChecksum:(NSString*)checksum;
 -(void)startGatherInformation;
 -(void)completeGatherInformation:(NSNotification*)ntf;
@@ -27,13 +27,13 @@
 @end
 
 
-@implementation LCSRotavaultBlockCopyCommand
-+(LCSRotavaultBlockCopyCommand*)commandWithSourceDevice:(NSString*)sourcedev
+@implementation LCSRotavaultAsrBlockCopyCommand
++(LCSRotavaultAsrBlockCopyCommand*)commandWithSourceDevice:(NSString*)sourcedev
                                          sourceChecksum:(NSString*)sourcecheck
                                            targetDevice:(NSString*)targetdev
                                          targetChecksum:(NSString*)targetcheck
 {
-    return [[[LCSRotavaultBlockCopyCommand alloc] initWithSourceDevice:sourcedev
+    return [[[LCSRotavaultAsrBlockCopyCommand alloc] initWithSourceDevice:sourcedev
                                                         sourceChecksum:sourcecheck
                                                           targetDevice:targetdev
                                                         targetChecksum:targetcheck] autorelease];

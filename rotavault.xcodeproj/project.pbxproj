@@ -93,7 +93,7 @@
 		CA4822D51264D69000C2879B /* rotavault.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820301264D62700C2879B /* rotavault.m */; };
 		CA4822D61264D69000C2879B /* LCSDiskImageAttachCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820371264D62700C2879B /* LCSDiskImageAttachCommand.m */; };
 		CA4822D71264D69000C2879B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA48202F1264D62700C2879B /* MainMenu.xib */; };
-		CA4822D81264D6C700C2879B /* LCSRotavaultBlockCopyCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48204E1264D62700C2879B /* LCSRotavaultBlockCopyCommand.m */; };
+		CA4822D81264D6C700C2879B /* LCSRotavaultAsrBlockCopyCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48204E1264D62700C2879B /* LCSRotavaultAsrBlockCopyCommand.m */; };
 		CA4822D91264D6C700C2879B /* LCSSignalHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48205B1264D62700C2879B /* LCSSignalHandler.m */; };
 		CA4822DA1264D6C700C2879B /* LCSCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820201264D62700C2879B /* LCSCommand.m */; };
 		CA4822DD1264D6C700C2879B /* NSData+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48205D1264D62700C2879B /* NSData+Hex.m */; };
@@ -233,7 +233,7 @@
 		CAF831231274637500F8D695 /* LCSPkgInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CADC1E7F1271A8A600FB7A91 /* LCSPkgInfoCommand.m */; };
 		CAF833681274645100F8D695 /* LCSDiskUnmountCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA197DFA1270C359005C11F1 /* LCSDiskUnmountCommand.m */; };
 		CAF833691274645300F8D695 /* LCSPkgInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CADC1E7F1271A8A600FB7A91 /* LCSPkgInfoCommand.m */; };
-		CAF8336A1274645B00F8D695 /* LCSRotavaultBlockCopyCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48204E1264D62700C2879B /* LCSRotavaultBlockCopyCommand.m */; };
+		CAF8336A1274645B00F8D695 /* LCSRotavaultAsrBlockCopyCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48204E1264D62700C2879B /* LCSRotavaultAsrBlockCopyCommand.m */; };
 		CAF8336B1274645C00F8D695 /* LCSRotavaultAppleRAIDCopyCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CAFF3ED0126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.m */; };
 		CAF8336C1274645D00F8D695 /* LCSRotavaultJob.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF65391127032CC00361A2E /* LCSRotavaultJob.m */; };
 		CAF8336D1274645D00F8D695 /* LCSRotavaultPrivilegedJobInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA67827A126DFF1900900B82 /* LCSRotavaultPrivilegedJobInfoCommand.m */; };
@@ -516,8 +516,8 @@
 		CA4820491264D62700C2879B /* LCSLaunchctlUnloadCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSLaunchctlUnloadCommand.m; sourceTree = "<group>"; };
 		CA48204A1264D62700C2879B /* NSScanner+AppleRAID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSScanner+AppleRAID.h"; sourceTree = "<group>"; };
 		CA48204B1264D62700C2879B /* NSScanner+AppleRAID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSScanner+AppleRAID.m"; sourceTree = "<group>"; };
-		CA48204D1264D62700C2879B /* LCSRotavaultBlockCopyCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSRotavaultBlockCopyCommand.h; sourceTree = "<group>"; };
-		CA48204E1264D62700C2879B /* LCSRotavaultBlockCopyCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSRotavaultBlockCopyCommand.m; sourceTree = "<group>"; };
+		CA48204D1264D62700C2879B /* LCSRotavaultAsrBlockCopyCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSRotavaultAsrBlockCopyCommand.h; sourceTree = "<group>"; };
+		CA48204E1264D62700C2879B /* LCSRotavaultAsrBlockCopyCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSRotavaultAsrBlockCopyCommand.m; sourceTree = "<group>"; };
 		CA48204F1264D62700C2879B /* LCSRotavaultError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSRotavaultError.h; sourceTree = "<group>"; };
 		CA4820501264D62700C2879B /* LCSRotavaultError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSRotavaultError.m; sourceTree = "<group>"; };
 		CA4820511264D62700C2879B /* LCSRotavaultScheduleInstallCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSRotavaultScheduleInstallCommand.h; sourceTree = "<group>"; };
@@ -917,8 +917,8 @@
 			children = (
 				CAFF3ECF126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.h */,
 				CAFF3ED0126F47C800A7C6E0 /* LCSRotavaultAppleRAIDCopyCommand.m */,
-				CA48204D1264D62700C2879B /* LCSRotavaultBlockCopyCommand.h */,
-				CA48204E1264D62700C2879B /* LCSRotavaultBlockCopyCommand.m */,
+				CA48204D1264D62700C2879B /* LCSRotavaultAsrBlockCopyCommand.h */,
+				CA48204E1264D62700C2879B /* LCSRotavaultAsrBlockCopyCommand.m */,
 				CADC96BD12754BCD00D14344 /* LCSRotavaultDistributedStateNotification.h */,
 				CADC96BE12754BCD00D14344 /* LCSRotavaultDistributedStateNotification.m */,
 				CA48204F1264D62700C2879B /* LCSRotavaultError.h */,
@@ -1440,7 +1440,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CA4822D81264D6C700C2879B /* LCSRotavaultBlockCopyCommand.m in Sources */,
+				CA4822D81264D6C700C2879B /* LCSRotavaultAsrBlockCopyCommand.m in Sources */,
 				CA4822D91264D6C700C2879B /* LCSSignalHandler.m in Sources */,
 				CA4822DA1264D6C700C2879B /* LCSCommand.m in Sources */,
 				CA4822DD1264D6C700C2879B /* NSData+Hex.m in Sources */,
@@ -1621,7 +1621,7 @@
 				CAF8300F12745E0300F8D695 /* LCSDistributedCommandStateWatcher.m in Sources */,
 				CAF833681274645100F8D695 /* LCSDiskUnmountCommand.m in Sources */,
 				CAF833691274645300F8D695 /* LCSPkgInfoCommand.m in Sources */,
-				CAF8336A1274645B00F8D695 /* LCSRotavaultBlockCopyCommand.m in Sources */,
+				CAF8336A1274645B00F8D695 /* LCSRotavaultAsrBlockCopyCommand.m in Sources */,
 				CAF8336B1274645C00F8D695 /* LCSRotavaultAppleRAIDCopyCommand.m in Sources */,
 				CAF8336C1274645D00F8D695 /* LCSRotavaultJob.m in Sources */,
 				CAF8336D1274645D00F8D695 /* LCSRotavaultPrivilegedJobInfoCommand.m in Sources */,

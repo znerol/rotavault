@@ -10,7 +10,7 @@
 #import "LCSBatchCommand.h"
 
 
-@interface LCSRotavaultBlockCopyCommand : LCSBatchCommand
+@interface LCSRotavaultAsrBlockCopyCommand : LCSBatchCommand
 {
     NSString* sourceDevice;
     NSString* sourceChecksum;
@@ -23,7 +23,7 @@
     LCSCommand *targetInfoCtl;
 }
 
-+(LCSRotavaultBlockCopyCommand*)commandWithSourceDevice:(NSString*)sourcedev
++(LCSRotavaultAsrBlockCopyCommand*)commandWithSourceDevice:(NSString*)sourcedev
                                          sourceChecksum:(NSString*)sourcecheck
                                            targetDevice:(NSString*)targetdev
                                          targetChecksum:(NSString*)targetcheck;

@@ -1,7 +1,7 @@
 #include <asl.h>
 #import <Foundation/Foundation.h>
 #import "LCSCmdlineCommandRunner.h"
-#import "LCSRotavaultBlockCopyCommand.h"
+#import "LCSRotavaultAsrBlockCopyCommand.h"
 #import "LCSRotavaultAppleRAIDCopyCommand.h"
 
 int main (int argc, const char * argv[]) {
@@ -32,7 +32,7 @@ int main (int argc, const char * argv[]) {
     NSString* method = [args objectForKey:@"method"];
     LCSCommand *copyCommand = nil;
     if ([@"asr" isEqualToString:method]) {
-        copyCommand = [LCSRotavaultBlockCopyCommand commandWithSourceDevice:[args stringForKey:@"sourcedev"]
+        copyCommand = [LCSRotavaultAsrBlockCopyCommand commandWithSourceDevice:[args stringForKey:@"sourcedev"]
                                                              sourceChecksum:[args stringForKey:@"sourcecheck"]
                                                                targetDevice:[args stringForKey:@"targetdev"]
                                                              targetChecksum:[args stringForKey:@"targetcheck"]];
