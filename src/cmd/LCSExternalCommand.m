@@ -134,7 +134,6 @@
 {
     if ([task isRunning]) {
         [task terminate];
-        NSLog(@"object: %@ cmd %@", [self description], NSStringFromSelector(_cmd));
         
         /*
          * Because of a race condition in NSTask it is possible that a freshly spawned task does not receive the TERM
