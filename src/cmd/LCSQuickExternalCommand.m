@@ -103,19 +103,19 @@
 -(void)performStart
 {
     [task setStandardOutput:stdoutPipe];
+    [task setStandardError:stderrPipe];
+    
+    [super performStart];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleReadToEndOfFileNotification:)
                                                  name:NSFileHandleReadToEndOfFileCompletionNotification
                                                object:[stdoutPipe fileHandleForReading]];
     [[stdoutPipe fileHandleForReading] readToEndOfFileInBackgroundAndNotify];
-    
-    [task setStandardError:stderrPipe];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleReadToEndOfFileNotification:)
                                                  name:NSFileHandleReadToEndOfFileCompletionNotification
                                                object:[stderrPipe fileHandleForReading]];
     [[stderrPipe fileHandleForReading] readToEndOfFileInBackgroundAndNotify];
-    
-    [super performStart];
 }
 @end

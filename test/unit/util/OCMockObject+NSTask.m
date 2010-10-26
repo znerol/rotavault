@@ -51,16 +51,11 @@
 
 -(void)writeDataAndClose
 {
-    /*
-     * FIXME: It looks like its possible to deadlock here if closeFile is used... Use unix' close function
-     */
     [[[task standardOutput] fileHandleForWriting] writeData:stdoutData];
-    //[[[task standardOutput] fileHandleForWriting] closeFile];
-    close([[[task standardOutput] fileHandleForWriting] fileDescriptor]);
+    [[[task standardOutput] fileHandleForWriting] closeFile];
     
     [[[task standardError] fileHandleForWriting] writeData:stderrData];
-    //[[[task standardError] fileHandleForWriting] closeFile];
-    close([[[task standardError] fileHandleForWriting] fileDescriptor]);
+    [[[task standardError] fileHandleForWriting] closeFile];
 }
 @end
 

@@ -71,12 +71,14 @@
 -(void)performStart
 {
     stdoutPipe = [[NSPipe alloc] init];
+    [task setStandardOutput:stdoutPipe];
+    
+    [super performStart];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleReadCompletionNotification:)
                                                  name:NSFileHandleReadCompletionNotification
                                                object:[stdoutPipe fileHandleForReading]];
     [[stdoutPipe fileHandleForReading] readInBackgroundAndNotify];
-    [task setStandardOutput:stdoutPipe];
-    [super performStart];
 }
 @end
