@@ -60,6 +60,8 @@
 
 -(void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     [sourceDevice release];
     [sourceChecksum release];
     [targetDevice release];

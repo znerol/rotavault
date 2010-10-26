@@ -27,6 +27,8 @@
 
 -(void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     [stdoutData release];
     [stderrData release];
     [stdoutPipe release];

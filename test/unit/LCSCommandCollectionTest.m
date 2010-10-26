@@ -17,6 +17,11 @@
 
 @implementation LCSCommandCollectionTest
 
+-(void)tearDown
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 -(void)testOneCommandWatchOneState
 {
     LCSCommand *ctl = [LCSTestCommand commandWithDelay:0 finalState:LCSCommandStateFinished];

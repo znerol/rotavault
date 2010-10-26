@@ -34,6 +34,8 @@
 
 - (void)dealloc
 {
+    [[NSDistributedNotificationCenter defaultCenter] removeObserver:self];
+    
     [states release];
     [command release];
     [label release];

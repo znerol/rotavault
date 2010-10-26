@@ -24,6 +24,12 @@
     return [[[LCSAllDiskInfoCommand alloc] init] autorelease];
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [super dealloc];
+}
+
 - (void)startGatherInformation
 {
     NSParameterAssert([activeCommands.commands count] == 0);

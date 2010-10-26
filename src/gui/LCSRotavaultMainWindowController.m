@@ -44,6 +44,8 @@
 
 - (void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     [job removeObserver:self forKeyPath:@"lastError"];
     [job release];
     [systools release];

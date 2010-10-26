@@ -42,6 +42,8 @@
 
 - (void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     [raidsetUUID release];
     [memberDevpath release];
     [listraidctl release];
