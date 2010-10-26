@@ -38,10 +38,9 @@
                                        LCSERROR_EXECUTABLE_LAUNCH_PATH([task launchPath]));
         [self handleError:err];
         [errorDescription release];
-        return;
     }
-    
-    stdoutCollected = YES;
-    [stdoutPlist retain];
+    else {
+        [stdoutPlist retain];
+    }
 }
 @end

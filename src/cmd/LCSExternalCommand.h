@@ -12,13 +12,20 @@
 
 @interface LCSExternalCommand : LCSCommand {
     NSTask *task;
-
+@private
+    BOOL    taskTerminated;
 }
 @property(readonly,retain) NSTask *task;
 @end
 
+@interface LCSExternalCommand (SublcassInterface)
+-(void)handleError:(NSError *)error;
+-(void)completeIfDone;
+@end
+
 @interface LCSExternalCommand (SubclassOverrides)
 -(void)invalidate;
--(void)handleTaskTermination;
--(void)handleError:(NSError *)error;
+-(void)handleTaskStarted;
+-(BOOL)done;
+-(void)collectResults;
 @end

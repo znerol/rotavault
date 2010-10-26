@@ -22,6 +22,8 @@
     stdoutPipe = [[NSPipe alloc] init];
     LCSINIT_RELEASE_AND_RETURN_IF_NIL(stderrPipe);
     
+    [task setStandardOutput:stdoutPipe];
+    [task setStandardError:stderrPipe];
     return self;
 }
 
@@ -49,28 +51,24 @@
 
 -(void)collectResults
 {
-    self.result = [NSArray arrayWithObjects:stdoutData, stderrData, nil];
+    if ([self validateNextState:LCSCommandStateFinished])
+    {
+        self.result = [NSArray arrayWithObjects:stdoutData, stderrData, nil];
+    }
 }
 
--(void)completeIfDone
+-(BOOL)done
 {
-    if (!taskTerminated || !stdoutCollected || !stderrCollected) {
-        return;
-    }
-    
-    [self collectResults];
-    [super handleTaskTermination];
+    return stdoutCollected && stderrCollected && [super done];
 }
 
 -(void)stderrDataAvailable:(NSData*)data
 {
-    stderrCollected = YES;
     stderrData = [data retain];
 }
 
 -(void)stdoutDataAvailable:(NSData*)data
 {
-    stdoutCollected = YES;
     stdoutData = [data retain];
 }
 
@@ -80,14 +78,15 @@
 
     if ([unixError intValue] != 0) {
         self.state = LCSCommandStateFailed;
-        [self invalidate];
     }
     
     if ([ntf object] == [stdoutPipe fileHandleForReading]) {
         [self stdoutDataAvailable:[[ntf userInfo] objectForKey:NSFileHandleNotificationDataItem]];
+        stdoutCollected = YES;
     }
     else if ([ntf object] == [stderrPipe fileHandleForReading]) {
         [self stderrDataAvailable:[[ntf userInfo] objectForKey:NSFileHandleNotificationDataItem]];
+        stderrCollected = YES;
     }
     else {
         return;
@@ -96,19 +95,8 @@
     [self completeIfDone];
 }
 
--(void)handleTaskTermination
+-(void)handleTaskStarted
 {
-    taskTerminated = YES;
-    [self completeIfDone];
-}
-
--(void)performStart
-{
-    [task setStandardOutput:stdoutPipe];
-    [task setStandardError:stderrPipe];
-    
-    [super performStart];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleReadToEndOfFileNotification:)
                                                  name:NSFileHandleReadToEndOfFileCompletionNotification

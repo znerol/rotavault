@@ -41,19 +41,8 @@
     self.state = LCSCommandStateInvalidated;
 }
 
--(void)handleTaskTermination
+-(void)collectResults
 {
-    if ([task terminationStatus] != 0 && [self validateNextState:LCSCommandStateFailed]) {
-        NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSExecutableReturnedNonZeroStatusError,
-                                       LCSERROR_LOCALIZED_DESCRIPTION(@"External helper tool terminated with exit status %d", [task terminationStatus]),
-                                       LCSERROR_EXECUTABLE_TERMINATION_STATUS([task terminationStatus]),
-                                       LCSERROR_EXECUTABLE_LAUNCH_PATH([task launchPath]));
-        [self handleError:err];
-    }
-    else if ([self validateNextState:LCSCommandStateFinished]){
-        self.state = LCSCommandStateFinished;
-        [self invalidate];
-    }
 }
 
 -(void)handleError:(NSError*)err
@@ -64,23 +53,46 @@
     if ([task isRunning]) {
         [task terminate];
     }
-    else {
-        [self invalidate];
+}
+
+-(BOOL)done
+{
+    return taskTerminated;
+}
+
+-(void)completeIfDone
+{
+    if (![self done]) {
+        return;
     }
+    
+    [self collectResults];
+    
+    if ([self validateNextState:LCSCommandStateCancelled]) {
+        self.state = LCSCommandStateCancelled;
+    }
+    else if ([task terminationStatus] != 0 && [self validateNextState:LCSCommandStateFailed]) {
+        NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSExecutableReturnedNonZeroStatusError,
+                                       LCSERROR_LOCALIZED_DESCRIPTION(@"External helper tool terminated with exit status %d", [task terminationStatus]),
+                                       LCSERROR_EXECUTABLE_TERMINATION_STATUS([task terminationStatus]),
+                                       LCSERROR_EXECUTABLE_LAUNCH_PATH([task launchPath]));
+        [self handleError:err];
+    }
+    else if ([self validateNextState:LCSCommandStateFinished]){
+        self.state = LCSCommandStateFinished;
+    }
+    
+    [self invalidate];
 }
 
 -(void)handleTerminationNotification:(NSNotification*)ntf
 {
-    if (self.state == LCSCommandStateCancelling) {
-        self.state = LCSCommandStateCancelled;
-        [self invalidate];
-    }
-    else if (self.state == LCSCommandStateFailed) {
-        [self invalidate];
-    }
-    else {
-        [self handleTaskTermination];
-    }
+    taskTerminated = YES;
+    [self completeIfDone];
+}
+
+-(void)handleTaskStarted
+{
 }
 
 -(void)performStart
@@ -99,6 +111,7 @@
                               LCSERROR_LOCALIZED_DESCRIPTION(@"Failed to launch external helper tool at %@. No such file", [task launchPath]),
                               LCSERROR_EXECUTABLE_LAUNCH_PATH([task launchPath]));
         [self handleError:err];
+        [self invalidate];
         return;
     }
     else if (isDirectory) {
@@ -106,6 +119,7 @@
                               LCSERROR_LOCALIZED_DESCRIPTION(@"Failed to launch external helper tool. %@ is a directory.", [task launchPath]),
                               LCSERROR_EXECUTABLE_LAUNCH_PATH([task launchPath]));
         [self handleError:err];
+        [self invalidate];
         return;
     }
     else if (![fm isExecutableFileAtPath:[task launchPath]]) {
@@ -113,6 +127,7 @@
                               LCSERROR_LOCALIZED_DESCRIPTION(@"Failed to launch external helper tool. %@ is not executable.", [task launchPath]),
                               LCSERROR_EXECUTABLE_LAUNCH_PATH([task launchPath]));
         [self handleError:err];
+        [self invalidate];
         return;
     }
     
@@ -124,10 +139,13 @@
                               LCSERROR_LOCALIZED_DESCRIPTION(@"Failed to launch external helper tool. %@", [e description]),
                               LCSERROR_EXECUTABLE_LAUNCH_PATH([task launchPath]));
         [self handleError:err];
+        [self invalidate];
         return;
     }
     
     self.state = LCSCommandStateRunning;
+    
+    [self handleTaskStarted];
 }
 
 -(void)performCancel
