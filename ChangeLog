@@ -1,0 +1,10 @@
+rotavault (alpha-1) experimental; urgency=low
+  * Tag release/master/alpha-1
+  * Basic features tested on Leopard and Snow Leopard x86_64/i386
+  * Implemented two block copy methods (asr and asr on AppleRAID slice)
+  * Scheduling working for one configuration either running as root or as
+    unprivileged user
+  * Progress and status report via gui for background tasks
+  * Installer for command line tools integrated
+  * Standalone Unit Test and System Test applications
+ -- Lorenz Schori <lo@znerol.ch>  Wed Oct 27 14:58:29 CEST 2010
