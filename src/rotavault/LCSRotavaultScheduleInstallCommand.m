@@ -160,30 +160,6 @@
     return YES;
 }
 
--(BOOL)constructLaunchdPlist
-{
-    NSDictionary *sourceDiskInformation = sourceInfoCtl.result;
-    NSDictionary *targetDiskInformation = targetInfoCtl.result;
-    NSString *sourceCheck = nil;
-    if ([@"asr" isEqualToString:method]) {
-        sourceCheck = [NSString stringWithFormat:@"uuid:%@", [sourceDiskInformation objectForKey:@"VolumeUUID"]];
-    }
-    else if ([@"appleraid" isEqualToString:method]) {
-        sourceCheck = [NSString stringWithFormat:@"sha1:%@",
-                       [[LCSPropertyListSHA1Hash sha1HashFromPropertyList:sourceDiskInformation] stringWithHexBytes]];
-    }
-    NSString *targetSHA1 = [[LCSPropertyListSHA1Hash sha1HashFromPropertyList:targetDiskInformation] stringWithHexBytes];
-    
-    launchdPlist = (NSDictionary*)LCSRotavaultCreateJobDictionary((CFStringRef)rvcopydLabel,
-                                                                           (CFStringRef)method,
-                                                                           (CFDateRef)runAtDate,
-                                                                           (CFStringRef)sourceDevice,
-                                                                           (CFStringRef)targetDevice,
-                                                                           (CFStringRef)sourceCheck,
-                                                                           (CFStringRef)[NSString stringWithFormat:@"sha1:%@", targetSHA1]);
-    return (launchdPlist != nil);
-}
-
 -(BOOL)writeLaunchdPlist
 {
     const char template[] = "/tmp/launchd-plist.XXXXXXXX";
@@ -278,26 +254,51 @@ writeLaunchdPlist_freeAndReturn:
                                              selector:@selector(completeLaunchctlInstall:)
                                                  name:[LCSCommandCollection notificationNameAllCommandsEnteredState:LCSCommandStateFinished]
                                                object:activeCommands];
+    
+    /* construct parameters */
+    NSDictionary *sourceDiskInformation = sourceInfoCtl.result;
+    NSDictionary *targetDiskInformation = targetInfoCtl.result;
+    NSString *sourceCheck = nil;
+    if ([@"asr" isEqualToString:method]) {
+        sourceCheck = [NSString stringWithFormat:@"uuid:%@", [sourceDiskInformation objectForKey:@"VolumeUUID"]];
+    }
+    else if ([@"appleraid" isEqualToString:method]) {
+        sourceCheck = [NSString stringWithFormat:@"sha1:%@",
+                       [[LCSPropertyListSHA1Hash sha1HashFromPropertyList:sourceDiskInformation] stringWithHexBytes]];
+    }
+    NSString *targetCheck = [NSString stringWithFormat:@"sha1:%@",
+                             [[LCSPropertyListSHA1Hash sha1HashFromPropertyList:targetDiskInformation]
+                              stringWithHexBytes]];
+    
     LCSCommand *ctl = nil;
     if (authorization) {
-        NSDictionary *sourceDiskInformation = sourceInfoCtl.result;
-        NSDictionary *targetDiskInformation = targetInfoCtl.result;
-        NSString *sourceUUID = [sourceDiskInformation objectForKey:@"VolumeUUID"];
-        NSString *targetSHA1 = [[LCSPropertyListSHA1Hash sha1HashFromPropertyList:targetDiskInformation] stringWithHexBytes];
-        
         ctl = [LCSRotavaultPrivilegedJobInstallCommand privilegedJobInstallCommandWithLabel:rvcopydLabel
                                                                                      method:method
                                                                                     runDate:runAtDate
                                                                                      source:sourceDevice
                                                                                      target:targetDevice
-                                                                             sourceChecksum:[NSString stringWithFormat:@"uuid:%@", sourceUUID]
-                                                                             targetChecksum:[NSString stringWithFormat:@"sha1:%@", targetSHA1]
+                                                                             sourceChecksum:sourceCheck
+                                                                             targetChecksum:targetCheck
                                                                               authorization:authorization];
     }
     else {
-        if (![self constructLaunchdPlist] || ![self writeLaunchdPlist]) {
+        launchdPlist = (NSDictionary*)LCSRotavaultCreateJobDictionary((CFStringRef)rvcopydLabel,
+                                                                           (CFStringRef)method,
+                                                                           (CFDateRef)runAtDate,
+                                                                           (CFStringRef)sourceDevice,
+                                                                           (CFStringRef)targetDevice,
+                                                                           (CFStringRef)sourceCheck,
+                                                                           (CFStringRef)targetCheck);
+        
+        if (launchdPlist == nil) {
+            NSError *err = LCSERROR_METHOD(NSPOSIXErrorDomain, errno,
+                                           LCSERROR_LOCALIZED_DESCRIPTION(@"Unable to create the rotavault launchd job plist"));
+            [self handleError:err];
             return;
         }
+        
+        [self writeLaunchdPlist];
+        
         ctl = [LCSLaunchctlLoadCommand commandWithPath:launchdPlistPath];
     }
     ctl.title = [NSString localizedStringWithFormat:@"Install new launchd job"];
