@@ -164,12 +164,6 @@
         [self handleError:err];
         return;
     }
-    if (![[sourceInfoCtl.result objectForKey:@"RAIDSetStatus"] isEqualToString:@"Online"]) {
-        NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
-                                       LCSERROR_LOCALIZED_DESCRIPTION(@"Source raid set is not online"));
-        [self handleError:err];
-        return;
-    }
     if (![[sourceInfoCtl.result objectForKey:@"RAIDSetLevelType"] isEqualToString:@"Mirror"]) {
         NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
                                        LCSERROR_LOCALIZED_DESCRIPTION(@"Source is not a mirror raid set"));
