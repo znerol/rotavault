@@ -10,6 +10,7 @@
 #import "LCSInitMacros.h"
 #import "LCSRotavaultError.h"
 #import "LCSDiskInfoCommand.h"
+#import "LCSAppleRAIDListCommand.h"
 #import "LCSLaunchctlLoadCommand.h"
 #import "LCSRotavaultPrivilegedJobInstallCommand.h"
 #import "LCSRotavaultCreateJobDictionary.h"
@@ -148,12 +149,12 @@
         return NO;
     }
     
-    /* error if source device is not a raid-1 (this only holds for appleraid) */
-    if ([@"appleraid" isEqualToString:method] && ![[sourceDiskInformation objectForKey:@"RAIDSetStatus"] isEqual:
-                                                     @"Online"]) {
-        
+    /* error if any raid set in the system is not online */
+    NSPredicate *checkOnline = [NSPredicate predicateWithFormat:@"RAIDSetStatus != 'Online'"];
+    NSArray *nonOnlineRaidSets = [raidInfoCtl.result filteredArrayUsingPredicate:checkOnline];
+    if ([nonOnlineRaidSets count] > 0) {
         NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
-                                       LCSERROR_LOCALIZED_DESCRIPTION(@"Source raid is not online"));
+                                       LCSERROR_LOCALIZED_DESCRIPTION(@"One or more RAID sets are not in a healthy state. Please check your system with Disk Utility"));
         [self handleError:err];
         return NO;
     }
@@ -231,6 +232,11 @@ writeLaunchdPlist_freeAndReturn:
     targetInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on target device"];
     [activeCommands addCommand:targetInfoCtl];
     [targetInfoCtl start];
+    
+    raidInfoCtl = [LCSAppleRAIDListCommand command];
+    raidInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on AppleRAID devices"];
+    [activeCommands addCommand:raidInfoCtl];
+    [raidInfoCtl start];
 }
 
 -(void)completeGatherInformation:(NSNotification*)ntf

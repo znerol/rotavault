@@ -19,6 +19,7 @@
     LCSCommand *sourceInfoCtl;
     LCSCommand *targetInfoCtl;
     LCSCommand *startupInfoCtl;
+    LCSCommand *raidInfoCtl;
 
     NSString *rvcopydLaunchPath;
     

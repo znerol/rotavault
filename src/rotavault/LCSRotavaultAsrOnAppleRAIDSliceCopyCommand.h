@@ -21,6 +21,7 @@
     
     LCSCommand *sourceInfoCtl;
     LCSCommand *targetInfoCtl;    
+    LCSCommand *raidInfoCtl;
 }
 
 +(LCSRotavaultAsrOnAppleRAIDSliceCopyCommand*)commandWithSourceDevice:(NSString*)sourcedev

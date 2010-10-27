@@ -14,6 +14,7 @@
 #import "LCSAsrRestoreCommand.h"
 #import "LCSAppleRAIDAddMemberCommand.h"
 #import "LCSAppleRAIDMonitorRebuildCommand.h"
+#import "LCSAppleRAIDListCommand.h"
 #import "LCSRotavaultError.h"
 #import "LCSPropertyListSHA1Hash.h"
 #import "NSData+Hex.h"
@@ -135,6 +136,11 @@
     targetInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on target device"];
     [activeCommands addCommand:targetInfoCtl];
     [targetInfoCtl start];
+    
+    raidInfoCtl = [LCSAppleRAIDListCommand command];
+    raidInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on AppleRAID devices"];
+    [activeCommands addCommand:raidInfoCtl];
+    [raidInfoCtl start];
 }
 
 -(void)completeGatherInformation:(NSNotification*)ntf
@@ -147,6 +153,15 @@
         return;
     }
     if (![self verifyDiskInformation:targetInfoCtl.result withChecksum:targetChecksum]) {
+        return;
+    }
+    /* error if any raid set in the system is not online */
+    NSPredicate *checkOnline = [NSPredicate predicateWithFormat:@"RAIDSetStatus != 'Online'"];
+    NSArray *nonOnlineRaidSets = [raidInfoCtl.result filteredArrayUsingPredicate:checkOnline];
+    if ([nonOnlineRaidSets count] > 0) {
+        NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
+                                       LCSERROR_LOCALIZED_DESCRIPTION(@"One or more RAID sets are not in a healthy state. Please check your system with Disk Utility"));
+        [self handleError:err];
         return;
     }
     if (![[sourceInfoCtl.result objectForKey:@"RAIDSetStatus"] isEqualToString:@"Online"]) {
