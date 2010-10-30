@@ -12,8 +12,8 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="368"/>
 			<integer value="57"/>
+			<integer value="368"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -3342,38 +3342,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: systools.installedVersion</string>
-						<reference key="source" ref="37674535"/>
-						<reference key="destination" ref="202162172"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="37674535"/>
-							<reference key="NSDestination" ref="202162172"/>
-							<string key="NSLabel">value: systools.installedVersion</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">systools.installedVersion</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">1087</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: systools.requiredVersion</string>
-						<reference key="source" ref="962519020"/>
-						<reference key="destination" ref="202162172"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="962519020"/>
-							<reference key="NSDestination" ref="202162172"/>
-							<string key="NSLabel">value: systools.requiredVersion</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">systools.requiredVersion</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">1089</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
 						<string key="label">target: self</string>
 						<reference key="source" ref="182018574"/>
 						<reference key="destination" ref="202162172"/>
@@ -3461,6 +3429,38 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 						</object>
 					</object>
 					<int key="connectionID">1111</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: env.registry.systools.installedVersion</string>
+						<reference key="source" ref="37674535"/>
+						<reference key="destination" ref="202162172"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="37674535"/>
+							<reference key="NSDestination" ref="202162172"/>
+							<string key="NSLabel">value: env.registry.systools.installedVersion</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">env.registry.systools.installedVersion</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1114</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: env.registry.systools.requiredVersion</string>
+						<reference key="source" ref="962519020"/>
+						<reference key="destination" ref="202162172"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="962519020"/>
+							<reference key="NSDestination" ref="202162172"/>
+							<string key="NSLabel">value: env.registry.systools.requiredVersion</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">env.registry.systools.requiredVersion</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1115</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -3833,10 +3833,10 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 							<reference ref="37674535"/>
 							<reference ref="962519020"/>
 							<reference ref="873101607"/>
-							<reference ref="182018574"/>
 							<reference ref="191904075"/>
 							<reference ref="479952591"/>
 							<reference ref="770412928"/>
+							<reference ref="182018574"/>
 						</object>
 						<reference key="parent" ref="513744381"/>
 					</object>
@@ -5753,7 +5753,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1111</int>
+			<int key="maxID">1115</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

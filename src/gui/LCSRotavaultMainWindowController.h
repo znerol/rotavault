@@ -7,17 +7,17 @@
 
 #import <Cocoa/Cocoa.h>
 #import "LCSRotavaultJob.h"
-#import "LCSRotavaultSystemTools.h"
+#import "LCSRotavaultSystemEnvironmentObserver.h"
 
 @interface LCSRotavaultMainWindowController : NSObject {
     IBOutlet NSWindow *window;
     AuthorizationRef authorization;
     
     LCSRotavaultJob *job;
-    LCSRotavaultSystemTools *systools;
+    LCSRotavaultSystemEnvironmentObserver *env;
     BOOL attachImageEnabled;
 }
 @property(readonly) LCSRotavaultJob *job;
-@property(readonly) LCSRotavaultSystemTools *systools;
+@property(readonly) LCSRotavaultSystemEnvironmentObserver *env;
 @property(assign) BOOL attachImageEnabled;
 @end

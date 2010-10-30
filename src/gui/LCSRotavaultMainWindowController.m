@@ -12,7 +12,7 @@
 
 @implementation LCSRotavaultMainWindowController
 @synthesize job;
-@synthesize systools;
+@synthesize env;
 @synthesize attachImageEnabled;
 
 - (id)init
@@ -33,9 +33,9 @@
     
     [job addObserver:self forKeyPath:@"lastError" options:0 context:nil];
     
-    systools = [[LCSRotavaultSystemTools alloc] init];
-    [systools checkInstalledVersion];
-    systools.autocheck = YES;
+    env = [[LCSRotavaultSystemEnvironmentObserver alloc] init];
+    [env checkInstalledVersion];
+    env.autocheck = YES;
     
     self.attachImageEnabled = YES;
     
@@ -48,7 +48,7 @@
     
     [job removeObserver:self forKeyPath:@"lastError"];
     [job release];
-    [systools release];
+    [env release];
     [super dealloc];
 }
 

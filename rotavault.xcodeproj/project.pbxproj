@@ -166,8 +166,8 @@
 		CABAC60B1235467700DBEA0F /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CABAC5551235464300DBEA0F /* AppKit.framework */; };
 		CABAC60C1235467800DBEA0F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
 		CABAC60D1235467800DBEA0F /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA28AF1F12132C7600C9BE6F /* CoreServices.framework */; };
+		CAD5F861127C64C000CB1414 /* LCSRotavaultSystemEnvironmentObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = CAD5F860127C64C000CB1414 /* LCSRotavaultSystemEnvironmentObserver.m */; };
 		CAD89E921256794600804E00 /* libgcov.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CABAC6EA1235738400DBEA0F /* libgcov.a */; };
-		CADC1E791271A7A500FB7A91 /* LCSRotavaultSystemTools.m in Sources */ = {isa = PBXBuildFile; fileRef = CADC1E781271A7A500FB7A91 /* LCSRotavaultSystemTools.m */; };
 		CADC1E801271A8A600FB7A91 /* LCSPkgInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CADC1E7F1271A8A600FB7A91 /* LCSPkgInfoCommand.m */; };
 		CADC96BF12754BCD00D14344 /* LCSRotavaultDistributedStateNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = CADC96BE12754BCD00D14344 /* LCSRotavaultDistributedStateNotification.m */; };
 		CADC96C012754BCD00D14344 /* LCSRotavaultDistributedStateNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = CADC96BE12754BCD00D14344 /* LCSRotavaultDistributedStateNotification.m */; };
@@ -552,8 +552,8 @@
 		CABAC6EA1235738400DBEA0F /* libgcov.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgcov.a; path = lib/libgcov.a; sourceTree = "<group>"; };
 		CAD2996D126D6BD00039D672 /* uninstall.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = uninstall.sh; sourceTree = "<group>"; };
 		CAD47F381244C271002DED2B /* Rotavault.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rotavault.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		CADC1E771271A7A500FB7A91 /* LCSRotavaultSystemTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSRotavaultSystemTools.h; sourceTree = "<group>"; };
-		CADC1E781271A7A500FB7A91 /* LCSRotavaultSystemTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSRotavaultSystemTools.m; sourceTree = "<group>"; };
+		CAD5F85F127C64C000CB1414 /* LCSRotavaultSystemEnvironmentObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSRotavaultSystemEnvironmentObserver.h; sourceTree = "<group>"; };
+		CAD5F860127C64C000CB1414 /* LCSRotavaultSystemEnvironmentObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSRotavaultSystemEnvironmentObserver.m; sourceTree = "<group>"; };
 		CADC1E7E1271A8A600FB7A91 /* LCSPkgInfoCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSPkgInfoCommand.h; sourceTree = "<group>"; };
 		CADC1E7F1271A8A600FB7A91 /* LCSPkgInfoCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSPkgInfoCommand.m; sourceTree = "<group>"; };
 		CADC96BD12754BCD00D14344 /* LCSRotavaultDistributedStateNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSRotavaultDistributedStateNotification.h; sourceTree = "<group>"; };
@@ -932,8 +932,8 @@
 				CAF1CEA0126E1DB400E40D5D /* LCSRotavaultPrivilegedJobRemoveCommand.m */,
 				CA4820511264D62700C2879B /* LCSRotavaultScheduleInstallCommand.h */,
 				CA4820521264D62700C2879B /* LCSRotavaultScheduleInstallCommand.m */,
-				CADC1E771271A7A500FB7A91 /* LCSRotavaultSystemTools.h */,
-				CADC1E781271A7A500FB7A91 /* LCSRotavaultSystemTools.m */,
+				CAD5F85F127C64C000CB1414 /* LCSRotavaultSystemEnvironmentObserver.h */,
+				CAD5F860127C64C000CB1414 /* LCSRotavaultSystemEnvironmentObserver.m */,
 				CA4820531264D62700C2879B /* rotavault_Prefix.pch */,
 			);
 			path = rotavault;
@@ -1578,11 +1578,11 @@
 				CAE3BEF6126F7DFC00982D14 /* LCSDistributedCommandStateWatcher.m in Sources */,
 				CAF65392127032CC00361A2E /* LCSRotavaultJob.m in Sources */,
 				CA197DFB1270C359005C11F1 /* LCSDiskUnmountCommand.m in Sources */,
-				CADC1E791271A7A500FB7A91 /* LCSRotavaultSystemTools.m in Sources */,
 				CADC1E801271A8A600FB7A91 /* LCSPkgInfoCommand.m in Sources */,
 				CAF835A1127490A900F8D695 /* LCSDictionaryCreateFromLaunchdJobWithLabel.c in Sources */,
 				CADC96C012754BCD00D14344 /* LCSRotavaultDistributedStateNotification.m in Sources */,
 				CAA58F721275B60C005586F9 /* LCSRotavaultAsrOnAppleRAIDSliceCopyCommand.m in Sources */,
+				CAD5F861127C64C000CB1414 /* LCSRotavaultSystemEnvironmentObserver.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
