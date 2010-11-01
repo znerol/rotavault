@@ -57,6 +57,7 @@ NSString* LCSRotavaultSystemEnvironmentRefreshed = @"LCSRotavaultSystemEnvironme
 
 - (void)completeRefresh
 {
+    [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(completeRefresh) object:nil];
     if (systoolsInfoFresh && diskInfoFresh && appleraidInfoFresh) {
         [[NSNotificationCenter defaultCenter] postNotificationName:LCSRotavaultSystemEnvironmentRefreshed object:self];
     }
@@ -64,25 +65,27 @@ NSString* LCSRotavaultSystemEnvironmentRefreshed = @"LCSRotavaultSystemEnvironme
 
 - (void)refreshInBackgroundAndNotify
 {
-    BOOL dirty = NO;
+    /*
+     * We currently don't get notified when disk information changes, so we have to load that information on every
+     * refresh
+     */
+    diskInfoFresh = NO;
+    appleraidInfoFresh = NO;
+    
     if (!systoolsInfoFresh) {
         [self checkSystoolsVersionInformation];
-        dirty = YES;
     }
     
     if (!diskInfoFresh) {
         [self checkDiskInformation];
-        dirty = YES;
     }
     
     if (!appleraidInfoFresh) {
         [self checkAppleRAIDInformation];
-        dirty = YES;
     }
     
-    if (!dirty) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:LCSRotavaultSystemEnvironmentRefreshed object:self];
-    }
+    /* Notify immediately if no new information needs to be fetched */
+    [self performSelector:@selector(completeRefresh) withObject:nil afterDelay:0];
 }
 
 - (void)watch
