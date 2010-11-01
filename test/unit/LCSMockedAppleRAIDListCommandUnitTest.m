@@ -59,4 +59,22 @@
     GHAssertEquals(cmd.exitState, LCSCommandStateFailed, @"Expected LCSCommandStateFailed");
 }
 
+- (void)testListNoRaidSetsFound
+{
+    LCSAppleRAIDListCommand* cmd = [LCSAppleRAIDListCommand command];
+    
+    NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"diskutil-appleraid-list-no-raidsets-found"
+                                                                                  ofType:@"txt"]];
+    
+    id taskMock = [OCMockObject mockTask:cmd.task withTerminationStatus:1 stdoutData:data stderrData:[NSData data]];
+    cmd.task = taskMock;
+    
+    [cmd start];
+    [cmd waitUntilDone];
+    
+    [taskMock verify];
+    
+    GHAssertEqualObjects(cmd.result, [NSArray array], @"Expected empty array");
+    GHAssertEquals(cmd.exitState, LCSCommandStateFinished, @"Expected LCSCommandStateFinished");
+}
 @end

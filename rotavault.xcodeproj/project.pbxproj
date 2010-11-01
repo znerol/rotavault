@@ -176,6 +176,7 @@
 		CAE26A631260A67700B19EC1 /* SecurityInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAE26A621260A67700B19EC1 /* SecurityInterface.framework */; };
 		CAE3BEDE126F753F00982D14 /* LCSDistributedCommandStatePublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = CAE3BEDD126F753F00982D14 /* LCSDistributedCommandStatePublisher.m */; };
 		CAE3BEF6126F7DFC00982D14 /* LCSDistributedCommandStateWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = CAE3BEF5126F7DFC00982D14 /* LCSDistributedCommandStateWatcher.m */; };
+		CAEBCF71127EA3DA00770DC8 /* diskutil-appleraid-list-no-raidsets-found.txt in Resources */ = {isa = PBXBuildFile; fileRef = CAEBCF70127EA3DA00770DC8 /* diskutil-appleraid-list-no-raidsets-found.txt */; };
 		CAEE8B1B126CE57A00B0BE92 /* rvcopyd in CopyFiles */ = {isa = PBXBuildFile; fileRef = CA94887A1211892500415257 /* rvcopyd */; };
 		CAEE8B1D126CE5CB00B0BE92 /* ch.znerol.rotavault in CopyFiles */ = {isa = PBXBuildFile; fileRef = CA877E10126B5A030067649A /* ch.znerol.rotavault */; };
 		CAEE8B56126CED1100B0BE92 /* index.xml in CopyFiles */ = {isa = PBXBuildFile; fileRef = CAEE8B2E126CE72500B0BE92 /* index.xml */; };
@@ -564,6 +565,7 @@
 		CAE3BEDD126F753F00982D14 /* LCSDistributedCommandStatePublisher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSDistributedCommandStatePublisher.m; sourceTree = "<group>"; };
 		CAE3BEF4126F7DFC00982D14 /* LCSDistributedCommandStateWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSDistributedCommandStateWatcher.h; sourceTree = "<group>"; };
 		CAE3BEF5126F7DFC00982D14 /* LCSDistributedCommandStateWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSDistributedCommandStateWatcher.m; sourceTree = "<group>"; };
+		CAEBCF70127EA3DA00770DC8 /* diskutil-appleraid-list-no-raidsets-found.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "diskutil-appleraid-list-no-raidsets-found.txt"; sourceTree = "<group>"; };
 		CAEE8B2C126CE72500B0BE92 /* 01systools-contents.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "01systools-contents.xml"; sourceTree = "<group>"; };
 		CAEE8B2D126CE72500B0BE92 /* 01systools.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = 01systools.xml; sourceTree = "<group>"; };
 		CAEE8B2E126CE72500B0BE92 /* index.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = index.xml; sourceTree = "<group>"; };
@@ -1113,6 +1115,7 @@
 				CAF8350F1274842100F8D695 /* diskutil-appleraid-list-degraded-rebuilding-1.txt */,
 				CAF835101274842100F8D695 /* diskutil-appleraid-list-degraded-rebuilding-2.txt */,
 				CAF835111274842100F8D695 /* diskutil-appleraid-list-degraded-rebuilding-3.txt */,
+				CAEBCF70127EA3DA00770DC8 /* diskutil-appleraid-list-no-raidsets-found.txt */,
 				CAF835121274842100F8D695 /* diskutil-appleraid-list-ok.txt */,
 				CAF835131274842100F8D695 /* diskutil-info-member-rebuilding-disk3s1.plist */,
 			);
@@ -1307,6 +1310,7 @@
 				CAF8353E1274843500F8D695 /* diskutil-info-member-rebuilding-disk3s1.plist in Resources */,
 				CAF835401274843700F8D695 /* launchd-rvcopyd-runatload.plist in Resources */,
 				CAF835411274843700F8D695 /* launchd-rvcopyd-withrundate.plist in Resources */,
+				CAEBCF71127EA3DA00770DC8 /* diskutil-appleraid-list-no-raidsets-found.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

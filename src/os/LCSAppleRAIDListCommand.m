@@ -52,6 +52,13 @@
         [self handleError:err];
         return;
     }
+    else if ([self.task terminationStatus] == 1 && [self validateNextState:LCSCommandStateFinished]) {
+        /* 
+         * diskutil appleraid list returns 1 if no raid sets are found in the system. Therefore we need to explicitely
+         * switch to state finished, otherwise LCSCommand would interpret that case as a failure.
+         */
+        self.state = LCSCommandStateFinished;
+    }
     
     self.result = arraylist;
 }
