@@ -12,6 +12,15 @@
 
 extern const double RotavaultVersionNumber;
 
+NSString* LCSRotavaultSystemEnvironmentRefreshed = @"LCSRotavaultSystemEnvironmentRefreshed";
+
+@interface LCSRotavaultSystemEnvironmentObserver (Internal)
+- (void)updateSystoolsVersionInformation;
+- (void)checkSystoolsVersionInformation;
+- (void)invalidateCheckSystoolsVersionInformation:(NSNotification*)ntf;
+@end
+
+
 @implementation LCSRotavaultSystemEnvironmentObserver
 @synthesize registry;
 
@@ -25,88 +34,106 @@ extern const double RotavaultVersionNumber;
     return self;
 }
 
--(void)dealloc
+- (void)dealloc
 {
     [[self class] cancelPreviousPerformRequestsWithTarget:self];
     [[NSDistributedNotificationCenter defaultCenter] removeObserver:self];
     
     [registry release];
-    [pkgInfoCommand release];
+    [systoolsInfoCommand release];
     [super dealloc];
 }
 
--(void)updateControls
+- (void)completeRefresh
+{
+    if (systoolsInfoFresh) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:LCSRotavaultSystemEnvironmentRefreshed object:self];
+    }
+}
+
+- (void)refreshInBackgroundAndNotify
+{
+    BOOL dirty = NO;
+    if (!systoolsInfoFresh) {
+        [self checkSystoolsVersionInformation];
+        dirty = YES;
+    }
+    
+    if (!dirty) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:LCSRotavaultSystemEnvironmentRefreshed object:self];
+    }
+}
+
+- (void)watch
+{
+    NSParameterAssert(watching == NO);
+    
+    /* systools installed version */
+    [[NSDistributedNotificationCenter defaultCenter] addObserver:self
+                                                        selector:@selector(checkSystoolsVersionInformation)
+                                                            name:@"PKInstallDaemonDidEndInstallNotification"
+                                                          object:nil];
+}
+
+- (void)unwatch
+{
+    [[NSDistributedNotificationCenter defaultCenter] removeObserver:self
+                                                               name:@"PKInstallDaemonDidEndInstallNotification"
+                                                             object:nil];
+}
+
+#pragma mark System Tools Subsystem
+- (void)updateSystoolsVersionInformation
 {
     NSDictionary *systemToolsState = [NSDictionary dictionaryWithObjectsAndKeys:
-                                      [NSNumber numberWithDouble:installedVersion], @"installedVersion",
+                                      [NSNumber numberWithDouble:systoolsInstalledVersion], @"installedVersion",
                                       [NSNumber numberWithDouble:RotavaultVersionNumber], @"requiredVersion",
-                                      installed ? kCFBooleanTrue : kCFBooleanFalse, @"installed",
-                                      upToDate ? kCFBooleanTrue : kCFBooleanFalse, @"upToDate",
+                                      systoolsInstalled ? kCFBooleanTrue : kCFBooleanFalse, @"installed",
+                                      systoolsInstalledVersion == RotavaultVersionNumber ?
+                                                                    kCFBooleanTrue : kCFBooleanFalse, @"upToDate",
                                       nil];
     [self.registry setObject:systemToolsState forKey:@"systools"];
 }
 
--(void)checkInstalledVersion
+- (void)checkSystoolsVersionInformation
 {
-    if (pkgInfoCommand != nil) {
+    if (systoolsInfoCommand != nil) {
         /* don't run more than one command on a single job */
         return;
     }
     
-    pkgInfoCommand = [LCSPkgInfoCommand commandWithPkgId:@"ch.znerol.rotavault.systools"];
+    systoolsInfoFresh = NO;
+    systoolsInfoCommand = [LCSPkgInfoCommand commandWithPkgId:@"ch.znerol.rotavault.systools"];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(invalidateCheckStatus:)
+                                             selector:@selector(invalidateCheckSystoolsVersionInformation:)
                                                  name:[LCSCommand notificationNameStateEntered:LCSCommandStateInvalidated]
-                                               object:pkgInfoCommand];
-    pkgInfoCommand.title = [NSString localizedStringWithFormat:@"Checking Rotavault System Tools Installation"];
+                                               object:systoolsInfoCommand];
+    systoolsInfoCommand.title = [NSString localizedStringWithFormat:@"Checking Rotavault System Tools Installation"];
     
-    [pkgInfoCommand retain];
-    [pkgInfoCommand start];
-    [self updateControls];
+    [systoolsInfoCommand retain];
+    [systoolsInfoCommand start];
+    
+    [self updateSystoolsVersionInformation];
 }
 
-- (void)invalidateCheckStatus:(NSNotification*)ntf
+- (void)invalidateCheckSystoolsVersionInformation:(NSNotification*)ntf
 {
-    assert(pkgInfoCommand == [ntf object]);
+    assert(systoolsInfoCommand == [ntf object]);
     
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:[LCSCommand notificationNameStateEntered:LCSCommandStateInvalidated]
-                                                  object:pkgInfoCommand];
+                                                  object:systoolsInfoCommand];
     
-    installed = (pkgInfoCommand.exitState == LCSCommandStateFinished);
-    if (installed) {
-        installedVersion = [[pkgInfoCommand.result objectForKey:@"pkg-version"] doubleValue];
+    systoolsInstalled = (systoolsInfoCommand.exitState == LCSCommandStateFinished);
+    if (systoolsInstalled) {
+        systoolsInstalledVersion = [[systoolsInfoCommand.result objectForKey:@"pkg-version"] doubleValue];
     }
     
-    [pkgInfoCommand autorelease];
-    pkgInfoCommand = nil;
+    [systoolsInfoCommand autorelease];
+    systoolsInfoCommand = nil;
+    systoolsInfoFresh = YES;
     
-    [self updateControls];
+    [self updateSystoolsVersionInformation];
+    [self completeRefresh];
 }
-
-- (void)setAutocheck:(BOOL)value
-{
-    if (value == autocheck) {
-        return;
-    }
-    autocheck = value;
-    
-    if (autocheck == YES) {
-        [[NSDistributedNotificationCenter defaultCenter] addObserver:self
-                                                            selector:@selector(checkInstalledVersion)
-                                                                name:@"PKInstallDaemonDidEndInstallNotification"
-                                                              object:nil];
-    }
-    else {
-        [[NSDistributedNotificationCenter defaultCenter] removeObserver:self
-                                                                   name:@"PKInstallDaemonDidEndInstallNotification"
-                                                                 object:nil];
-    }
-}
-
-- (BOOL)autocheck
-{
-    return autocheck;
-}
-
 @end

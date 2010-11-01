@@ -10,19 +10,21 @@
 #import "LCSCommand.h"
 
 
+extern NSString* LCSRotavaultSystemEnvironmentRefreshed;
+
 @interface LCSRotavaultSystemEnvironmentObserver : NSObject {
     NSMutableDictionary *registry;
     
-    LCSCommand* pkgInfoCommand;
-    BOOL        pkgInfoPresent;
-    double      installedVersion;
-    BOOL        installed;
-    BOOL        upToDate;
+    LCSCommand* systoolsInfoCommand;
+    BOOL        systoolsInfoFresh;
+    double      systoolsInstalledVersion;
+    BOOL        systoolsInstalled;
     
-    BOOL        autocheck;
+    BOOL        watching;
 }
 @property(readonly) NSMutableDictionary *registry;
-@property(assign) BOOL autocheck;
 
--(void)checkInstalledVersion;
+- (void)watch;
+- (void)unwatch;
+- (void)refreshInBackgroundAndNotify;
 @end

@@ -34,8 +34,8 @@
     [job addObserver:self forKeyPath:@"lastError" options:0 context:nil];
     
     env = [[LCSRotavaultSystemEnvironmentObserver alloc] init];
-    [env checkInstalledVersion];
-    env.autocheck = YES;
+    [env watch];
+    [env refreshInBackgroundAndNotify];
     
     self.attachImageEnabled = YES;
     
@@ -48,6 +48,7 @@
     
     [job removeObserver:self forKeyPath:@"lastError"];
     [job release];
+    [env unwatch];
     [env release];
     [super dealloc];
 }
