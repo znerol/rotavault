@@ -25,12 +25,9 @@ extern NSString* LCSRotavaultSystemEnvironmentRefreshed;
     
     LCSCommand* appleraidInfoCommand;
     BOOL        appleraidInfoFresh;
-    
-    BOOL        watching;
 }
 @property(readonly) NSMutableDictionary *registry;
 
-- (void)watch;
-- (void)unwatch;
++ (LCSRotavaultSystemEnvironmentObserver*)defaultSystemEnvironmentObserver;
 - (void)refreshInBackgroundAndNotify;
 @end

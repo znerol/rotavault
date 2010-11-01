@@ -33,13 +33,16 @@
     
     [job addObserver:self forKeyPath:@"lastError" options:0 context:nil];
     
-    env = [[LCSRotavaultSystemEnvironmentObserver alloc] init];
-    [env watch];
-    [env refreshInBackgroundAndNotify];
+    env = [LCSRotavaultSystemEnvironmentObserver defaultSystemEnvironmentObserver];
     
     self.attachImageEnabled = YES;
     
     return self;
+}
+
+- (void)awakeFromNib
+{
+    [env refreshInBackgroundAndNotify];
 }
 
 - (void)dealloc
@@ -48,8 +51,6 @@
     
     [job removeObserver:self forKeyPath:@"lastError"];
     [job release];
-    [env unwatch];
-    [env release];
     [super dealloc];
 }
 

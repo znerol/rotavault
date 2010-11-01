@@ -12,7 +12,8 @@
 #import "LCSAllDiskInfoCommand.h"
 #import "LCSAppleRAIDListCommand.h"
 
-extern const double RotavaultVersionNumber;
+extern const double LCSAVGVersionNumberSymbol;
+
 
 NSString* LCSRotavaultSystemEnvironmentRefreshed = @"LCSRotavaultSystemEnvironmentRefreshed";
 
@@ -29,8 +30,21 @@ NSString* LCSRotavaultSystemEnvironmentRefreshed = @"LCSRotavaultSystemEnvironme
 @end
 
 
+LCSRotavaultSystemEnvironmentObserver *LCSDefaultRotavaultSystemEnvironmentObserver;
+
+
 @implementation LCSRotavaultSystemEnvironmentObserver
 @synthesize registry;
+
++ (void)initialize
+{
+    LCSDefaultRotavaultSystemEnvironmentObserver = [[LCSRotavaultSystemEnvironmentObserver alloc] init];
+}
+
++ (LCSRotavaultSystemEnvironmentObserver*)defaultSystemEnvironmentObserver
+{
+    return LCSDefaultRotavaultSystemEnvironmentObserver;
+}
 
 - (id)init
 {
@@ -39,12 +53,19 @@ NSString* LCSRotavaultSystemEnvironmentRefreshed = @"LCSRotavaultSystemEnvironme
     registry = [[NSMutableDictionary alloc] init];
     LCSINIT_RELEASE_AND_RETURN_IF_NIL(registry);
     
+    /* refresh information about systools whenever the mac os x installer completes any package installation */
+    [[NSDistributedNotificationCenter defaultCenter] addObserver:self
+                                                        selector:@selector(checkSystoolsVersionInformation)
+                                                            name:@"PKInstallDaemonDidEndInstallNotification"
+                                                          object:nil];
+    
     return self;
 }
 
 - (void)dealloc
 {
     [[self class] cancelPreviousPerformRequestsWithTarget:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[NSDistributedNotificationCenter defaultCenter] removeObserver:self];
     
     [registry release];
@@ -88,32 +109,14 @@ NSString* LCSRotavaultSystemEnvironmentRefreshed = @"LCSRotavaultSystemEnvironme
     [self performSelector:@selector(completeRefresh) withObject:nil afterDelay:0];
 }
 
-- (void)watch
-{
-    NSParameterAssert(watching == NO);
-    
-    /* systools installed version */
-    [[NSDistributedNotificationCenter defaultCenter] addObserver:self
-                                                        selector:@selector(checkSystoolsVersionInformation)
-                                                            name:@"PKInstallDaemonDidEndInstallNotification"
-                                                          object:nil];
-}
-
-- (void)unwatch
-{
-    [[NSDistributedNotificationCenter defaultCenter] removeObserver:self
-                                                               name:@"PKInstallDaemonDidEndInstallNotification"
-                                                             object:nil];
-}
-
 #pragma mark System Tools Subsystem
 - (void)updateSystoolsVersionInformation
 {
     NSDictionary *systemToolsState = [NSDictionary dictionaryWithObjectsAndKeys:
                                       [NSNumber numberWithDouble:systoolsInstalledVersion], @"installedVersion",
-                                      [NSNumber numberWithDouble:RotavaultVersionNumber], @"requiredVersion",
+                                      [NSNumber numberWithDouble:LCSAVGVersionNumberSymbol], @"requiredVersion",
                                       systoolsInstalled ? kCFBooleanTrue : kCFBooleanFalse, @"installed",
-                                      systoolsInstalledVersion == RotavaultVersionNumber ?
+                                      systoolsInstalledVersion == LCSAVGVersionNumberSymbol ?
                                                                     kCFBooleanTrue : kCFBooleanFalse, @"upToDate",
                                       nil];
     [self.registry setObject:systemToolsState forKey:@"systools"];

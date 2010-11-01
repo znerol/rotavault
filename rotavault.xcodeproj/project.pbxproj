@@ -69,6 +69,12 @@
 		CA19249C1266036200E05A63 /* LCSAppleRAIDRemoveMemberCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA1924981266036200E05A63 /* LCSAppleRAIDRemoveMemberCommand.m */; };
 		CA197DFB1270C359005C11F1 /* LCSDiskUnmountCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA197DFA1270C359005C11F1 /* LCSDiskUnmountCommand.m */; };
 		CA197DFC1270C359005C11F1 /* LCSDiskUnmountCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA197DFA1270C359005C11F1 /* LCSDiskUnmountCommand.m */; };
+		CA4205F0127F146B008A9870 /* LCSRotavaultFreshSystemEnvironmentCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4205EF127F146B008A9870 /* LCSRotavaultFreshSystemEnvironmentCommand.m */; };
+		CA4205F1127F146B008A9870 /* LCSRotavaultFreshSystemEnvironmentCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4205EF127F146B008A9870 /* LCSRotavaultFreshSystemEnvironmentCommand.m */; };
+		CA4205F2127F146B008A9870 /* LCSRotavaultFreshSystemEnvironmentCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4205EF127F146B008A9870 /* LCSRotavaultFreshSystemEnvironmentCommand.m */; };
+		CA420616127F1A64008A9870 /* LCSRotavaultSystemEnvironmentObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = CAD5F860127C64C000CB1414 /* LCSRotavaultSystemEnvironmentObserver.m */; };
+		CA42061A127F1A7B008A9870 /* LCSAllDiskInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820331264D62700C2879B /* LCSAllDiskInfoCommand.m */; };
+		CA42061D127F1A83008A9870 /* LCSPkgInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CADC1E7F1271A8A600FB7A91 /* LCSPkgInfoCommand.m */; };
 		CA4822BE1264D69000C2879B /* LCSCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820201264D62700C2879B /* LCSCommand.m */; };
 		CA4822BF1264D69000C2879B /* LCSDiskImageInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48203B1264D62700C2879B /* LCSDiskImageInfoCommand.m */; };
 		CA4822C01264D69000C2879B /* LCSLaunchctlLoadCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820451264D62700C2879B /* LCSLaunchctlLoadCommand.m */; };
@@ -473,6 +479,8 @@
 		CA197DF91270C359005C11F1 /* LCSDiskUnmountCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSDiskUnmountCommand.h; sourceTree = "<group>"; };
 		CA197DFA1270C359005C11F1 /* LCSDiskUnmountCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSDiskUnmountCommand.m; sourceTree = "<group>"; };
 		CA28AF1F12132C7600C9BE6F /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		CA4205EE127F146B008A9870 /* LCSRotavaultFreshSystemEnvironmentCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSRotavaultFreshSystemEnvironmentCommand.h; sourceTree = "<group>"; };
+		CA4205EF127F146B008A9870 /* LCSRotavaultFreshSystemEnvironmentCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSRotavaultFreshSystemEnvironmentCommand.m; sourceTree = "<group>"; };
 		CA48201A1264D62700C2879B /* LCSCmdlineCommandRunner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSCmdlineCommandRunner.h; sourceTree = "<group>"; };
 		CA48201B1264D62700C2879B /* LCSCmdlineCommandRunner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSCmdlineCommandRunner.m; sourceTree = "<group>"; };
 		CA48201C1264D62700C2879B /* rvcopyd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rvcopyd.m; sourceTree = "<group>"; };
@@ -924,6 +932,8 @@
 				CADC96BE12754BCD00D14344 /* LCSRotavaultDistributedStateNotification.m */,
 				CA48204F1264D62700C2879B /* LCSRotavaultError.h */,
 				CA4820501264D62700C2879B /* LCSRotavaultError.m */,
+				CA4205EE127F146B008A9870 /* LCSRotavaultFreshSystemEnvironmentCommand.h */,
+				CA4205EF127F146B008A9870 /* LCSRotavaultFreshSystemEnvironmentCommand.m */,
 				CAF65390127032CC00361A2E /* LCSRotavaultJob.h */,
 				CAF65391127032CC00361A2E /* LCSRotavaultJob.m */,
 				CA678279126DFF1900900B82 /* LCSRotavaultPrivilegedJobInfoCommand.h */,
@@ -1468,6 +1478,10 @@
 				CAF836A21274C04100F8D695 /* LCSDiskMountCommand.m in Sources */,
 				CADC96BF12754BCD00D14344 /* LCSRotavaultDistributedStateNotification.m in Sources */,
 				CAA58F711275B60C005586F9 /* LCSRotavaultAsrOnAppleRAIDSliceCopyCommand.m in Sources */,
+				CA4205F2127F146B008A9870 /* LCSRotavaultFreshSystemEnvironmentCommand.m in Sources */,
+				CA420616127F1A64008A9870 /* LCSRotavaultSystemEnvironmentObserver.m in Sources */,
+				CA42061A127F1A7B008A9870 /* LCSAllDiskInfoCommand.m in Sources */,
+				CA42061D127F1A83008A9870 /* LCSPkgInfoCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1587,6 +1601,7 @@
 				CADC96C012754BCD00D14344 /* LCSRotavaultDistributedStateNotification.m in Sources */,
 				CAA58F721275B60C005586F9 /* LCSRotavaultAsrOnAppleRAIDSliceCopyCommand.m in Sources */,
 				CAD5F861127C64C000CB1414 /* LCSRotavaultSystemEnvironmentObserver.m in Sources */,
+				CA4205F0127F146B008A9870 /* LCSRotavaultFreshSystemEnvironmentCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1650,6 +1665,7 @@
 				CAF83573127484B200F8D695 /* LCSTestRamdisk.m in Sources */,
 				CAF835A0127490A900F8D695 /* LCSDictionaryCreateFromLaunchdJobWithLabel.c in Sources */,
 				CADC96EE127550B100D14344 /* LCSRotavaultDistributedStateNotification.m in Sources */,
+				CA4205F1127F146B008A9870 /* LCSRotavaultFreshSystemEnvironmentCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1776,6 +1792,7 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "LCSAVGVersionNumberSymbol=rvcopydVersionNumber";
 				INSTALL_PATH = /usr/local/bin;
 				PREBINDING = NO;
 				PRODUCT_NAME = rvcopyd;
@@ -1834,6 +1851,7 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "LCSAVGVersionNumberSymbol=rvcopydVersionNumber";
 				INSTALL_PATH = /usr/local/bin;
 				PREBINDING = NO;
 				PRODUCT_NAME = rvcopyd;
@@ -1847,6 +1865,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "LCSAVGVersionNumberSymbol=rvcopydVersionNumber";
 				INSTALL_PATH = /usr/local/bin;
 				PREBINDING = NO;
 				PRODUCT_NAME = rvcopyd;
@@ -1985,6 +2004,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "LCSAVGVersionNumberSymbol=RotavaultVersionNumber";
 				INFOPLIST_FILE = "rsrc/Rotavault-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = Rotavault;
@@ -1995,6 +2015,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "LCSAVGVersionNumberSymbol=RotavaultVersionNumber";
 				INFOPLIST_FILE = "rsrc/Rotavault-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = Rotavault;
@@ -2005,6 +2026,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "LCSAVGVersionNumberSymbol=RotavaultVersionNumber";
 				INFOPLIST_FILE = "rsrc/Rotavault-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = Rotavault;
