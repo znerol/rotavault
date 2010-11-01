@@ -16,15 +16,17 @@
 
 
 @implementation LCSAllDiskInfoCommandTest
--(void)testDiskImageInfoCommand
+-(void)testAllDiskInfoCommand
 {
     LCSAllDiskInfoCommand *cmd = [LCSAllDiskInfoCommand command];
     
     [cmd start];
     [cmd waitUntilDone];
     
-    GHAssertTrue([cmd.result isKindOfClass:[NSDictionary class]], @"Result should be a dictionary");
-    GHAssertTrue([[cmd.result valueForKey:@"/dev/disk0"] isKindOfClass:[NSDictionary class]],
-                 @"Result should contain at least an entry for the startup disk");
+    GHAssertTrue([cmd.result isKindOfClass:[NSArray class]], @"Result should be an array");
+    GHAssertEqualObjects([[cmd.result objectAtIndex:0] valueForKey:@"DeviceIdentifier"], @"disk0",
+                         @"Result should contain at least a whole-disk entry for the startup disk");
+    GHAssertEqualObjects([[cmd.result objectAtIndex:1] valueForKey:@"DeviceIdentifier"], @"disk0s1",
+                         @"Result should contain at least one partition on the startup disk");
 }
 @end
