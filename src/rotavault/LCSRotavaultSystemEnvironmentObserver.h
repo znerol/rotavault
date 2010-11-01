@@ -20,6 +20,12 @@ extern NSString* LCSRotavaultSystemEnvironmentRefreshed;
     double      systoolsInstalledVersion;
     BOOL        systoolsInstalled;
     
+    LCSCommand* diskInfoCommand;
+    BOOL        diskInfoFresh;
+    
+    LCSCommand* appleraidInfoCommand;
+    BOOL        appleraidInfoFresh;
+    
     BOOL        watching;
 }
 @property(readonly) NSMutableDictionary *registry;
