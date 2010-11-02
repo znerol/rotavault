@@ -9,7 +9,7 @@
 #import "LCSRotavaultScheduleInstallCommand.h"
 #import "LCSInitMacros.h"
 #import "LCSRotavaultError.h"
-#import "LCSDiskInfoCommand.h"
+#import "LCSRotavaultFreshSystemEnvironmentCommand.h"
 #import "LCSAppleRAIDListCommand.h"
 #import "LCSLaunchctlLoadCommand.h"
 #import "LCSRotavaultPrivilegedJobInstallCommand.h"
@@ -89,11 +89,7 @@
 }
 
 -(BOOL)validateDiskInformation
-{
-    NSDictionary *sourceDiskInformation = sourceInfoCtl.result;
-    NSDictionary *targetDiskInformation = targetInfoCtl.result;
-    NSDictionary *startupDiskInformation = startupInfoCtl.result;
-    
+{    
     /* error if source device is the startup disk (only holds for asr) */
     if ([@"asr" isEqualToString:method] && [[sourceDiskInformation objectForKey:@"DeviceNode"] isEqual:
          [startupDiskInformation objectForKey:@"DeviceNode"]]) {
@@ -151,7 +147,7 @@
     
     /* error if any raid set in the system is not online */
     NSPredicate *checkOnline = [NSPredicate predicateWithFormat:@"RAIDSetStatus != 'Online'"];
-    NSArray *nonOnlineRaidSets = [raidInfoCtl.result filteredArrayUsingPredicate:checkOnline];
+    NSArray *nonOnlineRaidSets = [[systemEnvCommand.result objectForKey:@"appleraid"] filteredArrayUsingPredicate:checkOnline];
     if ([nonOnlineRaidSets count] > 0) {
         NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
                                        LCSERROR_LOCALIZED_DESCRIPTION(@"One or more RAID sets are not in a healthy state. Please check your system with Disk Utility"));
@@ -218,25 +214,10 @@ writeLaunchdPlist_freeAndReturn:
                                                  name:[LCSCommandCollection notificationNameAllCommandsEnteredState:LCSCommandStateFinished]
                                                object:activeCommands];
     
-    startupInfoCtl = [LCSDiskInfoCommand commandWithDevicePath:@"/"];
-    startupInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on startup disk"];
-    [activeCommands addCommand:startupInfoCtl];
-    [startupInfoCtl start];
-    
-    sourceInfoCtl = [LCSDiskInfoCommand commandWithDevicePath:sourceDevice];
-    sourceInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on source device"];
-    [activeCommands addCommand:sourceInfoCtl];
-    [sourceInfoCtl start];
-    
-    targetInfoCtl = [LCSDiskInfoCommand commandWithDevicePath:targetDevice];
-    targetInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on target device"];
-    [activeCommands addCommand:targetInfoCtl];
-    [targetInfoCtl start];
-    
-    raidInfoCtl = [LCSAppleRAIDListCommand command];
-    raidInfoCtl.title = [NSString localizedStringWithFormat:@"Get information on AppleRAID devices"];
-    [activeCommands addCommand:raidInfoCtl];
-    [raidInfoCtl start];
+    systemEnvCommand = [LCSRotavaultFreshSystemEnvironmentCommand commandWithDefaultSystemEnvironmentObserver];
+    systemEnvCommand.title = [NSString localizedStringWithFormat:@"Gather information"];
+    [activeCommands addCommand:systemEnvCommand];
+    [systemEnvCommand start];
 }
 
 -(void)completeGatherInformation:(NSNotification*)ntf
@@ -244,6 +225,32 @@ writeLaunchdPlist_freeAndReturn:
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:[LCSCommandCollection notificationNameAllCommandsEnteredState:LCSCommandStateFinished]
                                                   object:activeCommands];
+    
+    NSArray *diskinfo = [systemEnvCommand.result objectForKey:@"diskinfo"];
+    
+    NSPredicate *sourceDiskFilter = [NSPredicate predicateWithFormat:@"DeviceIdentifier = %@", [sourceDevice lastPathComponent]];
+    @try {
+        sourceDiskInformation = [[diskinfo filteredArrayUsingPredicate:sourceDiskFilter] objectAtIndex:0];
+    }
+    @catch (NSException *e) {
+        sourceDiskInformation = nil;
+    }
+    
+    NSPredicate *targetDiskFilter = [NSPredicate predicateWithFormat:@"DeviceIdentifier = %@", [targetDevice lastPathComponent]];
+    @try {
+        targetDiskInformation = [[diskinfo filteredArrayUsingPredicate:targetDiskFilter] objectAtIndex:0];
+    }
+    @catch (NSException *e) {
+        targetDiskInformation = nil;
+    }
+    
+    NSPredicate *startupDiskFilter = [NSPredicate predicateWithFormat:@"MountPoint = '/'"];
+    @try {
+        startupDiskInformation = [[diskinfo filteredArrayUsingPredicate:startupDiskFilter] objectAtIndex:0];
+    }
+    @catch (NSException *e) {
+        startupDiskInformation = nil;
+    }
     
     if (![self validateDiskInformation]) {
         return;
@@ -262,8 +269,6 @@ writeLaunchdPlist_freeAndReturn:
                                                object:activeCommands];
     
     /* construct parameters */
-    NSDictionary *sourceDiskInformation = sourceInfoCtl.result;
-    NSDictionary *targetDiskInformation = targetInfoCtl.result;
     NSString *sourceCheck = nil;
     if ([@"asr" isEqualToString:method]) {
         sourceCheck = [NSString stringWithFormat:@"uuid:%@", [sourceDiskInformation objectForKey:@"VolumeUUID"]];

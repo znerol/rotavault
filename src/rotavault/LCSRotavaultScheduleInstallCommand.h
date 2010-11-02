@@ -16,11 +16,11 @@
     NSString *sourceDevice;
     NSString *targetDevice;
     
-    LCSCommand *sourceInfoCtl;
-    LCSCommand *targetInfoCtl;
-    LCSCommand *startupInfoCtl;
-    LCSCommand *raidInfoCtl;
-
+    LCSCommand *systemEnvCommand;
+    NSDictionary *sourceDiskInformation;
+    NSDictionary *targetDiskInformation;
+    NSDictionary *startupDiskInformation;
+    
     NSString *rvcopydLaunchPath;
     
     NSString *launchdPlistPath;
