@@ -51,7 +51,6 @@
 -(void)invalidate
 {
     [activeCommands unwatchState:LCSCommandStateInvalidated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     self.state = LCSCommandStateInvalidated;
 }
