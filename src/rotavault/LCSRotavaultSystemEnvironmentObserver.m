@@ -142,7 +142,8 @@ LCSRotavaultSystemEnvironmentObserver *LCSDefaultRotavaultSystemEnvironmentObser
 #pragma mark Disk Info Subsystem
 - (void)updateDiskInformation:(NSNotification*)ntf
 {
-    [self.registry setObject:diskInfoObserver.value ? [diskInfoObserver.value allObjects] : [NSArray array] forKey:@"diskinfo"];
+    [self.registry setObject:diskInfoObserver.value ? diskInfoObserver.value : [NSDictionary dictionary]
+                      forKey:@"diskinfo"];
     [self completeRefresh];
 }
 

@@ -226,27 +226,14 @@ writeLaunchdPlist_freeAndReturn:
                                                     name:[LCSCommandCollection notificationNameAllCommandsEnteredState:LCSCommandStateFinished]
                                                   object:activeCommands];
     
-    NSArray *diskinfo = [systemEnvCommand.result objectForKey:@"diskinfo"];
+    NSDictionary *diskinfo = [systemEnvCommand.result objectForKey:@"diskinfo"];
     
-    NSPredicate *sourceDiskFilter = [NSPredicate predicateWithFormat:@"DeviceIdentifier = %@", [sourceDevice lastPathComponent]];
-    @try {
-        sourceDiskInformation = [[diskinfo filteredArrayUsingPredicate:sourceDiskFilter] objectAtIndex:0];
-    }
-    @catch (NSException *e) {
-        sourceDiskInformation = nil;
-    }
-    
-    NSPredicate *targetDiskFilter = [NSPredicate predicateWithFormat:@"DeviceIdentifier = %@", [targetDevice lastPathComponent]];
-    @try {
-        targetDiskInformation = [[diskinfo filteredArrayUsingPredicate:targetDiskFilter] objectAtIndex:0];
-    }
-    @catch (NSException *e) {
-        targetDiskInformation = nil;
-    }
+    sourceDiskInformation = [diskinfo objectForKey:[sourceDevice lastPathComponent]];
+    targetDiskInformation = [diskinfo objectForKey:[targetDevice lastPathComponent]];
     
     NSPredicate *startupDiskFilter = [NSPredicate predicateWithFormat:@"MountPoint = '/'"];
     @try {
-        startupDiskInformation = [[diskinfo filteredArrayUsingPredicate:startupDiskFilter] objectAtIndex:0];
+        startupDiskInformation = [[[diskinfo allValues] filteredArrayUsingPredicate:startupDiskFilter] objectAtIndex:0];
     }
     @catch (NSException *e) {
         startupDiskInformation = nil;
