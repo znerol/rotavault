@@ -100,15 +100,16 @@
         expected = [diskinfo objectForKey:@"VolumeUUID"];
     }
     else {
-        /* FIXME: Error Description */
-        NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSUnexpectedInputReceivedError);
+        NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSUnexpectedInputReceivedError,
+                                       LCSERROR_LOCALIZED_DESCRIPTION(@"Unknown checksum algorithm %@", algo));
         [self handleError:err];
         return NO;
     }
     
     if (![actual isEqualToString:expected]) {
-        /* FIXME: Error Description */
-        NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSUnexpectedInputReceivedError);
+        NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSUnexpectedInputReceivedError,
+                                       LCSERROR_LOCALIZED_DESCRIPTION(@"Checksum of %@ does not match expected value",
+                                                                      [diskinfo objectForKey:@"DeviceIdentifier"]));
         [self handleError:err];
         return NO;
     }
