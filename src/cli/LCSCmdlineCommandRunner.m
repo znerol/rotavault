@@ -11,6 +11,7 @@
 #import "LCSInitMacros.h"
 #import "LCSCommand.h"
 #import "LCSDistributedCommandStatePublisher.h"
+#import "LCSRotavaultError.h"
 
 
 @implementation LCSCmdlineCommandRunner
@@ -50,7 +51,21 @@
 {
     LCSCommand *sender = [ntf object];
     if (sender.error != nil) {
-        asl_log(NULL, NULL, ASL_LEVEL_ERR, "%s", [[sender.error localizedDescription] cStringUsingEncoding:NSUTF8StringEncoding]);
+        NSString* filename = [[sender.error userInfo] objectForKey:LCSSourceFileNameKey];
+        NSNumber* linenumber = [[sender.error userInfo] objectForKey:LCSSourceFileLineNumberKey];
+        NSString* function = [[sender.error userInfo] objectForKey:LCSSourceFileFunctionKey];
+        
+        if (filename && linenumber && function) {
+            asl_log(NULL, NULL, ASL_LEVEL_ERR, "%s\n  File: %s:%d\n  Func: %s",
+                    [[sender.error localizedDescription] cStringUsingEncoding:NSUTF8StringEncoding],
+                    [filename cStringUsingEncoding:NSUTF8StringEncoding],
+                    [linenumber intValue],
+                    [function cStringUsingEncoding:NSUTF8StringEncoding]);
+        }
+        else {
+            asl_log(NULL, NULL, ASL_LEVEL_ERR, "%s",
+                    [[sender.error localizedDescription] cStringUsingEncoding:NSUTF8StringEncoding]);
+        }
     }
 }
 

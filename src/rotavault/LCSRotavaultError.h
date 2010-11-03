@@ -14,8 +14,6 @@ extern NSString* LCSRotavaultErrorDomain;
 extern NSString* LCSSourceFileNameKey;
 extern NSString* LCSSourceFileLineNumberKey;
 extern NSString* LCSSourceFileFunctionKey;
-extern NSString* LCSSourceFileSelectorKey;
-extern NSString* LCSSourceFileObjectKey;
 
 /* user info dictionary keys for task operaiton errors */
 extern NSString* LCSExecutableLaunchPathKey;
@@ -33,20 +31,12 @@ enum {
     LCSSubcommandWasCancelledError
 };
 
-#define LCSERROR_FUNCTION(errdomain, errcode, ...) \
-    [NSError errorWithDomain:errdomain code:errcode userInfo: \
-        [NSDictionary dictionaryWithObjectsAndKeys: \
-            [NSString stringWithCString:__FILE__ encoding:NSUTF8StringEncoding], LCSSourceFileNameKey, \
-            [NSNumber numberWithInt:__LINE__], LCSSourceFileLineNumberKey, \
-            [NSString stringWithCString:__func__], LCSSourceFileFunctionKey, ## __VA_ARGS__, nil]]
-
 #define LCSERROR_METHOD(errdomain, errcode, ...) \
     [NSError errorWithDomain:errdomain code:errcode userInfo: \
         [NSDictionary dictionaryWithObjectsAndKeys: \
-            [NSString stringWithCString:__FILE__ encoding:NSUTF8StringEncoding], LCSSourceFileNameKey, \
+            [[NSString stringWithCString:__FILE__ encoding:NSUTF8StringEncoding] lastPathComponent], LCSSourceFileNameKey, \
             [NSNumber numberWithInt:__LINE__], LCSSourceFileLineNumberKey, \
-            NSStringFromSelector(_cmd), LCSSourceFileSelectorKey, \
-            [self description], LCSSourceFileObjectKey, ## __VA_ARGS__, nil]]
+            [NSString stringWithCString:__func__ encoding:NSUTF8StringEncoding], LCSSourceFileFunctionKey, ## __VA_ARGS__, nil]]
 
 #define LCSERROR_LOCALIZED_DESCRIPTION(fmt...) \
     [NSString localizedStringWithFormat:fmt], NSLocalizedDescriptionKey
