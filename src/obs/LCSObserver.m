@@ -38,7 +38,7 @@ NSString *LCSObserverStateName[LCSObserverStateCount] = {
     static LCSObserverState statematrix[LCSObserverStateCount][LCSObserverStateCount] = {
         //in, ild, rsh, fsh, stl, rmv
         { NO, YES,  NO,  NO,  NO,  NO },   // LCSObserverStateInit
-        { NO,  NO, YES,  NO,  NO, YES },   // LCSObserverStateInstalled
+        { NO,  NO, YES,  NO, YES, YES },   // LCSObserverStateInstalled
         { NO,  NO,  NO, YES,  NO, YES },   // LCSObserverStateRefreshing
         { NO,  NO,  NO,  NO, YES, YES },   // LCSObserverStateFresh
         { NO,  NO, YES,  NO,  NO, YES },   // LCSObserverStateStale
