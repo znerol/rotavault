@@ -166,10 +166,34 @@ NSString *LCSCommandStateName[LCSCommandStateCount] = {
 @end
 
 @implementation LCSCommand (RunLoopHelpers)
+
+-(void)stopRunLoopNow
+{
+    CFRunLoopStop([[NSRunLoop currentRunLoop] getCFRunLoop]);
+}
+
+-(void)stopScheduleRunLoopStop
+{
+    [[NSRunLoop currentRunLoop] performSelector:@selector(stopRunLoopNow)
+                                         target:self
+                                       argument:nil
+                                          order:NSUIntegerMax
+                                          modes:[NSArray arrayWithObject:NSDefaultRunLoopMode]];
+}
+
 -(void)waitUntilDone
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(stopRunLoopNow)
+                                                 name:[[self class] notificationNameStateEntered:LCSCommandStateInvalidated]
+                                               object:self];
+    
     while (state != LCSCommandStateInvalidated) {
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.01]];
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
     }
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:[[self class] notificationNameStateEntered:LCSCommandStateInvalidated]
+                                                  object:self];
 }
 @end
