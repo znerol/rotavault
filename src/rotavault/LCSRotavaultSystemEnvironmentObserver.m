@@ -8,9 +8,9 @@
 
 #import "LCSRotavaultSystemEnvironmentObserver.h"
 #import "LCSInitMacros.h"
-#import "LCSPkgInfoCommand.h"
-#import "LCSAllDiskInfoCommand.h"
 #import "LCSAppleRAIDListCommand.h"
+#import "LCSPkgInfoObserver.h"
+#import "LCSDiskInfoObserver.h"
 
 extern const double LCSAVGVersionNumberSymbol;
 
@@ -18,31 +18,26 @@ extern const double LCSAVGVersionNumberSymbol;
 NSString* LCSRotavaultSystemEnvironmentRefreshed = @"LCSRotavaultSystemEnvironmentRefreshed";
 
 @interface LCSRotavaultSystemEnvironmentObserver (Internal)
-- (void)updateSystoolsVersionInformation;
-- (void)checkSystoolsVersionInformation;
-- (void)invalidateCheckSystoolsVersionInformation:(NSNotification*)ntf;
-
-- (void)checkDiskInformation;
-- (void)invalidateCheckDiskInformation:(NSNotification*)ntf;
+- (void)updateSystoolsVersionInformation:(NSNotification*)ntf;
+- (void)updateDiskInformation:(NSNotification*)ntf;
 
 - (void)checkAppleRAIDInformation;
 - (void)invalidateCheckAppleRAIDInformation:(NSNotification*)ntf;
 @end
 
 
-LCSRotavaultSystemEnvironmentObserver *LCSDefaultRotavaultSystemEnvironmentObserver;
+LCSRotavaultSystemEnvironmentObserver *LCSDefaultRotavaultSystemEnvironmentObserver = nil;
 
 
 @implementation LCSRotavaultSystemEnvironmentObserver
 @synthesize registry;
 
-+ (void)initialize
-{
-    LCSDefaultRotavaultSystemEnvironmentObserver = [[LCSRotavaultSystemEnvironmentObserver alloc] init];
-}
-
 + (LCSRotavaultSystemEnvironmentObserver*)defaultSystemEnvironmentObserver
 {
+    if (!LCSDefaultRotavaultSystemEnvironmentObserver) {
+        LCSDefaultRotavaultSystemEnvironmentObserver = [[LCSRotavaultSystemEnvironmentObserver alloc] init];
+    }
+    
     return LCSDefaultRotavaultSystemEnvironmentObserver;
 }
 
@@ -53,11 +48,25 @@ LCSRotavaultSystemEnvironmentObserver *LCSDefaultRotavaultSystemEnvironmentObser
     registry = [[NSMutableDictionary alloc] init];
     LCSINIT_RELEASE_AND_RETURN_IF_NIL(registry);
     
-    /* refresh information about systools whenever the mac os x installer completes any package installation */
-    [[NSDistributedNotificationCenter defaultCenter] addObserver:self
-                                                        selector:@selector(checkSystoolsVersionInformation)
-                                                            name:@"PKInstallDaemonDidEndInstallNotification"
-                                                          object:nil];
+    systoolsInfoObserver = [[LCSPkgInfoObserver alloc] initWithPkgId:@"ch.znerol.rotavault.systools"];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(systoolsInfoObserver);
+    systoolsInfoObserver.autorefresh = YES;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateSystoolsVersionInformation:)
+                                                 name:[LCSObserver notificationNameValueFresh]
+                                               object:systoolsInfoObserver];
+    [systoolsInfoObserver install];
+    
+    diskInfoObserver = [[LCSDiskInfoObserver alloc] init];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(diskInfoObserver);
+    diskInfoObserver.autorefresh = YES;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateDiskInformation:)
+                                                 name:[LCSObserver notificationNameValueFresh]
+                                               object:diskInfoObserver];
+    [diskInfoObserver install];
     
     return self;
 }
@@ -66,11 +75,15 @@ LCSRotavaultSystemEnvironmentObserver *LCSDefaultRotavaultSystemEnvironmentObser
 {
     [[self class] cancelPreviousPerformRequestsWithTarget:self];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [[NSDistributedNotificationCenter defaultCenter] removeObserver:self];
     
     [registry release];
-    [systoolsInfoCommand release];
-    [diskInfoCommand release];
+    
+    [systoolsInfoObserver remove];
+    [systoolsInfoObserver release];
+    
+    [diskInfoObserver remove];
+    [diskInfoObserver release];
+    
     [appleraidInfoCommand release];
     
     [super dealloc];
@@ -79,7 +92,8 @@ LCSRotavaultSystemEnvironmentObserver *LCSDefaultRotavaultSystemEnvironmentObser
 - (void)completeRefresh
 {
     [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(completeRefresh) object:nil];
-    if (systoolsInfoFresh && diskInfoFresh && appleraidInfoFresh) {
+    if (systoolsInfoObserver.state == LCSObserverStateFresh &&
+        diskInfoObserver.state == LCSObserverStateFresh && appleraidInfoFresh) {
         [[NSNotificationCenter defaultCenter] postNotificationName:LCSRotavaultSystemEnvironmentRefreshed object:self];
     }
 }
@@ -90,16 +104,10 @@ LCSRotavaultSystemEnvironmentObserver *LCSDefaultRotavaultSystemEnvironmentObser
      * We currently don't get notified when disk information changes, so we have to load that information on every
      * refresh
      */
-    diskInfoFresh = NO;
     appleraidInfoFresh = NO;
-    
-    if (!systoolsInfoFresh) {
-        [self checkSystoolsVersionInformation];
-    }
-    
-    if (!diskInfoFresh) {
-        [self checkDiskInformation];
-    }
+
+    [systoolsInfoObserver refreshInBackgroundAndNotify];
+    [diskInfoObserver refreshInBackgroundAndNotify];
     
     if (!appleraidInfoFresh) {
         [self checkAppleRAIDInformation];
@@ -110,91 +118,31 @@ LCSRotavaultSystemEnvironmentObserver *LCSDefaultRotavaultSystemEnvironmentObser
 }
 
 #pragma mark System Tools Subsystem
-- (void)updateSystoolsVersionInformation
+- (void)updateSystoolsVersionInformation:(NSNotification*)ntf
 {
+    BOOL installed = (systoolsInfoObserver.value != nil);
+    double version = 0.0;
+    
+    if (installed) {
+        version = [[systoolsInfoObserver.value objectForKey:@"pkg-version"] doubleValue];
+    }
+    
+    BOOL upToDate = (version == LCSAVGVersionNumberSymbol);
+    
     NSDictionary *systemToolsState = [NSDictionary dictionaryWithObjectsAndKeys:
-                                      [NSNumber numberWithDouble:systoolsInstalledVersion], @"installedVersion",
+                                      [NSNumber numberWithDouble:version], @"installedVersion",
                                       [NSNumber numberWithDouble:LCSAVGVersionNumberSymbol], @"requiredVersion",
-                                      systoolsInstalled ? kCFBooleanTrue : kCFBooleanFalse, @"installed",
-                                      systoolsInstalledVersion == LCSAVGVersionNumberSymbol ?
-                                                                    kCFBooleanTrue : kCFBooleanFalse, @"upToDate",
+                                      installed ? kCFBooleanFalse : kCFBooleanTrue, @"installed",
+                                      upToDate ? kCFBooleanTrue : kCFBooleanFalse, @"upToDate",
                                       nil];
     [self.registry setObject:systemToolsState forKey:@"systools"];
-}
-
-- (void)checkSystoolsVersionInformation
-{
-    if (systoolsInfoCommand != nil) {
-        return;
-    }
-    
-    systoolsInfoFresh = NO;
-    systoolsInfoCommand = [LCSPkgInfoCommand commandWithPkgId:@"ch.znerol.rotavault.systools"];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(invalidateCheckSystoolsVersionInformation:)
-                                                 name:[LCSCommand notificationNameStateEntered:LCSCommandStateInvalidated]
-                                               object:systoolsInfoCommand];
-    systoolsInfoCommand.title = [NSString localizedStringWithFormat:@"Checking Rotavault System Tools Installation"];
-    
-    [systoolsInfoCommand retain];
-    [systoolsInfoCommand start];
-    
-    [self updateSystoolsVersionInformation];
-}
-
-- (void)invalidateCheckSystoolsVersionInformation:(NSNotification*)ntf
-{
-    assert(systoolsInfoCommand == [ntf object]);
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommand notificationNameStateEntered:LCSCommandStateInvalidated]
-                                                  object:systoolsInfoCommand];
-    
-    systoolsInstalled = (systoolsInfoCommand.exitState == LCSCommandStateFinished);
-    if (systoolsInstalled) {
-        systoolsInstalledVersion = [[systoolsInfoCommand.result objectForKey:@"pkg-version"] doubleValue];
-    }
-    
-    [systoolsInfoCommand autorelease];
-    systoolsInfoCommand = nil;
-    systoolsInfoFresh = YES;
-    
-    [self updateSystoolsVersionInformation];
     [self completeRefresh];
 }
 
 #pragma mark Disk Info Subsystem
-- (void)checkDiskInformation
+- (void)updateDiskInformation:(NSNotification*)ntf
 {
-    if (diskInfoCommand != nil) {
-        return;
-    }
-    
-    diskInfoFresh = NO;
-    diskInfoCommand = [LCSAllDiskInfoCommand command];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(invalidateCheckDiskInformation:)
-                                                 name:[LCSCommand notificationNameStateEntered:LCSCommandStateInvalidated]
-                                               object:diskInfoCommand];
-    diskInfoCommand.title = [NSString localizedStringWithFormat:@"Getting information on attached disks and mounted volumes"];
-    
-    [diskInfoCommand retain];
-    [diskInfoCommand start];
-}
-
-- (void)invalidateCheckDiskInformation:(NSNotification*)ntf
-{
-    assert(diskInfoCommand == [ntf object]);
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommand notificationNameStateEntered:LCSCommandStateInvalidated]
-                                                  object:diskInfoCommand];
-    
-    [self.registry setObject:diskInfoCommand.result ? diskInfoCommand.result : [NSArray array] forKey:@"diskinfo"];
-    [diskInfoCommand autorelease];
-    diskInfoCommand = nil;
-    diskInfoFresh = YES;
-    
+    [self.registry setObject:diskInfoObserver.value ? [diskInfoObserver.value allObjects] : [NSArray array] forKey:@"diskinfo"];
     [self completeRefresh];
 }
 

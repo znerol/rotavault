@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "LCSCommand.h"
+#import "LCSObserver.h"
 
 
 extern NSString* LCSRotavaultSystemEnvironmentRefreshed;
@@ -15,13 +16,8 @@ extern NSString* LCSRotavaultSystemEnvironmentRefreshed;
 @interface LCSRotavaultSystemEnvironmentObserver : NSObject {
     NSMutableDictionary *registry;
     
-    LCSCommand* systoolsInfoCommand;
-    BOOL        systoolsInfoFresh;
-    double      systoolsInstalledVersion;
-    BOOL        systoolsInstalled;
-    
-    LCSCommand* diskInfoCommand;
-    BOOL        diskInfoFresh;
+    LCSObserver*    systoolsInfoObserver;
+    LCSObserver*    diskInfoObserver;
     
     LCSCommand* appleraidInfoCommand;
     BOOL        appleraidInfoFresh;
