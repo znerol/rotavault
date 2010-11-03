@@ -97,7 +97,10 @@
 - (void)diskDisappeared:(NSNotification*)ntf
 {
     [dirty removeObject:[ntf object]];
-    [commands removeObjectForKey:[ntf object]];
+    LCSCommand *cmd = [commands objectForKey:[ntf object]];
+    if (cmd) {
+        [cmd cancel];
+    }
 }
 
 - (void)performInstall
