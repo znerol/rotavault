@@ -37,6 +37,8 @@
     
     self.attachImageEnabled = YES;
     
+    da = [LCSDiskArbitration sharedInstance];
+    
     return self;
 }
 
