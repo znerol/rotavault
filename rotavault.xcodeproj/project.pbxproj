@@ -59,6 +59,16 @@
 		CA050EFD1264D9D60076D8BF /* LCSAppleRAIDListCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA050EFB1264D9D60076D8BF /* LCSAppleRAIDListCommand.m */; };
 		CA050EFE1264D9D60076D8BF /* LCSAppleRAIDListCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA050EFB1264D9D60076D8BF /* LCSAppleRAIDListCommand.m */; };
 		CA06C120128152E9008AB186 /* NSNotificationCenter+DefaultCenterThreadLocal.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF834E91274842000F8D695 /* NSNotificationCenter+DefaultCenterThreadLocal.m */; };
+		CA06C12F128154B6008AB186 /* LCSDiskInfoObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = CA06C12E128154B6008AB186 /* LCSDiskInfoObserver.m */; };
+		CA06C130128154B6008AB186 /* LCSDiskInfoObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = CA06C12E128154B6008AB186 /* LCSDiskInfoObserver.m */; };
+		CA06C131128154B6008AB186 /* LCSDiskInfoObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = CA06C12E128154B6008AB186 /* LCSDiskInfoObserver.m */; };
+		CA06C41712815B02008AB186 /* DiskArbitration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA06C19612815AE5008AB186 /* DiskArbitration.framework */; };
+		CA06C41C12815B17008AB186 /* DiskArbitration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA06C19612815AE5008AB186 /* DiskArbitration.framework */; };
+		CA06C42012815B35008AB186 /* DiskArbitration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA06C19612815AE5008AB186 /* DiskArbitration.framework */; };
+		CA06C42812816C62008AB186 /* LCSDiskArbitration.m in Sources */ = {isa = PBXBuildFile; fileRef = CA06C42712816C62008AB186 /* LCSDiskArbitration.m */; };
+		CA06C42912816C62008AB186 /* LCSDiskArbitration.m in Sources */ = {isa = PBXBuildFile; fileRef = CA06C42712816C62008AB186 /* LCSDiskArbitration.m */; };
+		CA06C42A12816C62008AB186 /* LCSDiskArbitration.m in Sources */ = {isa = PBXBuildFile; fileRef = CA06C42712816C62008AB186 /* LCSDiskArbitration.m */; };
+		CA06C4A412818FCA008AB186 /* LCSPkgInfoObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = CAEE6B6512806EBD00763467 /* LCSPkgInfoObserver.m */; };
 		CA0B5270126F3A2000973D2D /* LCSRotavaultCreateJobDictionary.c in Sources */ = {isa = PBXBuildFile; fileRef = CA0B526F126F3A2000973D2D /* LCSRotavaultCreateJobDictionary.c */; };
 		CA0B5271126F3A2000973D2D /* LCSRotavaultCreateJobDictionary.c in Sources */ = {isa = PBXBuildFile; fileRef = CA0B526F126F3A2000973D2D /* LCSRotavaultCreateJobDictionary.c */; };
 		CA0B5272126F3A2000973D2D /* LCSRotavaultCreateJobDictionary.c in Sources */ = {isa = PBXBuildFile; fileRef = CA0B526F126F3A2000973D2D /* LCSRotavaultCreateJobDictionary.c */; };
@@ -473,6 +483,11 @@
 		CA050EFA1264D9D60076D8BF /* LCSAppleRAIDListCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSAppleRAIDListCommand.h; sourceTree = "<group>"; };
 		CA050EFB1264D9D60076D8BF /* LCSAppleRAIDListCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSAppleRAIDListCommand.m; sourceTree = "<group>"; };
 		CA050F131264E0090076D8BF /* LCSOSMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSOSMacros.h; sourceTree = "<group>"; };
+		CA06C12D128154B6008AB186 /* LCSDiskInfoObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSDiskInfoObserver.h; sourceTree = "<group>"; };
+		CA06C12E128154B6008AB186 /* LCSDiskInfoObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSDiskInfoObserver.m; sourceTree = "<group>"; };
+		CA06C19612815AE5008AB186 /* DiskArbitration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DiskArbitration.framework; path = System/Library/Frameworks/DiskArbitration.framework; sourceTree = SDKROOT; };
+		CA06C42612816C62008AB186 /* LCSDiskArbitration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSDiskArbitration.h; sourceTree = "<group>"; };
+		CA06C42712816C62008AB186 /* LCSDiskArbitration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSDiskArbitration.m; sourceTree = "<group>"; };
 		CA0B526E126F3A2000973D2D /* LCSRotavaultCreateJobDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSRotavaultCreateJobDictionary.h; sourceTree = "<group>"; };
 		CA0B526F126F3A2000973D2D /* LCSRotavaultCreateJobDictionary.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LCSRotavaultCreateJobDictionary.c; sourceTree = "<group>"; };
 		CA0DF0DA11F71D8B0029B5F7 /* internals.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = internals.txt; sourceTree = "<group>"; };
@@ -695,6 +710,7 @@
 			files = (
 				CABAC4D41235462800DBEA0F /* Foundation.framework in Frameworks */,
 				CABAC4D51235462900DBEA0F /* CoreServices.framework in Frameworks */,
+				CA06C41C12815B17008AB186 /* DiskArbitration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -729,6 +745,7 @@
 				CA7461ED1244E07100CDE8C3 /* Foundation.framework in Frameworks */,
 				CAE26A611260A67700B19EC1 /* Security.framework in Frameworks */,
 				CAE26A631260A67700B19EC1 /* SecurityInterface.framework in Frameworks */,
+				CA06C41712815B02008AB186 /* DiskArbitration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -743,6 +760,7 @@
 				CAF8301612745E0300F8D695 /* CoreServices.framework in Frameworks */,
 				CAF8301712745E0300F8D695 /* CoreFoundation.framework in Frameworks */,
 				CAF8339F1274692800F8D695 /* Security.framework in Frameworks */,
+				CA06C42012815B35008AB186 /* DiskArbitration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -768,6 +786,7 @@
 				CABAC5551235464300DBEA0F /* AppKit.framework */,
 				CA877E52126B5A360067649A /* CoreFoundation.framework */,
 				CA28AF1F12132C7600C9BE6F /* CoreServices.framework */,
+				CA06C19612815AE5008AB186 /* DiskArbitration.framework */,
 				08FB779EFE84155DC02AAC07 /* Foundation.framework */,
 				CABAC213123535CC00DBEA0F /* GHUnit.framework */,
 				CABAC6EA1235738400DBEA0F /* libgcov.a */,
@@ -915,6 +934,8 @@
 				CA1924981266036200E05A63 /* LCSAppleRAIDRemoveMemberCommand.m */,
 				CA4820341264D62700C2879B /* LCSAsrRestoreCommand.h */,
 				CA4820351264D62700C2879B /* LCSAsrRestoreCommand.m */,
+				CA06C42612816C62008AB186 /* LCSDiskArbitration.h */,
+				CA06C42712816C62008AB186 /* LCSDiskArbitration.m */,
 				CA4820361264D62700C2879B /* LCSDiskImageAttachCommand.h */,
 				CA4820371264D62700C2879B /* LCSDiskImageAttachCommand.m */,
 				CA4820381264D62700C2879B /* LCSDiskImageDetachCommand.h */,
@@ -923,6 +944,8 @@
 				CA48203B1264D62700C2879B /* LCSDiskImageInfoCommand.m */,
 				CA48203C1264D62700C2879B /* LCSDiskInfoCommand.h */,
 				CA48203D1264D62700C2879B /* LCSDiskInfoCommand.m */,
+				CA06C12D128154B6008AB186 /* LCSDiskInfoObserver.h */,
+				CA06C12E128154B6008AB186 /* LCSDiskInfoObserver.m */,
 				CA48203E1264D62700C2879B /* LCSDiskMountCommand.h */,
 				CA48203F1264D62700C2879B /* LCSDiskMountCommand.m */,
 				CA197DF91270C359005C11F1 /* LCSDiskUnmountCommand.h */,
@@ -1510,6 +1533,9 @@
 				CA42061A127F1A7B008A9870 /* LCSAllDiskInfoCommand.m in Sources */,
 				CA42061D127F1A83008A9870 /* LCSPkgInfoCommand.m in Sources */,
 				CA21D03A128026BF00104EB0 /* LCSObserver.m in Sources */,
+				CA06C131128154B6008AB186 /* LCSDiskInfoObserver.m in Sources */,
+				CA06C42A12816C62008AB186 /* LCSDiskArbitration.m in Sources */,
+				CA06C4A412818FCA008AB186 /* LCSPkgInfoObserver.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1634,6 +1660,8 @@
 				CA4205F0127F146B008A9870 /* LCSRotavaultFreshSystemEnvironmentCommand.m in Sources */,
 				CA21D039128026BF00104EB0 /* LCSObserver.m in Sources */,
 				CAEE6B6712806EBD00763467 /* LCSPkgInfoObserver.m in Sources */,
+				CA06C12F128154B6008AB186 /* LCSDiskInfoObserver.m in Sources */,
+				CA06C42812816C62008AB186 /* LCSDiskArbitration.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1698,6 +1726,8 @@
 				CAEE6B6612806EBD00763467 /* LCSPkgInfoObserver.m in Sources */,
 				CAEE6B8E128073B000763467 /* LCSObserver.m in Sources */,
 				CAEE6B961280745100763467 /* LCSPkgInfoObserverTest.m in Sources */,
+				CA06C130128154B6008AB186 /* LCSDiskInfoObserver.m in Sources */,
+				CA06C42912816C62008AB186 /* LCSDiskArbitration.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
