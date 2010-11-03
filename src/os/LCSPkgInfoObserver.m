@@ -75,6 +75,7 @@
     [[NSDistributedNotificationCenter defaultCenter] removeObserver:self
                                                                name:@"PKInstallDaemonDidEndInstallNotification"
                                                              object:nil];
+    self.state = LCSObserverStateRemoved;
 }
 
 - (void)performStartRefresh
