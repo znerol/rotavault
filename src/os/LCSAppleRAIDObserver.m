@@ -9,6 +9,7 @@
 #import "LCSAppleRAIDObserver.h"
 #import "LCSInitMacros.h"
 #import "LCSAppleRAIDListCommand.h"
+#import "LCSDiskArbitration.h"
 
 
 @implementation LCSAppleRAIDObserver
@@ -84,13 +85,61 @@
     [self performSelector:@selector(expireRaidList) withObject:nil afterDelay:expiryTimeout];
 }
 
+- (void)diskChanged:(NSNotification*)ntf
+{
+    NSString *disk = [ntf object];
+    if (([self.value valueForKeyPath:[NSString stringWithFormat:@"byRAIDSetDeviceNode.@%", disk]] ||
+         [self.value valueForKeyPath:[NSString stringWithFormat:@"byMemberDeviceNode.@%", disk]]) &&
+        [self validateNextState:LCSObserverStateStale]) {
+        self.state = LCSObserverStateStale;
+    }
+}
+
+- (void)diskAppeared:(NSNotification*)ntf
+{
+    if ([self validateNextState:LCSObserverStateStale]) {
+        self.state = LCSObserverStateStale;
+    }
+}
+
+- (void)diskDisappeared:(NSNotification*)ntf
+{
+    NSString *disk = [ntf object];
+    if (([self.value valueForKeyPath:[NSString stringWithFormat:@"byRAIDSetDeviceNode.@%", disk]] ||
+         [self.value valueForKeyPath:[NSString stringWithFormat:@"byMemberDeviceNode.@%", disk]]) &&
+        [self validateNextState:LCSObserverStateStale]) {
+        self.state = LCSObserverStateStale;
+    }
+}
+
 - (void)performInstall
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(diskChanged:)
+                                                 name:LCSDiskDescriptionChangedNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(diskAppeared:)
+                                                 name:LCSDiskAppearedNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(diskDisappeared:)
+                                                 name:LCSDiskDisappearedNotification
+                                               object:nil];
     self.state = LCSObserverStateInstalled;
 }
 
 - (void)performRemove
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:LCSDiskDescriptionChangedNotification
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:LCSDiskAppearedNotification
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:LCSDiskDisappearedNotification
+                                                  object:nil];
     self.state = LCSObserverStateRemoved;
 }
 
