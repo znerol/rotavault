@@ -49,28 +49,49 @@
     NSPredicate *isNotOnline = [NSPredicate predicateWithFormat:@"RAIDSetStatus != 'Online'"];
     if (raidListCommand.exitState == LCSCommandStateFinished) {
         NSMutableDictionary *byUUID = [NSMutableDictionary dictionaryWithCapacity:[raidListCommand.result count]];
-        NSMutableDictionary *byDeviceNode = [NSMutableDictionary dictionaryWithCapacity:[raidListCommand.result count]];
+        NSMutableDictionary *byDeviceIdentifier = [NSMutableDictionary dictionaryWithCapacity:[raidListCommand.result count]];
         NSMutableDictionary *byMemberUUID = [NSMutableDictionary dictionaryWithCapacity:[raidListCommand.result count]];
-        NSMutableDictionary *byMemberDeviceNode =
+        NSMutableDictionary *byMemberDeviceIdentifier =
             [NSMutableDictionary dictionaryWithCapacity:[raidListCommand.result count]];
         
         for (NSDictionary* raidinfo in raidListCommand.result) {
+            /* prepare the dictionaries in order to be able to access the information using different paths */
             [byUUID setObject:raidinfo forKey:[raidinfo objectForKey:@"RAIDSetUUID"]];
-            [byDeviceNode setObject:raidinfo forKey:[raidinfo objectForKey:@"DeviceNode"]];
+            [byDeviceIdentifier setObject:raidinfo forKey:[raidinfo objectForKey:@"DeviceIdentifier"]];
             for (NSDictionary* memberinfo in [raidinfo objectForKey:@"RAIDSetMembers"]) {
                 [byMemberUUID setObject:raidinfo forKey:[memberinfo objectForKey:@"RAIDMemberUUID"]];
-                [byMemberDeviceNode setObject:raidinfo forKey:[memberinfo objectForKey:@"DeviceNode"]];                
+                [byMemberDeviceIdentifier setObject:raidinfo forKey:[memberinfo objectForKey:@"DeviceIdentifier"]];                
             }
             
+            /* We do more status updates if some raid device is rebuilding */
             if ([isNotOnline evaluateWithObject:raidinfo]) {
                 expiryTimeout = shortTimeout;
             }
+            
+            /* 
+             * DiskArbitration does not send a disk change notification when a raid set or the status of members change.
+             * We work around that problem by comparing new values against former ones and send change notifications
+             * for all disks in a raid-set whenever the status of the whole set changes.
+             */
+            NSString *oldstat = [self.value valueForKeyPath:
+                                 [NSString stringWithFormat:@"byRAIDSetDeviceIdentifier.%@.RAIDSetStatus",
+                                  [raidinfo objectForKey:@"DeviceIdentifier"]]];
+            NSString *newstat = [raidinfo objectForKey:@"RAIDSetStatus"];
+            if (![newstat isEqualToString:oldstat]) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:LCSDiskDescriptionChangedNotification
+                                                                    object:[raidinfo objectForKey:@"DeviceIdentifier"]];
+                for (NSString *memberid in [raidinfo valueForKeyPath:@"RAIDSetMembers.DeviceIdentifier"]) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:LCSDiskDescriptionChangedNotification
+                                                                        object:memberid];
+                }
+            }
         }
+        
         self.value = [NSDictionary dictionaryWithObjectsAndKeys:
                       byUUID, @"byRAIDSetUUID",
-                      byDeviceNode, @"byRAIDSetDeviceNode",
+                      byDeviceIdentifier, @"byRAIDSetDeviceIdentifier",
                       byMemberUUID, @"byMemberUUID",
-                      byMemberDeviceNode, @"byMemberDeviceNode",
+                      byMemberDeviceIdentifier, @"byMemberDeviceIdentifier",
                       nil];
     }
     else {
@@ -88,9 +109,10 @@
 - (void)diskChanged:(NSNotification*)ntf
 {
     NSString *disk = [ntf object];
-    if (([self.value valueForKeyPath:[NSString stringWithFormat:@"byRAIDSetDeviceNode.@%", disk]] ||
-         [self.value valueForKeyPath:[NSString stringWithFormat:@"byMemberDeviceNode.@%", disk]]) &&
-        [self validateNextState:LCSObserverStateStale]) {
+    if ([self validateNextState:LCSObserverStateStale] &&
+        (self.value == nil ||
+         [self.value valueForKeyPath:[NSString stringWithFormat:@"byRAIDSetDeviceIdentifier.%@", disk]] ||
+         [self.value valueForKeyPath:[NSString stringWithFormat:@"byMemberDeviceIdentifier.%@", disk]])) {
         self.state = LCSObserverStateStale;
     }
 }
@@ -105,9 +127,10 @@
 - (void)diskDisappeared:(NSNotification*)ntf
 {
     NSString *disk = [ntf object];
-    if (([self.value valueForKeyPath:[NSString stringWithFormat:@"byRAIDSetDeviceNode.@%", disk]] ||
-         [self.value valueForKeyPath:[NSString stringWithFormat:@"byMemberDeviceNode.@%", disk]]) &&
-        [self validateNextState:LCSObserverStateStale]) {
+    if ([self validateNextState:LCSObserverStateStale] &&
+        (self.value == nil ||
+         [self.value valueForKeyPath:[NSString stringWithFormat:@"byRAIDSetDeviceIdentifier.%@", disk]] ||
+         [self.value valueForKeyPath:[NSString stringWithFormat:@"byMemberDeviceIdentifier.%@", disk]])) {
         self.state = LCSObserverStateStale;
     }
 }
