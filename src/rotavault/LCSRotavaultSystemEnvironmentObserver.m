@@ -8,9 +8,9 @@
 
 #import "LCSRotavaultSystemEnvironmentObserver.h"
 #import "LCSInitMacros.h"
-#import "LCSAppleRAIDListCommand.h"
 #import "LCSPkgInfoObserver.h"
 #import "LCSDiskInfoObserver.h"
+#import "LCSAppleRAIDObserver.h"
 
 extern const double LCSAVGVersionNumberSymbol;
 
@@ -20,9 +20,7 @@ NSString* LCSRotavaultSystemEnvironmentRefreshed = @"LCSRotavaultSystemEnvironme
 @interface LCSRotavaultSystemEnvironmentObserver (Internal)
 - (void)updateSystoolsVersionInformation:(NSNotification*)ntf;
 - (void)updateDiskInformation:(NSNotification*)ntf;
-
-- (void)checkAppleRAIDInformation;
-- (void)invalidateCheckAppleRAIDInformation:(NSNotification*)ntf;
+- (void)updateAppleraidInformation:(NSNotification*)ntf;
 @end
 
 
@@ -67,7 +65,16 @@ LCSRotavaultSystemEnvironmentObserver *LCSDefaultRotavaultSystemEnvironmentObser
                                                  name:[LCSObserver notificationNameValueFresh]
                                                object:diskInfoObserver];
     [diskInfoObserver install];
+
+    appleraidObserver = [[LCSAppleRAIDObserver alloc] init];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(appleraidObserver);
+    appleraidObserver.autorefresh = YES;
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateAppleraidInformation:)
+                                                 name:[LCSObserver notificationNameValueFresh]
+                                               object:appleraidObserver];
+    [appleraidObserver install];    
     return self;
 }
 
@@ -84,7 +91,8 @@ LCSRotavaultSystemEnvironmentObserver *LCSDefaultRotavaultSystemEnvironmentObser
     [diskInfoObserver remove];
     [diskInfoObserver release];
     
-    [appleraidInfoCommand release];
+    [appleraidObserver remove];
+    [appleraidObserver release];
     
     [super dealloc];
 }
@@ -93,28 +101,17 @@ LCSRotavaultSystemEnvironmentObserver *LCSDefaultRotavaultSystemEnvironmentObser
 {
     [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(completeRefresh) object:nil];
     if (systoolsInfoObserver.state == LCSObserverStateFresh &&
-        diskInfoObserver.state == LCSObserverStateFresh && appleraidInfoFresh) {
+        diskInfoObserver.state == LCSObserverStateFresh && 
+        appleraidObserver.state == LCSObserverStateFresh) {
         [[NSNotificationCenter defaultCenter] postNotificationName:LCSRotavaultSystemEnvironmentRefreshed object:self];
     }
 }
 
 - (void)refreshInBackgroundAndNotify
 {
-    /*
-     * We currently don't get notified when disk information changes, so we have to load that information on every
-     * refresh
-     */
-    appleraidInfoFresh = NO;
-
     [systoolsInfoObserver refreshInBackgroundAndNotify];
     [diskInfoObserver refreshInBackgroundAndNotify];
-    
-    if (!appleraidInfoFresh) {
-        [self checkAppleRAIDInformation];
-    }
-    
-    /* Notify immediately if no new information needs to be fetched */
-    [self performSelector:@selector(completeRefresh) withObject:nil afterDelay:0];
+    [appleraidObserver refreshInBackgroundAndNotify];
 }
 
 #pragma mark System Tools Subsystem
@@ -148,37 +145,10 @@ LCSRotavaultSystemEnvironmentObserver *LCSDefaultRotavaultSystemEnvironmentObser
 }
 
 #pragma mark AppleRAID Subsystem
-- (void)checkAppleRAIDInformation
+- (void)updateAppleraidInformation:(NSNotification*)ntf
 {
-    if (appleraidInfoCommand != nil) {
-        return;
-    }
-    
-    appleraidInfoFresh = NO;
-    appleraidInfoCommand = [LCSAppleRAIDListCommand command];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(invalidateCheckAppleRAIDInformation:)
-                                                 name:[LCSCommand notificationNameStateEntered:LCSCommandStateInvalidated]
-                                               object:appleraidInfoCommand];
-    appleraidInfoCommand.title = [NSString localizedStringWithFormat:@"Getting information on AppleRAID devices"];
-    
-    [appleraidInfoCommand retain];
-    [appleraidInfoCommand start];
-}
-
-- (void)invalidateCheckAppleRAIDInformation:(NSNotification*)ntf
-{
-    assert(appleraidInfoCommand == [ntf object]);
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:[LCSCommand notificationNameStateEntered:LCSCommandStateInvalidated]
-                                                  object:appleraidInfoCommand];
-    
-    [self.registry setObject:appleraidInfoCommand.result ? appleraidInfoCommand.result : [NSArray array] forKey:@"appleraid"];
-    [appleraidInfoCommand autorelease];
-    appleraidInfoCommand = nil;
-    appleraidInfoFresh = YES;
-    
+    [self.registry setObject:appleraidObserver.value ? [[appleraidObserver.value objectForKey:@"byRAIDSetUUID"] allObjects] : [NSArray array]
+                      forKey:@"appleraid"];
     [self completeRefresh];
 }
 @end

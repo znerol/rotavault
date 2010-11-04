@@ -18,9 +18,7 @@ extern NSString* LCSRotavaultSystemEnvironmentRefreshed;
     
     LCSObserver*    systoolsInfoObserver;
     LCSObserver*    diskInfoObserver;
-    
-    LCSCommand* appleraidInfoCommand;
-    BOOL        appleraidInfoFresh;
+    LCSObserver*    appleraidObserver;
 }
 @property(readonly) NSMutableDictionary *registry;
 
