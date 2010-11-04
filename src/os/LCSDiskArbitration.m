@@ -112,13 +112,11 @@ LCSDiskArbitration* LCSDiskArbitrationSharedInstance = nil;
 
 - (void)addDisk:(NSString*)disk
 {
-    NSLog(@"DEBUG: add disk %@", disk);
     [disks addObject:disk];
 }
 
 - (void)removeDisk:(NSString *)disk
 {
-    NSLog(@"DEBUG: remove disk %@", disk);
     [disks removeObject:disk];
 }
 
