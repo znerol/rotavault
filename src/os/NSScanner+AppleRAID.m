@@ -245,7 +245,7 @@ finalizeAndReturn:
     if (intoDictionary != nil) {
         *intoDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
                            [NSNumber numberWithInt:index +1], @"RAIDSliceNumber",
-                           devnode, @"DeviceIdentifier",
+                           devid, @"DeviceIdentifier",
                            devnode, @"DeviceNode",
                            uuid, @"RAIDMemberUUID",
                            status, @"RAIDMemberStatus",
