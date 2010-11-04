@@ -226,18 +226,15 @@ writeLaunchdPlist_freeAndReturn:
                                                     name:[LCSCommandCollection notificationNameAllCommandsEnteredState:LCSCommandStateFinished]
                                                   object:activeCommands];
     
-    NSDictionary *diskinfo = [systemEnvCommand.result objectForKey:@"diskinfo"];
+    systemEnvironment = [systemEnvCommand.result retain];
     
-    sourceDiskInformation = [diskinfo objectForKey:[sourceDevice lastPathComponent]];
-    targetDiskInformation = [diskinfo objectForKey:[targetDevice lastPathComponent]];
-    
-    NSPredicate *startupDiskFilter = [NSPredicate predicateWithFormat:@"MountPoint = '/'"];
-    @try {
-        startupDiskInformation = [[[diskinfo allValues] filteredArrayUsingPredicate:startupDiskFilter] objectAtIndex:0];
-    }
-    @catch (NSException *e) {
-        startupDiskInformation = nil;
-    }
+    sourceDiskInformation = [systemEnvironment valueForKeyPath:
+                             [NSString stringWithFormat:@"diskinfo.byDeviceIdentifier.%@",
+                              [sourceDevice lastPathComponent]]];
+    targetDiskInformation = [systemEnvironment valueForKeyPath:
+                             [NSString stringWithFormat:@"diskinfo.byDeviceIdentifier.%@",
+                              [targetDevice lastPathComponent]]];
+    startupDiskInformation = [systemEnvironment valueForKeyPath:@"diskinfo.byMountPoint./"];
     
     if (![self validateDiskInformation]) {
         return;

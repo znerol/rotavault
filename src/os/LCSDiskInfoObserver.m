@@ -35,8 +35,8 @@
     LCSINIT_RELEASE_AND_RETURN_IF_NIL(dirty);
     commands = [[NSMutableDictionary alloc] init];
     LCSINIT_RELEASE_AND_RETURN_IF_NIL(commands);
-    value = [[NSMutableDictionary alloc] init];
-    LCSINIT_RELEASE_AND_RETURN_IF_NIL(value);
+    disks = [[NSMutableDictionary alloc] init];
+    LCSINIT_RELEASE_AND_RETURN_IF_NIL(disks);
     
     return self;
 }
@@ -45,6 +45,7 @@
 {
     [dirty release];
     [commands release];
+    [disks release];
     [super dealloc];
 }
 
@@ -61,12 +62,38 @@
     NSString *bsdname = [keys objectAtIndex:0];
     
     if (sender.exitState == LCSCommandStateFinished) {
-        [self.value setObject:sender.result forKey:bsdname];
+        [disks setObject:sender.result forKey:bsdname];
     }
     else {
-        [self.value removeObjectForKey:bsdname];
+        [disks removeObjectForKey:bsdname];
     }
     
+    /* Rebuild value dictionary */
+    NSMutableDictionary *byDeviceIdentifier = [NSMutableDictionary dictionaryWithCapacity:[disks count]];
+    NSMutableDictionary *byVolumeUUID = [NSMutableDictionary dictionaryWithCapacity:[disks count]];
+    NSMutableDictionary *byMountPoint = [NSMutableDictionary dictionaryWithCapacity:[disks count]];
+    for (NSString* devid in disks) {
+        NSDictionary* disk = [disks objectForKey:devid];
+        [byDeviceIdentifier setObject:disk forKey:devid];
+        
+        NSString *voluuid = [disk objectForKey:@"VolumeUUID"];
+        if (voluuid) {
+            [byVolumeUUID setObject:disk forKey:voluuid];
+        }
+        
+        NSString *mountpt = [disk objectForKey:@"MountPoint"];
+        if (mountpt) {
+            [byMountPoint setObject:disk forKey:mountpt];
+        }
+    }
+    
+    self.value = [NSDictionary dictionaryWithObjectsAndKeys:
+                  byDeviceIdentifier, @"byDeviceIdentifier",
+                  byVolumeUUID, @"byVolumeUUID",
+                  byMountPoint, @"byMountPoint",
+                  nil];
+    
+    /* remove and release sender */
     [commands removeObjectForKey:bsdname];
     
     if (autorefresh) {

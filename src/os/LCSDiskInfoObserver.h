@@ -14,6 +14,8 @@
 @interface LCSDiskInfoObserver : LCSObserver {
     NSMutableSet        *dirty;
     NSMutableDictionary *commands;
+    
+    NSMutableDictionary *disks;
 }
 +(LCSDiskInfoObserver*)observer;
 @end
