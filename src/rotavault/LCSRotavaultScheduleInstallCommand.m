@@ -76,6 +76,8 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
+    [systemEnvironment release];
+    
     [sourceDevice release];
     [targetDevice release];
     
@@ -89,11 +91,47 @@
 }
 
 -(BOOL)validateDiskInformation
-{    
+{
+    /* error if source is null */
+    NSPredicate *testSourceIsNull = [NSPredicate predicateWithFormat:@"%K == nil",
+                                     [NSString stringWithFormat:@"diskinfo.byDeviceIdentifier.%@",
+                                      [sourceDevice lastPathComponent]]];
+    if ([testSourceIsNull evaluateWithObject:systemEnvironment]) {
+        NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
+                                       LCSERROR_LOCALIZED_DESCRIPTION(@"Unable to retreive information on the source drive. Please check the device path."));
+        [self handleError:err];
+        return NO;
+    }
+    
+    /* error if target is null */
+    NSPredicate *testTargetIsNull = [NSPredicate predicateWithFormat:@"%K == nil",
+                                     [NSString stringWithFormat:@"diskinfo.byDeviceIdentifier.%@",
+                                      [targetDevice lastPathComponent]]];
+    if ([testTargetIsNull evaluateWithObject:systemEnvironment]) {
+        NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
+                                       LCSERROR_LOCALIZED_DESCRIPTION(@"Unable to retreive information on the target drive. Please check the device path."));
+        [self handleError:err];
+        return NO;
+    }
+    
+    /* error if source device is not a hfs disk */
+    NSPredicate *testNoHFSVolume = [NSPredicate predicateWithFormat:@"%K != 'Apple_HFS'",
+                                    [NSString stringWithFormat:@"diskinfo.byDeviceIdentifier.%@.Content",
+                                     [sourceDevice lastPathComponent]]];
+    
+    if ([@"asr" isEqualToString:method] && [testNoHFSVolume evaluateWithObject:systemEnvironment]) {
+        NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
+                                       LCSERROR_LOCALIZED_DESCRIPTION(@"Source device is not a HFS Volume."));
+        [self handleError:err];
+        return NO;
+    }
+    
     /* error if source device is the startup disk (only holds for asr) */
-    if ([@"asr" isEqualToString:method] && [[sourceDiskInformation objectForKey:@"DeviceNode"] isEqual:
-         [startupDiskInformation objectForKey:@"DeviceNode"]]) {
-        
+    NSPredicate *testSourceOnStartupDisk = [NSPredicate predicateWithFormat:@"%K == %K", @"diskinfo.byMountPoint./",
+                                            [NSString stringWithFormat:@"diskinfo.byDeviceIdentifier.%@",
+                                             [sourceDevice lastPathComponent]]];
+    
+    if ([@"asr" isEqualToString:method] && [testSourceOnStartupDisk evaluateWithObject:systemEnvironment]) {
         NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
                                        LCSERROR_LOCALIZED_DESCRIPTION(@"Block copy operation from startup disk is not supported"));
         [self handleError:err];
@@ -101,7 +139,12 @@
     }
     
     /* error if source and target are the same */
-    if ([sourceDiskInformation isEqual:targetDiskInformation]) {
+    NSPredicate *testSourceEqualToTarget = [NSPredicate predicateWithFormat:@"%K == %K",
+                                            [NSString stringWithFormat:@"diskinfo.byDeviceIdentifier.%@",
+                                             [sourceDevice lastPathComponent]],
+                                            [NSString stringWithFormat:@"diskinfo.byDeviceIdentifier.%@",
+                                             [targetDevice lastPathComponent]]];
+    if ([testSourceEqualToTarget evaluateWithObject:systemEnvironment]) {
         NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
                                        LCSERROR_LOCALIZED_DESCRIPTION(@"Source and target may not be the same"));
         [self handleError:err];
@@ -109,7 +152,10 @@
     }
     
     /* error if target disk is mounted */
-    if (![[targetDiskInformation objectForKey:@"MountPoint"] isEqualToString:@""])
+    NSPredicate *testTargetDiskMounted = [NSPredicate predicateWithFormat:@"%K != ''",
+                                          [NSString stringWithFormat:@"diskinfo.byDeviceIdentifier.%@.MountPoint",
+                                           [targetDevice lastPathComponent]]];
+    if ([testTargetDiskMounted evaluateWithObject:systemEnvironment])
     {
         NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
                                        LCSERROR_LOCALIZED_DESCRIPTION(@"Target must not be mounted"));
@@ -118,7 +164,12 @@
     }
     
     /* error if target device is not big enough to hold contents from source */
-    if ([[sourceDiskInformation objectForKey:@"TotalSize"] longLongValue] > [[targetDiskInformation objectForKey:@"TotalSize"] longLongValue]) {
+    NSPredicate *testSourceBiggerThanTarget = [NSPredicate predicateWithFormat:@"%K > %K",
+                                               [NSString stringWithFormat:@"diskinfo.byDeviceIdentifier.%@.TotalSize",
+                                                [sourceDevice lastPathComponent]],
+                                               [NSString stringWithFormat:@"diskinfo.byDeviceIdentifier.%@.TotalSize",
+                                                [targetDevice lastPathComponent]]];
+    if ([testSourceBiggerThanTarget evaluateWithObject:systemEnvironment]) {
         NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
                                        LCSERROR_LOCALIZED_DESCRIPTION(@"Target is too small to hold all content of source"));
         [self handleError:err];
@@ -126,9 +177,10 @@
     }
     
     /* error if source device is not a raid-master (this only holds for appleraid) */
-    if ([@"appleraid" isEqualToString:method] && ![[sourceDiskInformation objectForKey:@"RAIDSlice"] isEqual:
-                                                     [NSNumber numberWithBool:YES]]) {
-        
+    NSPredicate *isNotRaidSlice = [NSPredicate predicateWithFormat:@"NOT (%K == %@)",
+                                   [NSString stringWithFormat:@"diskinfo.byDeviceIdentifier.%@.RAIDSlice",
+                                    [sourceDevice lastPathComponent]], [NSNumber numberWithBool:YES]];
+    if ([@"appleraid" isEqualToString:method] && [isNotRaidSlice evaluateWithObject:systemEnvironment]) {
         NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
                                        LCSERROR_LOCALIZED_DESCRIPTION(@"Source device is not a raid slice"));
         [self handleError:err];
@@ -136,21 +188,34 @@
     }
     
     /* error if source device is not a raid-1 (this only holds for appleraid) */
-    if ([@"appleraid" isEqualToString:method] && ![[sourceDiskInformation objectForKey:@"RAIDSetLevelType"] isEqual:
-                                                     @"Mirror"]) {
-        
+    NSPredicate *isNotRaidMirror = [NSPredicate predicateWithFormat:@"NOT (%K == 'Mirror')",
+                                   [NSString stringWithFormat:@"diskinfo.byDeviceIdentifier.%@.RAIDSetLevelType",
+                                    [sourceDevice lastPathComponent]], [NSNumber numberWithBool:YES]];
+    if ([@"appleraid" isEqualToString:method] && [isNotRaidMirror evaluateWithObject:systemEnvironment]) {
         NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
                                          LCSERROR_LOCALIZED_DESCRIPTION(@"Source device is not raid mirror"));
         [self handleError:err];
         return NO;
     }
     
-    /* error if any raid set in the system is not online */
-    NSPredicate *checkOnline = [NSPredicate predicateWithFormat:@"RAIDSetStatus != 'Online'"];
-    NSArray *nonOnlineRaidSets = [[systemEnvCommand.result objectForKey:@"appleraid"] filteredArrayUsingPredicate:checkOnline];
-    if ([nonOnlineRaidSets count] > 0) {
+    /* error if there is no other member appart from the source device in the raid */
+    NSPredicate *isNotOnline = [NSPredicate predicateWithFormat:@"%K != 'Online'",
+                                [NSString stringWithFormat:@"appleraid.byMemberDeviceIdentifier.%@.RAIDSetStatus",
+                                 [sourceDevice lastPathComponent]]];
+    if ([@"appleraid" isEqualToString:method] && [isNotOnline evaluateWithObject:systemEnvironment]) {
         NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
-                                       LCSERROR_LOCALIZED_DESCRIPTION(@"One or more RAID sets are not in a healthy state. Please check your system with Disk Utility"));
+                                       LCSERROR_LOCALIZED_DESCRIPTION(@"This RAID set is not in the online state. Please check your system with Disk Utility"));
+        [self handleError:err];
+        return NO;
+    }
+
+    /* error if raid set is not online */
+    NSPredicate *isNotComplete = [NSPredicate predicateWithFormat:@"count(%K) < 2",
+                                  [NSString stringWithFormat:@"appleraid.byMemberDeviceIdentifier.%@.RAIDSetMembers",
+                                   [sourceDevice lastPathComponent]]];
+    if ([@"appleraid" isEqualToString:method] && [isNotComplete evaluateWithObject:systemEnvironment]) {
+        NSError *err = LCSERROR_METHOD(LCSRotavaultErrorDomain, LCSParameterError,
+                                       LCSERROR_LOCALIZED_DESCRIPTION(@"This RAID set has not enough devices. You should have at least two devices in a mirror set"));
         [self handleError:err];
         return NO;
     }
@@ -228,14 +293,6 @@ writeLaunchdPlist_freeAndReturn:
     
     systemEnvironment = [systemEnvCommand.result retain];
     
-    sourceDiskInformation = [systemEnvironment valueForKeyPath:
-                             [NSString stringWithFormat:@"diskinfo.byDeviceIdentifier.%@",
-                              [sourceDevice lastPathComponent]]];
-    targetDiskInformation = [systemEnvironment valueForKeyPath:
-                             [NSString stringWithFormat:@"diskinfo.byDeviceIdentifier.%@",
-                              [targetDevice lastPathComponent]]];
-    startupDiskInformation = [systemEnvironment valueForKeyPath:@"diskinfo.byMountPoint./"];
-    
     if (![self validateDiskInformation]) {
         return;
     }
@@ -253,6 +310,12 @@ writeLaunchdPlist_freeAndReturn:
                                                object:activeCommands];
     
     /* construct parameters */
+    NSDictionary* sourceDiskInformation = [systemEnvironment valueForKeyPath:
+                                           [NSString stringWithFormat:@"diskinfo.byDeviceIdentifier.%@",
+                                            [sourceDevice lastPathComponent]]];
+    NSDictionary* targetDiskInformation = [systemEnvironment valueForKeyPath:
+                                           [NSString stringWithFormat:@"diskinfo.byDeviceIdentifier.%@",
+                                            [targetDevice lastPathComponent]]];    
     NSString *sourceCheck = nil;
     if ([@"asr" isEqualToString:method]) {
         sourceCheck = [NSString stringWithFormat:@"uuid:%@", [sourceDiskInformation objectForKey:@"VolumeUUID"]];

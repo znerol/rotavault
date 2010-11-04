@@ -147,7 +147,7 @@ LCSRotavaultSystemEnvironmentObserver *LCSDefaultRotavaultSystemEnvironmentObser
 #pragma mark AppleRAID Subsystem
 - (void)updateAppleraidInformation:(NSNotification*)ntf
 {
-    [self.registry setObject:appleraidObserver.value ? [[appleraidObserver.value objectForKey:@"byRAIDSetUUID"] allObjects] : [NSArray array]
+    [self.registry setObject:appleraidObserver.value ? appleraidObserver.value : [NSDictionary dictionary]
                       forKey:@"appleraid"];
     [self completeRefresh];
 }

@@ -18,9 +18,6 @@
     
     LCSCommand *systemEnvCommand;
     NSDictionary *systemEnvironment;
-    NSDictionary *sourceDiskInformation;
-    NSDictionary *targetDiskInformation;
-    NSDictionary *startupDiskInformation;
     
     NSString *rvcopydLaunchPath;
     
