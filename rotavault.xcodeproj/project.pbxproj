@@ -191,6 +191,9 @@
 		CADC96BF12754BCD00D14344 /* LCSRotavaultDistributedStateNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = CADC96BE12754BCD00D14344 /* LCSRotavaultDistributedStateNotification.m */; };
 		CADC96C012754BCD00D14344 /* LCSRotavaultDistributedStateNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = CADC96BE12754BCD00D14344 /* LCSRotavaultDistributedStateNotification.m */; };
 		CADC96EE127550B100D14344 /* LCSRotavaultDistributedStateNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = CADC96BE12754BCD00D14344 /* LCSRotavaultDistributedStateNotification.m */; };
+		CADE6F161282C24000AAA6F9 /* LCSAppleRAIDObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = CADE6F151282C24000AAA6F9 /* LCSAppleRAIDObserver.m */; };
+		CADE6F171282C24000AAA6F9 /* LCSAppleRAIDObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = CADE6F151282C24000AAA6F9 /* LCSAppleRAIDObserver.m */; };
+		CADE6F181282C24000AAA6F9 /* LCSAppleRAIDObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = CADE6F151282C24000AAA6F9 /* LCSAppleRAIDObserver.m */; };
 		CAE26A611260A67700B19EC1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAE26A601260A67700B19EC1 /* Security.framework */; };
 		CAE26A631260A67700B19EC1 /* SecurityInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAE26A621260A67700B19EC1 /* SecurityInterface.framework */; };
 		CAE3BEDE126F753F00982D14 /* LCSDistributedCommandStatePublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = CAE3BEDD126F753F00982D14 /* LCSDistributedCommandStatePublisher.m */; };
@@ -589,6 +592,8 @@
 		CADC1E7F1271A8A600FB7A91 /* LCSPkgInfoCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSPkgInfoCommand.m; sourceTree = "<group>"; };
 		CADC96BD12754BCD00D14344 /* LCSRotavaultDistributedStateNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSRotavaultDistributedStateNotification.h; sourceTree = "<group>"; };
 		CADC96BE12754BCD00D14344 /* LCSRotavaultDistributedStateNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSRotavaultDistributedStateNotification.m; sourceTree = "<group>"; };
+		CADE6F141282C24000AAA6F9 /* LCSAppleRAIDObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSAppleRAIDObserver.h; sourceTree = "<group>"; };
+		CADE6F151282C24000AAA6F9 /* LCSAppleRAIDObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSAppleRAIDObserver.m; sourceTree = "<group>"; };
 		CAE26A601260A67700B19EC1 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		CAE26A621260A67700B19EC1 /* SecurityInterface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SecurityInterface.framework; path = System/Library/Frameworks/SecurityInterface.framework; sourceTree = SDKROOT; };
 		CAE3BEDC126F753F00982D14 /* LCSDistributedCommandStatePublisher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSDistributedCommandStatePublisher.h; sourceTree = "<group>"; };
@@ -930,6 +935,8 @@
 				CA050EFB1264D9D60076D8BF /* LCSAppleRAIDListCommand.m */,
 				CAB8276612660B4C00F158DB /* LCSAppleRAIDMonitorRebuildCommand.h */,
 				CAB8276712660B4C00F158DB /* LCSAppleRAIDMonitorRebuildCommand.m */,
+				CADE6F141282C24000AAA6F9 /* LCSAppleRAIDObserver.h */,
+				CADE6F151282C24000AAA6F9 /* LCSAppleRAIDObserver.m */,
 				CA1924971266036200E05A63 /* LCSAppleRAIDRemoveMemberCommand.h */,
 				CA1924981266036200E05A63 /* LCSAppleRAIDRemoveMemberCommand.m */,
 				CA4820341264D62700C2879B /* LCSAsrRestoreCommand.h */,
@@ -1536,6 +1543,7 @@
 				CA06C131128154B6008AB186 /* LCSDiskInfoObserver.m in Sources */,
 				CA06C42A12816C62008AB186 /* LCSDiskArbitration.m in Sources */,
 				CA06C4A412818FCA008AB186 /* LCSPkgInfoObserver.m in Sources */,
+				CADE6F171282C24000AAA6F9 /* LCSAppleRAIDObserver.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1662,6 +1670,7 @@
 				CAEE6B6712806EBD00763467 /* LCSPkgInfoObserver.m in Sources */,
 				CA06C12F128154B6008AB186 /* LCSDiskInfoObserver.m in Sources */,
 				CA06C42812816C62008AB186 /* LCSDiskArbitration.m in Sources */,
+				CADE6F181282C24000AAA6F9 /* LCSAppleRAIDObserver.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1728,6 +1737,7 @@
 				CAEE6B961280745100763467 /* LCSPkgInfoObserverTest.m in Sources */,
 				CA06C130128154B6008AB186 /* LCSDiskInfoObserver.m in Sources */,
 				CA06C42912816C62008AB186 /* LCSDiskArbitration.m in Sources */,
+				CADE6F161282C24000AAA6F9 /* LCSAppleRAIDObserver.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
