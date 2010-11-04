@@ -194,6 +194,13 @@
 		CADE6F161282C24000AAA6F9 /* LCSAppleRAIDObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = CADE6F151282C24000AAA6F9 /* LCSAppleRAIDObserver.m */; };
 		CADE6F171282C24000AAA6F9 /* LCSAppleRAIDObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = CADE6F151282C24000AAA6F9 /* LCSAppleRAIDObserver.m */; };
 		CADE6F181282C24000AAA6F9 /* LCSAppleRAIDObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = CADE6F151282C24000AAA6F9 /* LCSAppleRAIDObserver.m */; };
+		CADE70F712834B1800AAA6F9 /* LCSVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = CADE70F612834B1800AAA6F9 /* LCSVerifier.m */; };
+		CADE70F812834B1800AAA6F9 /* LCSVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = CADE70F612834B1800AAA6F9 /* LCSVerifier.m */; };
+		CADE70F912834B1800AAA6F9 /* LCSVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = CADE70F612834B1800AAA6F9 /* LCSVerifier.m */; };
+		CADE71181283534500AAA6F9 /* LCSPredicateVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = CADE71171283534500AAA6F9 /* LCSPredicateVerifier.m */; };
+		CADE71191283534500AAA6F9 /* LCSPredicateVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = CADE71171283534500AAA6F9 /* LCSPredicateVerifier.m */; };
+		CADE711A1283534500AAA6F9 /* LCSPredicateVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = CADE71171283534500AAA6F9 /* LCSPredicateVerifier.m */; };
+		CADE71271283546000AAA6F9 /* LCSRotavaultScheduleInstallVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = CADE71261283546000AAA6F9 /* LCSRotavaultScheduleInstallVerifier.m */; };
 		CAE26A611260A67700B19EC1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAE26A601260A67700B19EC1 /* Security.framework */; };
 		CAE26A631260A67700B19EC1 /* SecurityInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAE26A621260A67700B19EC1 /* SecurityInterface.framework */; };
 		CAE3BEDE126F753F00982D14 /* LCSDistributedCommandStatePublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = CAE3BEDD126F753F00982D14 /* LCSDistributedCommandStatePublisher.m */; };
@@ -594,6 +601,12 @@
 		CADC96BE12754BCD00D14344 /* LCSRotavaultDistributedStateNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSRotavaultDistributedStateNotification.m; sourceTree = "<group>"; };
 		CADE6F141282C24000AAA6F9 /* LCSAppleRAIDObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSAppleRAIDObserver.h; sourceTree = "<group>"; };
 		CADE6F151282C24000AAA6F9 /* LCSAppleRAIDObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSAppleRAIDObserver.m; sourceTree = "<group>"; };
+		CADE70F5128348BC00AAA6F9 /* LCSVerifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSVerifier.h; sourceTree = "<group>"; };
+		CADE70F612834B1800AAA6F9 /* LCSVerifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSVerifier.m; sourceTree = "<group>"; };
+		CADE71161283534500AAA6F9 /* LCSPredicateVerifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSPredicateVerifier.h; sourceTree = "<group>"; };
+		CADE71171283534500AAA6F9 /* LCSPredicateVerifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSPredicateVerifier.m; sourceTree = "<group>"; };
+		CADE71251283546000AAA6F9 /* LCSRotavaultScheduleInstallVerifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSRotavaultScheduleInstallVerifier.h; sourceTree = "<group>"; };
+		CADE71261283546000AAA6F9 /* LCSRotavaultScheduleInstallVerifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSRotavaultScheduleInstallVerifier.m; sourceTree = "<group>"; };
 		CAE26A601260A67700B19EC1 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		CAE26A621260A67700B19EC1 /* SecurityInterface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SecurityInterface.framework; path = System/Library/Frameworks/SecurityInterface.framework; sourceTree = SDKROOT; };
 		CAE3BEDC126F753F00982D14 /* LCSDistributedCommandStatePublisher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSDistributedCommandStatePublisher.h; sourceTree = "<group>"; };
@@ -870,6 +883,7 @@
 				CA4820311264D62700C2879B /* os */,
 				CA48204C1264D62700C2879B /* rotavault */,
 				CA4820541264D62700C2879B /* util */,
+				CADE70F4128348A100AAA6F9 /* ver */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -998,6 +1012,8 @@
 				CAF1CEA0126E1DB400E40D5D /* LCSRotavaultPrivilegedJobRemoveCommand.m */,
 				CA4820511264D62700C2879B /* LCSRotavaultScheduleInstallCommand.h */,
 				CA4820521264D62700C2879B /* LCSRotavaultScheduleInstallCommand.m */,
+				CADE71251283546000AAA6F9 /* LCSRotavaultScheduleInstallVerifier.h */,
+				CADE71261283546000AAA6F9 /* LCSRotavaultScheduleInstallVerifier.m */,
 				CAD5F85F127C64C000CB1414 /* LCSRotavaultSystemEnvironmentObserver.h */,
 				CAD5F860127C64C000CB1414 /* LCSRotavaultSystemEnvironmentObserver.m */,
 				CA4820531264D62700C2879B /* rotavault_Prefix.pch */,
@@ -1028,6 +1044,17 @@
 				CAF1CF4D126E26A800E40D5D /* tool */,
 			);
 			path = bas;
+			sourceTree = "<group>";
+		};
+		CADE70F4128348A100AAA6F9 /* ver */ = {
+			isa = PBXGroup;
+			children = (
+				CADE71161283534500AAA6F9 /* LCSPredicateVerifier.h */,
+				CADE71171283534500AAA6F9 /* LCSPredicateVerifier.m */,
+				CADE70F5128348BC00AAA6F9 /* LCSVerifier.h */,
+				CADE70F612834B1800AAA6F9 /* LCSVerifier.m */,
+			);
+			path = ver;
 			sourceTree = "<group>";
 		};
 		CAEE8B2B126CE72500B0BE92 /* systools.pmdoc */ = {
@@ -1544,6 +1571,8 @@
 				CA06C42A12816C62008AB186 /* LCSDiskArbitration.m in Sources */,
 				CA06C4A412818FCA008AB186 /* LCSPkgInfoObserver.m in Sources */,
 				CADE6F171282C24000AAA6F9 /* LCSAppleRAIDObserver.m in Sources */,
+				CADE70F912834B1800AAA6F9 /* LCSVerifier.m in Sources */,
+				CADE711A1283534500AAA6F9 /* LCSPredicateVerifier.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1614,6 +1643,8 @@
 				CA21D03B128026BF00104EB0 /* LCSObserver.m in Sources */,
 				CAEE6B5212806A4B00763467 /* LCSTestObserver.m in Sources */,
 				CA06C120128152E9008AB186 /* NSNotificationCenter+DefaultCenterThreadLocal.m in Sources */,
+				CADE70F812834B1800AAA6F9 /* LCSVerifier.m in Sources */,
+				CADE71191283534500AAA6F9 /* LCSPredicateVerifier.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1671,6 +1702,9 @@
 				CA06C12F128154B6008AB186 /* LCSDiskInfoObserver.m in Sources */,
 				CA06C42812816C62008AB186 /* LCSDiskArbitration.m in Sources */,
 				CADE6F181282C24000AAA6F9 /* LCSAppleRAIDObserver.m in Sources */,
+				CADE70F712834B1800AAA6F9 /* LCSVerifier.m in Sources */,
+				CADE71181283534500AAA6F9 /* LCSPredicateVerifier.m in Sources */,
+				CADE71271283546000AAA6F9 /* LCSRotavaultScheduleInstallVerifier.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
