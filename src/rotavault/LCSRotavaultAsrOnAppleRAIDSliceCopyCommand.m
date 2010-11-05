@@ -78,6 +78,16 @@
     [super dealloc];
 }
 
+-(void)handleError:(NSError*)err
+{
+    [super handleError:err];
+    
+    noMonitorRebuild = YES;
+    if (addSourceBackToRaid) {
+        [self startAddSourceSliceToRAIDSet];
+    }
+}
+
 -(BOOL)verifyDiskInformation:(NSDictionary*)diskinfo withChecksum:(NSString*)checksum
 {
     NSArray* components = [checksum componentsSeparatedByString:@":"];
@@ -206,6 +216,8 @@
                                                     name:[LCSCommand notificationNameStateEntered:LCSCommandStateFinished]
                                                   object:ctl];
     
+    addSourceBackToRaid = YES;
+    
     [self startBlockCopy];
 }
 
@@ -253,6 +265,8 @@
 {
     self.progressMessage = [NSString localizedStringWithFormat:@"Adding source slice back to RAID set"];
     
+    addSourceBackToRaid = NO;
+    
     LCSCommand *ctl = [LCSAppleRAIDAddMemberCommand commandWithRaidUUID:raidUUID
                                                              devicePath:sourceDevice];
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -277,6 +291,10 @@
 
 -(void)startMonitorRebuildRAIDSet
 {
+    if (noMonitorRebuild) {
+        return;
+    }
+    
     self.progressMessage = [NSString localizedStringWithFormat:@"Rebuilding RAID set"];
     LCSCommand *ctl = [LCSAppleRAIDMonitorRebuildCommand commandWithRaidUUID:raidUUID
                                                                   devicePath:sourceDevice];

@@ -19,6 +19,9 @@
     
     NSString* raidUUID;
     
+    BOOL addSourceBackToRaid;
+    BOOL noMonitorRebuild;
+    
     LCSCommand *sourceInfoCtl;
     LCSCommand *targetInfoCtl;    
     LCSCommand *raidInfoCtl;
