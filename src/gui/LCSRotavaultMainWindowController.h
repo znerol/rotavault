@@ -9,6 +9,7 @@
 #import "LCSRotavaultJob.h"
 #import "LCSRotavaultSystemEnvironmentObserver.h"
 #import "LCSDiskArbitration.h"
+#import "LCSCommandManager.h"
 
 @interface LCSRotavaultMainWindowController : NSObject {
     IBOutlet NSWindow *window;
@@ -17,6 +18,8 @@
     LCSRotavaultJob *job;
     LCSRotavaultSystemEnvironmentObserver *env;
     LCSDiskArbitration *da;
+    
+    NSWindowController *commandManagerWindow;
     BOOL attachImageEnabled;
 }
 @property(readonly) LCSRotavaultJob *job;

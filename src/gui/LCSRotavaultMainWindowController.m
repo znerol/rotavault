@@ -39,6 +39,9 @@
     
     da = [LCSDiskArbitration sharedInstance];
     
+    commandManagerWindow = [[NSWindowController alloc] initWithWindowNibName:@"ActivityPanel"];
+    [commandManagerWindow showWindow:self];
+    
     return self;
 }
 
@@ -51,6 +54,7 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
+    [commandManagerWindow release];
     [job removeObserver:self forKeyPath:@"lastError"];
     [job release];
     [super dealloc];
