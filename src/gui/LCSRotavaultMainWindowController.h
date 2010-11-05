@@ -28,4 +28,5 @@
 @property(readonly) LCSRotavaultJob *job;
 @property(readonly) LCSRotavaultSystemEnvironmentObserver *env;
 @property(assign) BOOL attachImageEnabled;
+@property(readonly) NSWindow *window;
 @end

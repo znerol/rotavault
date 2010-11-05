@@ -15,6 +15,7 @@
 @synthesize job;
 @synthesize env;
 @synthesize attachImageEnabled;
+@synthesize window;
 
 - (id)init
 {
@@ -44,7 +45,6 @@
     [commandManagerWindow showWindow:self];
     
     volumeChooserPanel = [[LCSVolumeChooserPanelController alloc] init];
-    [volumeChooserPanel showWindow:self];
     
     return self;
 }

@@ -8,11 +8,11 @@
 
 #import <Cocoa/Cocoa.h>
 #import "LCSRotavaultVolumeChooserController.h"
+#import "LCSRotavaultSystemEnvironmentObserver.h"
 
 
 @interface LCSVolumeChooserPanelController : NSWindowController {
     IBOutlet NSView *chooserView;
-
     LCSRotavaultVolumeChooserController *volumeChooser;
 }
 @property(retain) LCSRotavaultVolumeChooserController *volumeChooser;
