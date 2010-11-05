@@ -85,7 +85,13 @@
 		CA21D039128026BF00104EB0 /* LCSObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = CA21D038128026BF00104EB0 /* LCSObserver.m */; };
 		CA21D03A128026BF00104EB0 /* LCSObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = CA21D038128026BF00104EB0 /* LCSObserver.m */; };
 		CA21D03B128026BF00104EB0 /* LCSObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = CA21D038128026BF00104EB0 /* LCSObserver.m */; };
+		CA29561A12844E6100671292 /* LCSVolumeChooserPanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA29561912844E6100671292 /* LCSVolumeChooserPanelController.m */; };
 		CA414D00128427C0004169B8 /* ActivityPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA414CFF128427C0004169B8 /* ActivityPanel.xib */; };
+		CA414D5512843199004169B8 /* VolumeChooserPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA414D5412843199004169B8 /* VolumeChooserPanel.xib */; };
+		CA414D95128437FD004169B8 /* LCSSelectableCollectionViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CA414D94128437FD004169B8 /* LCSSelectableCollectionViewItem.m */; };
+		CA414D9B1284387F004169B8 /* LCSSelectableView.m in Sources */ = {isa = PBXBuildFile; fileRef = CA414D9A1284387F004169B8 /* LCSSelectableView.m */; };
+		CA414E57128443E7004169B8 /* Disk.tiff in Resources */ = {isa = PBXBuildFile; fileRef = CA414E55128443E7004169B8 /* Disk.tiff */; };
+		CA414E58128443E7004169B8 /* RAID.tiff in Resources */ = {isa = PBXBuildFile; fileRef = CA414E56128443E7004169B8 /* RAID.tiff */; };
 		CA4205F0127F146B008A9870 /* LCSRotavaultFreshSystemEnvironmentCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4205EF127F146B008A9870 /* LCSRotavaultFreshSystemEnvironmentCommand.m */; };
 		CA4205F2127F146B008A9870 /* LCSRotavaultFreshSystemEnvironmentCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4205EF127F146B008A9870 /* LCSRotavaultFreshSystemEnvironmentCommand.m */; };
 		CA420616127F1A64008A9870 /* LCSRotavaultSystemEnvironmentObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = CAD5F860127C64C000CB1414 /* LCSRotavaultSystemEnvironmentObserver.m */; };
@@ -492,7 +498,6 @@
 /* Begin PBXFileReference section */
 		08FB779EFE84155DC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		CA050CD81264D8500076D8BF /* Rotavault-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Rotavault-Info.plist"; sourceTree = "<group>"; };
-		CA050CD91264D8500076D8BF /* Rotavault-Test-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Rotavault-Test-Info.plist"; sourceTree = "<group>"; };
 		CA050EFA1264D9D60076D8BF /* LCSAppleRAIDListCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSAppleRAIDListCommand.h; sourceTree = "<group>"; };
 		CA050EFB1264D9D60076D8BF /* LCSAppleRAIDListCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSAppleRAIDListCommand.m; sourceTree = "<group>"; };
 		CA050F131264E0090076D8BF /* LCSOSMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSOSMacros.h; sourceTree = "<group>"; };
@@ -517,7 +522,19 @@
 		CA21D037128026BF00104EB0 /* LCSObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSObserver.h; sourceTree = "<group>"; };
 		CA21D038128026BF00104EB0 /* LCSObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSObserver.m; sourceTree = "<group>"; };
 		CA28AF1F12132C7600C9BE6F /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		CA29561812844E6100671292 /* LCSVolumeChooserPanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSVolumeChooserPanelController.h; sourceTree = "<group>"; };
+		CA29561912844E6100671292 /* LCSVolumeChooserPanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSVolumeChooserPanelController.m; sourceTree = "<group>"; };
 		CA414CFF128427C0004169B8 /* ActivityPanel.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActivityPanel.xib; sourceTree = "<group>"; };
+		CA414D5412843199004169B8 /* VolumeChooserPanel.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VolumeChooserPanel.xib; sourceTree = "<group>"; };
+		CA414D93128437FD004169B8 /* LCSSelectableCollectionViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSSelectableCollectionViewItem.h; sourceTree = "<group>"; };
+		CA414D94128437FD004169B8 /* LCSSelectableCollectionViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSSelectableCollectionViewItem.m; sourceTree = "<group>"; };
+		CA414D991284387F004169B8 /* LCSSelectableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSSelectableView.h; sourceTree = "<group>"; };
+		CA414D9A1284387F004169B8 /* LCSSelectableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSSelectableView.m; sourceTree = "<group>"; };
+		CA414DAC128439A9004169B8 /* LCSSelectable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSSelectable.h; sourceTree = "<group>"; };
+		CA414E53128443DB004169B8 /* Rotavault-System-Tests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Rotavault-System-Tests-Info.plist"; sourceTree = "<group>"; };
+		CA414E54128443DB004169B8 /* Rotavault-Unit-Tests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Rotavault-Unit-Tests-Info.plist"; sourceTree = "<group>"; };
+		CA414E55128443E7004169B8 /* Disk.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Disk.tiff; sourceTree = "<group>"; };
+		CA414E56128443E7004169B8 /* RAID.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = RAID.tiff; sourceTree = "<group>"; };
 		CA4205EE127F146B008A9870 /* LCSRotavaultFreshSystemEnvironmentCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSRotavaultFreshSystemEnvironmentCommand.h; sourceTree = "<group>"; };
 		CA4205EF127F146B008A9870 /* LCSRotavaultFreshSystemEnvironmentCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSRotavaultFreshSystemEnvironmentCommand.m; sourceTree = "<group>"; };
 		CA48201A1264D62700C2879B /* LCSCmdlineCommandRunner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSCmdlineCommandRunner.h; sourceTree = "<group>"; };
@@ -654,7 +671,6 @@
 		CAF7688F126ED1E7005A9C84 /* LCSHelperRemoveRotavaultJobCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSHelperRemoveRotavaultJobCommand.h; sourceTree = "<group>"; };
 		CAF76890126ED1E7005A9C84 /* LCSHelperRemoveRotavaultJobCommand.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LCSHelperRemoveRotavaultJobCommand.c; sourceTree = "<group>"; };
 		CAF8302112745E0300F8D695 /* Rotavault System Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rotavault System Tests.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		CAF8302712745E0400F8D695 /* Rotavault-Test-Info copy.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Rotavault-Test-Info copy.plist"; sourceTree = "<group>"; };
 		CAF834E81274842000F8D695 /* NSNotificationCenter+DefaultCenterThreadLocal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+DefaultCenterThreadLocal.h"; sourceTree = "<group>"; };
 		CAF834E91274842000F8D695 /* NSNotificationCenter+DefaultCenterThreadLocal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNotificationCenter+DefaultCenterThreadLocal.m"; sourceTree = "<group>"; };
 		CAF834EB1274842000F8D695 /* GHUnitMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUnitMain.m; sourceTree = "<group>"; };
@@ -839,13 +855,15 @@
 		CA050CD71264D8500076D8BF /* rsrc */ = {
 			isa = PBXGroup;
 			children = (
-				CA050CD81264D8500076D8BF /* Rotavault-Info.plist */,
-				CA050CD91264D8500076D8BF /* Rotavault-Test-Info.plist */,
 				CAEE8B84126CEF1900B0BE92 /* ch.znerol.rotavault.plist */,
+				CA414E55128443E7004169B8 /* Disk.tiff */,
+				CA414E56128443E7004169B8 /* RAID.tiff */,
+				CA050CD81264D8500076D8BF /* Rotavault-Info.plist */,
+				CA414E53128443DB004169B8 /* Rotavault-System-Tests-Info.plist */,
+				CA414E54128443DB004169B8 /* Rotavault-Unit-Tests-Info.plist */,
+				CAF653811270272300361A2E /* StandardPreferences.plist */,
 				CAEE8B96126CF38C00B0BE92 /* systools-scripts */,
 				CAEE8B2B126CE72500B0BE92 /* systools.pmdoc */,
-				CAF653811270272300361A2E /* StandardPreferences.plist */,
-				CAF8302712745E0400F8D695 /* Rotavault-Test-Info copy.plist */,
 			);
 			path = rsrc;
 			sourceTree = "<group>";
@@ -941,10 +959,18 @@
 				CA48202E1264D62700C2879B /* LCSRotavaultMainWindowController.m */,
 				CA1926BC1284075300A0A3B7 /* LCSRotavaultVolumeChooserController.h */,
 				CA1926BD1284075300A0A3B7 /* LCSRotavaultVolumeChooserController.m */,
+				CA414DAC128439A9004169B8 /* LCSSelectable.h */,
+				CA414D93128437FD004169B8 /* LCSSelectableCollectionViewItem.h */,
+				CA414D94128437FD004169B8 /* LCSSelectableCollectionViewItem.m */,
+				CA414D991284387F004169B8 /* LCSSelectableView.h */,
+				CA414D9A1284387F004169B8 /* LCSSelectableView.m */,
+				CA29561812844E6100671292 /* LCSVolumeChooserPanelController.h */,
+				CA29561912844E6100671292 /* LCSVolumeChooserPanelController.m */,
 				CA48202F1264D62700C2879B /* MainMenu.xib */,
 				CA4820301264D62700C2879B /* rotavault.m */,
 				CA9E8AEC1265E5A900BCF0E0 /* SetupAssistant.xib */,
 				CA1926B71284029800A0A3B7 /* VolumeChooser.xib */,
+				CA414D5412843199004169B8 /* VolumeChooserPanel.xib */,
 			);
 			path = gui;
 			sourceTree = "<group>";
@@ -1081,8 +1107,8 @@
 		CAEE8B96126CF38C00B0BE92 /* systools-scripts */ = {
 			isa = PBXGroup;
 			children = (
-				CAEE8B97126CF38C00B0BE92 /* preinstall */,
 				CAEE8B98126CF38C00B0BE92 /* postinstall */,
+				CAEE8B97126CF38C00B0BE92 /* preinstall */,
 				CAD2996D126D6BD00039D672 /* uninstall.sh */,
 			);
 			path = "systools-scripts";
@@ -1430,6 +1456,9 @@
 				CAF653821270272300361A2E /* StandardPreferences.plist in Resources */,
 				CA1926B81284029800A0A3B7 /* VolumeChooser.xib in Resources */,
 				CA414D00128427C0004169B8 /* ActivityPanel.xib in Resources */,
+				CA414D5512843199004169B8 /* VolumeChooserPanel.xib in Resources */,
+				CA414E57128443E7004169B8 /* Disk.tiff in Resources */,
+				CA414E58128443E7004169B8 /* RAID.tiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1719,6 +1748,9 @@
 				CADE71181283534500AAA6F9 /* LCSPredicateVerifier.m in Sources */,
 				CADE71271283546000AAA6F9 /* LCSRotavaultScheduleInstallVerifier.m in Sources */,
 				CA1926BE1284075300A0A3B7 /* LCSRotavaultVolumeChooserController.m in Sources */,
+				CA414D95128437FD004169B8 /* LCSSelectableCollectionViewItem.m in Sources */,
+				CA414D9B1284387F004169B8 /* LCSSelectableView.m in Sources */,
+				CA29561A12844E6100671292 /* LCSVolumeChooserPanelController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

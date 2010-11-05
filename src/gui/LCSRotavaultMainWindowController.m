@@ -8,6 +8,7 @@
 #import "LCSRotavaultMainWindowController.h"
 #import "LCSInitMacros.h"
 #import "LCSDiskImageAttachCommand.h"
+#import "LCSRotavaultVolumeChooserController.h"
 #import "SampleCommon.h"
 
 @implementation LCSRotavaultMainWindowController
@@ -41,6 +42,9 @@
     
     commandManagerWindow = [[NSWindowController alloc] initWithWindowNibName:@"ActivityPanel"];
     [commandManagerWindow showWindow:self];
+    
+    volumeChooserPanel = [[LCSVolumeChooserPanelController alloc] init];
+    [volumeChooserPanel showWindow:self];
     
     return self;
 }

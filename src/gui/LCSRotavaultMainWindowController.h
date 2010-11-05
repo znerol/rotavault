@@ -10,6 +10,7 @@
 #import "LCSRotavaultSystemEnvironmentObserver.h"
 #import "LCSDiskArbitration.h"
 #import "LCSCommandManager.h"
+#import "LCSVolumeChooserPanelController.h"
 
 @interface LCSRotavaultMainWindowController : NSObject {
     IBOutlet NSWindow *window;
@@ -21,6 +22,8 @@
     
     NSWindowController *commandManagerWindow;
     BOOL attachImageEnabled;
+    
+    LCSVolumeChooserPanelController *volumeChooserPanel;
 }
 @property(readonly) LCSRotavaultJob *job;
 @property(readonly) LCSRotavaultSystemEnvironmentObserver *env;

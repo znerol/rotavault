@@ -9,9 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface LCSRotavaultVolumeChooserController : NSObject {
-    IBOutlet NSView *view;
-
+@interface LCSRotavaultVolumeChooserController : NSViewController{
     NSArray *disks;
     NSIndexSet *selectedDisks;
 }
