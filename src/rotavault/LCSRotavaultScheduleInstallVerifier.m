@@ -35,23 +35,23 @@
     
     NSMutableArray *newVerifiers = [NSMutableArray array];
     
-    NSString *sourceDeviceIdentifier = [sourcedev lastPathComponent];
-    NSString *targetDeviceIdentifier = [targetdev lastPathComponent];
+    NSString *sourceDeviceKeyPath = [NSString stringWithFormat:@"diskinfo.byDeviceIdentifier.%@",
+                                     [sourcedev lastPathComponent]];
+    NSString *targetDeviceKeyPath = [NSString stringWithFormat:@"diskinfo.byDeviceIdentifier.%@",
+                                     [targetdev lastPathComponent]];
     
     LCSPredicateVerifier *v = nil;
     
     /* error if source is null */
     v = [[[LCSPredicateVerifier alloc] init] autorelease];
-    v.predicate = [NSPredicate predicateWithFormat:@"%K != nil",
-                   [NSString stringWithFormat:@"diskinfo.byDeviceIdentifier.%@", sourceDeviceIdentifier]];
+    v.predicate = [NSPredicate predicateWithFormat:@"%K != nil", sourceDeviceKeyPath];
     v.object = sysenv;
     v.message = NSLocalizedString(@"Unable to retreive information on the source drive. Please check the device path.", @"");
     [newVerifiers addObject:v];
     
     /* error if target is null */
     v = [[[LCSPredicateVerifier alloc] init] autorelease];
-    v.predicate = [NSPredicate predicateWithFormat:@"%K != nil",
-                   [NSString stringWithFormat:@"diskinfo.byDeviceIdentifier.%@", targetDeviceIdentifier]];
+    v.predicate = [NSPredicate predicateWithFormat:@"%K != nil", targetDeviceKeyPath];
     v.object = sysenv;
     v.message = NSLocalizedString(@"Unable to retreive information on the target drive. Please check the device path.", @"");
     [newVerifiers addObject:v];
@@ -60,15 +60,14 @@
     if ([@"asr" isEqualToString:method]) {
         v = [[[LCSPredicateVerifier alloc] init] autorelease];
         v.predicate = [NSPredicate predicateWithFormat:@"%K == 'Apple_HFS'",
-                       [NSString stringWithFormat:@"diskinfo.byDeviceIdentifier.%@.Content", sourceDeviceIdentifier]];
+                       [sourceDeviceKeyPath stringByAppendingString:@".Content"]];
         v.object = sysenv;
         v.message = NSLocalizedString(@"Source device is not a HFS Volume.", @"");
         [newVerifiers addObject:v];
     
         /* error if source device is the startup disk (only holds for asr) */
         v = [[[LCSPredicateVerifier alloc] init] autorelease];
-        v.predicate = [NSPredicate predicateWithFormat:@"%K != %K", @"diskinfo.byMountPoint./",
-                       [NSString stringWithFormat:@"diskinfo.byDeviceIdentifier.%@", sourceDeviceIdentifier]];
+        v.predicate = [NSPredicate predicateWithFormat:@"%K != %K", @"diskinfo.byMountPoint./", sourceDeviceKeyPath];
         v.object = sysenv;
         v.message = NSLocalizedString(@"Block copy operation from startup disk is not supported", @"");
         [newVerifiers addObject:v];
@@ -76,9 +75,7 @@
     
     /* error if source and target are the same */
     v = [[[LCSPredicateVerifier alloc] init] autorelease];
-    v.predicate = [NSPredicate predicateWithFormat:@"%K != %K",
-                   [NSString stringWithFormat:@"diskinfo.byDeviceIdentifier.%@", sourceDeviceIdentifier],
-                   [NSString stringWithFormat:@"diskinfo.byDeviceIdentifier.%@", targetDeviceIdentifier]];
+    v.predicate = [NSPredicate predicateWithFormat:@"%K != %K", sourceDeviceKeyPath, targetDeviceKeyPath];
     v.object = sysenv;
     v.message = NSLocalizedString(@"Source and target may not be the same", @"");
     [newVerifiers addObject:v];
@@ -86,7 +83,7 @@
     /* error if target disk is mounted */
     v = [[[LCSPredicateVerifier alloc] init] autorelease];
     v.predicate = [NSPredicate predicateWithFormat:@"%K == ''",
-                   [NSString stringWithFormat:@"diskinfo.byDeviceIdentifier.%@.MountPoint", targetDeviceIdentifier]];
+                   [targetDeviceKeyPath stringByAppendingString:@".MountPoint"]];
     v.object = sysenv;
     v.message = NSLocalizedString(@"Target must not be mounted", @"");
     [newVerifiers addObject:v];
@@ -94,8 +91,8 @@
     /* error if target device is not big enough to hold contents from source */
     v = [[[LCSPredicateVerifier alloc] init] autorelease];
     v.predicate = [NSPredicate predicateWithFormat:@"%K <= %K",
-                   [NSString stringWithFormat:@"diskinfo.byDeviceIdentifier.%@.TotalSize", sourceDeviceIdentifier],
-                   [NSString stringWithFormat:@"diskinfo.byDeviceIdentifier.%@.TotalSize", targetDeviceIdentifier]];
+                   [sourceDeviceKeyPath stringByAppendingString:@".TotalSize"],
+                   [targetDeviceKeyPath stringByAppendingString:@".TotalSize"]];
     v.object = sysenv;
     v.message = NSLocalizedString(@"Target is too small to hold all content of source", @"");
     [newVerifiers addObject:v];
@@ -104,7 +101,7 @@
         /* error if source device is not a raid-master (this only holds for appleraid) */
         v = [[[LCSPredicateVerifier alloc] init] autorelease];
         v.predicate = [NSPredicate predicateWithFormat:@"%K == %@",
-                       [NSString stringWithFormat:@"diskinfo.byDeviceIdentifier.%@.RAIDSlice", sourceDeviceIdentifier],
+                       [sourceDeviceKeyPath stringByAppendingString:@".RAIDSlice"],
                        [NSNumber numberWithBool:YES]];
         v.object = sysenv;
         v.message = NSLocalizedString(@"Source device is not a raid slice", @"");
@@ -113,8 +110,7 @@
         /* error if source device is not a raid-1 (this only holds for appleraid) */
         v = [[[LCSPredicateVerifier alloc] init] autorelease];
         v.predicate = [NSPredicate predicateWithFormat:@"%K == 'Mirror'",
-                       [NSString stringWithFormat:@"diskinfo.byDeviceIdentifier.%@.RAIDSetLevelType",
-                        sourceDeviceIdentifier]];
+                       [sourceDeviceKeyPath stringByAppendingString:@".RAIDSetLevelType"]];
         v.object = sysenv;
         v.message = NSLocalizedString(@"Source device is not raid mirror", @"");
         [newVerifiers addObject:v];
@@ -122,17 +118,16 @@
         /* error if there is no other member appart from the source device in the raid */
         v = [[[LCSPredicateVerifier alloc] init] autorelease];
         v.predicate = [NSPredicate predicateWithFormat:@"%K == 'Online'",
-                       [NSString stringWithFormat:@"appleraid.byMemberDeviceIdentifier.%@.RAIDSetStatus",
-                        sourceDeviceIdentifier]];
+                       [sourceDeviceKeyPath stringByAppendingString:@".RAIDSetStatus"]];
         v.object = sysenv;
-        v.message = NSLocalizedString(@"This RAID set is not in the online", @"");
+        v.message = NSLocalizedString(@"This RAID set is not online", @"");
         [newVerifiers addObject:v];
     
         /* error if raid set is not online */
         v = [[[LCSPredicateVerifier alloc] init] autorelease];
         v.predicate = [NSPredicate predicateWithFormat:@"count(%K) >= 2",
                        [NSString stringWithFormat:@"appleraid.byMemberDeviceIdentifier.%@.RAIDSetMembers",
-                        sourceDeviceIdentifier]];
+                        [sourcedev lastPathComponent]]];
         v.object = sysenv;
         v.message = NSLocalizedString(@"This RAID set has not enough devices. You should have at least two devices in a mirror set", @"");
         [newVerifiers addObject:v];
