@@ -23,7 +23,7 @@
     GHAssertEquals([error code], (NSInteger)NSUserCancelledError, @"The correct error code must have been set");
     GHAssertTrue([[error userInfo] isKindOfClass:[NSDictionary class]],
                          @"The error must contain a userInfo dictionary");
-    GHAssertEquals([[error userInfo] count], (NSUInteger)4,
+    GHAssertEquals([[error userInfo] count], (NSUInteger)3,
                    @"The user info must contain two objects (source file and source line, class and selector");
 }
 
@@ -35,7 +35,7 @@
                                      LCSERROR_LOCALIZED_FAILURE_REASON(@"The binary returned a non-zero status code"),
                                      LCSERROR_UNDERLYING_ERROR(underlyingError));
     
-    GHAssertEquals([[error userInfo] count], (NSUInteger)7,
+    GHAssertEquals([[error userInfo] count], (NSUInteger)6,
                    @"The user info must contain two objects (source file/line/class/selector, description, underlying error");
 }
 
