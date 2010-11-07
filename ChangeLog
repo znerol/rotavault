@@ -1,3 +1,15 @@
+rotavault (alpha-2) experimental; urgency=low
+  * Disk chooser dialog sheet
+  * Improved error logging of rvcopyd command line tool
+  * Information about the system environment (disks, appleraid, rotavault
+    systools) is collected in the background using DiskArbitration framework
+    and distributed notifications
+  * LCSObserver: New infrastructure to observe, cache and react to system
+    events.
+  * LCSVerifier/LCSPredicateVerifier: New universal classes for input
+    verification.
+ -- Lorenz Schori <lo@znerol.ch>  So  7 Nov 2010 15:03:47 CET
+
 rotavault (alpha-1) experimental; urgency=low
   * Tag release/master/alpha-1
   * Basic features tested on Leopard and Snow Leopard x86_64/i386
