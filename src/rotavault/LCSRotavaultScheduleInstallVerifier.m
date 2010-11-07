@@ -98,6 +98,9 @@
     [newVerifiers addObject:v];
     
     if ([@"appleraid" isEqualToString:method]) {
+        NSString *sourceDeviceRAIDSetKeyPath = [NSString stringWithFormat:@"appleraid.byMemberDeviceIdentifier.%@",
+                                                                       [sourcedev lastPathComponent]];
+
         /* error if source device is not a raid-master (this only holds for appleraid) */
         v = [[[LCSPredicateVerifier alloc] init] autorelease];
         v.predicate = [NSPredicate predicateWithFormat:@"%K == %@",
@@ -110,7 +113,7 @@
         /* error if source device is not a raid-1 (this only holds for appleraid) */
         v = [[[LCSPredicateVerifier alloc] init] autorelease];
         v.predicate = [NSPredicate predicateWithFormat:@"%K == 'Mirror'",
-                       [sourceDeviceKeyPath stringByAppendingString:@".RAIDSetLevelType"]];
+                       [sourceDeviceRAIDSetKeyPath stringByAppendingString:@".RAIDSetLevelType"]];
         v.object = sysenv;
         v.message = NSLocalizedString(@"Source device is not raid mirror", @"");
         [newVerifiers addObject:v];
@@ -118,7 +121,7 @@
         /* error if there is no other member appart from the source device in the raid */
         v = [[[LCSPredicateVerifier alloc] init] autorelease];
         v.predicate = [NSPredicate predicateWithFormat:@"%K == 'Online'",
-                       [sourceDeviceKeyPath stringByAppendingString:@".RAIDSetStatus"]];
+                       [sourceDeviceRAIDSetKeyPath stringByAppendingString:@".RAIDSetStatus"]];
         v.object = sysenv;
         v.message = NSLocalizedString(@"This RAID set is not online", @"");
         [newVerifiers addObject:v];
@@ -126,8 +129,7 @@
         /* error if raid set is not online */
         v = [[[LCSPredicateVerifier alloc] init] autorelease];
         v.predicate = [NSPredicate predicateWithFormat:@"count(%K) >= 2",
-                       [NSString stringWithFormat:@"appleraid.byMemberDeviceIdentifier.%@.RAIDSetMembers",
-                        [sourcedev lastPathComponent]]];
+                       [sourceDeviceRAIDSetKeyPath stringByAppendingString:@".RAIDSetMembers"]];
         v.object = sysenv;
         v.message = NSLocalizedString(@"This RAID set has not enough devices. You should have at least two devices in a mirror set", @"");
         [newVerifiers addObject:v];
