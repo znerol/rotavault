@@ -95,7 +95,6 @@
 		CA4205F0127F146B008A9870 /* LCSRotavaultFreshSystemEnvironmentCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4205EF127F146B008A9870 /* LCSRotavaultFreshSystemEnvironmentCommand.m */; };
 		CA4205F2127F146B008A9870 /* LCSRotavaultFreshSystemEnvironmentCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4205EF127F146B008A9870 /* LCSRotavaultFreshSystemEnvironmentCommand.m */; };
 		CA420616127F1A64008A9870 /* LCSRotavaultSystemEnvironmentObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = CAD5F860127C64C000CB1414 /* LCSRotavaultSystemEnvironmentObserver.m */; };
-		CA42061A127F1A7B008A9870 /* LCSAllDiskInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820331264D62700C2879B /* LCSAllDiskInfoCommand.m */; };
 		CA42061D127F1A83008A9870 /* LCSPkgInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CADC1E7F1271A8A600FB7A91 /* LCSPkgInfoCommand.m */; };
 		CA4822BE1264D69000C2879B /* LCSCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820201264D62700C2879B /* LCSCommand.m */; };
 		CA4822BF1264D69000C2879B /* LCSDiskImageInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48203B1264D62700C2879B /* LCSDiskImageInfoCommand.m */; };
@@ -103,7 +102,6 @@
 		CA4822C11264D69000C2879B /* NSData+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48205D1264D62700C2879B /* NSData+Hex.m */; };
 		CA4822C21264D69000C2879B /* LCSDiskMountCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48203F1264D62700C2879B /* LCSDiskMountCommand.m */; };
 		CA4822C31264D69000C2879B /* LCSDiskImageDetachCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820391264D62700C2879B /* LCSDiskImageDetachCommand.m */; };
-		CA4822C41264D69000C2879B /* LCSAllDiskInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820331264D62700C2879B /* LCSAllDiskInfoCommand.m */; };
 		CA4822C51264D69000C2879B /* LCSPropertyListSHA1Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820591264D62700C2879B /* LCSPropertyListSHA1Hash.m */; };
 		CA4822C61264D69000C2879B /* LCSDiskInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48203D1264D62700C2879B /* LCSDiskInfoCommand.m */; };
 		CA4822C71264D69000C2879B /* LCSCommandManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820241264D62700C2879B /* LCSCommandManager.m */; };
@@ -142,7 +140,6 @@
 		CA4822F91264D70100C2879B /* NSData+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48205D1264D62700C2879B /* NSData+Hex.m */; };
 		CA4822FA1264D70100C2879B /* LCSDiskMountCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48203F1264D62700C2879B /* LCSDiskMountCommand.m */; };
 		CA4822FB1264D70100C2879B /* LCSDiskImageDetachCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820391264D62700C2879B /* LCSDiskImageDetachCommand.m */; };
-		CA4822FC1264D70100C2879B /* LCSAllDiskInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820331264D62700C2879B /* LCSAllDiskInfoCommand.m */; };
 		CA4822FD1264D70100C2879B /* LCSPropertyListSHA1Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820591264D62700C2879B /* LCSPropertyListSHA1Hash.m */; };
 		CA4822FE1264D70100C2879B /* LCSDiskInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48203D1264D62700C2879B /* LCSDiskInfoCommand.m */; };
 		CA4823001264D70100C2879B /* LCSCommandCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820221264D62700C2879B /* LCSCommandCollection.m */; };
@@ -246,7 +243,6 @@
 		CAF82FD912745E0300F8D695 /* NSData+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48205D1264D62700C2879B /* NSData+Hex.m */; };
 		CAF82FDA12745E0300F8D695 /* LCSDiskMountCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48203F1264D62700C2879B /* LCSDiskMountCommand.m */; };
 		CAF82FDB12745E0300F8D695 /* LCSDiskImageDetachCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820391264D62700C2879B /* LCSDiskImageDetachCommand.m */; };
-		CAF82FDC12745E0300F8D695 /* LCSAllDiskInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820331264D62700C2879B /* LCSAllDiskInfoCommand.m */; };
 		CAF82FDD12745E0300F8D695 /* LCSPropertyListSHA1Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820591264D62700C2879B /* LCSPropertyListSHA1Hash.m */; };
 		CAF82FDE12745E0300F8D695 /* LCSDiskInfoCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = CA48203D1264D62700C2879B /* LCSDiskInfoCommand.m */; };
 		CAF82FDF12745E0300F8D695 /* LCSCommandCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = CA4820221264D62700C2879B /* LCSCommandCollection.m */; };
@@ -324,7 +320,6 @@
 		CAF8354E1274844200F8D695 /* LCSRotavaultCreateJobDictionaryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF8351D1274842100F8D695 /* LCSRotavaultCreateJobDictionaryTest.m */; };
 		CAF83564127484A100F8D695 /* NSNotificationCenter+DefaultCenterThreadLocal.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF834E91274842000F8D695 /* NSNotificationCenter+DefaultCenterThreadLocal.m */; };
 		CAF83565127484B200F8D695 /* GHUnitMain.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF834EB1274842000F8D695 /* GHUnitMain.m */; };
-		CAF83566127484B200F8D695 /* LCSAllDiskInfoCommandTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF834EC1274842000F8D695 /* LCSAllDiskInfoCommandTest.m */; };
 		CAF83567127484B200F8D695 /* LCSAsrRestoreCommandTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF834ED1274842000F8D695 /* LCSAsrRestoreCommandTest.m */; };
 		CAF83568127484B200F8D695 /* LCSDiskImageAttachCommandTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF834EE1274842000F8D695 /* LCSDiskImageAttachCommandTest.m */; };
 		CAF83569127484B200F8D695 /* LCSDiskImageDetachCommandTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF834EF1274842000F8D695 /* LCSDiskImageDetachCommandTest.m */; };
@@ -556,8 +551,6 @@
 		CA48202E1264D62700C2879B /* LCSRotavaultMainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSRotavaultMainWindowController.m; sourceTree = "<group>"; };
 		CA48202F1264D62700C2879B /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		CA4820301264D62700C2879B /* rotavault.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rotavault.m; sourceTree = "<group>"; };
-		CA4820321264D62700C2879B /* LCSAllDiskInfoCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSAllDiskInfoCommand.h; sourceTree = "<group>"; };
-		CA4820331264D62700C2879B /* LCSAllDiskInfoCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSAllDiskInfoCommand.m; sourceTree = "<group>"; };
 		CA4820341264D62700C2879B /* LCSAsrRestoreCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSAsrRestoreCommand.h; sourceTree = "<group>"; };
 		CA4820351264D62700C2879B /* LCSAsrRestoreCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSAsrRestoreCommand.m; sourceTree = "<group>"; };
 		CA4820361264D62700C2879B /* LCSDiskImageAttachCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSDiskImageAttachCommand.h; sourceTree = "<group>"; };
@@ -674,7 +667,6 @@
 		CAF834E81274842000F8D695 /* NSNotificationCenter+DefaultCenterThreadLocal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+DefaultCenterThreadLocal.h"; sourceTree = "<group>"; };
 		CAF834E91274842000F8D695 /* NSNotificationCenter+DefaultCenterThreadLocal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNotificationCenter+DefaultCenterThreadLocal.m"; sourceTree = "<group>"; };
 		CAF834EB1274842000F8D695 /* GHUnitMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUnitMain.m; sourceTree = "<group>"; };
-		CAF834EC1274842000F8D695 /* LCSAllDiskInfoCommandTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSAllDiskInfoCommandTest.m; sourceTree = "<group>"; };
 		CAF834ED1274842000F8D695 /* LCSAsrRestoreCommandTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSAsrRestoreCommandTest.m; sourceTree = "<group>"; };
 		CAF834EE1274842000F8D695 /* LCSDiskImageAttachCommandTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSDiskImageAttachCommandTest.m; sourceTree = "<group>"; };
 		CAF834EF1274842000F8D695 /* LCSDiskImageDetachCommandTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSDiskImageDetachCommandTest.m; sourceTree = "<group>"; };
@@ -978,8 +970,6 @@
 		CA4820311264D62700C2879B /* os */ = {
 			isa = PBXGroup;
 			children = (
-				CA4820321264D62700C2879B /* LCSAllDiskInfoCommand.h */,
-				CA4820331264D62700C2879B /* LCSAllDiskInfoCommand.m */,
 				CA1924431265F7DA00E05A63 /* LCSAppleRAIDAddMemberCommand.h */,
 				CA1924441265F7DA00E05A63 /* LCSAppleRAIDAddMemberCommand.m */,
 				CA050EFA1264D9D60076D8BF /* LCSAppleRAIDListCommand.h */,
@@ -1166,7 +1156,6 @@
 			children = (
 				CAF834F81274842000F8D695 /* util */,
 				CAF834EB1274842000F8D695 /* GHUnitMain.m */,
-				CAF834EC1274842000F8D695 /* LCSAllDiskInfoCommandTest.m */,
 				CAF834ED1274842000F8D695 /* LCSAsrRestoreCommandTest.m */,
 				CAF834EE1274842000F8D695 /* LCSDiskImageAttachCommandTest.m */,
 				CAF834EF1274842000F8D695 /* LCSDiskImageDetachCommandTest.m */,
@@ -1606,7 +1595,6 @@
 				CAA58F711275B60C005586F9 /* LCSRotavaultAsrOnAppleRAIDSliceCopyCommand.m in Sources */,
 				CA4205F2127F146B008A9870 /* LCSRotavaultFreshSystemEnvironmentCommand.m in Sources */,
 				CA420616127F1A64008A9870 /* LCSRotavaultSystemEnvironmentObserver.m in Sources */,
-				CA42061A127F1A7B008A9870 /* LCSAllDiskInfoCommand.m in Sources */,
 				CA42061D127F1A83008A9870 /* LCSPkgInfoCommand.m in Sources */,
 				CA21D03A128026BF00104EB0 /* LCSObserver.m in Sources */,
 				CA06C131128154B6008AB186 /* LCSDiskInfoObserver.m in Sources */,
@@ -1644,7 +1632,6 @@
 				CA4822F91264D70100C2879B /* NSData+Hex.m in Sources */,
 				CA4822FA1264D70100C2879B /* LCSDiskMountCommand.m in Sources */,
 				CA4822FB1264D70100C2879B /* LCSDiskImageDetachCommand.m in Sources */,
-				CA4822FC1264D70100C2879B /* LCSAllDiskInfoCommand.m in Sources */,
 				CA4822FD1264D70100C2879B /* LCSPropertyListSHA1Hash.m in Sources */,
 				CA4822FE1264D70100C2879B /* LCSDiskInfoCommand.m in Sources */,
 				CA4823001264D70100C2879B /* LCSCommandCollection.m in Sources */,
@@ -1700,7 +1687,6 @@
 				CA4822C11264D69000C2879B /* NSData+Hex.m in Sources */,
 				CA4822C21264D69000C2879B /* LCSDiskMountCommand.m in Sources */,
 				CA4822C31264D69000C2879B /* LCSDiskImageDetachCommand.m in Sources */,
-				CA4822C41264D69000C2879B /* LCSAllDiskInfoCommand.m in Sources */,
 				CA4822C51264D69000C2879B /* LCSPropertyListSHA1Hash.m in Sources */,
 				CA4822C61264D69000C2879B /* LCSDiskInfoCommand.m in Sources */,
 				CA4822C71264D69000C2879B /* LCSCommandManager.m in Sources */,
@@ -1764,7 +1750,6 @@
 				CAF82FD912745E0300F8D695 /* NSData+Hex.m in Sources */,
 				CAF82FDA12745E0300F8D695 /* LCSDiskMountCommand.m in Sources */,
 				CAF82FDB12745E0300F8D695 /* LCSDiskImageDetachCommand.m in Sources */,
-				CAF82FDC12745E0300F8D695 /* LCSAllDiskInfoCommand.m in Sources */,
 				CAF82FDD12745E0300F8D695 /* LCSPropertyListSHA1Hash.m in Sources */,
 				CAF82FDE12745E0300F8D695 /* LCSDiskInfoCommand.m in Sources */,
 				CAF82FDF12745E0300F8D695 /* LCSCommandCollection.m in Sources */,
@@ -1796,7 +1781,6 @@
 				CAF8339C1274691400F8D695 /* BetterAuthorizationSampleLib.c in Sources */,
 				CAF83564127484A100F8D695 /* NSNotificationCenter+DefaultCenterThreadLocal.m in Sources */,
 				CAF83565127484B200F8D695 /* GHUnitMain.m in Sources */,
-				CAF83566127484B200F8D695 /* LCSAllDiskInfoCommandTest.m in Sources */,
 				CAF83567127484B200F8D695 /* LCSAsrRestoreCommandTest.m in Sources */,
 				CAF83568127484B200F8D695 /* LCSDiskImageAttachCommandTest.m in Sources */,
 				CAF83569127484B200F8D695 /* LCSDiskImageDetachCommandTest.m in Sources */,
