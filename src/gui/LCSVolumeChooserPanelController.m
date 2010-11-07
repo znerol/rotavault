@@ -37,7 +37,7 @@
     LCSRotavaultMainWindowController *ctl = (LCSRotavaultMainWindowController *)contextInfo;
     NSDictionary *choice = [volumeChooser.disks objectAtIndex:[volumeChooser.selectedDisks firstIndex]];
     
-    ctl.job.sourceDevice = [choice objectForKey:@"DeviceNode"];
+    ctl.job.sourceDevice = [@"/dev/" stringByAppendingString:[choice objectForKey:@"DeviceIdentifier"]];
     
     BOOL isRAIDSlice = [[NSNumber numberWithBool:YES] isEqual:[choice objectForKey:@"isRAIDSlice"]];
     ctl.job.blockCopyMethodIndex = isRAIDSlice;

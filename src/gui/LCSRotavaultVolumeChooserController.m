@@ -60,7 +60,6 @@
                                  israid ? [NSImage imageNamed:@"RAID"] : [NSImage imageNamed:@"Disk"], @"image",
                                  [NSNumber numberWithBool:NO], @"isRAIDSlice",
                                  [volume objectForKey:@"DeviceIdentifier"], @"DeviceIdentifier",
-                                 [volume objectForKey:@"DeviceNode"], @"DeviceNode",
                                  nil];
         [newContents addObject:newDisk];
         
@@ -77,7 +76,6 @@
                                            [NSImage imageNamed:@"Disk"], @"image",
                                            [NSNumber numberWithBool:YES], @"isRAIDSlice",
                                            [member objectForKey:@"DeviceIdentifier"], @"DeviceIdentifier",
-                                           [member objectForKey:@"DeviceNode"], @"DeviceNode",
                                            nil];
                 [newContents addObject:newMember];
             }
