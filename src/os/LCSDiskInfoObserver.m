@@ -88,6 +88,7 @@
     }
     
     self.value = [NSDictionary dictionaryWithObjectsAndKeys:
+                  [disks allValues], @"all",
                   byDeviceIdentifier, @"byDeviceIdentifier",
                   byVolumeUUID, @"byVolumeUUID",
                   byMountPoint, @"byMountPoint",

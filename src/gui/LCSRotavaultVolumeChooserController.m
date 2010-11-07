@@ -46,7 +46,7 @@
 {
     LCSRotavaultSystemEnvironmentObserver *obs = [ntf object];
     
-    NSArray *volumes = [[obs.registry valueForKeyPath:@"diskinfo.byVolumeUUID"] allObjects];
+    NSArray *volumes = [obs.registry valueForKeyPath:@"diskinfo.all"];
     volumes = [volumes filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"MountPoint != ''"]];
     NSMutableArray *newContents = [NSMutableArray arrayWithCapacity:[volumes count]];
     for (NSDictionary *volume in volumes) {

@@ -88,6 +88,7 @@
         }
         
         self.value = [NSDictionary dictionaryWithObjectsAndKeys:
+                      raidListCommand.result, @"all",
                       byUUID, @"byRAIDSetUUID",
                       byDeviceIdentifier, @"byRAIDSetDeviceIdentifier",
                       byMemberUUID, @"byMemberUUID",
